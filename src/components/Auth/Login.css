@@ -1,0 +1,20 @@
+.border {
+  display: flex;
+  justify-content: center;
+  margin-top: 15%;
+}
+
+.auth-container {
+  margin-left: 30%;
+  margin-right: auto;
+  margin-top: 100px;
+  width: 500px;
+}
+
+.auth-container .banner {
+  text-align: center;
+}
+
+.ui.form .field {
+  margin-bottom:2em !important;
+}

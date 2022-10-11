@@ -1,0 +1,28 @@
+.ui.pagination.menu .active.item {
+  background-color: green !important;
+}
+
+.comment-container .button {
+  /* TODO This is a tricky fix and we'll want to make button auto responsive 
+  when more comments are added */
+  /* z-index: 999; */
+}
+
+.ui.card {
+  width: 450px;
+}
+
+.ui.card > .content > .header {
+  cursor: pointer;
+}
+
+.ui.card > .content > .description {
+  cursor: pointer;
+}
+
+.articleview-container {
+  margin-left: 25%;
+  width: 600px;
+  margin-top: 4%;
+  margin-bottom: 50px;
+}
