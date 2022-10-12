@@ -19,6 +19,8 @@ import { ToastProvider } from "react-toast-notifications";
 import { Register } from "./components/Auth/Register";
 import { NotFound } from "./components/Home/NotFound";
 import { Profile } from "./components/Home/Profile";
+import { Work } from "./components/Work/Work";
+
 import { GuardRouter } from "./GuardRouter";
 
 function App() {
@@ -52,6 +54,9 @@ function App() {
                   </Route>
                   <Route path="/register">
                     <Register />
+                  </Route>
+                  <Route path="/work">
+                    <Work />
                   </Route>
                   <Route path="/article/edit/:slug?" exact>
                     <ArticleEditor />

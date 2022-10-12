@@ -34,10 +34,13 @@ export const Header = () => {
       case "Conduit":
         history.push("/");
         break;
-      case "Sign in":
+      case "作品":
+        history.push("/work");
+        break;
+      case "登录":
         history.push("/login");
         break;
-      case "Sign up":
+      case "注册":
         history.push("/register");
         break;
       case "Edit":
@@ -65,6 +68,11 @@ export const Header = () => {
             <Menu.Item
               name="Home"
               active={activeItem === "Home"}
+              onClick={handleItemClick}
+            />
+            <Menu.Item
+              name="作品"
+              active={activeItem === "作品"}
               onClick={handleItemClick}
             />
             {isAuthenticated ? (
@@ -102,13 +110,13 @@ export const Header = () => {
             ) : (
               <Fragment>
                 <Menu.Item
-                  name="Sign in"
-                  active={activeItem === "Sign in"}
+                  name="登录"
+                  active={activeItem === "登录"}
                   onClick={handleItemClick}
                 />
                 <Menu.Item
-                  name="Sign up"
-                  active={activeItem === "Sign up"}
+                  name="注册"
+                  active={activeItem === "注册"}
                   onClick={handleItemClick}
                 />
               </Fragment>
