@@ -22,6 +22,7 @@ import { Profile } from "./components/Home/Profile";
 import { Work } from "./components/Work/Work";
 
 import { GuardRouter } from "./GuardRouter";
+import { PersonalCenter } from "./components/PersonalCenter/PersonalCenter";
 
 function App() {
   let services: IServices;
@@ -57,6 +58,9 @@ function App() {
                   </Route>
                   <Route path="/work">
                     <Work />
+                  </Route>
+                  <Route path="/pcenter">
+                    <PersonalCenter />
                   </Route>
                   <Route path="/article/edit/:slug?" exact>
                     <ArticleEditor />

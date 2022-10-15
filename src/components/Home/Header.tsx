@@ -43,6 +43,9 @@ export const Header = () => {
       case "注册":
         history.push("/register");
         break;
+      case "个人中心":
+        history.push("/pcenter");
+        break;
       case "Edit":
         history.push("/article/edit");
         break;
@@ -96,7 +99,6 @@ export const Header = () => {
                   <Icon name="setting" />
                   Settings
                 </Menu.Item>
-
                 <Menu.Item
                   name="User"
                   className="item-icon"
