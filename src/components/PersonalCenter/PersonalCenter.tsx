@@ -1,4 +1,5 @@
-
+import { Button, DatePicker, Space, version } from "antd";
+import React from "react";
 
 export const PersonalCenter = () => {
 
@@ -6,9 +7,7 @@ export const PersonalCenter = () => {
 
     return (
         <div>
-            <h1>
-            PersonalCenter
-            </h1>
+        <Button type="primary">Primary Button</Button>
         </div>
     );
 };
