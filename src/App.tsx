@@ -7,7 +7,6 @@ import { initServices, IServices, ServicesContext } from "./models/Services";
 import { store } from "./redux/store";
 
 import "semantic-ui-css/semantic.min.css";
-import "antd/dist/antd.css";
 import { Header } from "./components/Home/Header";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Footer } from "./components/Home/Footer";
@@ -51,9 +50,9 @@ function App() {
                   <Route path="/" exact>
                     <GuardRouter Comp={MainView} />
                   </Route>
-                  <Route path="/login" component={Login}/>
+                  <Route path="/login" component={Login} />
 
-                  <Route path="/register" component={Register}/>
+                  <Route path="/register" component={Register} />
 
                   <Route path="/work">
                     <Work />
