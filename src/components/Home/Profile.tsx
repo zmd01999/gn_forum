@@ -23,9 +23,13 @@ import { ArticleCard } from "../Article/ArticleCard";
 interface routeProps {
   username: string;
 }
+interface p {
+  isPc? : boolean;
+}
 
-export const Profile = () => {
+export const Profile = (props: p) => {
   const { username } = useParams<routeProps>();
+  const { isPc } = props;
   const profileService = useProfileService();
   const articleService = useArticleService();
 
@@ -39,8 +43,8 @@ export const Profile = () => {
   const { isLoading } = useSelector((state: AppState) => state.loader);
 
   const TABS = {
-    posts: "My Posts",
-    "favorited-posts": "Favorited Posts",
+    posts: "我的帖子",
+    "favorited-posts": "喜欢的帖子",
   };
 
   const retrieveProfile = async () => {
@@ -89,7 +93,7 @@ export const Profile = () => {
   return (
     <div className="main-container">
       <div className="article-container">
-        {!isLoading || profile === undefined ? (
+        {!isLoading || isPc || profile === undefined ? (
           ""
         ) : (
           <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -111,7 +115,7 @@ export const Profile = () => {
             setCurrentPage={setCurrentPage}
           />
         </Fragment>
-        )
+        
       </div>
     </div>
   );

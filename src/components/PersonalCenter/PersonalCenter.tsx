@@ -1,18 +1,18 @@
-import { Layout, Button, DatePicker, Space, version } from "antd";
-import { Tabs } from "../Home/Tabs";
+// import { Tabs } from "../Home/Tabs";
 import React, { useState } from "react";
-import { Container, Avatar, Stack } from "@mui/material";
+import { Container, Avatar, Stack, Badge } from "@mui/material";
+import { useParams } from "react-router-dom";
+
 import { deepPurple } from "@mui/material/colors";
+import SwitchBar from "./SwitchBar";
+import Progress from "./Progress";
+
 // import Background from "../../../public/assets/pc_bg.jpg";
+interface routeProps {
+  username: string;
+}
 export const PersonalCenter = () => {
-  const { Header, Footer, Sider, Content } = Layout;
-
-  const TABS = {
-    article: "文章",
-    work: "作品",
-  };
-  const [currentTab, setCurrentTab] = useState<string>("作品");
-
+  const { username } = useParams<routeProps>();
   const bg = {
     bgd: {
       color: "rgba(0,0,0,.05)",
@@ -22,20 +22,30 @@ export const PersonalCenter = () => {
   };
   return (
     <div>
-      <Container maxWidth="md">
-        <div className="h-24 bg-cyan-500 flex items-end" style={bg.bgd}>
+      <Container maxWidth="lg">
+        <div className="h-44 px-8 flex items-end bg-gradient-to-r from-green-400 to-blue-500 ...">
           <div className="py-4">
             <Stack direction="row" spacing={2}>
-              <Avatar sx={{ bgcolor: deepPurple[500] }}>OP</Avatar>
-              <h1>我的名字</h1>
+              <Badge badgeContent={"Lv3"} color="primary">
+                <Avatar
+                  alt={username}
+                  src={"/assets/avatar.jfif"}
+                  sx={{ width: 60, height: 60 }}
+                />
+              </Badge>
+
+              <div>
+                <Stack spacing={1.2}>
+                  <span className="text-2xl font-semibold text-white">
+                    {username}
+                  </span>
+                  <Progress></Progress>
+                </Stack>
+              </div>
             </Stack>
           </div>
         </div>
-        <Tabs tabs={TABS} setCurrentTab={setCurrentTab} />
-        <h1>testsetsetes</h1>
-        <button className="py-2 px-4 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75">
-          Click me
-        </button>
+        <SwitchBar></SwitchBar>
       </Container>
     </div>
   );

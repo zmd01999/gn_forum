@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import {  Icon, Menu, Segment } from "semantic-ui-react";
+import { Icon, Menu, Segment } from "semantic-ui-react";
 import { AppState } from "../../redux/store";
 import "./style.css";
 
@@ -31,7 +31,7 @@ export const Header = () => {
       // TODO may use a map to connect tabName and router so no need for
       // many cases
       case "Home":
-      case "Conduit":
+      case "Logo":
         history.push("/");
         break;
       case "作品":
@@ -44,7 +44,7 @@ export const Header = () => {
         history.push("/register");
         break;
       case "个人中心":
-        history.push("/pcenter");
+        history.push(`/pcenter/${user}`);
         break;
       case "Edit":
         history.push("/article/edit");
@@ -53,7 +53,7 @@ export const Header = () => {
         history.push("/setting");
         break;
       case "User":
-        history.push(`/profile/${user}`)
+        history.push(`/profile/${user}`);
         break;
     }
   };
@@ -63,8 +63,8 @@ export const Header = () => {
       <Segment inverted>
         <Menu inverted pointing secondary>
           <Menu.Item
-            name="Conduit"
-            active={activeItem === "Conduit"}
+            name="Logo"
+            active={activeItem === "Logo"}
             onClick={handleItemClick}
           />
           <Menu.Menu position="right">
@@ -90,7 +90,7 @@ export const Header = () => {
                   New Article
                 </Menu.Item>
 
-                <Menu.Item
+                {/* <Menu.Item
                   name="Setting"
                   className="item-icon"
                   active={activeItem === "Setting"}
@@ -98,15 +98,15 @@ export const Header = () => {
                 >
                   <Icon name="setting" />
                   Settings
-                </Menu.Item>
+                </Menu.Item> */}
                 <Menu.Item
-                  name="User"
+                  name="个人中心"
                   className="item-icon"
-                  active={activeItem === "User"}
+                  active={activeItem === "个人中心"}
                   onClick={handleItemClick}
                 >
                   <Icon name="user" />
-                  User&nbsp;{user}
+                  个人中心
                 </Menu.Item>
               </Fragment>
             ) : (
@@ -126,7 +126,6 @@ export const Header = () => {
           </Menu.Menu>
         </Menu>
       </Segment>
-     
     </Fragment>
   );
 };

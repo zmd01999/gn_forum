@@ -57,9 +57,7 @@ function App() {
                   <Route path="/work">
                     <Work />
                   </Route>
-                  <Route path="/pcenter">
-                    <PersonalCenter />
-                  </Route>
+                  <Route path="/pcenter/:username" component={PersonalCenter} exact/>
                   <Route path="/article/edit/:slug?" exact>
                     <ArticleEditor />
                   </Route>
@@ -71,7 +69,7 @@ function App() {
                   <Route component={NotFound} />
                 </Switch>
                 {/* </header> */}
-                <Footer />
+                {/* <Footer /> */}
               </div>
             </Fragment>
           </ServicesContext.Provider>
