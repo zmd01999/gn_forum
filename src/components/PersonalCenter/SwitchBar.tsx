@@ -6,7 +6,8 @@ import Box from "@mui/material/Box";
 import { Forum, Favorite, Settings, Games, Money } from "@mui/icons-material";
 import { Profile } from "../Home/Profile";
 import { SettingEditor } from "../Home/SettingEditor";
-import VertivalBar from "./VertivalBar";
+import MyWork from "./MyWork";
+import MyArticle from "./MyArticle";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -49,61 +50,66 @@ export default function SwitchBar() {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-        >
-          <Tab
-            icon={<Forum />}
-            iconPosition="start"
-            label="论坛"
-            {...a11yProps(0)}
-          />
-          <Tab
-            icon={<Games />}
-            iconPosition="start"
-            label="作品"
-            {...a11yProps(1)}
-          />
-          <Tab
-            icon={<Favorite />}
-            iconPosition="start"
-            label="收藏"
-            {...a11yProps(2)}
-          />
-          <Tab
-            icon={<Money />}
-            iconPosition="start"
-            label="金币"
-            {...a11yProps(3)}
-          />
+    <div className="container mx-auto">
+      <Box sx={{ width: "100%" }}>
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="basic tabs example"
+          >
+            <Tab
+              icon={<Forum />}
+              iconPosition="start"
+              label="论坛"
+              {...a11yProps(0)}
+            />
+            <Tab
+              icon={<Games />}
+              iconPosition="start"
+              label="作品"
+              {...a11yProps(1)}
+            />
+            <Tab
+              icon={<Favorite />}
+              iconPosition="start"
+              label="收藏"
+              {...a11yProps(2)}
+            />
+            <Tab
+              icon={<Money />}
+              iconPosition="start"
+              label="金币"
+              {...a11yProps(3)}
+            />
 
-          <Tab
-            icon={<Settings />}
-            iconPosition="start"
-            label="设置"
-            {...a11yProps(4)}
-          />
-        </Tabs>
+            <Tab
+              icon={<Settings />}
+              iconPosition="start"
+              label="设置"
+              {...a11yProps(4)}
+            />
+          </Tabs>
+        </Box>
+        <TabPanel value={value} index={0}>
+          {/* <Profile isPc={p}></Profile> */}
+          <MyArticle></MyArticle>
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <MyWork />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          收藏
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+          金币
+        </TabPanel>
+        <TabPanel value={value} index={4}>
+          <div className="relative">
+            <SettingEditor />
+          </div>
+        </TabPanel>
       </Box>
-      <TabPanel value={value} index={0}>
-        <Profile isPc={p}></Profile>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <VertivalBar />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        收藏
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        金币
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-        <SettingEditor />
-      </TabPanel>
-    </Box>
+    </div>
   );
 }

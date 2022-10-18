@@ -5,7 +5,6 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { Button, Form, TextArea } from "semantic-ui-react";
 import { useAuthService } from "../../hooks";
 import { IProfile, ISettingUser, IUser } from "../../models/types";
 import _ from "lodash";
@@ -23,6 +22,22 @@ import {
 import { removeLocalStorage } from "../../utils";
 import { NotificationAction } from "../../redux/reducers/NotifyReducer";
 import { AuthAction } from "../../redux/reducers/AuthReducer";
+
+import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
+import EditIcon from "@mui/icons-material/Edit";
+import CheckIcon from "@mui/icons-material/Check";
+import FormControl from "@mui/joy/FormControl";
+import {
+  Textarea,
+  FormHelperText,
+  FormLabel,
+  Chip,
+  TextField,
+  Box,
+} from "@mui/joy";
+import { Button, Divider, Stack } from "@mui/material";
+import { Aod, Email } from "@mui/icons-material";
+import { PwdDialog } from "../PersonalCenter/PwdDialog";
 
 export const SettingEditor = () => {
   const [user, setUser] = useState<ISettingUser>({
@@ -102,9 +117,12 @@ export const SettingEditor = () => {
   };
 
   return (
-    <div className="main-container">
-      <div className="setting-container">
-        <Form>
+    <div>
+      <div className="absolute top-0 right-0 ">
+        <PwdDialog></PwdDialog>
+      </div>
+
+      {/* <Form>
           <Form.Field width={6}>
             <label>Profile</label>
             <input
@@ -154,8 +172,56 @@ export const SettingEditor = () => {
           <Button attached="right" color="grey" onClick={handleLogout}>
             Logout
           </Button>
-        </Form>
-      </div>
+        </Form> */}
+      <Stack direction="column" spacing={2} width={2 / 5} sx={{ mx: "auto" }}>
+        <FormControl>
+          <TextField
+            label="昵称"
+            defaultValue={user.username}
+            onChange={handleUpdateField}
+            startDecorator={<PersonRoundedIcon />}
+            endDecorator={
+              <Chip size="sm" variant="soft">
+                New stuff
+              </Chip>
+            }
+          />
+          <TextField
+            disabled
+            label="手机号"
+            defaultValue="13982837435."
+            startDecorator={<Aod />}
+            endDecorator={<CheckIcon />}
+          />
+          <TextField
+            label="邮件"
+            defaultValue={user.email}
+            onChange={handleUpdateField}
+            startDecorator={<Email />}
+            endDecorator={<CheckIcon />}
+          />
+          <TextField
+            label="手机号"
+            placeholder="13982837435."
+            onChange={handleUpdateField}
+            startDecorator={<EditIcon />}
+            endDecorator={<CheckIcon />}
+          />
+
+          <FormLabel>个性签名</FormLabel>
+          <Textarea
+            defaultValue={user.bio}
+            minRows={2}
+            onChange={handleUpdateField}
+          />
+          <FormHelperText>This is a helper text.</FormHelperText>
+        </FormControl>
+        <Divider variant="middle" />
+        <Button variant="contained" onClick={handleUpdateSettings}>
+          保存
+        </Button>
+        <Button onClick={handleLogout}>登出</Button>
+      </Stack>
     </div>
   );
 };
