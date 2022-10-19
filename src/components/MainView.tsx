@@ -38,8 +38,8 @@ export const MainView = () => {
   );
   const loaderDiapatch = useDispatch<Dispatch<LoaderAction>>();
   const TABS = {
-    "global-feed": "Global Feed",
-    feed: "Your Feed",
+    "global-feed": "全部",
+    feed: "我的点赞",
   };
   const [currentTab, setCurrentTab] = useState<string>("global-feed");
 

@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
+import { MyCarousel } from "./MyCarousel";
 
 export const Work = () => {
   const Item = styled(Paper)(({ theme }) => ({
@@ -16,7 +17,10 @@ export const Work = () => {
   }));
   return (
     <div>
-      <Container maxWidth="sm">
+      <div>
+        <MyCarousel></MyCarousel>
+      </div>
+      {/* <Container maxWidth="sm">
         <h1>testsetsetes</h1>
         <button className="py-2 px-4 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75">
           Click me
@@ -39,7 +43,7 @@ export const Work = () => {
             </Grid>
           </Grid>
         </div>
-      </Container>
+      </Container> */}
     </div>
   );
 };

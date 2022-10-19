@@ -44,7 +44,7 @@ export const Register = () => {
   const handleSubmit = () => {
     const registerUser = async () => {
       try {
-          const res = await authService.register(
+        const res = await authService.register(
           user.username,
           user.email,
           user.password
@@ -57,22 +57,22 @@ export const Register = () => {
       }
     };
 
-    registerUser()
+    registerUser();
   };
 
   return (
     <Fragment>
       <div className="auth-container">
-      <div className='banner'>
-          <h1>Sign up</h1>
-          <Link to="/login">already have an account?</Link>
+        <div className="banner">
+          <h1>注册</h1>
+          <Link to="/login">已有账号?</Link>
         </div>
-       
+
         <Form>
           <Form.Field>
-            <label>Username</label>
+            <label>用户名</label>
             <Input
-             size='small'
+              size="small"
               name="username"
               placeholder="username"
               onChange={handleUpdateField}
@@ -81,9 +81,9 @@ export const Register = () => {
           </Form.Field>
 
           <Form.Field>
-            <label>Email</label>
+            <label>邮箱</label>
             <Input
-             size='small'
+              size="small"
               name="email"
               placeholder="Email"
               onChange={handleUpdateField}
@@ -91,9 +91,9 @@ export const Register = () => {
             />
           </Form.Field>
           <Form.Field>
-            <label>Password</label>
+            <label>密码</label>
             <Input
-             size='small'
+              size="small"
               name="password"
               type="password"
               placeholder="Password"
@@ -102,7 +102,7 @@ export const Register = () => {
             />
           </Form.Field>
           <Button attached="right" color="green" onClick={handleSubmit}>
-            Sign up
+            注册
           </Button>
         </Form>
       </div>

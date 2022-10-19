@@ -10,6 +10,7 @@ import { useHistory } from "react-router";
 import { Icon, Menu, Segment } from "semantic-ui-react";
 import { AppState } from "../../redux/store";
 import "./style.css";
+import OnlineAvatar from "./OnlineAvatar";
 
 interface IData {
   name: string;
@@ -30,7 +31,7 @@ export const Header = () => {
     switch (tabName) {
       // TODO may use a map to connect tabName and router so no need for
       // many cases
-      case "Home":
+      case "论坛":
       case "Logo":
         history.push("/");
         break;
@@ -69,8 +70,8 @@ export const Header = () => {
           />
           <Menu.Menu position="right">
             <Menu.Item
-              name="Home"
-              active={activeItem === "Home"}
+              name="论坛"
+              active={activeItem === "论坛"}
               onClick={handleItemClick}
             />
             <Menu.Item
@@ -80,7 +81,7 @@ export const Header = () => {
             />
             {isAuthenticated ? (
               <Fragment>
-                <Menu.Item
+                {/* <Menu.Item
                   name="Edit"
                   className="item-icon"
                   active={activeItem === "Edit"}
@@ -88,7 +89,7 @@ export const Header = () => {
                 >
                   <Icon name="write square" />
                   New Article
-                </Menu.Item>
+                </Menu.Item> */}
 
                 {/* <Menu.Item
                   name="Setting"
@@ -105,8 +106,8 @@ export const Header = () => {
                   active={activeItem === "个人中心"}
                   onClick={handleItemClick}
                 >
-                  <Icon name="user" />
-                  个人中心
+                  <OnlineAvatar></OnlineAvatar>
+                  &nbsp;个人中心
                 </Menu.Item>
               </Fragment>
             ) : (

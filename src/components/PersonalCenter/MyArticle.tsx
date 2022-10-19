@@ -135,32 +135,34 @@ export default function MyArticle() {
         <Tab label="我的帖子" {...a11yProps(0)} />
         <Tab label="我的喜欢" {...a11yProps(1)} />
       </Tabs>
-      <TabPanel value={value} index={0}>
-        <Fragment>
-          {articleList.map((article) => {
-            return <ArticleCard key={article.slug} article={article} />;
-          })}
+      <Box sx={{ mx: "auto" }}>
+        <TabPanel value={value} index={0}>
+          <Fragment>
+            {articleList.map((article) => {
+              return <ArticleCard key={article.slug} article={article} />;
+            })}
 
-          <Pagination
-            count={articleCount}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
-        </Fragment>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <Fragment>
-          {articleList.map((article) => {
-            return <ArticleCard key={article.slug} article={article} />;
-          })}
+            <Pagination
+              count={articleCount}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          </Fragment>
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <Fragment>
+            {articleList.map((article) => {
+              return <ArticleCard key={article.slug} article={article} />;
+            })}
 
-          <Pagination
-            count={articleCount}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
-        </Fragment>{" "}
-      </TabPanel>
+            <Pagination
+              count={articleCount}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          </Fragment>{" "}
+        </TabPanel>
+      </Box>
     </Box>
   );
 }

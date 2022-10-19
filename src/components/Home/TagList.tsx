@@ -52,7 +52,7 @@ export const TagList = ({ tags, tab, currentTag, setCurrentTag }: IProps) => {
 
   return (
     <Fragment>
-      <Statistic label="Popular Tags" value={tags.length} />
+      <Statistic label="TOP热度榜" value={tags.length} />
       <br />
       {tags.map((tag) => {
         return (

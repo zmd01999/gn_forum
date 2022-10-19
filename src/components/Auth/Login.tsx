@@ -68,8 +68,8 @@ export default function Login() {
       <div className="auth-container">
         {/* css-in-js can be a better solution here tho */}
         <div className="banner">
-          <h1>Sign in</h1>
-          <Link to="/register">Need an account?</Link>
+          <h1>登录</h1>
+          <Link to="/register">创建新账号?</Link>
         </div>
         <Form>
           <Form.Field>
@@ -91,7 +91,7 @@ export default function Login() {
             />
           </Form.Field>
           <Form.Field>
-            <label>Password</label>
+            <label>密码</label>
             <Input
               size="small"
               name="Password"
@@ -103,7 +103,7 @@ export default function Login() {
             />
           </Form.Field>
           <Button attached="right" color="green" onClick={handleSubmit}>
-            Sign In
+            登录
           </Button>
         </Form>
       </div>
