@@ -1,22 +1,23 @@
 import React, { Component, Fragment } from "react";
 import { Provider as ReduxProvider } from "react-redux";
-import Login from "./components/Auth/Login";
+import LoginPage from "./components/Auth/lg";
+import RegisterPage from "./components/Auth/rs";
+
 import { Notification } from "./components/Home/Notification";
 import { useConstructor } from "./hooks";
 import { initServices, IServices, ServicesContext } from "./models/Services";
 import { store } from "./redux/store";
 
 import "semantic-ui-css/semantic.min.css";
-import { Header } from "./components/Home/Header";
+import "./globals.css";
+import Header from "src/components/BaseUtils/tre/NvBar";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { Footer } from "./components/Home/Footer";
 import { MainView } from "./components/MainView";
 import { ArticleView } from "./components/Article/ArticleView";
 import { ArticleEditor } from "./components/Article/ArticleEditor";
 import { SettingEditor } from "./components/Home/SettingEditor";
 import { Loader } from "./components/Home/Loader";
 import { ToastProvider } from "react-toast-notifications";
-import { Register } from "./components/Auth/Register";
 import { NotFound } from "./components/Home/NotFound";
 import { Profile } from "./components/Home/Profile";
 import { Work } from "./components/Work/Work";
@@ -50,14 +51,15 @@ function App() {
                   <Route path="/" exact>
                     <GuardRouter Comp={MainView} />
                   </Route>
-                  <Route path="/login" component={Login} />
-
-                  <Route path="/register" component={Register} />
 
                   <Route path="/work">
                     <Work />
                   </Route>
-                  <Route path="/pcenter/:username" component={PersonalCenter} exact/>
+                  <Route
+                    path="/pcenter/:username"
+                    component={PersonalCenter}
+                    exact
+                  />
                   <Route path="/article/edit/:slug?" exact>
                     <ArticleEditor />
                   </Route>
@@ -66,6 +68,9 @@ function App() {
                   </Route>
                   <Route path="/profile/:username" component={Profile} exact />
                   <Route path="/setting" component={SettingEditor} exact />
+                  <Route path="/login" component={LoginPage}></Route>
+                  <Route path="/register" component={RegisterPage}></Route>
+
                   <Route component={NotFound} />
                 </Switch>
                 {/* </header> */}

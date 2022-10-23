@@ -12,7 +12,7 @@ import Favorite from "@mui/icons-material/Favorite";
 import Visibility from "@mui/icons-material/Visibility";
 import CreateNewFolder from "@mui/icons-material/CreateNewFolder";
 
-export default function DribbbleShot() {
+export default function WorkCard() {
   return (
     <Card
       sx={{
@@ -69,7 +69,7 @@ export default function DribbbleShot() {
                     display: "block",
                   }}
                 >
-                  Yosemite
+                  羊了个羊
                 </Link>
               </Typography>
               <IconButton size="sm" color="neutral" sx={{ ml: "auto" }}>
@@ -89,7 +89,7 @@ export default function DribbbleShot() {
           sx={{ "--Avatar-size": "1.5rem" }}
         />
         <Typography sx={{ fontSize: "sm", fontWeight: "md" }}>
-          National Park
+          东方不败
         </Typography>
         <Chip
           variant="outlined"
@@ -101,7 +101,7 @@ export default function DribbbleShot() {
             px: 0.5,
           }}
         >
-          Featured
+          羊了个羊
         </Chip>
         <Link
           href="#dribbble-shot"

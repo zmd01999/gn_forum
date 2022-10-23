@@ -135,7 +135,7 @@ export default function MyArticle() {
         <Tab label="我的帖子" {...a11yProps(0)} />
         <Tab label="我的喜欢" {...a11yProps(1)} />
       </Tabs>
-      <Box sx={{ mx: "auto" }}>
+      <Box sx={{ mx: "auto", minHeight: "100%" }}>
         <TabPanel value={value} index={0}>
           <Fragment>
             {articleList.map((article) => {

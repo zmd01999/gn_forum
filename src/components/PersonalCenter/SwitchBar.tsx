@@ -2,12 +2,13 @@ import * as React from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
+import { Box, Card } from "@mui/material";
 import { Forum, Favorite, Settings, Games, Money } from "@mui/icons-material";
 import { Profile } from "../Home/Profile";
 import { SettingEditor } from "../Home/SettingEditor";
 import MyWork from "./MyWork";
 import MyArticle from "./MyArticle";
+import MySetting from "./MySetting";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -51,7 +52,7 @@ export default function SwitchBar() {
 
   return (
     <div className="container mx-auto">
-      <Box sx={{ width: "100%" }}>
+      <Box sx={{ width: "100%", hight: "100%" }}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs
             value={value}
@@ -102,7 +103,7 @@ export default function SwitchBar() {
           收藏
         </TabPanel>
         <TabPanel value={value} index={3}>
-          金币
+          <MySetting></MySetting>
         </TabPanel>
         <TabPanel value={value} index={4}>
           <div className="relative">

@@ -11,6 +11,7 @@ import { Icon, Menu, Segment } from "semantic-ui-react";
 import { AppState } from "../../redux/store";
 import "./style.css";
 import OnlineAvatar from "./OnlineAvatar";
+import UserDropdown from "src/@core/layouts/components/shared-components/UserDropdown";
 
 interface IData {
   name: string;
@@ -109,6 +110,7 @@ export const Header = () => {
                   <OnlineAvatar></OnlineAvatar>
                   &nbsp;个人中心
                 </Menu.Item>
+                <UserDropdown />
               </Fragment>
             ) : (
               <Fragment>

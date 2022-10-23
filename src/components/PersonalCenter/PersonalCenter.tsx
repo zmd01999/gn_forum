@@ -1,6 +1,6 @@
 // import { Tabs } from "../Home/Tabs";
 import React, { useState } from "react";
-import { Container, Avatar, Stack, Badge } from "@mui/material";
+import { Container, Avatar, Stack, Badge, Box } from "@mui/material";
 import { useParams } from "react-router-dom";
 
 import { deepPurple } from "@mui/material/colors";
@@ -8,6 +8,9 @@ import SwitchBar from "./SwitchBar";
 import Progress from "./Progress";
 import SavingsSharpIcon from "@mui/icons-material/SavingsSharp";
 import { LightTooltip } from "../BaseUtils/ToolTips";
+import Card from "@mui/material/Card";
+import Header from "src/components/BaseUtils/tre/GetStartedLight";
+import NvBar from "src/components/BaseUtils/tre/NvBar";
 
 // import Background from "../../../public/assets/pc_bg.jpg";
 interface routeProps {
@@ -24,8 +27,10 @@ export const PersonalCenter = () => {
   };
   return (
     <div>
+      <Header></Header>
+
       <Container maxWidth="lg">
-        <div className="h-44 px-8 flex items-end bg-gradient-to-r from-green-400 to-blue-500 relative">
+        {/* <div className="h-44 px-8 flex items-end bg-gradient-to-r from-green-400 to-blue-500 relative">
           <div className="absolute bottom-8 right-8">
             <SavingsSharpIcon></SavingsSharpIcon>
             <span> 20</span>
@@ -52,7 +57,7 @@ export const PersonalCenter = () => {
               </div>
             </Stack>
           </div>
-        </div>
+        </div> */}
         <SwitchBar></SwitchBar>
       </Container>
     </div>
