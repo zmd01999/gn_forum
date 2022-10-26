@@ -12,13 +12,12 @@ interface props {
 // TODO : we may want to add a `isRequired` param so users can be redirected
 // to log page directly
 export const GuardRouter = ({ Comp }: props) => {
-
   const authDispatch = useDispatch<Dispatch<AuthAction>>();
 
   useEffect(() => {
     const user = getUserFromJWT(getLocalStorage("token"));
     if (user !== null) {
-      authDispatch(loadUser(user));
+      authDispatch(loadUser(user, "1"));
     } else {
       authDispatch(logoutUser());
     }

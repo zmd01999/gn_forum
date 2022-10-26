@@ -15,33 +15,18 @@ import {
 import Box from "@mui/material/Box";
 import Radio from "@mui/material/Radio";
 
-import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
-import Checkbox from "@mui/material/Checkbox";
-import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import InputLabel from "@mui/material/InputLabel";
-import IconButton from "@mui/material/IconButton";
+
 import CardContent from "@mui/material/CardContent";
 import FormControl from "@mui/material/FormControl";
 import RadioGroup from "@mui/material/RadioGroup";
-import FormLabel from "@mui/material/FormLabel";
 
-import OutlinedInput from "@mui/material/OutlinedInput";
 import { styled, useTheme } from "@mui/material/styles";
 import MuiCard, { CardProps } from "@mui/material/Card";
 import InputAdornment from "@mui/material/InputAdornment";
 import MuiFormControlLabel, {
   FormControlLabelProps,
 } from "@mui/material/FormControlLabel";
-
-// ** Icons Imports
-import Google from "mdi-material-ui/Google";
-import Github from "mdi-material-ui/Github";
-import Twitter from "mdi-material-ui/Twitter";
-import Facebook from "mdi-material-ui/Facebook";
-import EyeOutline from "mdi-material-ui/EyeOutline";
-import EyeOffOutline from "mdi-material-ui/EyeOffOutline";
 
 // ** Configs
 import themeConfig from "src/configs/themeConfig";
@@ -73,12 +58,6 @@ const Card = styled(MuiCard)<CardProps>(({ theme }) => ({
   [theme.breakpoints.up("sm")]: { width: "32rem" },
 }));
 
-const LinkStyled = styled("a")(({ theme }) => ({
-  fontSize: "0.875rem",
-  textDecoration: "none",
-  color: theme.palette.primary.main,
-}));
-
 const FormControlLabel = styled(MuiFormControlLabel)<FormControlLabelProps>(
   ({ theme }) => ({
     marginTop: theme.spacing(1.5),
@@ -101,42 +80,8 @@ const RegisterPage = () => {
 
   // ** Hook
   const theme = useTheme();
-  const authService = useAuthService();
-  const history = useHistory();
-  const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
-  const authDispatch = useDispatch<Dispatch<AuthAction>>();
 
-  const handleChange =
-    (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
-      setValues({ ...values, [prop]: event.target.value });
-    };
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
-  };
-  const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  };
-
-  const handleSubmit = () => {
-    const registerUser = async () => {
-      try {
-        const res = await authService.register(
-          values.username,
-          values.email,
-          values.password
-        );
-        authDispatch(loadUser(res));
-        history.push("/");
-        notifyDispatch(setSuccess("User Register successfully."));
-      } catch (error) {
-        notifyDispatch(setError(error.data.errors));
-      }
-    };
-
-    registerUser();
-  };
-
-  const [selectedValue, setSelectedValue] = useState<string>("company");
+  const [selectedValue, setSelectedValue] = useState<string>("person");
 
   const handleChangeRadio = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedValue((event.target as HTMLInputElement).value);

@@ -31,6 +31,7 @@ describe("test", () => {
     initialState = {
       isAuthenticated: true,
       user: "test",
+      id: "1",
     };
   });
 

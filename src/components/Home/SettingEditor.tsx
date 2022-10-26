@@ -102,7 +102,7 @@ export const SettingEditor = () => {
       );
       await retrieveCurrentUser();
       history.go(0);
-    } catch (error) {
+    } catch (error: any) {
       notifyDispatch(setError(error.data.errors));
     } finally {
       loaderDiapatch(clearLoading());

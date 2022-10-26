@@ -20,10 +20,11 @@ export const logoutUser: () => AuthAction = () => {
   };
 };
 
-export const loadUser: (user:string) => AuthAction = (user: string) => {
+export const loadUser: (user:string, id:string) => AuthAction = (user: string,id:string) => {
   return {
     type: "LOAD_USER",
     user: user,
+    id:id,
   };
 };
 

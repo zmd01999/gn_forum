@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import logo from "src/assets/svg/logo.svg";
 import { ReactComponent as MenuIcon } from "feather-icons/dist/icons/menu.svg";
 import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
+import UserDropdown from "src/@core/layouts/components/shared-components/UserDropdown";
 
 const Header = tw.header`
   flex justify-between items-center
@@ -84,7 +85,13 @@ export default () => {
       {/* <NavLink href="/#">Pricing</NavLink>
       <NavLink href="/#">Contact Us</NavLink> */}
       {isAuthenticated ? (
-        <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href={`/pcenter/${user}`}>个人中心</PrimaryLink>)
+        <Fragment>
+          <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href={`/pcenter/${user}`}>个人中心</PrimaryLink>
+          <UserDropdown name={user}/>
+          </Fragment>
+        
+        
+        )
       :(
         <Fragment>
 <NavLink href="/login" tw="lg:ml-12!">

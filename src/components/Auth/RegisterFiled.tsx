@@ -59,6 +59,8 @@ import { AuthAction } from "../../redux/reducers/AuthReducer";
 import { loadUser, setError, setSuccess } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import SendCode from "@jiumao/rc-send-code";
+import Input from "@mui/material/Input";
 
 interface RFormlProps {
   children?: React.ReactNode;
@@ -69,7 +71,9 @@ interface State {
   username: string;
   email: string;
   password: string;
+  phone: string;
   busyness?: string;
+  code: string;
   showPassword: boolean;
 }
 export const RForm = (props: RFormlProps) => {
@@ -79,6 +83,8 @@ export const RForm = (props: RFormlProps) => {
     email: "",
     password: "",
     busyness: "1238723765435",
+    phone: "",
+    code: "",
     showPassword: false,
   });
 
@@ -104,13 +110,22 @@ export const RForm = (props: RFormlProps) => {
       try {
         const res = await authService.register(
           values.username,
+          values.password,
+          values.phone,
           values.email,
-          values.password
+          values.code
         );
-        authDispatch(loadUser(res));
-        history.push("/");
-        notifyDispatch(setSuccess("User Register successfully."));
-      } catch (error) {
+        console.log(res.code);
+        console.log(res.code == 200);
+
+        if (res.code != 200) {
+          notifyDispatch(setError(res.msg));
+        } else {
+          authDispatch(loadUser(res.data.username, res.data.id));
+          history.push(`/pcenter/${res.data.username}`);
+          notifyDispatch(setSuccess("User Register successfully."));
+        }
+      } catch (error: any) {
         notifyDispatch(setError(error.data.errors));
       }
     };
@@ -306,9 +321,18 @@ export const RForm = (props: RFormlProps) => {
             onChange={handleChange("email")}
             sx={{ marginBottom: 4 }}
           />
+          <TextField
+            fullWidth
+            id="phone"
+            label="手机"
+            value={values.phone}
+            onChange={handleChange("phone")}
+            sx={{ marginBottom: 4 }}
+          />
+
           {/* {value === "conpany" && <Typography>{children}</Typography>} */}
 
-          <FormControl fullWidth>
+          <FormControl fullWidth sx={{ marginBottom: 4 }}>
             <InputLabel htmlFor="auth-register-password">密码</InputLabel>
             <OutlinedInput
               label="Password"
@@ -330,6 +354,23 @@ export const RForm = (props: RFormlProps) => {
                       <EyeOffOutline fontSize="small" />
                     )}
                   </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
+          <FormControl fullWidth>
+            <InputLabel htmlFor="standard-code">验证码</InputLabel>
+            <OutlinedInput
+              id="standard-code"
+              value={values.code}
+              onChange={handleChange("code")}
+              endAdornment={
+                <InputAdornment position="end">
+                  <SendCode
+                    onCaptcha={() => {
+                      return authService.verifyCode(values.phone);
+                    }}
+                  />
                 </InputAdornment>
               }
             />

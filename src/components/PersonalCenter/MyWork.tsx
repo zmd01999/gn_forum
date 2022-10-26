@@ -62,9 +62,9 @@ export default function MyWork() {
         aria-label="Vertical tabs example"
         sx={{ borderRight: 1, borderColor: "divider" }}
       >
-        <Tab label="Item One" {...a11yProps(0)} />
-        <Tab label="Item Two" {...a11yProps(1)} />
-        <Tab label="Item Three" {...a11yProps(2)} />
+        <Tab label="我的作品" {...a11yProps(0)} />
+        <Tab label="我的喜欢" {...a11yProps(1)} />
+        <Tab label="我的收藏" {...a11yProps(2)} />
         <Tab label="Item Four" {...a11yProps(3)} />
         <Tab label="Item Five" {...a11yProps(4)} />
         <Tab label="Item Six" {...a11yProps(5)} />
@@ -74,10 +74,10 @@ export default function MyWork() {
         <WorkCard></WorkCard>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <WorkCard></WorkCard>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Three
+        我的喜欢
       </TabPanel>
       <TabPanel value={value} index={3}>
         Item Four

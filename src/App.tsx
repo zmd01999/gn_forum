@@ -24,6 +24,12 @@ import { Work } from "./components/Work/Work";
 
 import { GuardRouter } from "./GuardRouter";
 import { PersonalCenter } from "./components/PersonalCenter/PersonalCenter";
+import AnimationRevealPage from "src/components/BaseUtils/tre/AnimationRevealPage.js";
+import {
+  Container,
+  Content2Xl,
+  ContentWithVerticalPadding,
+} from "src/components/BaseUtils/tre/Layouts";
 
 function App() {
   let services: IServices;
@@ -33,54 +39,72 @@ function App() {
   });
 
   return (
-    <Router>
-      <ReduxProvider store={store}>
-        <ToastProvider
-          autoDismiss={true}
-          autoDismissTimeout={2500}
-          placement={"top-center"}
-        >
-          <ServicesContext.Provider value={services!}>
-            <Fragment>
-              <Notification />
-              <div className="App">
-                <Loader />
-                {/* <header className="App-header"> */}
-                <GuardRouter Comp={Header} />
-                <Switch>
-                  <Route path="/" exact>
-                    <GuardRouter Comp={MainView} />
-                  </Route>
+    <AnimationRevealPage>
+      <Container tw="bg-gray-100 -mx-8 -mt-8 pt-8 px-8">
+        <Content2Xl>
+          <Router>
+            <ReduxProvider store={store}>
+              <ToastProvider
+                autoDismiss={true}
+                autoDismissTimeout={2500}
+                placement={"top-center"}
+              >
+                <ServicesContext.Provider value={services!}>
+                  <Fragment>
+                    <Notification />
 
-                  <Route path="/work">
-                    <Work />
-                  </Route>
-                  <Route
-                    path="/pcenter/:username"
-                    component={PersonalCenter}
-                    exact
-                  />
-                  <Route path="/article/edit/:slug?" exact>
-                    <ArticleEditor />
-                  </Route>
-                  <Route path="/article/:slug" exact>
-                    <ArticleView />
-                  </Route>
-                  <Route path="/profile/:username" component={Profile} exact />
-                  <Route path="/setting" component={SettingEditor} exact />
-                  <Route path="/login" component={LoginPage}></Route>
-                  <Route path="/register" component={RegisterPage}></Route>
+                    <div className="App">
+                      <Loader />
+                      {/* <header className="App-header"> */}
+                      <GuardRouter Comp={Header} />
+                      <Switch>
+                        <Route path="/" exact>
+                          <GuardRouter Comp={MainView} />
+                        </Route>
 
-                  <Route component={NotFound} />
-                </Switch>
-                {/* </header> */}
-                {/* <Footer /> */}
-              </div>
-            </Fragment>
-          </ServicesContext.Provider>
-        </ToastProvider>
-      </ReduxProvider>
-    </Router>
+                        <Route path="/work">
+                          <Work />
+                        </Route>
+                        <Route
+                          path="/pcenter/:username"
+                          component={PersonalCenter}
+                          exact
+                        />
+                        <Route path="/article/edit/:slug?" exact>
+                          <ArticleEditor />
+                        </Route>
+                        <Route path="/article/:slug" exact>
+                          <ArticleView />
+                        </Route>
+                        <Route
+                          path="/profile/:username"
+                          component={Profile}
+                          exact
+                        />
+                        <Route
+                          path="/setting"
+                          component={SettingEditor}
+                          exact
+                        />
+                        <Route path="/login" component={LoginPage}></Route>
+                        <Route
+                          path="/register"
+                          component={RegisterPage}
+                        ></Route>
+
+                        <Route component={NotFound} />
+                      </Switch>
+                      {/* </header> */}
+                      {/* <Footer /> */}
+                    </div>
+                  </Fragment>
+                </ServicesContext.Provider>
+              </ToastProvider>
+            </ReduxProvider>
+          </Router>
+        </Content2Xl>
+      </Container>
+    </AnimationRevealPage>
   );
 }
 

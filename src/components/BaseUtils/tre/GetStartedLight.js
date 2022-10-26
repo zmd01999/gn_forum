@@ -5,6 +5,7 @@ import { Avatar, Stack, Badge } from "@mui/material";
 
 import Progress from "src/components/PersonalCenter/Progress";
 import { LightTooltip } from "src/components/BaseUtils/ToolTips";
+import { useSelector } from "react-redux";
 
 
 const PrimaryBackgroundContainer = tw.div`py-16 lg:py-20 bg-purple-200 rounded-lg relative`
@@ -26,15 +27,19 @@ const DecoratorBlobContainer = tw.div`absolute inset-0 overflow-hidden rounded-l
 const DecoratorBlob1 = tw(SvgDecoratorBlob1)`absolute bottom-0 left-0 w-80 h-80 transform -translate-x-20 translate-y-32 text-primary-500 opacity-5`
 const DecoratorBlob2 = tw(SvgDecoratorBlob1)`absolute top-0 right-0 w-80 h-80 transform  translate-x-20 -translate-y-64 text-primary-500 opacity-5`
 export default ({
-  subheading = "Interested in Treact ?",
-  heading = "Join the closed beta now.",
-  primaryLinkText = "Get Started",
-  primaryLinkUrl = "http://timerse.com",
-  secondaryLinkText = "Contact Us",
-  secondaryLinkUrl = "http://google.com",
+  subheading = "个人中心",
+  heading = "",
+  primaryLinkText = "代币",
+  primaryLinkUrl = "",
+  secondaryLinkText = "关于我们",
+  secondaryLinkUrl = "",
   pushDownFooter = true
 }) => {
-  const username="zmd";
+  const username="aaaaaa";
+  const { user } = useSelector(
+    (state) => state.auth
+  );
+  
   return (
     <Container css={pushDownFooter && tw`mb-20 lg:mb-24`}>
       <ContentWithPaddingXl>
@@ -45,10 +50,10 @@ export default ({
             <Heading>{heading}</Heading>
             <div className="py-4">
             <Stack direction="row" spacing={2}>
-              <LightTooltip title={username}>
+              <LightTooltip title={user}>
                 <Badge badgeContent={"Lv3"} color="primary">
                   <Avatar
-                    alt={username}
+                    alt={user}
                     src={"/assets/avatar.jfif"}
                     sx={{ width: 60, height: 60 }}
                   />
@@ -58,7 +63,7 @@ export default ({
               <div>
                 <Stack spacing={1.2}>
                   <span className="text-2xl font-semibold text-white">
-                    {username}
+                    {user}
                   </span>
                   <Progress></Progress>
                 </Stack>

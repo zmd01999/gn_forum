@@ -107,10 +107,15 @@ const FormControlLabel = styled(MuiFormControlLabel)<FormControlLabelProps>(
 const LoginPage = () => {
   // ** State
   const [values, setValues] = useState<State>({
-    username: "aaaaaaaa@aaa.com",
-    password: "aaaaaaaa",
+    // username: "aaaaaaaa@aaa.com",
+    // password: "aaaaaaaa",
+    username: "13982737615",
+    password: "123456",
     showPassword: false,
   });
+
+  const [phone, setPhone] = useState<string>("");
+  const [code, setCode] = useState<string>("");
 
   // ** Hook
   const theme = useTheme();
@@ -132,16 +137,36 @@ const LoginPage = () => {
   const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
+  const handlePhone = (event: ChangeEvent<HTMLInputElement>) => {
+    setPhone(event.target.value);
+  };
+
+  const handleCode = (event: ChangeEvent<HTMLInputElement>) => {
+    setCode(event.target.value);
+  };
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     try {
       const res = await authService.login(values.username, values.password);
       // need type strickt check to know returned object is whether a
-      authDispatch(loadUser(res));
-      history.push("/");
+      authDispatch(loadUser(res.username, res.id));
+      history.push(`/pcenter/${res.username}`);
       notifyDispatch(setSuccess("Login Successfully."));
-    } catch (error) {
+    } catch (error: any) {
+      notifyDispatch(setError(error.data.errors));
+    }
+  };
+
+  const handleSubmitSms = async (event: any) => {
+    event.preventDefault();
+    try {
+      const res = await authService.loginSms(phone, code);
+      // need type strickt check to know returned object is whether a
+      authDispatch(loadUser(res.username, res.id));
+      history.push(`/pcenter/${res.username}`);
+      notifyDispatch(setSuccess("Login Successfully."));
+    } catch (error: any) {
       notifyDispatch(setError(error.data.errors));
     }
   };
@@ -259,13 +284,13 @@ const LoginPage = () => {
               autoFocus
               fullWidth
               id="email"
-              label="Email"
+              label="手机/邮箱"
               value={values.username}
               sx={{ marginBottom: 4 }}
               onChange={handleChange("username")}
             />
             <FormControl fullWidth>
-              <InputLabel htmlFor="auth-login-password">Password</InputLabel>
+              <InputLabel htmlFor="auth-login-password">密码</InputLabel>
               <OutlinedInput
                 label="Password"
                 value={values.password}
@@ -389,13 +414,13 @@ const LoginPage = () => {
                       <InputLabel htmlFor="standard-phone">手机号码</InputLabel>
                       <Input
                         id="standard-phone"
-                        value={values.password}
-                        onChange={handleChange("password")}
+                        value={phone}
+                        onChange={handlePhone}
                         endAdornment={
                           <InputAdornment position="end">
                             <SendCode
                               onCaptcha={() => {
-                                return true;
+                                return authService.verifyLCode(phone);
                               }}
                             />
                           </InputAdornment>
@@ -410,15 +435,15 @@ const LoginPage = () => {
                       <InputLabel htmlFor="standard-verify">验证码</InputLabel>
                       <Input
                         id="standard-verify"
-                        value={values.password}
-                        onChange={handleChange("password")}
+                        value={code}
+                        onChange={handleCode}
                       />
                     </FormControl>
                   </Stack>
                 </DialogContent>
                 <DialogActions>
                   <Button onClick={handleClose}>取消</Button>
-                  <Button onClick={handleClose}>登录</Button>
+                  <Button onClick={handleSubmitSms}>登录</Button>
                 </DialogActions>
               </Dialog>
             </Box>

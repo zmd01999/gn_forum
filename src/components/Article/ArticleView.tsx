@@ -67,7 +67,7 @@ export const ArticleView = () => {
       await articleService.deleteArticle(slug);
       notifyDiapatch(setSuccess("Delete Article Successfully."));
       history.push("/");
-    } catch (error) {
+    } catch (error: any) {
       notifyDiapatch(setError(error.data.errors));
     }
   };

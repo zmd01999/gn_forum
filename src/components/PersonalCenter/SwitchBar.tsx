@@ -71,25 +71,25 @@ export default function SwitchBar() {
               label="作品"
               {...a11yProps(1)}
             />
-            <Tab
+            {/* <Tab
               icon={<Favorite />}
               iconPosition="start"
               label="收藏"
               {...a11yProps(2)}
-            />
-            <Tab
-              icon={<Money />}
-              iconPosition="start"
-              label="金币"
-              {...a11yProps(3)}
-            />
+            /> */}
 
             <Tab
               icon={<Settings />}
               iconPosition="start"
               label="设置"
-              {...a11yProps(4)}
+              {...a11yProps(2)}
             />
+            {/* <Tab
+              icon={<Money />}
+              iconPosition="start"
+              label="金币"
+              {...a11yProps(4)}
+            /> */}
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
@@ -100,7 +100,7 @@ export default function SwitchBar() {
           <MyWork />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          收藏
+          <MySetting></MySetting>
         </TabPanel>
         <TabPanel value={value} index={3}>
           <MySetting></MySetting>

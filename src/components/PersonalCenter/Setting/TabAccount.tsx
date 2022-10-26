@@ -17,6 +17,7 @@ import IconButton from "@mui/material/IconButton";
 import CardContent from "@mui/material/CardContent";
 import FormControl from "@mui/material/FormControl";
 import Button, { ButtonProps } from "@mui/material/Button";
+import { useParams } from "react-router-dom";
 
 // ** Icons Imports
 import Close from "mdi-material-ui/Close";
@@ -46,11 +47,13 @@ const ResetButtonStyled = styled(Button)<ButtonProps>(({ theme }) => ({
     marginTop: theme.spacing(4),
   },
 }));
-
+interface routeProps {
+  username: string;
+}
 const TabAccount = () => {
   // ** State
   const [openAlert, setOpenAlert] = useState<boolean>(true);
-  const [imgSrc, setImgSrc] = useState<string>("/assets/1.png");
+  const [imgSrc, setImgSrc] = useState<string>("/assets/avatar.jfif");
 
   const onChange = (file: ChangeEvent) => {
     const reader = new FileReader();
@@ -61,6 +64,7 @@ const TabAccount = () => {
       reader.readAsDataURL(files[0]);
     }
   };
+  const { username } = useParams<routeProps>();
 
   return (
     <CardContent>
@@ -103,7 +107,7 @@ const TabAccount = () => {
               fullWidth
               label="用户名"
               placeholder="johnDoe"
-              defaultValue="johnDoe"
+              defaultValue={username}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -111,7 +115,7 @@ const TabAccount = () => {
               fullWidth
               label="昵称"
               placeholder="John Doe"
-              defaultValue="John Doe"
+              defaultValue={username}
             />
           </Grid>
           <Grid item xs={12} sm={6}>

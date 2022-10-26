@@ -69,8 +69,9 @@ export default function MyArticle() {
   const loaderDiapatch = useDispatch<Dispatch<LoaderAction>>();
 
   const retrieveProfile = async () => {
-    const res = await profileService.getUser(username);
-    setProfile(res.data.profile);
+    // const res = await profileService.getUser(username);
+    // setProfile(res.data.profile);
+    return true;
   };
 
   const retrievePublishedArticle = async () => {
@@ -88,17 +89,19 @@ export default function MyArticle() {
   };
 
   const retrieveArticles = async () => {
-    let res;
-    switch (value) {
-      case 0:
-        res = await retrievePublishedArticle();
-        break;
-      case 1:
-        res = await retrieveFavoritedArticle();
-        break;
-    }
-    setArticleList(res.data.articles);
-    setArticleCount(res.data.articlesCount);
+    // let res;
+    // switch (value) {
+    //   case 0:
+    //     res = await retrievePublishedArticle();
+    //     break;
+    //   case 1:
+    //     res = await retrieveFavoritedArticle();
+    //     break;
+    // }
+    // setArticleList(res.data.articles);
+    // setArticleCount(res.data.articlesCount);
+    setArticleList(articleList);
+    setArticleCount(1);
   };
 
   useEffect(() => {

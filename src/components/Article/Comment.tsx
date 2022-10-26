@@ -62,7 +62,7 @@ export const Comment = ({ slug }: IProps) => {
           break;
       }
       await retrieveComments();
-    } catch (error) {
+    } catch (error: any) {
       notifyDispatch(setError(error.data.errors));
     } finally {
       loaderDispatch(clearLoading());
