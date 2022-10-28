@@ -35,52 +35,52 @@ export default ({
   secondaryLinkUrl = "",
   pushDownFooter = true
 }) => {
-  const username="aaaaaa";
-  const { user } = useSelector(
+  const username = "aaaaaa";
+  const { user, userInfo } = useSelector(
     (state) => state.auth
   );
-  
+
   return (
     <Container css={pushDownFooter && tw`mb-20 lg:mb-24`}>
       <ContentWithPaddingXl>
-      <PrimaryBackgroundContainer>
-        <Row>
-          <TextContainer>
-            {subheading && <Subheading>{subheading}</Subheading>}
-            <Heading>{heading}</Heading>
-            <div className="py-4">
-            <Stack direction="row" spacing={2}>
-              <LightTooltip title={user}>
-                <Badge badgeContent={"Lv3"} color="primary">
-                  <Avatar
-                    alt={user}
-                    src={"/assets/avatar.jfif"}
-                    sx={{ width: 60, height: 60 }}
-                  />
-                </Badge>
-              </LightTooltip>
+        <PrimaryBackgroundContainer>
+          <Row>
+            <TextContainer>
+              {subheading && <Subheading>{subheading}</Subheading>}
+              <Heading>{heading}</Heading>
+              <div className="py-4">
+                <Stack direction="row" spacing={2}>
+                  <LightTooltip title={user}>
+                    <Badge badgeContent={`Lv${userInfo.level}`} color="primary">
+                      <Avatar
+                        alt={user}
+                        src={"/assets/avatar.jfif"}
+                        sx={{ width: 60, height: 60 }}
+                      />
+                    </Badge>
+                  </LightTooltip>
 
-              <div>
-                <Stack spacing={1.2}>
-                  <span className="text-2xl font-semibold text-white">
-                    {user}
-                  </span>
-                  <Progress></Progress>
+                  <div>
+                    <Stack spacing={1.2}>
+                      <span className="text-2xl font-semibold text-white">
+                        {user}
+                      </span>
+                      <Progress props={userInfo.growthValue == null ? 55 : userInfo.growthValue}></Progress>
+                    </Stack>
+                  </div>
                 </Stack>
               </div>
-            </Stack>
-          </div>
-          </TextContainer>
-          <LinksContainer>
-            <PrimaryLink href={primaryLinkUrl}>{primaryLinkText}</PrimaryLink>
-            <SecondaryLink href={secondaryLinkUrl}>{secondaryLinkText}</SecondaryLink>
-          </LinksContainer>
-        </Row>
-        <DecoratorBlobContainer>
-          <DecoratorBlob1/>
-          <DecoratorBlob2/>
-        </DecoratorBlobContainer>
-      </PrimaryBackgroundContainer>
+            </TextContainer>
+            <LinksContainer>
+              <PrimaryLink href={primaryLinkUrl}>{primaryLinkText}</PrimaryLink>
+              <SecondaryLink href={secondaryLinkUrl}>{secondaryLinkText}</SecondaryLink>
+            </LinksContainer>
+          </Row>
+          <DecoratorBlobContainer>
+            <DecoratorBlob1 />
+            <DecoratorBlob2 />
+          </DecoratorBlobContainer>
+        </PrimaryBackgroundContainer>
       </ContentWithPaddingXl>
     </Container>
   );

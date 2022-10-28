@@ -1,4 +1,4 @@
-import { IUser } from "../models/types";
+import { IUser, IUserInfo } from "../models/types";
 import { AuthAction } from "./reducers/AuthReducer";
 import { LoaderAction } from "./reducers/LoaderReducer";
 import { NotificationAction } from "./reducers/NotifyReducer";
@@ -20,11 +20,18 @@ export const logoutUser: () => AuthAction = () => {
   };
 };
 
-export const loadUser: (user:string, id:string) => AuthAction = (user: string,id:string) => {
+export const loadUser: (user: string, id: string) => AuthAction = (user: string, id: string) => {
   return {
     type: "LOAD_USER",
     user: user,
-    id:id,
+    id: id,
+  };
+};
+
+export const loadUserInfo: (userInfo: any) => AuthAction = (userInfo: any) => {
+  return {
+    type: "LOAD_USER_INFO",
+    userInfo: userInfo,
   };
 };
 

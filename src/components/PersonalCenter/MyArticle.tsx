@@ -59,7 +59,6 @@ export default function MyArticle() {
   const [value, setValue] = React.useState(0);
   const { username } = useParams<routeProps>();
 
-  const profileService = useProfileService();
   const articleService = useArticleService();
 
   const [profile, setProfile] = useState<IProfile>();

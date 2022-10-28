@@ -43,7 +43,7 @@ export class ApiService<T> {
 
     const token = getLocalStorage("token");
     if (token !== null) {
-      axios.defaults.headers.common["Authorization"] = `Token ${getLocalStorage(
+      axios.defaults.headers.common["Authorization"] = `${getLocalStorage(
         "token"
       )}`;
     }

@@ -85,7 +85,7 @@ const UserDropdown = (props: user) => {
   const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
   const authDispatch = useDispatch<Dispatch<AuthAction>>();
   const handleLogout = () => {
-    notifyDispatch(setSuccess("You have loged out successfully !"));
+    notifyDispatch(setSuccess("您已成功注销!"));
     authDispatch(logoutUser());
     removeLocalStorage("token");
     history.push("/");
@@ -148,7 +148,7 @@ const UserDropdown = (props: user) => {
           </Box>
         </Box>
         <Divider sx={{ mt: 0, mb: 1 }} />
-        <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
+        {/* <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
           <Box sx={styles}>
             <AccountOutline sx={{ marginRight: 2 }} />
             个人资料
@@ -185,7 +185,7 @@ const UserDropdown = (props: user) => {
             FAQ
           </Box>
         </MenuItem>
-        <Divider />
+        <Divider /> */}
         <MenuItem sx={{ py: 0 }} onClick={handleLogout}>
           <LogoutVariant
             sx={{

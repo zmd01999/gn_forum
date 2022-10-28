@@ -20,9 +20,9 @@ export interface ISettingUser extends Omit<IUser, "token"> {
 }
 
 export interface IRegisterUser {
-  username:string;
-  email:string;
-  password:string;
+  username: string;
+  email: string;
+  password: string;
 }
 
 export interface IProfile {
@@ -30,6 +30,27 @@ export interface IProfile {
   bio: string | null;
   image: string | null;
   following: boolean;
+}
+
+export interface IUserInfo {
+  id: string;
+  realName: string | null;
+  nickName: string | null;
+  gender: string | null;
+  birthday: string | null;
+  region: string | undefined;
+  qq: string | null;
+  wx: string | null;
+  money: string | null;
+  level: string | null;
+  // username: string | null;
+  // bio: string | null;
+  // image: string | null;
+  // following: boolean | null;
+  introduction: string | null;
+  business: string | null;
+  email: string | null;
+  mobilePhoneNumber: string | null;
 }
 
 export interface IArticle {
@@ -61,7 +82,7 @@ export interface IComment {
 }
 
 export interface IJWTPayload {
-  id:number,
-  exp:number,
-  username:string
+  id: number,
+  exp: number,
+  username: string
 }

@@ -1,5 +1,5 @@
 // ** React Imports
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useState,Dispatch } from "react";
 
 // ** MUI Imports
 import Box from "@mui/material/Box";
@@ -20,7 +20,11 @@ import EyeOutline from "mdi-material-ui/EyeOutline";
 import KeyOutline from "mdi-material-ui/KeyOutline";
 import EyeOffOutline from "mdi-material-ui/EyeOffOutline";
 import LockOpenOutline from "mdi-material-ui/LockOpenOutline";
-
+import {useAuthService} from "src/hooks";
+import{useSelector,useDispatch} from "react-redux";
+import { AppState } from "src/redux/store";
+import { NotificationAction } from "src/redux/reducers/NotifyReducer";
+import {setError, setSuccess} from "src/redux/actions";
 interface State {
   newPassword: string;
   currentPassword: string;
@@ -31,6 +35,13 @@ interface State {
 }
 
 const TabSecurity = () => {
+
+  const { id } = useSelector(
+    (state:AppState) => state.auth
+
+    );
+    const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
+
   // ** States
   const [values, setValues] = useState<State>({
     newPassword: "",
@@ -84,6 +95,7 @@ const TabSecurity = () => {
     event.preventDefault();
   };
 
+  const authService = useAuthService();
   return (
     <form>
       <CardContent sx={{ paddingBottom: 0 }}>
@@ -249,7 +261,17 @@ const TabSecurity = () => {
         </Box>
 
         <Box sx={{ mt: 11 }}>
-          <Button variant="contained" sx={{ marginRight: 3.5 }}>
+          <Button variant="contained" sx={{ marginRight: 3.5 }} onClick={
+            ()=>{
+              if(values.confirmNewPassword != values.newPassword) {
+                notifyDispatch(setError("两次密码不一致"));
+                return;
+              }
+              return authService.updatePwd(id, values.currentPassword, values.newPassword).then(
+                ()=> {notifyDispatch(setSuccess("更改成功"));}
+              );
+            }
+          }>
             保存
           </Button>
           <Button

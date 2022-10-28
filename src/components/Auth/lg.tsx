@@ -54,7 +54,7 @@ import { useAuthService } from "../../hooks";
 import { useHistory } from "react-router";
 import { NotificationAction } from "../../redux/reducers/NotifyReducer";
 import { AuthAction } from "../../redux/reducers/AuthReducer";
-import { loadUser, setError, setSuccess } from "../../redux/actions";
+import { loadUser, setError, setSuccess,loadUserInfo } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -109,8 +109,8 @@ const LoginPage = () => {
   const [values, setValues] = useState<State>({
     // username: "aaaaaaaa@aaa.com",
     // password: "aaaaaaaa",
-    username: "13982737615",
-    password: "123456",
+    username: "",
+    password: "",
     showPassword: false,
   });
 
@@ -147,12 +147,26 @@ const LoginPage = () => {
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
+
+    if(values.username==""|| values.password=="") {
+      notifyDispatch(setError("请填写完整账号和密码"));
+      return ;
+    }
     try {
       const res = await authService.login(values.username, values.password);
       // need type strickt check to know returned object is whether a
-      authDispatch(loadUser(res.username, res.id));
-      history.push(`/pcenter/${res.username}`);
-      notifyDispatch(setSuccess("Login Successfully."));
+      console.log(res.data);
+      if(res.success) {
+        authDispatch(loadUser(res.data.nickname, res.data.id));
+        authDispatch(loadUserInfo(res.data));
+  
+        history.push(`/pcenter/${res.data.nickname}`);
+        notifyDispatch(setSuccess("登录成功."));
+      } else {
+        notifyDispatch(setError(res.msg));
+
+      }
+
     } catch (error: any) {
       notifyDispatch(setError(error.data.errors));
     }
@@ -160,12 +174,23 @@ const LoginPage = () => {
 
   const handleSubmitSms = async (event: any) => {
     event.preventDefault();
+    if(phone == "" || code=="" ) {
+      notifyDispatch(setError("请填入验证码和手机号"));
+      return ;
+    }
     try {
       const res = await authService.loginSms(phone, code);
       // need type strickt check to know returned object is whether a
-      authDispatch(loadUser(res.username, res.id));
-      history.push(`/pcenter/${res.username}`);
-      notifyDispatch(setSuccess("Login Successfully."));
+      if(res.success) {
+        authDispatch(loadUser(res.data.nickname, res.data.id));
+        authDispatch(loadUserInfo(res.data));
+  
+        history.push(`/pcenter/${res.data.nickname}`);
+        notifyDispatch(setSuccess("登录成功."));
+      } else {
+        notifyDispatch(setError(res.msg));
+
+      }
     } catch (error: any) {
       notifyDispatch(setError(error.data.errors));
     }
@@ -420,6 +445,10 @@ const LoginPage = () => {
                           <InputAdornment position="end">
                             <SendCode
                               onCaptcha={() => {
+                                if(phone.length < 11 ) {
+                                  notifyDispatch(setError("请填写正确的手机号"));
+                                  return true;
+                                }
                                 return authService.verifyLCode(phone);
                               }}
                             />

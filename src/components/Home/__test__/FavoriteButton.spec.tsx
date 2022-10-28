@@ -32,6 +32,7 @@ describe("test", () => {
       isAuthenticated: true,
       user: "test",
       id: "1",
+      userInfo:null,
     };
   });
 

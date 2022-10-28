@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, ElementType, ChangeEvent, SyntheticEvent } from "react";
+import { useState, ElementType, ChangeEvent, SyntheticEvent ,Dispatch} from "react";
 
 // ** MUI Imports
 import Box from "@mui/material/Box";
@@ -18,9 +18,14 @@ import CardContent from "@mui/material/CardContent";
 import FormControl from "@mui/material/FormControl";
 import Button, { ButtonProps } from "@mui/material/Button";
 import { useParams } from "react-router-dom";
-
+import {IUserInfo } from "src/models/types";
+import { useProfileService } from "src/hooks";
+import { NotificationAction } from "src/redux/reducers/NotifyReducer";
+import {setSuccess} from "src/redux/actions";
+import {useSelector,useDispatch} from "react-redux";
 // ** Icons Imports
 import Close from "mdi-material-ui/Close";
+import { AppState } from "src/redux/store";
 
 const ImgStyled = styled("img")(({ theme }) => ({
   width: 120,
@@ -50,11 +55,41 @@ const ResetButtonStyled = styled(Button)<ButtonProps>(({ theme }) => ({
 interface routeProps {
   username: string;
 }
+
+
 const TabAccount = () => {
   // ** State
   const [openAlert, setOpenAlert] = useState<boolean>(true);
   const [imgSrc, setImgSrc] = useState<string>("/assets/avatar.jfif");
 
+  const profileService = useProfileService();
+  const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
+  const { id, userInfo } = useSelector(
+    (state:AppState) => state.auth
+
+    );
+
+    const[form, setForm] = useState<IUserInfo>({
+      id: userInfo.id,
+      realName: userInfo.realName == null ? "实名认证":userInfo.realName,
+      nickName: userInfo.nickname,
+      gender: userInfo.gender == null ? "male":userInfo.gender,
+      birthday: userInfo.birthday,
+      region: userInfo.region==null?"中国":userInfo.region,
+      qq: userInfo.qq,
+      wx: userInfo.wz,
+      money: userInfo.money,
+      level: userInfo.level,
+      introduction: userInfo.introduction == null ? "请尽情表达自己！":userInfo.introduction,
+      business: userInfo.business == null ? "小天才工作室. Ltd.":userInfo.business,
+      email:userInfo.email == null ? "":userInfo.email ,
+      mobilePhoneNumber:userInfo.mobilePhoneNumber== null ? "" : userInfo.mobilePhoneNumber,
+    });
+    const handleChange =
+    (prop: keyof IUserInfo) => (event: ChangeEvent<HTMLInputElement>) => {
+      console.log(userInfo.id);
+      setForm({ ...form, [prop]: event.target.value });
+    };
   const onChange = (file: ChangeEvent) => {
     const reader = new FileReader();
     const { files } = file.target as HTMLInputElement;
@@ -104,27 +139,31 @@ const TabAccount = () => {
 
           <Grid item xs={12} sm={6}>
             <TextField
+            disabled
               fullWidth
               label="用户名"
               placeholder="johnDoe"
-              defaultValue={username}
+              value={form.nickName}
+              
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
+            disabled
               fullWidth
-              label="昵称"
+              label="实名"
               placeholder="John Doe"
-              defaultValue={username}
+              value={form.realName}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
               type="email"
-              label="Email"
+              label="电子邮件"
               placeholder="zmd@example.com"
-              defaultValue="zmd@example.com"
+              value={form.email}
+              onChange={handleChange("email")}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -152,13 +191,14 @@ const TabAccount = () => {
           <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
-              label="Company"
+              label="工作室"
               placeholder="ABC Pvt. Ltd."
-              defaultValue="小天才工作室. Ltd."
+              value={form.business}
+              onChange={handleChange("business")}
             />
           </Grid>
 
-          {openAlert ? (
+          {/* {openAlert ? (
             <Grid item xs={12} sx={{ mb: 3 }}>
               <Alert
                 severity="warning"
@@ -185,10 +225,17 @@ const TabAccount = () => {
                 </Link>
               </Alert>
             </Grid>
-          ) : null}
+          ) : null} */}
 
           <Grid item xs={12}>
-            <Button variant="contained" sx={{ marginRight: 3.5 }}>
+            <Button variant="contained" sx={{ marginRight: 3.5 }} onClick={
+              ()=>{
+
+                return profileService.updateUser(form).then(()=> {
+                  notifyDispatch(setSuccess("更新成功"));}
+                );
+              }
+            }>
               保存
             </Button>
             <Button type="reset" variant="outlined" color="secondary">

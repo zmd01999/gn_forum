@@ -1,10 +1,8 @@
-// ** React Imports
 import {
   useState,
   Fragment,
   ChangeEvent,
   MouseEvent,
-  ReactNode,
   Dispatch,
 } from "react";
 
@@ -59,8 +57,9 @@ import { AuthAction } from "../../redux/reducers/AuthReducer";
 import { loadUser, setError, setSuccess } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import SendCode from "@jiumao/rc-send-code";
 import Input from "@mui/material/Input";
+import SendCode from "@jiumao/rc-send-code";
+
 
 interface RFormlProps {
   children?: React.ReactNode;
@@ -82,7 +81,7 @@ export const RForm = (props: RFormlProps) => {
     username: "",
     email: "",
     password: "",
-    busyness: "1238723765435",
+    busyness: "",
     phone: "",
     code: "",
     showPassword: false,
@@ -105,6 +104,12 @@ export const RForm = (props: RFormlProps) => {
     event.preventDefault();
   };
 
+  const [checked, setChecked] = useState(false);
+
+  const handleCheckChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked);
+  };
+
   const handleSubmit = () => {
     const registerUser = async () => {
       try {
@@ -116,21 +121,31 @@ export const RForm = (props: RFormlProps) => {
           values.code
         );
         console.log(res.code);
-        console.log(res.code == 200);
 
-        if (res.code != 200) {
-          notifyDispatch(setError(res.msg));
+
+        if (res.success) {
+          authDispatch(loadUser(res.data.nickname, res.data.id));
+          history.push(`/pcenter/${res.data.nickname}`);
+          notifyDispatch(setSuccess("注册成功."));
         } else {
-          authDispatch(loadUser(res.data.username, res.data.id));
-          history.push(`/pcenter/${res.data.username}`);
-          notifyDispatch(setSuccess("User Register successfully."));
+
+          notifyDispatch(setError(res.msg));
+
         }
       } catch (error: any) {
-        notifyDispatch(setError(error.data.errors));
+        console.log(error);
+        notifyDispatch(setError("注册失败"));
       }
     };
-
-    registerUser();
+    if(!checked) {
+      notifyDispatch(setError("请同意隐私协议"));
+    } else if(values.username==""||values.password==""||values.phone==""||values.email==""||values.code=="") {
+      notifyDispatch(setError("请将信息填写完全"));
+    } else if(values.password.length < 6){
+      notifyDispatch(setError("密码必须大于等于6位"));
+    }else {
+      registerUser();
+    }
   };
   const LinkStyled = styled("a")(({ theme }) => ({
     fontSize: "0.875rem",
@@ -149,7 +164,7 @@ export const RForm = (props: RFormlProps) => {
   );
 
   return (
-    <>
+    <div>
       {value == "company" ? (
         <form
           noValidate
@@ -211,12 +226,12 @@ export const RForm = (props: RFormlProps) => {
             control={<Checkbox />}
             label={
               <Fragment>
-                <span>I agree to </span>
+                <span>同意 </span>
                 <Link to="/">
                   <LinkStyled
                     onClick={(e: MouseEvent<HTMLElement>) => e.preventDefault()}
                   >
-                    privacy policy & terms
+                    隐私协议
                   </LinkStyled>
                 </Link>
               </Fragment>
@@ -368,6 +383,10 @@ export const RForm = (props: RFormlProps) => {
                 <InputAdornment position="end">
                   <SendCode
                     onCaptcha={() => {
+                      if(values.phone.length < 11 ) {
+                        notifyDispatch(setError("请填写正确的手机号"));
+                        return true;
+                      }
                       return authService.verifyCode(values.phone);
                     }}
                   />
@@ -376,15 +395,18 @@ export const RForm = (props: RFormlProps) => {
             />
           </FormControl>
           <FormControlLabel
-            control={<Checkbox />}
+            control={<Checkbox 
+              checked={checked}
+            onChange={handleCheckChange}
+            />}
             label={
               <Fragment>
-                <span>I agree to </span>
+                <span>同意</span>
                 <Link to="/">
                   <LinkStyled
                     onClick={(e: MouseEvent<HTMLElement>) => e.preventDefault()}
                   >
-                    privacy policy & terms
+                    隐私协议
                   </LinkStyled>
                 </Link>
               </Fragment>
@@ -467,6 +489,6 @@ export const RForm = (props: RFormlProps) => {
           </Box>
         </form>
       )}
-    </>
+    </div>
   );
 };

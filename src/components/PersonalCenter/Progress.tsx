@@ -2,8 +2,8 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
 
-export default function Progress() {
-  const [progress, setProgress] = React.useState(65);
+export default function Progress(props:any) {
+  const [progress, setProgress] = React.useState<number>(Number(props));
 
   // React.useEffect(() => {
   //   const timer = setInterval(() => {
