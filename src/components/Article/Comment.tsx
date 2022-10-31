@@ -76,7 +76,7 @@ export const Comment = ({ slug }: IProps) => {
 
   return (
     <Fragment>
-      <h4>Comments</h4>
+      <h4>评论</h4>
       <Divider />
       <SemanticComment.Group>
         {comments.map((comment) => {
@@ -121,10 +121,7 @@ export const Comment = ({ slug }: IProps) => {
       </SemanticComment.Group>
 
       <Form className="comment-container">
-        <TextArea
-          placeholder="leave your comment here"
-          onChange={handleCommentChange}
-        />
+        <TextArea placeholder="留下你的评论" onChange={handleCommentChange} />
         {isAuthenticated ? (
           <Button
             size="tiny"
@@ -135,12 +132,12 @@ export const Comment = ({ slug }: IProps) => {
               handleCommentAction("submit");
             }}
           >
-            Post Comment
+            发送评论
           </Button>
         ) : (
           <div>
             {" "}
-            Please <Link to="/login">Login</Link> to add the comment
+            请 <Link to="/login">登录</Link> 后评论
           </div>
         )}
       </Form>
