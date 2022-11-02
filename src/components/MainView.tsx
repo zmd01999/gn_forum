@@ -5,21 +5,23 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { ArticleList } from "./Article/ArticleList";
-import { TagList } from "./Home/TagList";
+import { TagList } from "src/components/Home/TagList";
 
-import "../index.css";
-import { useArticleService } from "../hooks";
-import { IArticle } from "../models/types";
+import "src/index.css";
+import { useArticleService } from "src/hooks";
+import { IArticle } from "src/models/types";
 import { useDispatch, useSelector } from "react-redux";
-import { AppState } from "../redux/store";
-import { LoaderAction } from "../redux/reducers/LoaderReducer";
-import { clearLoading, setLoading, setWarning } from "../redux/actions";
-import { Tabs } from "./Home/Tabs";
-import { NotificationAction } from "../redux/reducers/NotifyReducer";
+import { AppState } from "src/redux/store";
+import { LoaderAction } from "src/redux/reducers/LoaderReducer";
+import { clearLoading, setLoading, setWarning } from "src/redux/actions";
+import { Tabs } from "src/components/Home/Tabs";
+import { NotificationAction } from "src/redux/reducers/NotifyReducer";
 import { useHistory } from "react-router-dom";
-import "./style.css";
-
+import "src/components/Home/style.css";
+import { Item, Segment, Label } from "semantic-ui-react";
+import { ArticleGroup } from "src/components/Article/ArticleGroup";
+import SpeedD from "src/components/BaseUtils/SpeedD";
+import BreadCrumb from "src/components/BaseUtils/BreadCrumb";
 export const MainView = () => {
   const articleService = useArticleService();
   const [articleList, setArticleList] = useState<IArticle[]>([]);
@@ -41,6 +43,7 @@ export const MainView = () => {
     "global-feed": "全部",
     feed: "我的点赞",
   };
+  const TopicTag = ["技术", "编程", "教育"];
   const [currentTab, setCurrentTab] = useState<string>("global-feed");
 
   const retrieveTag = async () => {
@@ -50,7 +53,7 @@ export const MainView = () => {
 
   const retrieveArticle = async () => {
     if (!isAuthenticated && currentTab === "feed") {
-      notifyDispatch(setWarning("You need to login firstly"));
+      notifyDispatch(setWarning("你需要先登录"));
       history.push("/login");
       return;
     }
@@ -112,13 +115,30 @@ export const MainView = () => {
   return (
     <div className="main-container">
       <div className="article-container">
+        {/* <BreadCrumb></BreadCrumb> */}
         <Tabs tabs={TABS} setCurrentTab={setCurrentTab} />
-        <ArticleList
-          articleList={articleList}
-          count={count}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
+        <div>
+          {TopicTag.map((topic) => {
+            return (
+              <Label
+                tag
+                onClick={(event: SyntheticEvent, data: object) => {
+                  history.push(`/login`);
+                }}
+              >
+                {topic}
+              </Label>
+            );
+          })}
+        </div>
+        <Item.Group divided>
+          <ArticleGroup
+            articleList={articleList}
+            count={count}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          ></ArticleGroup>
+        </Item.Group>
       </div>
 
       <div className="tag-container">
@@ -128,6 +148,7 @@ export const MainView = () => {
           tab={currentTab}
           setCurrentTag={setCurrentTag}
         />
+        <SpeedD></SpeedD>
       </div>
     </div>
   );

@@ -4,12 +4,24 @@ import React, {
   SetStateAction,
   SyntheticEvent,
 } from "react";
-import { useDispatch } from "react-redux";
-import { Label, SemanticCOLORS, Statistic } from "semantic-ui-react";
+import {
+  Card,
+  Label,
+  SemanticCOLORS,
+  Statistic,
+  Button,
+  Image,
+  Grid,
+  Divider,
+  Segment,
+} from "semantic-ui-react";
 import { NotificationAction } from "../../redux/reducers/NotifyReducer";
 import { setWarning } from "../../redux/actions";
 import "./style.css";
-
+import HotTopic from "../BaseUtils/HotTopic";
+import { useDispatch, useSelector } from "react-redux";
+import { AppState } from "src/redux/store";
+import { useHistory } from "react-router";
 interface IProps {
   tags: string[];
   tab?: string;
@@ -49,24 +61,87 @@ export const TagList = ({ tags, tab, currentTag, setCurrentTag }: IProps) => {
       setCurrentTag(newTag);
     }
   };
+  const isAuthenticated = true;
+  // const { userInfo } = useSelector((state: AppState) => state.auth);
+  const history = useHistory();
 
   return (
     <Fragment>
-      <Statistic label="TOP热度榜" value={tags.length} />
+      <div className="mt-10 mb-8">
+        {isAuthenticated ? (
+          <Card.Group>
+            <Card>
+              <Card.Content>
+                <Image floated="right" size="mini" src="/assets/avatar.jfif" />
+                <Card.Header>{"用户"}</Card.Header>
+                <Card.Meta>Friends of Elliot</Card.Meta>
+                <Card.Description>
+                  <Grid columns={3} divided>
+                    <Grid.Column>
+                      <span>1</span>
+                      <span>收藏</span>
+                    </Grid.Column>
+
+                    <Grid.Column verticalAlign="middle">
+                      <span>2</span>
+                      <span>关注</span>
+                    </Grid.Column>
+                    <Grid.Column verticalAlign="middle">
+                      <span>3</span>
+                      <span>喜欢</span>
+                    </Grid.Column>
+                  </Grid>
+                </Card.Description>
+              </Card.Content>
+              <Card.Content extra>
+                <div className="ui two buttons">
+                  <Button
+                    basic
+                    color="green"
+                    onClick={() => history.push("/article/edit")}
+                  >
+                    发帖
+                  </Button>
+                  {/* <Button basic color="red">
+                    Decline
+                  </Button> */}
+                </div>
+              </Card.Content>
+            </Card>
+            <Card fluid color="orange" header="领取今日登录奖励" />
+          </Card.Group>
+        ) : (
+          <Card
+            href="/login"
+            header="游客"
+            meta="Friend"
+            description="未登录？想要进一步体验那就点击注册/登录吧!"
+          />
+        )}
+      </div>
+
+      <div className="mb-8">
+        <Statistic label="TOP热度榜" value={tags.length} />
+        <br />
+        {tags.map((tag) => {
+          return (
+            <Label
+              key={tag}
+              as="a"
+              color={tag === currentTag ? "black" : "grey"}
+              horizontal
+              onClick={handleTagClick}
+            >
+              {tag}
+            </Label>
+          );
+        })}
+      </div>
+
       <br />
-      {tags.map((tag) => {
-        return (
-          <Label
-            key={tag}
-            as="a"
-            color={tag === currentTag ? "black" : "grey"}
-            horizontal
-            onClick={handleTagClick}
-          >
-            {tag}
-          </Label>
-        );
-      })}
+      <div>
+        <HotTopic></HotTopic>
+      </div>
     </Fragment>
   );
 };

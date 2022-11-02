@@ -19,6 +19,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-redux": "^7.1.16",
+    "@types/react-tag-input": "^6.6.0",
     "@types/testing-library__jest-dom": "^5.13.0",
     "apexcharts-clevision": "^3.28.5",
     "autoprefixer": "^9.8.8",

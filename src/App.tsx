@@ -59,7 +59,7 @@ function App() {
                       <GuardRouter Comp={Header} />
                       <Switch>
                         <Route path="/" exact>
-                          <GuardRouter Comp={LoginPage} />
+                          <GuardRouter Comp={MainView} />
                         </Route>
 
                         <Route path="/work">

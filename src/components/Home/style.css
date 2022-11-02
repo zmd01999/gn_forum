@@ -2,6 +2,14 @@
   padding-top: 5px;
   padding-bottom: 5px;
 }
+ .ui.placeholder.segment .field, .ui.placeholder.segment textarea, .ui.placeholder.segment>.ui.input{
+  max-width: 100%!important;
+  margin-left: auto;
+  margin-right: auto;
+}
+.ui.placeholder.segment {
+  min-height: 3rem;
+}
 
 .item-icon {
   padding-bottom: 10px !important;

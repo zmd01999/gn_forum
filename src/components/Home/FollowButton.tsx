@@ -23,7 +23,7 @@ export const FollowButton = ({ profile }: IProps) => {
   );
   const handleFollowUser = async () => {
     if (!isAuthenticated) {
-      notifyDispatch(setWarning("You need to login firstly."));
+      notifyDispatch(setWarning("你需要先登录"));
       history.push("/login");
       return;
     }
