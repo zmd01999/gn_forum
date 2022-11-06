@@ -4,15 +4,17 @@ import { objectDiff } from "./utils";
 test("object diff", () => {
   const a1: IArticleMeta = {
     title: "title1",
-    description: "description1",
+    summary: "description1",
+    category:"",
     body: "body1",
-    tagList: ["aa", "bb", "cc"],
+    tags: ["aa", "bb", "cc"],
   };
   const a2: IArticleMeta = {
     title: "title1",
-    description: "description",
+    summary: "description",
+    category:"",
     body: "body",
-    tagList: [],
+    tags: [],
   };
 
   // since a1.title === a2.title so we don't want field that are never changed appear

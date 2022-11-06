@@ -88,6 +88,7 @@ const UserDropdown = (props: user) => {
     notifyDispatch(setSuccess("您已成功注销!"));
     authDispatch(logoutUser());
     removeLocalStorage("token");
+    removeLocalStorage("userInfo");
     history.push("/");
   };
   return (

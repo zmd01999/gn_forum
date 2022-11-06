@@ -32,7 +32,7 @@ describe("test", () => {
       isAuthenticated: true,
       user: "test",
       id: "1",
-      userInfo:null,
+      userInfo: null,
     };
   });
 
@@ -41,7 +41,7 @@ describe("test", () => {
       <Router>
         <Provider store={createStore(rootReducer, { auth: initialState })}>
           <ServicesContext.Provider value={services}>
-            <FavoriteButton iarticle={article} />
+            {/* <FavoriteButton iarticle={article} /> */}
           </ServicesContext.Provider>
         </Provider>
       </Router>

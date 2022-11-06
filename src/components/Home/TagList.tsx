@@ -22,14 +22,29 @@ import HotTopic from "../BaseUtils/HotTopic";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "src/redux/store";
 import { useHistory } from "react-router";
+import { MyTab } from "src/models/types";
+
 interface IProps {
-  tags: string[];
+  tags: {
+    id: string;
+    tagName: string;
+    avatar: string;
+  }[];
   tab?: string;
   currentTag: string | undefined;
   setCurrentTag: Dispatch<SetStateAction<string | undefined>>;
+  userInfo: any;
+  cateList: MyTab[];
 }
 
-export const TagList = ({ tags, tab, currentTag, setCurrentTag }: IProps) => {
+export const TagList = ({
+  tags,
+  tab,
+  currentTag,
+  setCurrentTag,
+  userInfo,
+  cateList,
+}: IProps) => {
   const colors = [
     "red",
     "orange",
@@ -46,12 +61,10 @@ export const TagList = ({ tags, tab, currentTag, setCurrentTag }: IProps) => {
 
   const handleTagClick = (_: SyntheticEvent, data: object) => {
     const newTag = (data as any).children;
-    if (tab === "feed") {
+    if (tab !== "0") {
       // not support yet
       // we may not want to handle tab part is tag, logic will be complex
-      notifyDispatch(
-        setWarning("tag select only works for global feed currently.")
-      );
+      notifyDispatch(setWarning("标签筛选只在全部选项下生效"));
       return;
     }
     if (newTag === currentTag) {
@@ -61,20 +74,21 @@ export const TagList = ({ tags, tab, currentTag, setCurrentTag }: IProps) => {
       setCurrentTag(newTag);
     }
   };
-  const isAuthenticated = true;
-  // const { userInfo } = useSelector((state: AppState) => state.auth);
+  const { isAuthenticated } = useSelector((state: AppState) => state.auth);
   const history = useHistory();
 
   return (
     <Fragment>
       <div className="mt-10 mb-8">
+        {console.log(userInfo)}
+
         {isAuthenticated ? (
           <Card.Group>
             <Card>
               <Card.Content>
                 <Image floated="right" size="mini" src="/assets/avatar.jfif" />
-                <Card.Header>{"用户"}</Card.Header>
-                <Card.Meta>Friends of Elliot</Card.Meta>
+                <Card.Header>{userInfo.nickname ?? ""}</Card.Header>
+                <Card.Meta>{userInfo.introduction.substring(0, 8)}</Card.Meta>
                 <Card.Description>
                   <Grid columns={3} divided>
                     <Grid.Column>
@@ -98,7 +112,12 @@ export const TagList = ({ tags, tab, currentTag, setCurrentTag }: IProps) => {
                   <Button
                     basic
                     color="green"
-                    onClick={() => history.push("/article/edit")}
+                    onClick={() =>
+                      history.push({
+                        pathname: "/article/edit",
+                        state: cateList,
+                      })
+                    }
                   >
                     发帖
                   </Button>
@@ -123,16 +142,16 @@ export const TagList = ({ tags, tab, currentTag, setCurrentTag }: IProps) => {
       <div className="mb-8">
         <Statistic label="TOP热度榜" value={tags.length} />
         <br />
-        {tags.map((tag) => {
+        {tags.map(({ id, tagName, avatar }) => {
           return (
             <Label
-              key={tag}
+              key={tagName}
               as="a"
-              color={tag === currentTag ? "black" : "grey"}
+              color={tagName === currentTag ? "black" : "grey"}
               horizontal
               onClick={handleTagClick}
             >
-              {tag}
+              {tagName}
             </Label>
           );
         })}

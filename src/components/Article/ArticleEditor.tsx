@@ -22,20 +22,23 @@ import _ from "lodash";
 import { useParams } from "react-router-dom";
 import { objectDiff } from "../../utils";
 import "src/components/Home/style.css";
+import { MyTab } from "src/models/types";
 
 interface routeProps {
   slug: string;
 }
 
 export const ArticleEditor = () => {
-  const { slug } = useParams<routeProps>();
-  const articleService = useArticleService();
   const history = useHistory();
+  const { slug } = useParams<routeProps>();
+  const cateList: any = history.location.state;
+  const articleService = useArticleService();
   const [article, setArticle] = useState<IArticleMeta>({
     title: "",
-    description: "",
+    summary: "",
+    category: "",
     body: "",
-    tagList: [],
+    tags: [],
   });
   const tags = [
     { id: "主题1", text: "Thailand" },
@@ -71,14 +74,27 @@ export const ArticleEditor = () => {
     const { name, value } = event.target;
     setArticle(
       produce(article, (draft) => {
-        _.set(draft, name, name === "tagList" ? value.split(",") : value);
+        _.set(draft, name, name === "tags" ? value.split(",") : value);
       })
     );
   };
 
-  const handleTags = (e: any) => {
-    setArticle({ ...e, ["tagList"]: e.value });
+  const handleCates = (e: any) => {
+    console.log(e);
+    setArticle({ ...article, ["category"]: e.name });
   };
+
+  const handleTags = (e: any) => {
+    console.log(e);
+    setArticle({ ...article, ["tags"]: e.name.split(",") });
+  };
+  const handleChange =
+    (prop: keyof IArticleMeta) =>
+    (
+      event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+    ) => {
+      setArticle({ ...article, [prop]: event.target.value });
+    };
 
   useEffect(() => {
     const retrieveSingleArticle = async () => {
@@ -99,7 +115,6 @@ export const ArticleEditor = () => {
         <Icon name="comment alternate outline" />
         机器人交流圣地
       </Header>
-
       <div>
         <Form>
           <Form.Field width={6}>
@@ -107,7 +122,7 @@ export const ArticleEditor = () => {
             <input
               name="title"
               placeholder="文章标题"
-              onChange={handleUpdateField}
+              onChange={handleChange("title")}
               value={article.title}
               required
             />
@@ -116,10 +131,10 @@ export const ArticleEditor = () => {
           <Form.Field>
             <label>简介</label>
             <input
-              name="description"
+              name="summary"
               placeholder="关于什么？"
-              onChange={handleUpdateField}
-              value={article.description}
+              onChange={handleChange("summary")}
+              value={article.summary}
               required
             />
           </Form.Field>
@@ -128,36 +143,48 @@ export const ArticleEditor = () => {
             <TextArea
               name="body"
               placeholder="文章内容"
-              onChange={handleUpdateField}
+              onChange={handleChange("body")}
               style={{ minHeight: 280 }}
               value={article.body}
             />
           </Form.Field>
           <Form.Field>
-            <label>标签</label>
+            <label>分类</label>
             <input
               // disabled={slug !== undefined}
-              name="tagList"
-              placeholder="有关主题"
-              // onChange={handleUpdateField}
-              value={article.tagList}
+              name="category"
+              placeholder="有关分类"
+              onChange={handleChange("category")}
+              value={article.category}
               required
               disabled
             />
-            {tags.map(({ id, text }) => {
+            {cateList.map((cate: MyTab) => {
               return (
                 <Label
                   as="a"
                   onClick={(event: SyntheticEvent, data: object) =>
-                    handleTags(data)
+                    handleCates(data)
                   }
-                  value={id}
+                  value={cate.id}
+                  name={cate.name}
                 >
-                  {id}
+                  {cate.name}
                   <Icon name="delete" />
                 </Label>
               );
             })}
+          </Form.Field>
+          <Form.Field>
+            <label>标签</label>
+            <input
+              // disabled={slug !== undefined}
+              name="tags"
+              placeholder="帖子标签"
+              onChange={handleChange("tags")}
+              value={article.tags}
+              required
+            />
           </Form.Field>
           <Button attached="right" color="green" onClick={handleCreateArticle}>
             {slug === undefined ? "创建" : "编辑"} 帖子

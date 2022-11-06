@@ -1,6 +1,6 @@
 import React, { Component, Dispatch, FC, Fragment, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { loadUser, logoutUser } from "./redux/actions";
+import { loadUser, loadUserInfo, logoutUser } from "./redux/actions";
 import { AuthAction } from "./redux/reducers/AuthReducer";
 import { getLocalStorage, getUserFromJWT } from "./utils";
 
@@ -16,6 +16,8 @@ export const GuardRouter = ({ Comp }: props) => {
 
   useEffect(() => {
     const user = getUserFromJWT(getLocalStorage("token"));
+    const userInfo = getLocalStorage("userInfo");
+    if (userInfo !== null) authDispatch(loadUserInfo(userInfo));
     if (user !== null) {
       authDispatch(loadUser(user, "1"));
     } else {

@@ -4,7 +4,6 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import { Box, Card } from "@mui/material";
 import { Forum, Favorite, Settings, Games, Money } from "@mui/icons-material";
-import { Profile } from "../Home/Profile";
 import { SettingEditor } from "../Home/SettingEditor";
 import MyWork from "./MyWork";
 import MyArticle from "./MyArticle";

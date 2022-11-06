@@ -9,7 +9,7 @@ import { TagList } from "src/components/Home/TagList";
 
 import "src/index.css";
 import { useArticleService } from "src/hooks";
-import { IArticle } from "src/models/types";
+import { IArticle, IMyArticle, MyTab } from "src/models/types";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "src/redux/store";
 import { LoaderAction } from "src/redux/reducers/LoaderReducer";
@@ -21,34 +21,78 @@ import "src/components/Home/style.css";
 import { Item, Segment, Label } from "semantic-ui-react";
 import { ArticleGroup } from "src/components/Article/ArticleGroup";
 import SpeedD from "src/components/BaseUtils/SpeedD";
-import BreadCrumb from "src/components/BaseUtils/BreadCrumb";
+import { getLocalStorage, getUserFromJWT } from "src/utils";
+import { AuthAction } from "src/redux/reducers/AuthReducer";
+import { loadUserInfo } from "src/redux/actions";
+import "./style.css";
+interface obj {
+  [key: string]: any;
+}
+
 export const MainView = () => {
   const articleService = useArticleService();
-  const [articleList, setArticleList] = useState<IArticle[]>([]);
-  const [tagList, setTagList] = useState<string[]>([]);
+  const [articleList, setArticleList] = useState<IMyArticle[]>([]);
+  const [tagList, setTagList] = useState<
+    {
+      id: string;
+      tagName: string;
+      avatar: string;
+    }[]
+  >([]);
+  const [categoryList, setCategoryList] = useState<MyTab[]>([]);
+
+  const [tagHotList, setHotTagList] = useState<
+    {
+      id: string;
+      tagName: string;
+      avatar: string;
+    }[]
+  >([]);
   const [count, setCount] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [currentTag, setCurrentTag] = useState<string | undefined>(undefined);
   const [isInitial, setInitial] = useState<boolean>(true);
   const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
   const history = useHistory();
+  const authDispatch = useDispatch<Dispatch<AuthAction>>();
 
   const { isAuthenticated } = useSelector((state: AppState) => state.auth);
+  const [userInfo, setUserInfo] = useState<string | null>(null);
 
   const { isLoading, messageContent } = useSelector(
     (state: AppState) => state.loader
   );
   const loaderDiapatch = useDispatch<Dispatch<LoaderAction>>();
-  const TABS = {
-    "global-feed": "全部",
-    feed: "我的点赞",
-  };
-  const TopicTag = ["技术", "编程", "教育"];
-  const [currentTab, setCurrentTab] = useState<string>("global-feed");
+
+  const [currentTab, setCurrentTab] = useState<string>("0");
+  // var TABS: obj = {
+  //   "global-feed": "全部",
+  //   feed: "我的点赞",
+  // };
+
+  const [TABS, setTabs] = useState<any>({
+    "0": "全部",
+    //   feed: "我的点赞",
+  });
 
   const retrieveTag = async () => {
     const tagRes = await articleService.getTags();
-    setTagList(tagRes.data.tags);
+
+    setTagList(tagRes.data.data);
+  };
+
+  const retrieveCate = async () => {
+    const cateRes = await articleService.getCategory();
+    setCategoryList(cateRes.data.data);
+
+    cateRes.data.data.map((cate: MyTab) => {
+      TABS[`${cate.id}`] = cate.name;
+    });
+    setTabs(TABS);
+  };
+  const retrieveHotTag = async () => {
+    const tagRes = await articleService.getTags();
+    setHotTagList(tagRes.data.data);
   };
 
   const retrieveArticle = async () => {
@@ -60,19 +104,20 @@ export const MainView = () => {
 
     let articleRes;
     switch (currentTab) {
-      case "global-feed":
+      case "0":
         articleRes = await articleService.getArticles({
           page: currentPage,
           tag: currentTag,
         });
         break;
-      case "feed":
-        articleRes = await articleService.getFeed(currentPage);
+      default:
+        // articleRes = await articleService.getFeed(currentPage);
+        articleRes = await articleService.getCategoryById(currentTab);
         break;
     }
 
-    setArticleList(articleRes.data.articles);
-    setCount(articleRes.data.articlesCount);
+    setArticleList(articleRes.data.data.voList);
+    setCount(articleRes.data.data.total);
   };
 
   const memorizedSetTag = useCallback(
@@ -88,21 +133,30 @@ export const MainView = () => {
     [tagList]
   );
 
+  const handleTag = (e: any) => {
+    console.log(e.value);
+  };
+
   useEffect(() => {
     const retrieve = async () => {
-      loaderDiapatch(
-        setLoading("fetch articles , tags , generating pagination")
-      );
-      await Promise.all([retrieveArticle(), retrieveTag()]);
+      loaderDiapatch(setLoading("获取文章中"));
+      await Promise.all([
+        retrieveArticle(),
+        retrieveTag(),
+        retrieveHotTag(),
+        retrieveCate(),
+      ]);
       setInitial(false);
       loaderDiapatch(clearLoading());
     };
+
+    setUserInfo(getLocalStorage("userInfo"));
     retrieve();
   }, []);
 
   useEffect(() => {
     const retrieve = async () => {
-      loaderDiapatch(setLoading("fetch articles , generating pagination"));
+      loaderDiapatch(setLoading("获取文章中"));
       await retrieveArticle();
       if (!isInitial) {
         loaderDiapatch(clearLoading());
@@ -118,15 +172,16 @@ export const MainView = () => {
         {/* <BreadCrumb></BreadCrumb> */}
         <Tabs tabs={TABS} setCurrentTab={setCurrentTab} />
         <div>
-          {TopicTag.map((topic) => {
+          {tagList.map((topic) => {
             return (
               <Label
                 tag
+                value={topic.id}
                 onClick={(event: SyntheticEvent, data: object) => {
-                  history.push(`/login`);
+                  handleTag(data);
                 }}
               >
-                {topic}
+                {topic.tagName}
               </Label>
             );
           })}
@@ -144,9 +199,11 @@ export const MainView = () => {
       <div className="tag-container">
         <TagList
           currentTag={currentTag}
-          tags={tagList}
+          tags={tagHotList}
           tab={currentTab}
           setCurrentTag={setCurrentTag}
+          userInfo={userInfo}
+          cateList={categoryList}
         />
         <SpeedD></SpeedD>
       </div>

@@ -11,7 +11,7 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useArticleService, useProfileService } from "../../hooks";
-import { IArticle, IProfile } from "../../models/types";
+import { IArticle, IProfile, IMyArticle } from "../../models/types";
 import { useParams } from "react-router-dom";
 import { Pagination } from "../Home/Pagination";
 import { ArticleCard } from "../Article/ArticleCard";
@@ -62,7 +62,7 @@ export default function MyArticle() {
   const articleService = useArticleService();
 
   const [profile, setProfile] = useState<IProfile>();
-  const [articleList, setArticleList] = useState<IArticle[]>([]);
+  const [articleList, setArticleList] = useState<IMyArticle[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [articleCount, setArticleCount] = useState<number>(0);
   const loaderDiapatch = useDispatch<Dispatch<LoaderAction>>();
@@ -141,7 +141,7 @@ export default function MyArticle() {
         <TabPanel value={value} index={0}>
           <Fragment>
             {articleList.map((article) => {
-              return <ArticleCard key={article.slug} article={article} />;
+              return <ArticleCard key={article.id} article={article} />;
             })}
 
             <Pagination
@@ -154,7 +154,7 @@ export default function MyArticle() {
         <TabPanel value={value} index={1}>
           <Fragment>
             {articleList.map((article) => {
-              return <ArticleCard key={article.slug} article={article} />;
+              return <ArticleCard key={article.id} article={article} />;
             })}
 
             <Pagination

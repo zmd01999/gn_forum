@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Pagination } from "../Home/Pagination";
 import { useArticleService, useProfileService } from "../../hooks";
-import { IArticle, IProfile } from "../../models/types";
+import { IArticle, IProfile, IUserInfo, IMyArticle } from "../../models/types";
 import { clearLoading, setLoading } from "../../redux/actions";
 import { LoaderAction } from "../../redux/reducers/LoaderReducer";
 import { AppState } from "../../redux/store";
@@ -24,7 +24,7 @@ interface routeProps {
   username: string;
 }
 interface p {
-  isPc? : boolean;
+  isPc?: boolean;
 }
 
 export const Profile = (props: p) => {
@@ -33,8 +33,8 @@ export const Profile = (props: p) => {
   const profileService = useProfileService();
   const articleService = useArticleService();
 
-  const [profile, setProfile] = useState<IProfile>();
-  const [articleList, setArticleList] = useState<IArticle[]>([]);
+  const [profile, setProfile] = useState<IUserInfo>();
+  const [articleList, setArticleList] = useState<IMyArticle[]>([]);
   const [currentTab, setCurrentTab] = useState<string>("posts");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [articleCount, setArticleCount] = useState<number>(0);
@@ -97,7 +97,7 @@ export const Profile = (props: p) => {
           ""
         ) : (
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <Avatar image={profile.image!} username={username} />
+            <Avatar image={profile.avatar!} username={username} />
             <FollowButton profile={profile!} />
           </div>
         )}
@@ -106,7 +106,7 @@ export const Profile = (props: p) => {
             <Tabs tabs={TABS} setCurrentTab={setCurrentTab} />
           </div>
           {articleList.map((article) => {
-            return <ArticleCard key={article.slug} article={article} />;
+            return <ArticleCard key={article.id} article={article} />;
           })}
 
           <Pagination
@@ -115,7 +115,6 @@ export const Profile = (props: p) => {
             setCurrentPage={setCurrentPage}
           />
         </Fragment>
-        
       </div>
     </div>
   );

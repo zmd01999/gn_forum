@@ -2,21 +2,21 @@ import React, { Dispatch, Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Icon } from "semantic-ui-react";
 import { useProfileService } from "../../hooks";
-import { IProfile } from "../../models/types";
+import { IProfile, IUserInfo } from "../../models/types";
 import { AppState } from "../../redux/store";
 import { NotificationAction } from "../../redux/reducers/NotifyReducer";
 import { setWarning } from "../../redux/actions";
 import { useHistory } from "react-router-dom";
 
 interface IProps {
-  profile: IProfile;
+  profile: IUserInfo;
 }
 
 export const FollowButton = ({ profile }: IProps) => {
   const profileService = useProfileService();
-  const { username } = profile;
+  const { nickname } = profile;
   const history = useHistory();
-  const [following, setFollowing] = useState<Boolean>(profile.following);
+  const [following, setFollowing] = useState<Boolean>(true);
   const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
   const { isAuthenticated, user } = useSelector(
     (state: AppState) => state.auth
@@ -30,9 +30,9 @@ export const FollowButton = ({ profile }: IProps) => {
     let res;
     try {
       if (following) {
-        res = await profileService.unfollowUser(username);
+        res = await profileService.unfollowUser(nickname);
       } else {
-        res = await profileService.followUser(username);
+        res = await profileService.followUser(nickname);
       }
       const profile = res.data.profile as IProfile;
       setFollowing(profile.following);
@@ -41,7 +41,7 @@ export const FollowButton = ({ profile }: IProps) => {
     }
   };
 
-  if (isAuthenticated && user === username) {
+  if (isAuthenticated && user === nickname) {
     // no need to follow userself
     return <Fragment></Fragment>;
   }
@@ -50,7 +50,7 @@ export const FollowButton = ({ profile }: IProps) => {
     <Fragment>
       <Button size="tiny" icon onClick={handleFollowUser}>
         <Icon name={following ? "minus" : "plus"} />
-        {following ? "Unfolloww" : "Follow"}&nbsp; {username}
+        {following ? "Unfolloww" : "Follow"}&nbsp; {nickname}
       </Button>
     </Fragment>
   );

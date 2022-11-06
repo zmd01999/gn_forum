@@ -46,10 +46,10 @@ export const Comment = ({ slug }: IProps) => {
 
   const retrieveComments = async () => {
     const res = await commentService.getComments(slug);
-    setComments(res.data.comments);
+    setComments(res.data.data);
   };
 
-  const handleCommentAction = async (type: string, id?: number) => {
+  const handleCommentAction = async (type: string, id?: string) => {
     try {
       loaderDispatch(setLoading(`begin ${type} comment`));
 
@@ -83,20 +83,22 @@ export const Comment = ({ slug }: IProps) => {
           return (
             <SemanticComment>
               <SemanticComment.Avatar
-                src={updateCreppyDefaultImage(comment.author.image!)}
+                src={updateCreppyDefaultImage(
+                  comment.author.avatar ?? "/assets/avatar.jfif"
+                )}
               />
               <SemanticComment.Content>
-                <Link to={`/profile/${comment.author.username}`}>
+                <Link to={`/profile/${comment.author.nickname}`}>
                   <SemanticComment.Author as="a">
-                    {comment.author.username}
+                    {comment.author.nickname}
                   </SemanticComment.Author>
                 </Link>
                 <SemanticComment.Metadata>
-                  <div>{comment.createdAt}</div>
+                  <div>{comment.createTime}</div>
                 </SemanticComment.Metadata>
-                <SemanticComment.Text>{comment.body}</SemanticComment.Text>
+                <SemanticComment.Text>{comment.content}</SemanticComment.Text>
                 <SemanticComment.Action>
-                  {isAuthenticated && user === comment.author.username ? (
+                  {isAuthenticated && user === comment.author.nickname ? (
                     <Popup
                       content="delete the comment"
                       trigger={

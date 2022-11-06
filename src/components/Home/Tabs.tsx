@@ -20,19 +20,18 @@ interface ITabChangeEvent {
 
 export const Tabs = ({ tabs, setCurrentTab }: IProps) => {
   const handleTabChange = (event: SyntheticEvent, data: object) => {
-      // TODO destruct activeIndex in data directly
+    // TODO destruct activeIndex in data directly
     const { activeIndex } = data as ITabChangeEvent;
     setCurrentTab(Object.keys(tabs)[Number(activeIndex)]);
   };
 
   const pan1 = Object.entries(tabs).map(([key, value]) => {
+    console.log(key);
     return {
       menuItem: value,
       render: () => <Tab.Pane key={key} attached={false}></Tab.Pane>,
     };
   });
-
-  
 
   return (
     <Fragment>

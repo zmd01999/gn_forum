@@ -11,12 +11,13 @@ export class ArticleService {
   }
 
   public createArticle(article: IArticleMeta) {
-    return this.api.post(`articles`, {
+    return this.api.post(`article/publish`, {
       article: {
         title: article.title,
-        description: article.description,
+        summary: article.summary,
+        category: article.category,
         body: article.body,
-        tagList: article.tagList,
+        tags: article.tags,
       },
     });
   }
@@ -29,30 +30,37 @@ export class ArticleService {
     return this.api.delete(`articles/${slug}`);
   }
 
-  public getArticles(paras:{page: number, tag?: string, 
-    favorited?: string,author?: string}) {
-    let parameter = "";
+  // public getArticles(paras:{page: number, tag?: string, 
+  //   favorited?: string,author?: string}) {
+  //   let parameter = "";
     
-    if (paras.tag !== undefined) {
-      parameter += `tag=${paras.tag}`;
-    }
-    if (paras.favorited !== undefined) {
-      parameter += `&favorited=${paras.favorited}`;
-    }
-    if (paras.author !==undefined) {
-      parameter += `&author=${paras.author}`;
-    }
-    return this.api.get(
-      `articles?${parameter}&${pageParameter(PER_PAGE_COUNT,paras.page)}`
+  //   if (paras.tag !== undefined) {
+  //     parameter += `tag=${paras.tag}`;
+  //   }
+  //   if (paras.favorited !== undefined) {
+  //     parameter += `&favorited=${paras.favorited}`;
+  //   }
+  //   if (paras.author !==undefined) {
+  //     parameter += `&author=${paras.author}`;
+  //   }
+  //   return this.api.get(
+  //     `articles?${parameter}&${pageParameter(PER_PAGE_COUNT,paras.page)}`
+  //   );
+  // }
+
+  public getArticles(paras:{page: number, tag?: string, 
+    favorited?: string,author?: string,}) {
+      
+    return this.api.post(
+      `article/listArticle?`,{page:paras.page,pageSize:PER_PAGE_COUNT}
     );
   }
-
   public getFeed(page:number) {
     return this.api.get(`articles/feed?${pageParameter(PER_PAGE_COUNT, page)}`)
   }
 
   public getSingleArticle(slug: string) {
-    return this.api.get(`articles/${slug}`);
+    return this.api.get(`article/${slug}`);
   }
 
   public favoriteArticle(slug: string) {
@@ -63,8 +71,18 @@ export class ArticleService {
     return this.api.delete(`articles/${slug}/favorite`);
   }
 
+  // public getTags() {
+  //   return this.api.get("tags");
+  // }
   public getTags() {
-    return this.api.get("tags");
+    return this.api.get("tags/getAllTag");
+  }
+
+  public getCategory() {
+    return this.api.get("category/findAllCategory");
+  }
+  public getCategoryById(id : string) {
+    return this.api.get(`article/view/${id}`);
   }
 
 

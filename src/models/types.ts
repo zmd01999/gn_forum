@@ -35,7 +35,7 @@ export interface IProfile {
 export interface IUserInfo {
   id: string;
   realName: string | null;
-  nickName: string | null;
+  nickname: string;
   gender: string | null;
   birthday: string | null;
   region: string | undefined;
@@ -51,10 +51,12 @@ export interface IUserInfo {
   business: string | null;
   email: string | null;
   mobilePhoneNumber: string | null;
+  avatar?:string;
 }
 
 export interface IArticle {
   slug: string;
+  id?:string;
   title: string;
   description: string;
   body: string;
@@ -65,20 +67,69 @@ export interface IArticle {
   favoritesCount: number;
   author: IProfile;
 }
-
-export interface IArticleMeta {
+export interface IMyArticle {
+  id:string;
   title: string;
-  description: string;
-  body: string;
-  tagList: string[];
+  summary: string;
+  body: {content:string};
+  tags: {                    
+    id: string,
+    tagName: string,
+    avatar: string
+}[];
+  createTime: Date | string;
+  commentCounts:number;
+  weight:number;
+  author:IUserInfo;
+  viewCounts: number;
+  thumbsCounts: number;
+  category:{
+    id:string;
+    avatar:string;
+    description:string;
+    categoryName:string;
+  };
 }
 
-export interface IComment {
-  id: number;
-  createdAt: Date;
-  updatedAt: Date;
+// export interface IArticleMeta {
+//   title: string;
+//   description: string;
+//   body: string;
+//   tagList: string[];
+// }
+export interface IArticleMeta {
+  title: string;
+  summary: string;
+  category:string;
   body: string;
-  author: IProfile;
+  tags: string[];
+}
+
+export interface MyTab {
+  id: string;
+  avatar: string;
+  name: string;
+  description: string;
+  createTime: string | Date;
+  status: string;
+}
+// export interface IComment {
+//   id: number;
+//   createdAt: Date;
+//   updatedAt: Date;
+//   body: string;
+//   author: IProfile;
+// }
+
+export interface IComment {
+  id: string;
+  content: string;
+  childrens: [];
+  createTime:Date | string;
+  level:number;
+  toUser:string;
+  body: string;
+  author: IUserInfo;
 }
 
 export interface IJWTPayload {

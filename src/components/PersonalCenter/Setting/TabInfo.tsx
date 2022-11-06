@@ -1,5 +1,5 @@
 // ** React Imports
-import { forwardRef, useState,ChangeEvent,Dispatch } from "react";
+import { forwardRef, useState, ChangeEvent, Dispatch } from "react";
 
 // ** MUI Imports
 import Grid from "@mui/material/Grid";
@@ -15,11 +15,11 @@ import CardContent from "@mui/material/CardContent";
 import FormControl from "@mui/material/FormControl";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { useSelector ,useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { AppState } from "src/redux/store";
 import { useProfileService } from "src/hooks";
 import { NotificationAction } from "src/redux/reducers/NotifyReducer";
-import {setSuccess} from "src/redux/actions";
+import { setSuccess } from "src/redux/actions";
 // ** Third Party Imports
 // import DatePicker from "react-datepicker";
 
@@ -27,15 +27,15 @@ import {setSuccess} from "src/redux/actions";
 import DatePickerWrapper from "src/@core/styles/libs/react-datepicker";
 import { ProfileService } from "src/api/ProfileService";
 import { IUserInfo } from "src/models/types";
-import { SelectChangeEvent } from '@mui/material/Select';
+import { SelectChangeEvent } from "@mui/material/Select";
 
 // interface State {
 //   introduction: string;
 
 // }
 interface userForm {
-id:any;
-introduction:string;
+  id: any;
+  introduction: string;
 }
 
 const CustomInput = forwardRef((props, ref) => {
@@ -43,37 +43,38 @@ const CustomInput = forwardRef((props, ref) => {
 });
 
 const TabInfo = () => {
-  const { id, userInfo } = useSelector(
-    (state:AppState) => state.auth
-
-    );
+  const { id, userInfo } = useSelector((state: AppState) => state.auth);
   // ** State
   const [date, setDate] = useState<Date | null | undefined>(null);
 
-  const[form, setForm] = useState<IUserInfo>({
+  const [form, setForm] = useState<IUserInfo>({
     id: userInfo.id,
     realName: userInfo.realName,
-    nickName: userInfo.nickName,
-    gender: userInfo.gender == null ? "male":userInfo.gender,
+    nickname: userInfo.nickName,
+    gender: userInfo.gender == null ? "male" : userInfo.gender,
     birthday: userInfo.birthday,
-    region: userInfo.region==null?"Chain":userInfo.region,
+    region: userInfo.region == null ? "Chain" : userInfo.region,
     qq: userInfo.qq,
     wx: userInfo.wz,
     money: userInfo.money,
     level: userInfo.level,
-    introduction: userInfo.introduction == null ? "请尽情表达自己！":userInfo.introduction,
+    introduction:
+      userInfo.introduction == null
+        ? "请尽情表达自己！"
+        : userInfo.introduction,
     business: userInfo.business,
-    email:userInfo.email == null ? "":userInfo.email,
-    mobilePhoneNumber:userInfo.mobilePhoneNumber== null ? "" : userInfo.mobilePhoneNumber,
+    email: userInfo.email == null ? "" : userInfo.email,
+    mobilePhoneNumber:
+      userInfo.mobilePhoneNumber == null ? "" : userInfo.mobilePhoneNumber,
   });
   const profileService = useProfileService();
   const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
 
   const handleChange =
-  (prop: keyof IUserInfo) => (event: ChangeEvent<HTMLInputElement>) => {
-    console.log(userInfo.id);
-    setForm({ ...form, [prop]: event.target.value });
-  };
+    (prop: keyof IUserInfo) => (event: ChangeEvent<HTMLInputElement>) => {
+      console.log(userInfo.id);
+      setForm({ ...form, [prop]: event.target.value });
+    };
 
   const handleChangeRegin = (event: SelectChangeEvent) => {
     setForm({ ...form, ["region"]: event.target.value });
@@ -109,7 +110,7 @@ const TabInfo = () => {
           </Grid> */}
           <Grid item xs={12} sm={6}>
             <TextField
-             disabled
+              disabled
               fullWidth
               type="number"
               label="电话号码"
@@ -129,7 +130,12 @@ const TabInfo = () => {
           <Grid item xs={12} sm={6}>
             <FormControl fullWidth>
               <InputLabel>国家</InputLabel>
-              <Select label="Country" defaultValue="Chain" value={form.region} onChange={handleChangeRegin}>
+              <Select
+                label="Country"
+                defaultValue="Chain"
+                value={form.region}
+                onChange={handleChangeRegin}
+              >
                 <MenuItem value="USA">USA</MenuItem>
                 <MenuItem value="UK">UK</MenuItem>
                 <MenuItem value="Chain">中国</MenuItem>
@@ -190,14 +196,15 @@ const TabInfo = () => {
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <Button variant="contained" sx={{ marginRight: 3.5 }} onClick={
-              ()=>{
-
-                return profileService.updateUser(form).then(()=> {
-                  notifyDispatch(setSuccess("更新成功"));}
-                );
-              }
-            }>
+            <Button
+              variant="contained"
+              sx={{ marginRight: 3.5 }}
+              onClick={() => {
+                return profileService.updateUser(form).then(() => {
+                  notifyDispatch(setSuccess("更新成功"));
+                });
+              }}
+            >
               保存
             </Button>
             <Button

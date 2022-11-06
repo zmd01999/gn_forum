@@ -6,13 +6,13 @@ import React, {
   useState,
 } from "react";
 import { useArticleService } from "../../hooks";
-import { IArticle } from "../../models/types";
+import { IArticle, IMyArticle } from "../../models/types";
 import ArticleItem from "./ArticleItem";
 import { Pagination } from "../Home/Pagination";
 import SpeedD from "src/components/BaseUtils/SpeedD";
 
 interface IProps {
-  articleList: IArticle[];
+  articleList: IMyArticle[];
   count: number;
   currentPage: number;
   setCurrentPage: Dispatch<SetStateAction<number>>;
@@ -27,7 +27,7 @@ export const ArticleGroup = ({
   return (
     <Fragment>
       {articleList.map((article) => {
-        return <ArticleItem key={article.slug} article={article} />;
+        return <ArticleItem key={article.id} article={article} />;
       })}
 
       <Pagination

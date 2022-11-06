@@ -8,19 +8,18 @@ export class CommentService {
     this.api = new ApiService<IComment>();
   }
 
-  public sendComment(slug: string, body: string) {
-    return this.api.post(`articles/${slug}/comments`, {
-      comment: {
-        body: body,
-      },
+  public sendComment(slug: string, content: string) {
+    return this.api.post(`article/publish`, {
+        articleId:slug,
+        content: content,
     });
   }
 
   public getComments(slug: string) {
-    return this.api.get(`articles/${slug}/comments`);
+    return this.api.get(`comments/article/${slug}`);
   }
 
-  public deleteComment(slug: string, id: number) {
+  public deleteComment(slug: string, id: string) {
     return this.api.delete(`articles/${slug}/comments/${id}`);
   }
 }

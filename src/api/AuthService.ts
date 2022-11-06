@@ -52,8 +52,9 @@ export class AuthService {
   //   return this.api.put('user',{"user":user})
   // }
 
-  private handleUserResponse(token: string) {
+  private handleUserResponse(token: string, userInfo:string) {
     setLocalStorage("token", token);
+    setLocalStorage("userInfo", userInfo);
   }
   public async register(username: string, password: string, phone: string, email: string, code: string) {
     const data = {
@@ -69,7 +70,7 @@ export class AuthService {
     return this.api.post("register", data).then(
       (res) => {
         if (res.data.success) {
-          this.handleUserResponse(res.data.data.token);
+          this.handleUserResponse(res.data.data.token, res.data.data);
           // return await Promise.resolve({"code":res.data.code,"username":res.data.data.nickname,"id":res.data.data.id});
           console.log(res.data);
         }
@@ -89,7 +90,7 @@ export class AuthService {
     return this.api.post("login", data)
       .then((res) => {
         if (res.data.success) {
-          this.handleUserResponse(res.data.data.token);
+          this.handleUserResponse(res.data.data.token,res.data.data);
           console.log(res.data.data);
         }
         return Promise.resolve(res.data);
@@ -109,7 +110,7 @@ export class AuthService {
     return this.api.post("login/sms", data)
       .then((res) => {
         if (res.data.success) {
-          this.handleUserResponse(res.data.data.token);
+          this.handleUserResponse(res.data.data.token, res.data.data);
           console.log(res.data.data);
         }
         return Promise.resolve(res.data);

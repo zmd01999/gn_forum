@@ -11,7 +11,7 @@ import {
   TextArea,
 } from "semantic-ui-react";
 import { useArticleService, useProfileService } from "../../hooks";
-import { IArticle } from "../../models/types";
+import { IArticle, IMyArticle } from "../../models/types";
 import { NotificationAction } from "../../redux/reducers/NotifyReducer";
 import {
   clearLoading,
@@ -41,21 +41,22 @@ export const ArticleView = () => {
   );
   const loaderDiapatch = useDispatch<Dispatch<LoaderAction>>();
   const notifyDiapatch = useDispatch<Dispatch<NotificationAction>>();
-  const [singleArticle, setSingleArticle] = useState<IArticle>();
+  const [singleArticle, setSingleArticle] = useState<IMyArticle>();
   const [username, setUsername] = useState<string>();
 
   const { isAuthenticated, user } = useSelector(
     (state: AppState) => state.auth
   );
-
+  const retrieveArticle = async () => {
+    const singleArticleRes = await articleService.getSingleArticle(slug);
+    const article = singleArticleRes.data.data as IMyArticle;
+    setSingleArticle(article);
+    setUsername(article.author.nickname);
+  };
   useEffect(() => {
     const retrieveSingleArticle = async () => {
       loaderDiapatch(setLoading("fetch article and comment"));
-
-      const singleArticleRes = await articleService.getSingleArticle(slug);
-      const article = singleArticleRes.data.article as IArticle;
-      setSingleArticle(article);
-      setUsername(article.author.username);
+      await retrieveArticle();
 
       loaderDiapatch(clearLoading());
     };
@@ -84,10 +85,10 @@ export const ArticleView = () => {
             <Icon name="write" size="small" />
           </div>
           &nbsp;&nbsp;
-          <Link to={`/profile/${singleArticle.author.username}`}>
+          <Link to={`/profile/${singleArticle.author.nickname}`}>
             <Avatar
-              image={singleArticle.author.image!}
-              username={singleArticle.author.username}
+              image={singleArticle.author.avatar!}
+              username={singleArticle.author.nickname}
             />
           </Link>
           &nbsp;&nbsp;&nbsp;&nbsp;
@@ -96,9 +97,9 @@ export const ArticleView = () => {
         </div>
 
         <Divider />
-        <p>{singleArticle.body}</p>
+        <p>{singleArticle.body.content}</p>
 
-        {isAuthenticated && user === singleArticle.author.username ? (
+        {isAuthenticated && user === singleArticle.author.nickname ? (
           <Fragment>
             <Link to={`/article/edit/${slug}`}>
               <Popup
