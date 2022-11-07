@@ -9,6 +9,7 @@ import logo from "src/assets/svg/logo.svg";
 import { ReactComponent as MenuIcon } from "feather-icons/dist/icons/menu.svg";
 import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
 import UserDropdown from "src/@core/layouts/components/shared-components/UserDropdown";
+import { getLocalStorage } from "src/utils.ts";
 
 const Header = tw.header`
   flex justify-between items-center
@@ -74,7 +75,7 @@ export default () => {
   const { isAuthenticated, user } = useSelector(
     (state) => state.auth
   );
-  
+  const userInfo = getLocalStorage("userInfo");
   const roundedHeaderButton = false;
   const collapseBreakpointClass = "lg" ;
   
@@ -86,7 +87,7 @@ export default () => {
       <NavLink href="/#">Contact Us</NavLink> */}
       {isAuthenticated ? (
         <Fragment>
-          <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href={`/pcenter/${user}`}>个人中心</PrimaryLink>
+          <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href={`/pcenter/${userInfo.nickname}`}>个人中心</PrimaryLink>
           <UserDropdown name={user}/>
           </Fragment>
         

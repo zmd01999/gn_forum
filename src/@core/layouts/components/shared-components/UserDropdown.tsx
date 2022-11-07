@@ -30,7 +30,7 @@ import MessageOutline from "mdi-material-ui/MessageOutline";
 import HelpCircleOutline from "mdi-material-ui/HelpCircleOutline";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { removeLocalStorage } from "src/utils";
+import { getLocalStorage, removeLocalStorage } from "src/utils";
 import { logoutUser, setSuccess } from "src/redux/actions";
 import { AuthAction } from "src/redux/reducers/AuthReducer";
 import { NotificationAction } from "src/redux/reducers/NotifyReducer";
@@ -66,7 +66,7 @@ const UserDropdown = (props: user) => {
     }
     setAnchorEl(null);
   };
-
+  const userInfo: any = getLocalStorage("userInfo");
   const styles = {
     py: 2,
     px: 4,
@@ -137,13 +137,13 @@ const UserDropdown = (props: user) => {
               }}
             >
               <Typography sx={{ fontWeight: 600 }}>
-                {props.name ?? "用户"}
+                {userInfo.nickname ?? "用户"}
               </Typography>
               <Typography
                 variant="body2"
                 sx={{ fontSize: "0.8rem", color: "text.disabled" }}
               >
-                管理员
+                用户
               </Typography>
             </Box>
           </Box>

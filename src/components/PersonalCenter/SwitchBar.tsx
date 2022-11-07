@@ -63,12 +63,14 @@ export default function SwitchBar() {
               iconPosition="start"
               label="论坛"
               {...a11yProps(0)}
+              sx={{ fontSize: 16 }}
             />
             <Tab
               icon={<Games />}
               iconPosition="start"
               label="作品"
               {...a11yProps(1)}
+              sx={{ fontSize: 16 }}
             />
             {/* <Tab
               icon={<Favorite />}
@@ -82,6 +84,7 @@ export default function SwitchBar() {
               iconPosition="start"
               label="设置"
               {...a11yProps(2)}
+              sx={{ fontSize: 16 }}
             />
             {/* <Tab
               icon={<Money />}

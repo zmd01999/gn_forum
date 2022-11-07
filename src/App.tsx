@@ -58,10 +58,6 @@ function App() {
                       {/* <header className="App-header"> */}
                       <GuardRouter Comp={Header} />
                       <Switch>
-                        <Route path="/" exact>
-                          <GuardRouter Comp={MainView} />
-                        </Route>
-
                         <Route path="/work">
                           <Work />
                         </Route>
@@ -70,12 +66,7 @@ function App() {
                           component={PersonalCenter}
                           exact
                         />
-                        <Route path="/article/edit/:slug?" exact>
-                          <ArticleEditor />
-                        </Route>
-                        <Route path="/article/:slug" exact>
-                          <ArticleView />
-                        </Route>
+
                         <Route
                           path="/profile/:username"
                           component={Profile}
@@ -91,7 +82,15 @@ function App() {
                           path="/register"
                           component={RegisterPage}
                         ></Route>
-
+                        <Route path="/article/edit/:slug?" exact>
+                          <ArticleEditor />
+                        </Route>
+                        <Route path="/article/:slug" exact>
+                          <ArticleView />
+                        </Route>
+                        <Route path="/" exact>
+                          <GuardRouter Comp={MainView} />
+                        </Route>
                         <Route component={NotFound} />
                       </Switch>
                       {/* </header> */}

@@ -9,7 +9,7 @@ import { TagList } from "src/components/Home/TagList";
 
 import "src/index.css";
 import { useArticleService } from "src/hooks";
-import { IArticle, IMyArticle, MyTab } from "src/models/types";
+import { IArticle, IMyArticle, MyTab, Itag } from "src/models/types";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "src/redux/store";
 import { LoaderAction } from "src/redux/reducers/LoaderReducer";
@@ -32,13 +32,7 @@ interface obj {
 export const MainView = () => {
   const articleService = useArticleService();
   const [articleList, setArticleList] = useState<IMyArticle[]>([]);
-  const [tagList, setTagList] = useState<
-    {
-      id: string;
-      tagName: string;
-      avatar: string;
-    }[]
-  >([]);
+  const [tagList, setTagList] = useState<Itag[]>([]);
   const [categoryList, setCategoryList] = useState<MyTab[]>([]);
 
   const [tagHotList, setHotTagList] = useState<
@@ -109,13 +103,16 @@ export const MainView = () => {
           page: currentPage,
           tag: currentTag,
         });
+
         break;
       default:
         // articleRes = await articleService.getFeed(currentPage);
-        articleRes = await articleService.getCategoryById(currentTab);
+        articleRes = await articleService.getCategoryById({
+          id: currentTab,
+          page: currentPage,
+        });
         break;
     }
-
     setArticleList(articleRes.data.data.voList);
     setCount(articleRes.data.data.total);
   };

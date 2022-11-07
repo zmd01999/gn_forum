@@ -6,6 +6,7 @@ import { Avatar, Stack, Badge } from "@mui/material";
 import Progress from "src/components/PersonalCenter/Progress";
 import { LightTooltip } from "src/components/BaseUtils/ToolTips";
 import { useSelector } from "react-redux";
+import { getLocalStorage } from "src/utils";
 
 
 const PrimaryBackgroundContainer = tw.div`py-16 lg:py-20 bg-purple-200 rounded-lg relative`
@@ -36,10 +37,10 @@ export default ({
   pushDownFooter = true
 }) => {
   const username = "aaaaaa";
-  const { user, userInfo } = useSelector(
+  const { user } = useSelector(
     (state) => state.auth
   );
-
+  const userInfo = getLocalStorage("userInfo");
   return (
     <Container css={pushDownFooter && tw`mb-20 lg:mb-24`}>
       <ContentWithPaddingXl>

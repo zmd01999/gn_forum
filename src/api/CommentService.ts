@@ -9,7 +9,7 @@ export class CommentService {
   }
 
   public sendComment(slug: string, content: string) {
-    return this.api.post(`article/publish`, {
+    return this.api.post(`comments/create`, {
         articleId:slug,
         content: content,
     });

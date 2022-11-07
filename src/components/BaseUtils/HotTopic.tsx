@@ -14,7 +14,7 @@ const HotTopic = () => {
             <Feed.Content>
               <Feed.Date content="1 day ago" />
               <Feed.Summary>
-                You added <a>Jenny Hess</a> to your <a>coworker</a> group.
+                我的 <a>单臂机器人</a> 怎么 可以 动起来.
               </Feed.Summary>
             </Feed.Content>
           </Feed.Event>
@@ -24,7 +24,7 @@ const HotTopic = () => {
             <Feed.Content>
               <Feed.Date content="3 days ago" />
               <Feed.Summary>
-                You added <a>Molly Malone</a> as a friend.
+                这个 <a>程序</a> 需要怎么调试.
               </Feed.Summary>
             </Feed.Content>
           </Feed.Event>
@@ -34,7 +34,7 @@ const HotTopic = () => {
             <Feed.Content>
               <Feed.Date content="4 days ago" />
               <Feed.Summary>
-                You added <a>Elliot Baker</a> to your <a>musicians</a> group.
+                最劲爆的 <a>机器人</a> 无人能敌.
               </Feed.Summary>
             </Feed.Content>
           </Feed.Event>

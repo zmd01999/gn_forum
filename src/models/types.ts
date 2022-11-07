@@ -100,9 +100,20 @@ export interface IMyArticle {
 export interface IArticleMeta {
   title: string;
   summary: string;
-  category:string;
-  body: string;
-  tags: string[];
+  category:{
+    id:string;
+  };
+  body: {
+    contentHtml : string;
+    content : string;
+  };
+  tags: Itag[];
+}
+
+export interface Itag {
+  id: string;
+  tagName: string;
+  avatar: string;
 }
 
 export interface MyTab {

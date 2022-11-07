@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "src/redux/store";
 import { useHistory } from "react-router";
 import { MyTab } from "src/models/types";
+import { getLocalStorage } from "src/utils";
 
 interface IProps {
   tags: {
@@ -76,7 +77,7 @@ export const TagList = ({
   };
   const { isAuthenticated } = useSelector((state: AppState) => state.auth);
   const history = useHistory();
-
+  const userInfoLocal: any = getLocalStorage("userInfo");
   return (
     <Fragment>
       <div className="mt-10 mb-8">
@@ -87,8 +88,10 @@ export const TagList = ({
             <Card>
               <Card.Content>
                 <Image floated="right" size="mini" src="/assets/avatar.jfif" />
-                <Card.Header>{userInfo.nickname ?? ""}</Card.Header>
-                <Card.Meta>{userInfo.introduction.substring(0, 8)}</Card.Meta>
+                <Card.Header>{userInfoLocal!.nickname ?? ""}</Card.Header>
+                <Card.Meta>
+                  {userInfoLocal.introduction.substring(0, 8)}
+                </Card.Meta>
                 <Card.Description>
                   <Grid columns={3} divided>
                     <Grid.Column>

@@ -8,12 +8,11 @@ import { IArticle, IUser, IMyArticle } from "../../models/types";
 import { setWarning } from "../../redux/actions";
 import { AppState } from "../../redux/store";
 import { useHistory } from "react-router-dom";
-
 interface IProps {
   iarticle: IMyArticle;
 }
 
-export const FavoriteButton = ({ iarticle }: IProps) => {
+export const FollowArtButton = ({ iarticle }: IProps) => {
   const articleService = useArticleService();
   const history = useHistory();
   const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
@@ -53,7 +52,7 @@ export const FavoriteButton = ({ iarticle }: IProps) => {
   return (
     <Fragment>
       <Button size="tiny" icon onClick={handleFavorite}>
-        <Icon name={favorited ? "heart outline" : "heart"} />
+        <Icon name={favorited ? "folder open outline" : "folder open"} />
         {favorited ? "取消点赞" : "点赞"}&nbsp; ({thumbsCounts})
       </Button>
     </Fragment>

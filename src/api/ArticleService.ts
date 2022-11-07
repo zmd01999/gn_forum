@@ -11,15 +11,7 @@ export class ArticleService {
   }
 
   public createArticle(article: IArticleMeta) {
-    return this.api.post(`article/publish`, {
-      article: {
-        title: article.title,
-        summary: article.summary,
-        category: article.category,
-        body: article.body,
-        tags: article.tags,
-      },
-    });
+    return this.api.post(`article/publish`, article);
   }
 
   public updateArticle(slug: string, article: object) {
@@ -81,9 +73,16 @@ export class ArticleService {
   public getCategory() {
     return this.api.get("category/findAllCategory");
   }
-  public getCategoryById(id : string) {
-    return this.api.get(`article/view/${id}`);
+  public getCategoryById(paras:{id : string,page:number}) {
+    return this.api.post(`article/view/`,{categoryId:paras.id,page:paras.page,pageSize:PER_PAGE_COUNT});
   }
 
+  public getMyArticle(paras:{page:number}) {
+    return this.api.post(`article/myArticle`,{page:paras.page,pageSize:PER_PAGE_COUNT});
+  }
 
+  public getTFArticle(paras:{page:number,thumbs?:number,follow?:number}) {
+    return this.api.post(`user/getArticle`,{page:paras.page,pageSize:PER_PAGE_COUNT,thumbs:paras.thumbs,follow:paras.follow});
+
+  }
 }

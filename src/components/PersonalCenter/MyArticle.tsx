@@ -41,7 +41,7 @@ function TabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <div className="w-5/6 mx-auto">{children}</div>
         </Box>
       )}
     </div>
@@ -74,33 +74,37 @@ export default function MyArticle() {
   };
 
   const retrievePublishedArticle = async () => {
-    return articleService.getArticles({
-      page: currentPage,
-      author: username,
-    });
+    return articleService.getMyArticle({ page: currentPage });
   };
 
   const retrieveFavoritedArticle = async () => {
-    return articleService.getArticles({
+    return articleService.getTFArticle({
       page: currentPage,
-      favorited: username,
+      thumbs: 1,
     });
   };
 
   const retrieveArticles = async () => {
-    // let res;
-    // switch (value) {
-    //   case 0:
-    //     res = await retrievePublishedArticle();
-    //     break;
-    //   case 1:
-    //     res = await retrieveFavoritedArticle();
-    //     break;
-    // }
-    // setArticleList(res.data.articles);
-    // setArticleCount(res.data.articlesCount);
-    setArticleList(articleList);
-    setArticleCount(1);
+    let res;
+    switch (value) {
+      case 0:
+        res = await retrievePublishedArticle();
+        setArticleList(res.data.data.voList);
+        setArticleCount(res.data.data.total);
+        break;
+      case 1:
+        res = await retrieveFavoritedArticle();
+        setArticleList(res.data.data.articles);
+        setArticleCount(res.data.data.total);
+        break;
+    }
+    // setArticleList(res.data.data.voList);
+    // setArticleCount(res.data.data.total);
+    // console.log(res.data.data.voList);
+    // console.log(res.data.data.total);
+
+    // setArticleList(articleList);
+    // setArticleCount(1);
   };
 
   useEffect(() => {
@@ -123,7 +127,8 @@ export default function MyArticle() {
         flexGrow: 1,
         bgcolor: "background.paper",
         display: "flex",
-        height: 224,
+        height: "auto",
+        width: "auto",
       }}
     >
       <Tabs
@@ -132,12 +137,12 @@ export default function MyArticle() {
         value={value}
         onChange={handleChange}
         aria-label="Vertical tabs example"
-        sx={{ borderRight: 1, borderColor: "divider" }}
+        sx={{ borderRight: 1, borderColor: "divider", fontSize: 16 }}
       >
-        <Tab label="我的帖子" {...a11yProps(0)} />
-        <Tab label="我的喜欢" {...a11yProps(1)} />
+        <Tab label="我的帖子" {...a11yProps(0)} sx={{ fontSize: 16 }} />
+        <Tab label="我的喜欢" {...a11yProps(1)} sx={{ fontSize: 16 }} />
       </Tabs>
-      <Box sx={{ mx: "auto", minHeight: "100%" }}>
+      <div className="w-5/6">
         <TabPanel value={value} index={0}>
           <Fragment>
             {articleList.map((article) => {
@@ -164,7 +169,7 @@ export default function MyArticle() {
             />
           </Fragment>{" "}
         </TabPanel>
-      </Box>
+      </div>
     </Box>
   );
 }

@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Icon, Image, Item, Label, Popup } from "semantic-ui-react";
 import { IMyArticle } from "../../models/types";
 import { FavoriteButton } from "../Home/FavoriteButton";
+import { FollowArtButton } from "src/components/Home/FollowArtButton";
 import { updateCreppyDefaultImage } from "../../utils";
 import { useHistory } from "react-router-dom";
 

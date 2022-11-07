@@ -1,10 +1,10 @@
 import produce from "immer";
 import React, {
   ChangeEvent,
-  Fragment,
   useEffect,
   useState,
   SyntheticEvent,
+  Dispatch,
 } from "react";
 import {
   Button,
@@ -15,7 +15,7 @@ import {
   Icon,
   Label,
 } from "semantic-ui-react";
-import { IArticleMeta } from "../../models/types";
+import { IArticleMeta, Itag } from "../../models/types";
 import { useArticleService } from "../../hooks";
 import { useHistory } from "react-router";
 import _ from "lodash";
@@ -23,7 +23,9 @@ import { useParams } from "react-router-dom";
 import { objectDiff } from "../../utils";
 import "src/components/Home/style.css";
 import { MyTab } from "src/models/types";
-
+import { setError, setSuccess } from "src/redux/actions";
+import { NotificationAction } from "src/redux/reducers/NotifyReducer";
+import { useDispatch } from "react-redux";
 interface routeProps {
   slug: string;
 }
@@ -33,13 +35,28 @@ export const ArticleEditor = () => {
   const { slug } = useParams<routeProps>();
   const cateList: any = history.location.state;
   const articleService = useArticleService();
+  const [tagList, setTagList] = useState<Itag[]>([]);
+
   const [article, setArticle] = useState<IArticleMeta>({
     title: "",
     summary: "",
-    category: "",
-    body: "",
-    tags: [],
+    category: {
+      id: "",
+    },
+    body: {
+      contentHtml: "",
+      content: "",
+    },
+    tags: [
+      {
+        id: "",
+        tagName: "",
+        avatar: "",
+      },
+    ],
   });
+  const [mapToCate, setMapToCate] = useState<string>("");
+
   const tags = [
     { id: "主题1", text: "Thailand" },
     { id: "主题2", text: "India" },
@@ -48,12 +65,18 @@ export const ArticleEditor = () => {
   ];
 
   const [oldArticle, setOldArticle] = useState<IArticleMeta>();
-
+  const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
   const handleCreateArticle = async () => {
     try {
       let res;
       if (slug === undefined) {
         res = await articleService.createArticle(article);
+        if (res.data.success) {
+          notifyDispatch(setSuccess("发布成功."));
+        } else {
+          notifyDispatch(setError("发布失败."));
+        }
+        history.push("/");
       } else {
         // based on api we will only update with changed value, the tricky part here is
         // users may change the value back and forth, value remains unchanged finally. That's
@@ -81,12 +104,29 @@ export const ArticleEditor = () => {
 
   const handleCates = (e: any) => {
     console.log(e);
-    setArticle({ ...article, ["category"]: e.name });
+    setArticle({ ...article, ["category"]: { id: e.value } });
+    setMapToCate(e.name);
   };
 
   const handleTags = (e: any) => {
     console.log(e);
-    setArticle({ ...article, ["tags"]: e.name.split(",") });
+    setArticle({
+      ...article,
+      ["tags"]: [
+        {
+          id: e.id,
+          tagName: e.name,
+          avatar: "",
+        },
+      ],
+    });
+  };
+  const handleBody = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    console.log(e);
+    setArticle({
+      ...article,
+      ["body"]: { content: e.target.value, contentHtml: "" },
+    });
   };
   const handleChange =
     (prop: keyof IArticleMeta) =>
@@ -99,14 +139,20 @@ export const ArticleEditor = () => {
   useEffect(() => {
     const retrieveSingleArticle = async () => {
       const res = await articleService.getSingleArticle(slug);
+
       const article: IArticleMeta = res.data.article as IArticleMeta;
       setOldArticle(article);
       setArticle(article);
     };
+    const retrieveTag = async () => {
+      const tagRes = await articleService.getTags();
 
+      setTagList(tagRes.data.data);
+    };
     if (slug !== undefined) {
       retrieveSingleArticle();
     }
+    retrieveTag();
   }, []);
 
   return (
@@ -143,9 +189,9 @@ export const ArticleEditor = () => {
             <TextArea
               name="body"
               placeholder="文章内容"
-              onChange={handleChange("body")}
+              onChange={handleBody}
               style={{ minHeight: 280 }}
-              value={article.body}
+              value={article.body.content}
             />
           </Form.Field>
           <Form.Field>
@@ -155,7 +201,7 @@ export const ArticleEditor = () => {
               name="category"
               placeholder="有关分类"
               onChange={handleChange("category")}
-              value={article.category}
+              value={mapToCate}
               required
               disabled
             />
@@ -182,9 +228,24 @@ export const ArticleEditor = () => {
               name="tags"
               placeholder="帖子标签"
               onChange={handleChange("tags")}
-              value={article.tags}
+              value={article.tags.map((tag) => tag.tagName)}
               required
             />
+            {tagList.map((tag) => {
+              return (
+                <Label
+                  as="a"
+                  onClick={(event: SyntheticEvent, data: object) =>
+                    handleTags(data)
+                  }
+                  id={tag.id}
+                  name={tag.tagName}
+                >
+                  {tag.tagName}
+                  <Icon name="delete" />
+                </Label>
+              );
+            })}
           </Form.Field>
           <Button attached="right" color="green" onClick={handleCreateArticle}>
             {slug === undefined ? "创建" : "编辑"} 帖子

@@ -50,7 +50,7 @@ export const FollowButton = ({ profile }: IProps) => {
     <Fragment>
       <Button size="tiny" icon onClick={handleFollowUser}>
         <Icon name={following ? "minus" : "plus"} />
-        {following ? "Unfolloww" : "Follow"}&nbsp; {nickname}
+        {following ? "取消关注" : "关注"}&nbsp; {nickname}
       </Button>
     </Fragment>
   );
