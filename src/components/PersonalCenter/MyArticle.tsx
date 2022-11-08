@@ -171,7 +171,9 @@ export default function MyArticle() {
         <TabPanel value={value} index={1}>
           <Fragment>
             {articleList.map((article) => {
-              return <ArticleCard key={article.id} article={article} />;
+              return (
+                <ArticleCard key={article.id} article={article} like={true} />
+              );
             })}
 
             <Pagination

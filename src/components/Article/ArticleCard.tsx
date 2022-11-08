@@ -17,10 +17,11 @@ import { FollowButton } from "../Home/FollowButton";
 
 interface IProps {
   article: IMyArticle;
+  like?: boolean;
 }
 
 // TODO need to add article link
-export const ArticleCard = ({ article }: IProps) => {
+export const ArticleCard = ({ article, like }: IProps) => {
   const history = useHistory();
 
   const gotoArticle = () => {
@@ -42,7 +43,7 @@ export const ArticleCard = ({ article }: IProps) => {
               <Image
                 floated="right"
                 as="a"
-                onClick={gotoAuthor}
+                // onClick={gotoAuthor}
                 size="mini"
                 src={updateCreppyDefaultImage(
                   article.author.avatar! ?? "assets/avatar.jfif"
@@ -51,7 +52,7 @@ export const ArticleCard = ({ article }: IProps) => {
             }
           ></Popup>
           <Card.Header onClick={gotoArticle}>{article.title}</Card.Header>
-          <Card.Meta onClick={gotoAuthor}>{article.author.nickname}</Card.Meta>
+          <Card.Meta>{article.author.nickname}</Card.Meta>
           <Card.Description onClick={gotoArticle}>
             {article.body.content}
           </Card.Description>
@@ -64,26 +65,30 @@ export const ArticleCard = ({ article }: IProps) => {
           </a>
           &nbsp;&nbsp;&nbsp;&nbsp;
           <FavoriteButton iarticle={article} />
-          <Modal
-            closeIcon
-            open={open}
-            trigger={<Icon name="delete" className="float-right" />}
-            onClose={() => setOpen(false)}
-            onOpen={() => setOpen(true)}
-          >
-            <Header icon="archive" content="删帖" />
-            <Modal.Content>
-              <p>确定要删除该帖子吗？删除后将不可恢复！</p>
-            </Modal.Content>
-            <Modal.Actions>
-              <Button color="red" onClick={() => setOpen(false)}>
-                <Icon name="remove" /> 是
-              </Button>
-              <Button color="green" onClick={() => setOpen(false)}>
-                <Icon name="checkmark" /> 否
-              </Button>
-            </Modal.Actions>
-          </Modal>
+          {like == undefined ? (
+            <Modal
+              closeIcon
+              open={open}
+              trigger={<Icon name="delete" className="float-right" />}
+              onClose={() => setOpen(false)}
+              onOpen={() => setOpen(true)}
+            >
+              <Header icon="archive" content="删帖" />
+              <Modal.Content>
+                <p>确定要删除该帖子吗？删除后将不可恢复！</p>
+              </Modal.Content>
+              <Modal.Actions>
+                <Button color="red" onClick={() => setOpen(false)}>
+                  <Icon name="remove" /> 是
+                </Button>
+                <Button color="green" onClick={() => setOpen(false)}>
+                  <Icon name="checkmark" /> 否
+                </Button>
+              </Modal.Actions>
+            </Modal>
+          ) : (
+            <></>
+          )}
         </Card.Content>
       </Card>
     </Fragment>

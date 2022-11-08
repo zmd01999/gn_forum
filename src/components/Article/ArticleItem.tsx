@@ -47,15 +47,13 @@ const ArticleItem = ({ article }: IProps) => {
               <Image
                 floated="left"
                 as="a"
-                onClick={gotoAuthor}
+                // onClick={gotoAuthor}
                 size="mini"
                 src={updateCreppyDefaultImage(article.author.avatar!)}
               />
             }
           ></Popup>
-          <span className="cinema" onClick={gotoAuthor}>
-            {article.author.nickname}
-          </span>
+          <span className="cinema">{article.author.nickname}</span>
         </Item.Meta>
         <Item.Description
           onClick={gotoArticle}
