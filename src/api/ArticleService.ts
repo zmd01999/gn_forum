@@ -56,7 +56,7 @@ export class ArticleService {
   }
 
   public favoriteArticle(slug: string) {
-    return this.api.post(`articles/${slug}/favorite`);
+    return this.api.post(`article/zan/`,{id:slug});
   }
 
   public unfavoriteArticle(slug: string) {
@@ -82,7 +82,7 @@ export class ArticleService {
   }
 
   public getTFArticle(paras:{page:number,thumbs?:number,follow?:number}) {
-    return this.api.post(`user/getArticle`,{page:paras.page,pageSize:PER_PAGE_COUNT,thumbs:paras.thumbs,follow:paras.follow});
+    return this.api.post(`article/getArticle`,{page:paras.page,pageSize:PER_PAGE_COUNT,thumbs:paras.thumbs,follow:paras.follow});
 
   }
 }

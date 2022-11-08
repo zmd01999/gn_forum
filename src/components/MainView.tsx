@@ -90,7 +90,7 @@ export const MainView = () => {
   };
 
   const retrieveArticle = async () => {
-    if (!isAuthenticated && currentTab === "feed") {
+    if (!isAuthenticated && currentTab !== "0") {
       notifyDispatch(setWarning("你需要先登录"));
       history.push("/login");
       return;
@@ -103,7 +103,8 @@ export const MainView = () => {
           page: currentPage,
           tag: currentTag,
         });
-
+        setArticleList(articleRes.data.data.voList);
+        setCount(articleRes.data.data.total);
         break;
       default:
         // articleRes = await articleService.getFeed(currentPage);
@@ -111,10 +112,10 @@ export const MainView = () => {
           id: currentTab,
           page: currentPage,
         });
+        setArticleList(articleRes.data.data.articles);
+        setCount(articleRes.data.data.total);
         break;
     }
-    setArticleList(articleRes.data.data.voList);
-    setCount(articleRes.data.data.total);
   };
 
   const memorizedSetTag = useCallback(

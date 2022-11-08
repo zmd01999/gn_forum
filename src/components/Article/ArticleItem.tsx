@@ -1,10 +1,14 @@
-import React from "react";
+import React, { Dispatch } from "react";
 import { Button, Icon, Image, Item, Label, Popup } from "semantic-ui-react";
 import { IMyArticle } from "../../models/types";
 import { FavoriteButton } from "../Home/FavoriteButton";
 import { FollowArtButton } from "src/components/Home/FollowArtButton";
 import { updateCreppyDefaultImage } from "../../utils";
 import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setWarning } from "../../redux/actions";
+import { AppState } from "../../redux/store";
+import { NotificationAction } from "../../redux/reducers/NotifyReducer";
 
 const paragraph = <Image src="/images/wireframe/short-paragraph.png" />;
 interface IProps {
@@ -12,8 +16,15 @@ interface IProps {
 }
 const ArticleItem = ({ article }: IProps) => {
   const history = useHistory();
+  const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
+  const { isAuthenticated } = useSelector((state: AppState) => state.auth);
 
   const gotoArticle = () => {
+    if (!isAuthenticated) {
+      notifyDispatch(setWarning("你需要先登录"));
+      history.push("/login");
+      return;
+    }
     history.push(`/article/${article.id}`);
   };
 

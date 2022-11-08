@@ -90,7 +90,7 @@ export const TagList = ({
                 <Image floated="right" size="mini" src="/assets/avatar.jfif" />
                 <Card.Header>{userInfoLocal!.nickname ?? ""}</Card.Header>
                 <Card.Meta>
-                  {userInfoLocal.introduction.substring(0, 8)}
+                  {`${userInfoLocal.introduction.substring(0, 8)}...`}
                 </Card.Meta>
                 <Card.Description>
                   <Grid columns={3} divided>

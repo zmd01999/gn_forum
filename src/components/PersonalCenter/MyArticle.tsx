@@ -11,10 +11,17 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useArticleService, useProfileService } from "../../hooks";
-import { IArticle, IProfile, IMyArticle } from "../../models/types";
+import {
+  IArticle,
+  IProfile,
+  IMyArticle,
+  ILikeArticle,
+} from "../../models/types";
 import { useParams } from "react-router-dom";
 import { Pagination } from "../Home/Pagination";
 import { ArticleCard } from "../Article/ArticleCard";
+import { ArticleLikeCard } from "../Article/ArticleLikeCard";
+
 import { LoaderAction } from "../../redux/reducers/LoaderReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { clearLoading, setLoading } from "../../redux/actions";
@@ -63,8 +70,12 @@ export default function MyArticle() {
 
   const [profile, setProfile] = useState<IProfile>();
   const [articleList, setArticleList] = useState<IMyArticle[]>([]);
+  const [articleLikeList, setArticleLikeList] = useState<ILikeArticle[]>([]);
+
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [articleCount, setArticleCount] = useState<number>(0);
+  const [articleLikeCount, setArticleLikeCount] = useState<number>(0);
+
   const loaderDiapatch = useDispatch<Dispatch<LoaderAction>>();
 
   const retrieveProfile = async () => {
@@ -94,15 +105,16 @@ export default function MyArticle() {
         break;
       case 1:
         res = await retrieveFavoritedArticle();
-        setArticleList(res.data.data.articles);
-        setArticleCount(res.data.data.total);
+        // setArticleLikeList(res.data.data.articles);
+        // setArticleLikeCount(res.data.data.total);
         break;
     }
     // setArticleList(res.data.data.voList);
     // setArticleCount(res.data.data.total);
     // console.log(res.data.data.voList);
     // console.log(res.data.data.total);
-
+    setArticleList(res.data.data.voList);
+    setArticleCount(res.data.data.total);
     // setArticleList(articleList);
     // setArticleCount(1);
   };

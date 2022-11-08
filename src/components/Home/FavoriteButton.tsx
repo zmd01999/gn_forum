@@ -18,9 +18,8 @@ export const FavoriteButton = ({ iarticle }: IProps) => {
   const history = useHistory();
   const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
   const [article, setArticle] = useState<IMyArticle>(iarticle);
-  const { thumbsCounts, id } = article;
+  const { thumbsCounts, id, isZan } = article;
   const { isAuthenticated } = useSelector((state: AppState) => state.auth);
-  const favorited = true;
   const handleFavorite = async () => {
     // TODO use anothe way to handle any
     // it's a little annoying here
@@ -33,16 +32,16 @@ export const FavoriteButton = ({ iarticle }: IProps) => {
 
     let res: any;
     try {
-      if (favorited) {
+      if (isZan == 1) {
         res = await articleService.unfavoriteArticle(id);
       } else {
         res = await articleService.favoriteArticle(id);
       }
-      const article = res.data.article as IMyArticle;
+      // const article = res.data.article as IMyArticle;
       setArticle(
         produce(article, (draft) => {
-          // draft.favorited = article.favorited;
-          draft.thumbsCounts = article.thumbsCounts;
+          draft.isZan = draft.isZan == 0 ? 1 : 0;
+          draft.thumbsCounts = draft.thumbsCounts + 1;
         })
       );
     } catch (error) {
@@ -53,8 +52,8 @@ export const FavoriteButton = ({ iarticle }: IProps) => {
   return (
     <Fragment>
       <Button size="tiny" icon onClick={handleFavorite}>
-        <Icon name={favorited ? "heart outline" : "heart"} />
-        {favorited ? "取消点赞" : "点赞"}&nbsp; ({thumbsCounts})
+        <Icon name={isZan == 1 ? "heart outline" : "heart"} />
+        {isZan == 1 ? "取消点赞" : "点赞"}&nbsp; ({thumbsCounts})
       </Button>
     </Fragment>
   );

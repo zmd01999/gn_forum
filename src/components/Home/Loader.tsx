@@ -4,16 +4,15 @@ import { Dimmer, Loader as SemanticLoader } from "semantic-ui-react";
 import { AppState } from "../../redux/store";
 
 export const Loader = () => {
-
   const { isLoading, messageContent } = useSelector(
     (state: AppState) => state.loader
   );
 
-  if (!isLoading &&  messageContent!=="") {
+  if (!isLoading && messageContent !== "") {
     return (
       <Dimmer active>
         <SemanticLoader size="small">
-          trying to {`${messageContent}`} ......
+          努力 {`${messageContent}`} ......
         </SemanticLoader>
       </Dimmer>
     );

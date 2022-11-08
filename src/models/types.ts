@@ -83,12 +83,28 @@ export interface IMyArticle {
   author:IUserInfo;
   viewCounts: number;
   thumbsCounts: number;
+  isZan:number;
   category:{
     id:string;
     avatar:string;
     description:string;
     categoryName:string;
   };
+}
+
+export interface ILikeArticle {
+authorId:string;
+bodyId: string;
+categoryId: number;
+commentCounts: number;
+createTime: Date | string;
+deleted: number;
+id: string;
+summary: string;
+thumbsCounts: number;
+title: string;
+viewCounts: number;
+weight: number;
 }
 
 // export interface IArticleMeta {

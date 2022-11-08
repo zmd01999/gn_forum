@@ -175,10 +175,11 @@ const TabAccount = () => {
           <Grid item xs={12} sm={6}>
             <FormControl fullWidth>
               <InputLabel>权限</InputLabel>
-              <Select label="Role" defaultValue="admin">
+              <Select label="Role" defaultValue="user">
                 <MenuItem value="admin">管理员</MenuItem>
                 <MenuItem value="author">版主</MenuItem>
                 <MenuItem value="editor">会员</MenuItem>
+                <MenuItem value="user">会员</MenuItem>
                 {/* <MenuItem value="maintainer">Maintainer</MenuItem>
                 <MenuItem value="subscriber">Subscriber</MenuItem> */}
               </Select>
