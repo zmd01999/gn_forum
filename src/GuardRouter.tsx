@@ -16,10 +16,10 @@ export const GuardRouter = ({ Comp }: props) => {
 
   useEffect(() => {
     const user = getUserFromJWT(getLocalStorage("token"));
-    const userInfo = getLocalStorage("userInfo");
+    const userInfo: any = getLocalStorage("userInfo");
     if (userInfo !== null) authDispatch(loadUserInfo(userInfo));
     if (user !== null) {
-      authDispatch(loadUser(user, "1"));
+      authDispatch(loadUser(user, userInfo.id));
     } else {
       authDispatch(logoutUser());
     }

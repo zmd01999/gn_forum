@@ -64,9 +64,9 @@ export default ({
                   <div>
                     <Stack spacing={1.2}>
                       <span className="text-2xl font-semibold text-white">
-                        {user}
+                        {userInfo.nickname}
                       </span>
-                      <Progress props={userInfo.growthValue == null ? 55 : userInfo.growthValue}></Progress>
+                      <Progress props={userInfo.growthValue}></Progress>
                     </Stack>
                   </div>
                 </Stack>
