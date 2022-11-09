@@ -41,7 +41,8 @@ export const FavoriteButton = ({ iarticle }: IProps) => {
       setArticle(
         produce(article, (draft) => {
           draft.isZan = draft.isZan == 0 ? 1 : 0;
-          draft.thumbsCounts = draft.thumbsCounts + 1;
+          draft.thumbsCounts =
+            draft.isZan == 0 ? draft.thumbsCounts - 1 : draft.thumbsCounts + 1;
         })
       );
     } catch (error) {

@@ -60,7 +60,7 @@ export class ArticleService {
   }
 
   public unfavoriteArticle(slug: string) {
-    return this.api.delete(`articles/${slug}/favorite`);
+    return this.api.post(`article/popZan`,{id:slug});
   }
 
   // public getTags() {
