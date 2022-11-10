@@ -153,6 +153,7 @@ export default function MyArticle() {
       >
         <Tab label="我的帖子" {...a11yProps(0)} sx={{ fontSize: 16 }} />
         <Tab label="我的喜欢" {...a11yProps(1)} sx={{ fontSize: 16 }} />
+        <Tab label="我的收藏" {...a11yProps(2)} sx={{ fontSize: 16 }} />
       </Tabs>
       <div className="w-5/6">
         <TabPanel value={value} index={0}>
@@ -169,6 +170,21 @@ export default function MyArticle() {
           </Fragment>
         </TabPanel>
         <TabPanel value={value} index={1}>
+          <Fragment>
+            {articleList.map((article) => {
+              return (
+                <ArticleCard key={article.id} article={article} like={true} />
+              );
+            })}
+
+            <Pagination
+              count={articleCount}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          </Fragment>{" "}
+        </TabPanel>
+        <TabPanel value={value} index={2}>
           <Fragment>
             {articleList.map((article) => {
               return (
