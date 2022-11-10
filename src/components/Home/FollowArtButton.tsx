@@ -51,7 +51,7 @@ export const FollowArtButton = ({ iarticle }: IProps) => {
 
   return (
     <Fragment>
-      <Button size="tiny" icon onClick={handleFavorite}>
+      <Button size="tiny" icon >
         <Icon name={favorited ? "folder open outline" : "folder open"} />
         {favorited ? "取消收藏" : "收藏"}&nbsp; ({thumbsCounts})
       </Button>
