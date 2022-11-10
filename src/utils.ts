@@ -1,18 +1,43 @@
+import {Dispatch} from "react";
 import { IArticleMeta, IJWTPayload } from "./models/types";
 import _ from "lodash";
 import jwtDecode from "jwt-decode";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "./redux/actions";
+import { AuthAction } from "./redux/reducers/AuthReducer";
 
 export const setLocalStorage = (key: string, token: string) => {
-  localStorage.setItem(key, JSON.stringify(token));
+  
+  const obj = {
+    token:token,
+    expire: new Date().getTime() + 1000 * 60 * 60
+};
+  localStorage.setItem(key, JSON.stringify(obj));
 };
 
+const Logout=()=> {
+  const authDispatch = useDispatch<Dispatch<AuthAction>>();
+
+  authDispatch(logoutUser());
+
+}
+
 export const getLocalStorage = (key: string): string | null => {
+
   const value = localStorage.getItem(key);
+  const time = new Date().getTime();
   if (!value) {
     return null;
   }
   try {
-    return JSON.parse(value);
+    const obj =  JSON.parse(value);
+    if (time < obj.expire) {
+      return obj.token;
+  } else {
+    Logout();
+      localStorage.removeItem("userInfo");
+      return "expire";
+  }
   } catch (error) {
     return null;
   }
@@ -32,7 +57,7 @@ const isExpValid = (date: number) => {
 };
 
 export const getUserFromJWT = (token: string | null) => {
-  if (token === null) {
+  if (token === null|| token==="expire") {
     return null;
   }
   const decoded = jwtDecode<IJWTPayload>(token); // Returns with the JwtPayload type

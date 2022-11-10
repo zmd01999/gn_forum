@@ -55,7 +55,7 @@ export const ArticleView = () => {
   };
   useEffect(() => {
     const retrieveSingleArticle = async () => {
-      loaderDiapatch(setLoading("fetch article and comment"));
+      loaderDiapatch(setLoading("获取文章"));
       await retrieveArticle();
 
       loaderDiapatch(clearLoading());
@@ -66,7 +66,7 @@ export const ArticleView = () => {
   const handleDeleteArticle = async () => {
     try {
       await articleService.deleteArticle(slug);
-      notifyDiapatch(setSuccess("Delete Article Successfully."));
+      notifyDiapatch(setSuccess("成功删除文章."));
       history.push("/");
     } catch (error: any) {
       notifyDiapatch(setError(error.data.errors));

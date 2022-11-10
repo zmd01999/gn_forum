@@ -71,6 +71,7 @@ const ArticleItem = ({ article }: IProps) => {
           </a>
           &nbsp;&nbsp;&nbsp;&nbsp;
           <FavoriteButton iarticle={article} />
+          <FollowArtButton iarticle={article} />
         </Item.Extra>
       </Item.Content>
     </Item>

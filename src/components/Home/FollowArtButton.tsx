@@ -19,7 +19,7 @@ export const FollowArtButton = ({ iarticle }: IProps) => {
   const [article, setArticle] = useState<IMyArticle>(iarticle);
   const { thumbsCounts, id } = article;
   const { isAuthenticated } = useSelector((state: AppState) => state.auth);
-  const favorited = true;
+  const favorited = false;
   const handleFavorite = async () => {
     // TODO use anothe way to handle any
     // it's a little annoying here
@@ -53,7 +53,7 @@ export const FollowArtButton = ({ iarticle }: IProps) => {
     <Fragment>
       <Button size="tiny" icon onClick={handleFavorite}>
         <Icon name={favorited ? "folder open outline" : "folder open"} />
-        {favorited ? "取消点赞" : "点赞"}&nbsp; ({thumbsCounts})
+        {favorited ? "取消收藏" : "收藏"}&nbsp; ({thumbsCounts})
       </Button>
     </Fragment>
   );

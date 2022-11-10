@@ -3,6 +3,7 @@ import React, {
   Fragment,
   SetStateAction,
   SyntheticEvent,
+  useEffect,
 } from "react";
 import {
   Card,
@@ -78,12 +79,14 @@ export const TagList = ({
   const { isAuthenticated } = useSelector((state: AppState) => state.auth);
   const history = useHistory();
   const userInfoLocal: any = getLocalStorage("userInfo");
+
   return (
     <Fragment>
       <div className="mt-10 mb-8">
         {console.log(userInfo)}
 
-        {isAuthenticated ? (
+        {isAuthenticated ||
+        (userInfoLocal !== null && userInfoLocal !== "expire") ? (
           <Card.Group>
             <Card>
               <Card.Content>

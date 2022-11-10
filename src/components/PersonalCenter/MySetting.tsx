@@ -1,5 +1,5 @@
 // ** React Imports
-import { SyntheticEvent, useState,useEffect,Dispatch } from "react";
+import { SyntheticEvent, useState, useEffect, Dispatch } from "react";
 
 // ** MUI Imports
 import Box from "@mui/material/Box";
@@ -19,13 +19,14 @@ import InformationOutline from "mdi-material-ui/InformationOutline";
 import TabInfo from "./Setting/TabInfo";
 import TabAccount from "./Setting/TabAccount";
 import TabSecurity from "./Setting/TabSecurity";
-import {IUserInfo } from "../../models/types";
+import { IUserInfo } from "../../models/types";
 import { useProfileService } from "../../hooks";
 
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { loadUserInfo, setError, setSuccess } from "src/redux/actions";
 import { AppState } from "src/redux/store";
 import { AuthAction } from "src/redux/reducers/AuthReducer";
+import { setLocalStorage } from "src/utils";
 
 // ** Third Party Styles Imports
 // import "react-datepicker/dist/react-datepicker.css";
@@ -59,18 +60,16 @@ const AccountSettings = () => {
   const profileService = useProfileService();
   const authDispatch = useDispatch<Dispatch<AuthAction>>();
 
-  const { id } = useSelector(
-    (state:AppState) => state.auth
+  const { id } = useSelector((state: AppState) => state.auth);
 
-    );
-  
   const retrieveProfile = async () => {
     const res = await profileService.getUser(id);
-    
+
     setProfile(res.data);
     console.log(res.data);
     authDispatch(loadUserInfo(res.data));
-    
+    setLocalStorage("userInfo", res.data);
+
     return true;
   };
 
@@ -80,9 +79,7 @@ const AccountSettings = () => {
     };
     loadAllData();
     window.scrollTo(0, 0);
-  },[value]);
-
-
+  }, [value]);
 
   return (
     <Card>

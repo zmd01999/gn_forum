@@ -54,7 +54,12 @@ import { useAuthService } from "../../hooks";
 import { useHistory } from "react-router";
 import { NotificationAction } from "../../redux/reducers/NotifyReducer";
 import { AuthAction } from "../../redux/reducers/AuthReducer";
-import { loadUser, setError, setSuccess,loadUserInfo } from "../../redux/actions";
+import {
+  loadUser,
+  setError,
+  setSuccess,
+  loadUserInfo,
+} from "../../redux/actions";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -148,25 +153,23 @@ const LoginPage = () => {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
-    if(values.username==""|| values.password=="") {
+    if (values.username == "" || values.password == "") {
       notifyDispatch(setError("请填写完整账号和密码"));
-      return ;
+      return;
     }
     try {
       const res = await authService.login(values.username, values.password);
       // need type strickt check to know returned object is whether a
       console.log(res.data);
-      if(res.success) {
+      if (res.success) {
         authDispatch(loadUser(res.data.nickname, res.data.id));
         authDispatch(loadUserInfo(res.data));
-  
+
         history.push(`/pcenter/${res.data.nickname}`);
         notifyDispatch(setSuccess("登录成功."));
       } else {
         notifyDispatch(setError(res.msg));
-
       }
-
     } catch (error: any) {
       notifyDispatch(setError(error.data.errors));
     }
@@ -174,22 +177,21 @@ const LoginPage = () => {
 
   const handleSubmitSms = async (event: any) => {
     event.preventDefault();
-    if(phone == "" || code=="" ) {
+    if (phone == "" || code == "") {
       notifyDispatch(setError("请填入验证码和手机号"));
-      return ;
+      return;
     }
     try {
       const res = await authService.loginSms(phone, code);
       // need type strickt check to know returned object is whether a
-      if(res.success) {
+      if (res.success) {
         authDispatch(loadUser(res.data.nickname, res.data.id));
         authDispatch(loadUserInfo(res.data));
-  
+
         history.push(`/pcenter/${res.data.nickname}`);
         notifyDispatch(setSuccess("登录成功."));
       } else {
         notifyDispatch(setError(res.msg));
-
       }
     } catch (error: any) {
       notifyDispatch(setError(error.data.errors));
@@ -390,7 +392,7 @@ const LoginPage = () => {
               <IconButton component="a" onClick={handleClickOpen}>
                 <Phone sx={{ color: "#497ce2" }} />
               </IconButton>
-              <Link to="/">
+              {/* <Link to="/">
                 <IconButton
                   component="a"
                   onClick={(e: MouseEvent<HTMLElement>) => e.preventDefault()}
@@ -420,7 +422,7 @@ const LoginPage = () => {
                 >
                   <Google sx={{ color: "#db4437" }} />
                 </IconButton>
-              </Link>
+              </Link> */}
 
               <Dialog
                 open={open}
@@ -445,8 +447,10 @@ const LoginPage = () => {
                           <InputAdornment position="end">
                             <SendCode
                               onCaptcha={() => {
-                                if(phone.length < 11 ) {
-                                  notifyDispatch(setError("请填写正确的手机号"));
+                                if (phone.length < 11) {
+                                  notifyDispatch(
+                                    setError("请填写正确的手机号")
+                                  );
                                   return true;
                                 }
                                 return authService.verifyLCode(phone);

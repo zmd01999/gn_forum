@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { loadUser, loadUserInfo, logoutUser } from "./redux/actions";
 import { AuthAction } from "./redux/reducers/AuthReducer";
 import { getLocalStorage, getUserFromJWT } from "./utils";
+import { useHistory } from "react-router-dom";
 
 interface props {
   Comp: FC;
@@ -13,11 +14,14 @@ interface props {
 // to log page directly
 export const GuardRouter = ({ Comp }: props) => {
   const authDispatch = useDispatch<Dispatch<AuthAction>>();
-
+  const history = useHistory();
   useEffect(() => {
     const user = getUserFromJWT(getLocalStorage("token"));
     const userInfo: any = getLocalStorage("userInfo");
-    if (userInfo !== null) authDispatch(loadUserInfo(userInfo));
+    if (userInfo == "expire" || userInfo == null) {
+      authDispatch(logoutUser());
+    } else if (userInfo !== null) authDispatch(loadUserInfo(userInfo));
+
     if (user !== null) {
       authDispatch(loadUser(user, userInfo.id));
     } else {

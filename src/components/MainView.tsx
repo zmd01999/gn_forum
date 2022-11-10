@@ -13,7 +13,12 @@ import { IArticle, IMyArticle, MyTab, Itag } from "src/models/types";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "src/redux/store";
 import { LoaderAction } from "src/redux/reducers/LoaderReducer";
-import { clearLoading, setLoading, setWarning } from "src/redux/actions";
+import {
+  clearLoading,
+  logoutUser,
+  setLoading,
+  setWarning,
+} from "src/redux/actions";
 import { Tabs } from "src/components/Home/Tabs";
 import { NotificationAction } from "src/redux/reducers/NotifyReducer";
 import { useHistory } from "react-router-dom";
@@ -149,6 +154,13 @@ export const MainView = () => {
     };
 
     setUserInfo(getLocalStorage("userInfo"));
+    if (
+      getLocalStorage("userInfo") == null ||
+      getLocalStorage("userInfo") == "expire"
+    ) {
+      console.log("logoutUserlogoutUser");
+      authDispatch(logoutUser());
+    }
     retrieve();
   }, []);
 
@@ -160,6 +172,13 @@ export const MainView = () => {
         loaderDiapatch(clearLoading());
       }
     };
+    if (
+      getLocalStorage("userInfo") == null ||
+      getLocalStorage("userInfo") == "expire"
+    ) {
+      console.log("logoutUserlogoutUser");
+      authDispatch(logoutUser());
+    }
     retrieve();
     window.scrollTo(0, 0);
   }, [currentPage, currentTag, currentTab]);
