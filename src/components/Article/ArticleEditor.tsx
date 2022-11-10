@@ -29,7 +29,6 @@ import { setError, setSuccess } from "src/redux/actions";
 import { NotificationAction } from "src/redux/reducers/NotifyReducer";
 import { useDispatch } from "react-redux";
 import Md from "./Md";
-import "easymde/dist/easymde.min.css";
 // Register plugins if required
 // MdEditor.use(YOUR_PLUGINS_HERE);
 
@@ -196,7 +195,7 @@ export const ArticleEditor = () => {
               value={article.body.content}
             />
           </Form.Field>
-          <Md />;
+          <Md />
           <Form.Field>
             <label>分类</label>
             <input

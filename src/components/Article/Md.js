@@ -11,7 +11,7 @@ export default class Md extends React.Component {
   async componentDidMount () {
     // Assume here to get the editor content in html format from the server
     // const htmlContent = await fetchEditorContent()
-    const htmlContent = "<p>wwww</p>";
+    const htmlContent = "<h1>wwww</h1>"
     // Use BraftEditor.createEditorState to convert html strings to editorState data needed by the editor
     this.setState({
       editorState: BraftEditor.createEditorState(htmlContent)

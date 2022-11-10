@@ -71,6 +71,10 @@ export const MainView = () => {
 
   const [TABS, setTabs] = useState<any>({
     "0": "全部",
+    "1": "最新热门",
+    "2": "最新精华",
+    "3": "最新回复",
+    "4": "最新发表",
     //   feed: "我的点赞",
   });
 
@@ -143,12 +147,7 @@ export const MainView = () => {
   useEffect(() => {
     const retrieve = async () => {
       loaderDiapatch(setLoading("获取文章中"));
-      await Promise.all([
-        retrieveArticle(),
-        retrieveTag(),
-        retrieveHotTag(),
-        retrieveCate(),
-      ]);
+      await Promise.all([retrieveArticle(), retrieveHotTag()]);
       setInitial(false);
       loaderDiapatch(clearLoading());
     };
