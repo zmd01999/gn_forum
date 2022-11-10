@@ -5,6 +5,8 @@ import React, {
   useState,
   SyntheticEvent,
   Dispatch,
+  useRef,
+  useCallback,
 } from "react";
 import {
   Button,
@@ -26,6 +28,12 @@ import { MyTab } from "src/models/types";
 import { setError, setSuccess } from "src/redux/actions";
 import { NotificationAction } from "src/redux/reducers/NotifyReducer";
 import { useDispatch } from "react-redux";
+import Md from "./Md";
+import SimpleMdeReact from "react-simplemde-editor";
+import "easymde/dist/easymde.min.css";
+// Register plugins if required
+// MdEditor.use(YOUR_PLUGINS_HERE);
+
 interface routeProps {
   slug: string;
 }
@@ -47,13 +55,7 @@ export const ArticleEditor = () => {
       contentHtml: "",
       content: "",
     },
-    tags: [
-      {
-        id: "",
-        tagName: "",
-        avatar: "",
-      },
-    ],
+    tagName: "",
   });
   const [mapToCate, setMapToCate] = useState<string>("");
 
@@ -101,26 +103,28 @@ export const ArticleEditor = () => {
       })
     );
   };
+  const [value, setValue] = useState("Initial value");
 
+  const onChange = useCallback((value: string) => {
+    setValue(value);
+  }, []);
   const handleCates = (e: any) => {
     console.log(e);
     setArticle({ ...article, ["category"]: { id: e.value } });
     setMapToCate(e.name);
   };
 
-  const handleTags = (e: any) => {
-    console.log(e);
-    setArticle({
-      ...article,
-      ["tags"]: [
-        {
-          id: e.id,
-          tagName: e.name,
-          avatar: "",
-        },
-      ],
-    });
-  };
+  // const handleTags = (e: ChangeEvent<HTMLInputElement>) => {
+  //   console.log(e.target.value);
+  //   setArticle({
+  //     ...article,
+  //     ["tags"]: [
+  //       {
+  //         tagName: e.target.value,
+  //       },
+  //     ],
+  //   });
+  // };
   const handleBody = (e: ChangeEvent<HTMLTextAreaElement>) => {
     console.log(e);
     setArticle({
@@ -173,7 +177,6 @@ export const ArticleEditor = () => {
               required
             />
           </Form.Field>
-
           <Form.Field>
             <label>简介</label>
             <input
@@ -194,6 +197,7 @@ export const ArticleEditor = () => {
               value={article.body.content}
             />
           </Form.Field>
+          <Md />;
           <Form.Field>
             <label>分类</label>
             <input
@@ -227,11 +231,11 @@ export const ArticleEditor = () => {
               // disabled={slug !== undefined}
               name="tags"
               placeholder="帖子标签"
-              onChange={handleChange("tags")}
-              value={article.tags.map((tag) => tag.tagName)}
+              onChange={handleChange("tagName")}
+              value={article.tagName}
               required
             />
-            {tagList.map((tag) => {
+            {/* {tagList.map((tag) => {
               return (
                 <Label
                   as="a"
@@ -245,7 +249,7 @@ export const ArticleEditor = () => {
                   <Icon name="delete" />
                 </Label>
               );
-            })}
+            })} */}
           </Form.Field>
           <Button attached="right" color="green" onClick={handleCreateArticle}>
             {slug === undefined ? "创建" : "编辑"} 帖子

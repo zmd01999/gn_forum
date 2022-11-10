@@ -59,9 +59,10 @@ const ArticleItem = ({ article }: IProps) => {
           onClick={gotoArticle}
         >{`${article.body.content.substring(0, 65)}...`}</Item.Description>
         <Item.Extra>
-          {article.tags.map((tag) => {
-            return <Label>{tag.tagName}</Label>;
-          })}
+          {/* {article.tags.map((tag) => {
+            return <Label>{tagName}</Label>;
+          })} */}
+          <Label>{article.tagName}</Label>
           {/* <Label>IMAX</Label>
           <Label icon="globe" content="Additional Languages" /> */}
           <a>

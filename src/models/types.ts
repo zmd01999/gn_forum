@@ -90,6 +90,7 @@ export interface IMyArticle {
     description:string;
     categoryName:string;
   };
+  tagName?:string;
 }
 
 export interface ILikeArticle {
@@ -123,7 +124,7 @@ export interface IArticleMeta {
     contentHtml : string;
     content : string;
   };
-  tags: Itag[];
+  tagName:string;
 }
 
 export interface Itag {

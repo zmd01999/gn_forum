@@ -24,6 +24,7 @@
     "apexcharts-clevision": "^3.28.5",
     "autoprefixer": "^9.8.8",
     "axios": "^0.21.1",
+    "braft-editor": "^2.3.9",
     "chroma-js": "^2.4.2",
     "feather-icons": "^4.29.0",
     "framer-motion": "^6.5.1",

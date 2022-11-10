@@ -189,7 +189,7 @@ export const MainView = () => {
         {/* <BreadCrumb></BreadCrumb> */}
         <Tabs tabs={TABS} setCurrentTab={setCurrentTab} />
         <div>
-          {tagList.map((topic) => {
+          {/* {tagList.map((topic) => {
             return (
               <Label
                 tag
@@ -201,7 +201,7 @@ export const MainView = () => {
                 {topic.tagName}
               </Label>
             );
-          })}
+          })} */}
         </div>
         <Item.Group divided>
           <ArticleGroup
