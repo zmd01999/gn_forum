@@ -29,7 +29,6 @@ import { setError, setSuccess } from "src/redux/actions";
 import { NotificationAction } from "src/redux/reducers/NotifyReducer";
 import { useDispatch } from "react-redux";
 import Md from "./Md";
-import SimpleMdeReact from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 // Register plugins if required
 // MdEditor.use(YOUR_PLUGINS_HERE);
