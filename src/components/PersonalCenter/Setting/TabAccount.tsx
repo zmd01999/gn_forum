@@ -65,7 +65,7 @@ interface routeProps {
 const TabAccount = () => {
   // ** State
   const [openAlert, setOpenAlert] = useState<boolean>(true);
-  const [imgSrc, setImgSrc] = useState<string>("/assets/avatar.jfif");
+  const [imgSrc, setImgSrc] = useState<string>("/assets/avatar.webp");
 
   const profileService = useProfileService();
   const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();

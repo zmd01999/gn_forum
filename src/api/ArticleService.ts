@@ -85,4 +85,20 @@ export class ArticleService {
     return this.api.post(`article/getArticle`,{page:paras.page,pageSize:PER_PAGE_COUNT,thumbs:paras.thumbs,follow:paras.follow});
 
   }
+  public getTopArticle(paras:{page:number,thumbs?:number,follow?:number}) {
+    return this.api.post(`article/topArticle`,{page:paras.page,pageSize:PER_PAGE_COUNT,limit:10,thumbs:paras.thumbs,follow:paras.follow});
+
+  }
+  public getLastWeightArticle(paras:{page:number,thumbs?:number,follow?:number}) {
+    return this.api.post(`article/lastWeight`,{page:paras.page,pageSize:PER_PAGE_COUNT,thumbs:paras.thumbs,follow:paras.follow});
+
+  }
+  public getLastCommentArticle(paras:{page:number,thumbs?:number,follow?:number}) {
+    return this.api.post(`article/lastCommentArticle`,{page:paras.page,pageSize:PER_PAGE_COUNT,thumbs:paras.thumbs,follow:paras.follow});
+
+  }
+  public getLastPublish(paras:{page:number,thumbs?:number,follow?:number}) {
+    return this.api.post(`article/lastPublish`,{page:paras.page,pageSize:PER_PAGE_COUNT,thumbs:paras.thumbs,follow:paras.follow});
+
+  }
 }

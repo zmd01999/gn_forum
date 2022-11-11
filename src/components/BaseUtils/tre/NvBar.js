@@ -110,7 +110,7 @@ export default () => {
   const defaultLogoLink = (
     <LogoLink href="/">
       <img src={logo} alt="logo" />
-      天才罗宝
+      趣代码世界
     </LogoLink>
   );
 

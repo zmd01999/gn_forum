@@ -104,7 +104,7 @@ const UserDropdown = (props: user) => {
           alt="John Doe"
           onClick={handleDropdownOpen}
           sx={{ width: 40, height: 40 }}
-          src="/assets/avatar.jfif"
+          src="/assets/avatar.webp"
         />
       </Badge>
       <Menu

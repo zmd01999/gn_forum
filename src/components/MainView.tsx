@@ -112,7 +112,26 @@ export const MainView = () => {
           page: currentPage,
           tag: currentTag,
         });
-
+        break;
+      case "1":
+        articleRes = await articleService.getTopArticle({
+          page: currentPage,
+        });
+        break;
+      case "2":
+        articleRes = await articleService.getLastWeightArticle({
+          page: currentPage,
+        });
+        break;
+      case "3":
+        articleRes = await articleService.getLastCommentArticle({
+          page: currentPage,
+        });
+        break;
+      case "4":
+        articleRes = await articleService.getLastPublish({
+          page: currentPage,
+        });
         break;
       default:
         // articleRes = await articleService.getFeed(currentPage);

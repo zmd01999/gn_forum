@@ -55,7 +55,7 @@ export default ({
                     <Badge badgeContent={`Lv${userInfo.level}`} color="primary">
                       <Avatar
                         alt={user}
-                        src={"/assets/avatar.jfif"}
+                        src={"/assets/avatar.webp"}
                         sx={{ width: 60, height: 60 }}
                       />
                     </Badge>

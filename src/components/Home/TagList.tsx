@@ -90,7 +90,7 @@ export const TagList = ({
           <Card.Group>
             <Card>
               <Card.Content>
-                <Image floated="right" size="mini" src="/assets/avatar.jfif" />
+                <Image floated="right" size="mini" src="/assets/avatar.webp" />
                 <Card.Header>{userInfoLocal!.nickname ?? ""}</Card.Header>
                 <Card.Meta>
                   {`${userInfoLocal.introduction.substring(0, 8)}...`}

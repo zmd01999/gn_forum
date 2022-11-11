@@ -196,7 +196,7 @@ export const ArticleEditor = () => {
             />
           </Form.Field>
           <Md />
-          <Form.Field>
+          {/* <Form.Field>
             <label>分类</label>
             <input
               // disabled={slug !== undefined}
@@ -222,7 +222,7 @@ export const ArticleEditor = () => {
                 </Label>
               );
             })}
-          </Form.Field>
+          </Form.Field> */}
           <Form.Field>
             <label>标签</label>
             <input

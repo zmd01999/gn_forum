@@ -98,5 +98,5 @@ export const updateCreppyDefaultImage = (image: string) => {
   //   return `${process.env.PUBLIC_URL}/default-avatar.jpg`;
   // }
   // return image;
-  return "/assets/avatar.jfif";
+  return "/assets/avatar.webp";
 };
