@@ -8,6 +8,7 @@ import { IArticle, IUser, IMyArticle } from "../../models/types";
 import { setWarning } from "../../redux/actions";
 import { AppState } from "../../redux/store";
 import { useHistory } from "react-router-dom";
+
 interface IProps {
   iarticle: IMyArticle;
 }
@@ -17,9 +18,8 @@ export const FollowArtButton = ({ iarticle }: IProps) => {
   const history = useHistory();
   const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
   const [article, setArticle] = useState<IMyArticle>(iarticle);
-  const { thumbsCounts, id } = article;
+  const { thumbsCounts, id, isFollow } = article;
   const { isAuthenticated } = useSelector((state: AppState) => state.auth);
-  const favorited = false;
   const handleFavorite = async () => {
     // TODO use anothe way to handle any
     // it's a little annoying here
@@ -32,16 +32,17 @@ export const FollowArtButton = ({ iarticle }: IProps) => {
 
     let res: any;
     try {
-      if (favorited) {
-        res = await articleService.unfavoriteArticle(id);
+      if (isFollow == 1) {
+        res = await articleService.unfollowArticle(id);
       } else {
-        res = await articleService.favoriteArticle(id);
+        res = await articleService.followArticle(id);
       }
-      const article = res.data.article as IMyArticle;
+      // const article = res.data.article as IMyArticle;
       setArticle(
         produce(article, (draft) => {
-          // draft.favorited = article.favorited;
-          draft.thumbsCounts = article.thumbsCounts;
+          draft.isFollow = draft.isFollow == 0 ? 1 : 0;
+          // draft.thumbsCounts =
+          //   draft.isFollow == 0 ? draft.thumbsCounts - 1 : draft.thumbsCounts + 1;
         })
       );
     } catch (error) {
@@ -51,9 +52,9 @@ export const FollowArtButton = ({ iarticle }: IProps) => {
 
   return (
     <Fragment>
-      <Button size="tiny" icon >
-        <Icon name={favorited ? "folder open outline" : "folder open"} />
-        {favorited ? "取消收藏" : "收藏"}&nbsp; ({thumbsCounts})
+      <Button size="tiny" icon onClick={handleFavorite} className="float-right">
+        <Icon name={isFollow == 1 ? "folder open outline" : "folder open"} />
+        {isFollow == 1 ? "取消收藏" : "收藏"}&nbsp;
       </Button>
     </Fragment>
   );

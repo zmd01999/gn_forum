@@ -97,8 +97,9 @@ export const ArticleView = () => {
         </div>
 
         <Divider />
-        <p>{singleArticle.body.content}</p>
-
+        <div
+          dangerouslySetInnerHTML={{ __html: singleArticle.body.contentHtml }}
+        ></div>
         {isAuthenticated && user === singleArticle.author.nickname ? (
           <Fragment>
             <Link to={`/article/edit/${slug}`}>

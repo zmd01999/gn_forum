@@ -8,10 +8,11 @@ export class CommentService {
     this.api = new ApiService<IComment>();
   }
 
-  public sendComment(slug: string, content: string) {
+  public sendComment(slug: string, content: string,toAuthorId?:string) {
     return this.api.post(`comments/create`, {
         articleId:slug,
         content: content,
+        toAuthorId:toAuthorId,
     });
   }
 

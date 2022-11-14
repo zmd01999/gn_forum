@@ -3,7 +3,14 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import { Box, Card } from "@mui/material";
-import { Forum, Favorite, Settings, Games, Money } from "@mui/icons-material";
+import {
+  Forum,
+  Favorite,
+  Settings,
+  Games,
+  Money,
+  Star,
+} from "@mui/icons-material";
 import { SettingEditor } from "../Home/SettingEditor";
 import MyWork from "./MyWork";
 import MyArticle from "./MyArticle";
@@ -72,18 +79,19 @@ export default function SwitchBar() {
               {...a11yProps(1)}
               sx={{ fontSize: 16 }}
             />
-            {/* <Tab
-              icon={<Favorite />}
+            <Tab
+              icon={<Star />}
               iconPosition="start"
-              label="收藏"
+              label="动态"
+              sx={{ fontSize: 16 }}
               {...a11yProps(2)}
-            /> */}
+            />
 
             <Tab
               icon={<Settings />}
               iconPosition="start"
               label="设置"
-              {...a11yProps(2)}
+              {...a11yProps(3)}
               sx={{ fontSize: 16 }}
             />
             {/* <Tab
@@ -102,7 +110,7 @@ export default function SwitchBar() {
           <MyWork />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <MySetting></MySetting>
+          动态
         </TabPanel>
         <TabPanel value={value} index={3}>
           <MySetting></MySetting>

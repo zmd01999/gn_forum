@@ -1,4 +1,10 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, {
+  Fragment,
+  SyntheticEvent,
+  useEffect,
+  useState,
+  Dispatch,
+} from "react";
 import { Link, useHistory } from "react-router-dom";
 import {
   Card,
@@ -14,6 +20,9 @@ import { IArticle, IMyArticle } from "../../models/types";
 import { updateCreppyDefaultImage } from "../../utils";
 import { FavoriteButton } from "../Home/FavoriteButton";
 import { FollowButton } from "../Home/FollowButton";
+import { useDispatch } from "react-redux";
+import { setSuccess, setError } from "src/redux/actions";
+import { NotificationAction } from "../../redux/reducers/NotifyReducer";
 
 interface IProps {
   article: IMyArticle;
@@ -32,6 +41,20 @@ export const ArticleCard = ({ article, like }: IProps) => {
     history.push(`/profile/${article.author.nickname}`);
   };
   const [open, setOpen] = useState(false);
+  const articleService = useArticleService();
+  const notifyDiapatch = useDispatch<Dispatch<NotificationAction>>();
+
+  const handleDelete = async (e: any) => {
+    console.log(e);
+    const res = await articleService.deleteArticle(e.value);
+    if (res.data.success) {
+      notifyDiapatch(setSuccess("成功删除文章."));
+    } else {
+      notifyDiapatch(setError("删除失败."));
+    }
+    setOpen(false);
+    window.location.reload();
+  };
 
   return (
     <Fragment>
@@ -54,7 +77,7 @@ export const ArticleCard = ({ article, like }: IProps) => {
           <Card.Header onClick={gotoArticle}>{article.title}</Card.Header>
           <Card.Meta>{article.author.nickname}</Card.Meta>
           <Card.Description onClick={gotoArticle}>
-            {article.body.content}
+            {`${article.body.content.substring(0, 64)}...`}
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
@@ -64,12 +87,11 @@ export const ArticleCard = ({ article, like }: IProps) => {
             {new Date(article.createTime).toString().split("GMT")[0]}
           </a>
           &nbsp;&nbsp;&nbsp;&nbsp;
-          <FavoriteButton iarticle={article} />
           {like == undefined ? (
             <Modal
               closeIcon
               open={open}
-              trigger={<Icon name="delete" className="float-right" />}
+              trigger={<Icon name="delete" className="float-right mx-auto" />}
               onClose={() => setOpen(false)}
               onOpen={() => setOpen(true)}
             >
@@ -78,7 +100,13 @@ export const ArticleCard = ({ article, like }: IProps) => {
                 <p>确定要删除该帖子吗？删除后将不可恢复！</p>
               </Modal.Content>
               <Modal.Actions>
-                <Button color="red" onClick={() => setOpen(false)}>
+                <Button
+                  color="red"
+                  value={article.id}
+                  onClick={(event: SyntheticEvent, data: object) =>
+                    handleDelete(data)
+                  }
+                >
                   <Icon name="remove" /> 是
                 </Button>
                 <Button color="green" onClick={() => setOpen(false)}>
@@ -89,6 +117,7 @@ export const ArticleCard = ({ article, like }: IProps) => {
           ) : (
             <></>
           )}
+          <FavoriteButton iarticle={article} />
         </Card.Content>
       </Card>
     </Fragment>

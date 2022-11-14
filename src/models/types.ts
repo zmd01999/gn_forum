@@ -71,7 +71,7 @@ export interface IMyArticle {
   id:string;
   title: string;
   summary: string;
-  body: {content:string};
+  body: {content:string, contentHtml:string};
   tags: {                    
     id: string,
     tagName: string,
@@ -84,6 +84,7 @@ export interface IMyArticle {
   viewCounts: number;
   thumbsCounts: number;
   isZan:number;
+  isFollow:number;
   category:{
     id:string;
     avatar:string;

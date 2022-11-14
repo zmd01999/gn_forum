@@ -29,6 +29,9 @@ import { setError, setSuccess } from "src/redux/actions";
 import { NotificationAction } from "src/redux/reducers/NotifyReducer";
 import { useDispatch } from "react-redux";
 import Md from "./Md";
+import BraftEditor from "braft-editor";
+import "braft-editor/dist/index.css";
+
 // Register plugins if required
 // MdEditor.use(YOUR_PLUGINS_HERE);
 
@@ -111,6 +114,7 @@ export const ArticleEditor = () => {
     setArticle({ ...article, ["category"]: { id: e.value } });
     setMapToCate(e.name);
   };
+  const [content, setContent] = useState(BraftEditor.createEditorState(null));
 
   // const handleTags = (e: ChangeEvent<HTMLInputElement>) => {
   //   console.log(e.target.value);
@@ -127,7 +131,17 @@ export const ArticleEditor = () => {
     console.log(e);
     setArticle({
       ...article,
-      ["body"]: { content: e.target.value, contentHtml: "" },
+      ["body"]: {
+        content: e.target.value,
+        contentHtml: article.body.contentHtml,
+      },
+    });
+  };
+  const handleBodyHtml = (e: any) => {
+    console.log(e.toText());
+    setArticle({
+      ...article,
+      ["body"]: { content: e.toText(), contentHtml: e.toHTML() },
     });
   };
   const handleChange =
@@ -187,15 +201,24 @@ export const ArticleEditor = () => {
           </Form.Field>
           <Form.Field>
             <label>内容</label>
-            <TextArea
+            {/* <TextArea
               name="body"
               placeholder="文章内容"
               onChange={handleBody}
               style={{ minHeight: 280 }}
               value={article.body.content}
-            />
+            /> */}
+
+            {/* <Md /> */}
+            <BraftEditor
+              value={article.body.contentHtml}
+              onChange={(editorState) => {
+                setContent(editorState);
+                handleBodyHtml(editorState);
+              }}
+              // extendControls={extendControlsIntroduce}
+            ></BraftEditor>
           </Form.Field>
-          <Md />
           {/* <Form.Field>
             <label>分类</label>
             <input

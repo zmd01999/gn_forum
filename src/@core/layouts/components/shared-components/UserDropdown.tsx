@@ -149,6 +149,12 @@ const UserDropdown = (props: user) => {
           </Box>
         </Box>
         <Divider sx={{ mt: 0, mb: 1 }} />
+        <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
+          <Box sx={styles}>
+            <MessageOutline sx={{ marginRight: 2 }} />
+            未读{userInfo.checkMessage}条动态
+          </Box>
+        </MenuItem>
         {/* <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
           <Box sx={styles}>
             <AccountOutline sx={{ marginRight: 2 }} />
@@ -187,15 +193,17 @@ const UserDropdown = (props: user) => {
           </Box>
         </MenuItem>
         <Divider /> */}
-        <MenuItem sx={{ py: 0 }} onClick={handleLogout}>
-          <LogoutVariant
-            sx={{
-              marginRight: 2,
-              fontSize: "1.375rem",
-              color: "text.secondary",
-            }}
-          />
-          注销
+        <MenuItem sx={{ p: 0 }} onClick={handleLogout}>
+          <Box sx={styles}>
+            <LogoutVariant
+              sx={{
+                marginRight: 2,
+                fontSize: "1.375rem",
+                color: "text.secondary",
+              }}
+            />
+            注销
+          </Box>
         </MenuItem>
       </Menu>
     </Fragment>

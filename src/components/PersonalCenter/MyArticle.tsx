@@ -94,6 +94,12 @@ export default function MyArticle() {
       thumbs: 1,
     });
   };
+  const retrieveFollowArticle = async () => {
+    return articleService.getTFArticle({
+      page: currentPage,
+      follow: 1,
+    });
+  };
 
   const retrieveArticles = async () => {
     let res;
@@ -108,6 +114,8 @@ export default function MyArticle() {
         // setArticleLikeList(res.data.data.articles);
         // setArticleLikeCount(res.data.data.total);
         break;
+      case 2:
+        res = await retrieveFollowArticle();
     }
     // setArticleList(res.data.data.voList);
     // setArticleCount(res.data.data.total);

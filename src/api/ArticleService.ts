@@ -19,7 +19,7 @@ export class ArticleService {
   }
 
   public deleteArticle(slug: string) {
-    return this.api.delete(`articles/${slug}`);
+    return this.api.post(`article/deleteArticle`,{id:slug});
   }
 
   // public getArticles(paras:{page: number, tag?: string, 
@@ -63,6 +63,15 @@ export class ArticleService {
     return this.api.post(`article/popZan`,{id:slug});
   }
 
+  public followArticle(slug: string) {
+    return this.api.post(`article/follow`,{id:slug});
+  }
+
+  public unfollowArticle(slug: string) {
+    return this.api.post(`article/removeArticleFollow`,{id:slug});
+  }
+
+
   // public getTags() {
   //   return this.api.get("tags");
   // }
@@ -85,8 +94,8 @@ export class ArticleService {
     return this.api.post(`article/getArticle`,{page:paras.page,pageSize:PER_PAGE_COUNT,thumbs:paras.thumbs,follow:paras.follow});
 
   }
-  public getTopArticle(paras:{page:number,thumbs?:number,follow?:number}) {
-    return this.api.post(`article/topArticle`,{page:paras.page,pageSize:PER_PAGE_COUNT,limit:10,thumbs:paras.thumbs,follow:paras.follow});
+  public getTopArticle(paras:{page:number,thumbs?:number,follow?:number,limit?:number,}) {
+    return this.api.post(`article/topArticle`,{page:paras.page,pageSize:PER_PAGE_COUNT,limit:paras.limit,thumbs:paras.thumbs,follow:paras.follow});
 
   }
   public getLastWeightArticle(paras:{page:number,thumbs?:number,follow?:number}) {
