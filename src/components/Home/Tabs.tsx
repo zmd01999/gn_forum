@@ -4,10 +4,10 @@ import React, {
   SetStateAction,
   SyntheticEvent,
 } from "react";
-import { Tab } from "semantic-ui-react";
+import { Tab, Search } from "semantic-ui-react";
 import _ from "lodash";
 import "./style.css";
-
+import { SearchInp } from "./Search";
 interface IProps {
   tabs: object;
   setCurrentTab: Dispatch<SetStateAction<string>>;
@@ -41,6 +41,8 @@ export const Tabs = ({ tabs, setCurrentTab }: IProps) => {
           menu={{ secondary: true, pointing: true }}
           panes={pan1}
         />
+        {/* <Search placeholder="搜索..." className="float-right !import" /> */}
+        <SearchInp></SearchInp>
       </div>
     </Fragment>
   );

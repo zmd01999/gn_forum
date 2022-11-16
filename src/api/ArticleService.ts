@@ -114,4 +114,7 @@ export class ArticleService {
   public getCheckArticle(paras:{page:number}) {
     return this.api.post("article/checkArticle", {page:paras.page,pageSize:PER_PAGE_COUNT})
   }
+  public searchArticle(paras:{page:number, title:string}) {
+    return this.api.post("article/searchArticle", {page:paras.page,pageSize:PER_PAGE_COUNT,title:paras.title})
+  }
 }

@@ -30,7 +30,7 @@ import {
   Content2Xl,
   ContentWithVerticalPadding,
 } from "src/components/BaseUtils/tre/Layouts";
-
+import Footer from "src/components/Home/foot";
 function App() {
   let services: IServices;
 
@@ -94,7 +94,7 @@ function App() {
                         <Route component={NotFound} />
                       </Switch>
                       {/* </header> */}
-                      {/* <Footer /> */}
+                      <Footer />
                     </div>
                   </Fragment>
                 </ServicesContext.Provider>

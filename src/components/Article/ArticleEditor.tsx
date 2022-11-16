@@ -82,6 +82,10 @@ export const ArticleEditor = () => {
           notifyDispatch(setError("文章内容不能为空"));
           return;
         }
+        if (article.tagName == "") {
+          notifyDispatch(setError("标签不能为空"));
+          return;
+        }
         if (article.tagName.length >= 5) {
           notifyDispatch(setError("标签不能大于5个字符长度"));
           return;
