@@ -28,9 +28,10 @@ import { clearLoading, setLoading } from "../../redux/actions";
 
 interface IProps {
   slug: string;
+  authorId: string;
 }
 
-export const Comment = ({ slug }: IProps) => {
+export const Comment = ({ slug, authorId }: IProps) => {
   const commentService = useCommentService();
   const [comments, setComments] = useState<IComment[]>([]);
   const [singleComment, setSingleComment] = useState<string>("");
@@ -55,7 +56,7 @@ export const Comment = ({ slug }: IProps) => {
 
       switch (type) {
         case "submit":
-          await commentService.sendComment(slug, singleComment);
+          await commentService.sendComment(slug, singleComment, authorId);
           break;
         case "delete":
           await commentService.deleteComment(slug, id!);

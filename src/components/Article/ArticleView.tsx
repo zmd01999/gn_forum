@@ -125,7 +125,7 @@ export const ArticleView = () => {
           <></>
         )}
 
-        <Comment slug={slug} />
+        <Comment slug={slug} authorId={singleArticle.author.id} />
       </div>
     </div>
   );
