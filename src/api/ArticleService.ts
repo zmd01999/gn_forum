@@ -110,4 +110,8 @@ export class ArticleService {
     return this.api.post(`article/lastPublish`,{page:paras.page,pageSize:PER_PAGE_COUNT,thumbs:paras.thumbs,follow:paras.follow});
 
   }
+
+  public getCheckArticle(paras:{page:number}) {
+    return this.api.post("article/checkArticle", {page:paras.page,pageSize:PER_PAGE_COUNT})
+  }
 }

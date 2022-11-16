@@ -28,6 +28,7 @@ import LogoutVariant from "mdi-material-ui/LogoutVariant";
 import AccountOutline from "mdi-material-ui/AccountOutline";
 import MessageOutline from "mdi-material-ui/MessageOutline";
 import HelpCircleOutline from "mdi-material-ui/HelpCircleOutline";
+import { Label } from "semantic-ui-react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getLocalStorage, removeLocalStorage } from "src/utils";
@@ -152,7 +153,7 @@ const UserDropdown = (props: user) => {
         <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
           <Box sx={styles}>
             <MessageOutline sx={{ marginRight: 2 }} />
-            未读{userInfo.checkMessage}条动态
+            未读动态<Label color="teal">{userInfo.checkMessage}</Label>
           </Box>
         </MenuItem>
         {/* <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>

@@ -72,7 +72,20 @@ export const ArticleEditor = () => {
   const handleCreateArticle = async () => {
     try {
       let res;
+
       if (slug === undefined) {
+        if (article.title == "") {
+          notifyDispatch(setError("文章标题不能为空"));
+          return;
+        }
+        if (article.body.contentHtml == "") {
+          notifyDispatch(setError("文章内容不能为空"));
+          return;
+        }
+        if (article.tagName.length >= 5) {
+          notifyDispatch(setError("标签不能大于5个字符长度"));
+          return;
+        }
         res = await articleService.createArticle(article);
         if (res.data.success) {
           notifyDispatch(setSuccess("发布成功."));

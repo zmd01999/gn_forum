@@ -92,6 +92,7 @@ export interface IMyArticle {
     categoryName:string;
   };
   tagName?:string;
+  noCheck?:string;
 }
 
 export interface ILikeArticle {

@@ -15,6 +15,7 @@ import { SettingEditor } from "../Home/SettingEditor";
 import MyWork from "./MyWork";
 import MyArticle from "./MyArticle";
 import MySetting from "./MySetting";
+import MyMessage from "./MyMessage";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -110,7 +111,7 @@ export default function SwitchBar() {
           <MyWork />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          动态
+          <MyMessage />
         </TabPanel>
         <TabPanel value={value} index={3}>
           <MySetting></MySetting>

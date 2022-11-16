@@ -8,8 +8,12 @@ export class ProfileService {
     this.api = new ApiService<IUserInfo>();
   }
 
-  public followUser(username: string) {
-    return this.api.post(`profiles/${username}/follow`);
+  public followUser(id: string) {
+    return this.api.post(`user/toUser`,{id:id});
+  }
+
+  public isFollow(id:string) {
+    return this.api.post(`user/isUserFollow`,{id:id});
   }
 
   public unfollowUser(username: string) {
