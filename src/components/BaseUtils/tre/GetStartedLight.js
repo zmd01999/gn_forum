@@ -7,6 +7,7 @@ import Progress from "src/components/PersonalCenter/Progress";
 import { LightTooltip } from "src/components/BaseUtils/ToolTips";
 import { useSelector } from "react-redux";
 import { getLocalStorage } from "src/utils";
+import { Icon } from 'semantic-ui-react'
 
 
 const PrimaryBackgroundContainer = tw.div`py-16 lg:py-20 bg-purple-200 rounded-lg relative`
@@ -73,7 +74,7 @@ export default ({
               </div>
             </TextContainer>
             <LinksContainer>
-              <PrimaryLink href={primaryLinkUrl}>{primaryLinkText}</PrimaryLink>
+              <PrimaryLink href={primaryLinkUrl}><Icon name="won"></Icon>{`${userInfo.money}金币`}</PrimaryLink>
               <SecondaryLink href={secondaryLinkUrl}>{secondaryLinkText}</SecondaryLink>
             </LinksContainer>
           </Row>

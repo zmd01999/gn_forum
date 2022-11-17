@@ -10,11 +10,13 @@ import { useHistory } from "react-router-dom";
 
 interface IProps {
   profile: IUserInfo;
+  isF?: boolean;
+  setIsF?: React.Dispatch<React.SetStateAction<boolean | undefined>>;
 }
 
-export const FollowButton = ({ profile }: IProps) => {
+export const FollowButton = ({ profile, isF, setIsF }: IProps) => {
   const profileService = useProfileService();
-  const { nickname } = profile;
+  const { nickname, id } = profile;
   const history = useHistory();
   const [following, setFollowing] = useState<Boolean>(true);
   const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
@@ -29,10 +31,13 @@ export const FollowButton = ({ profile }: IProps) => {
     }
     let res;
     try {
-      if (following) {
-        res = await profileService.unfollowUser(nickname);
+      if (isF) {
+        res = await profileService.unfollowUser(id);
       } else {
-        res = await profileService.followUser(nickname);
+        res = await profileService.followUser(id);
+      }
+      if (res.data.success && setIsF !== undefined) {
+        setIsF(!isF);
       }
       const profile = res.data.profile as IProfile;
       setFollowing(profile.following);
@@ -48,9 +53,9 @@ export const FollowButton = ({ profile }: IProps) => {
 
   return (
     <Fragment>
-      <Button size="tiny" icon>
-        <Icon name={following ? "minus" : "plus"} />
-        {following ? "取消关注" : "关注"}&nbsp; {nickname}
+      <Button size="tiny" icon onClick={handleFollowUser}>
+        <Icon name={isF ? "minus" : "plus"} />
+        {isF ? "取消关注" : "关注"}&nbsp; {nickname}
       </Button>
     </Fragment>
   );

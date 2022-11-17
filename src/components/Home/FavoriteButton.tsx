@@ -52,10 +52,21 @@ export const FavoriteButton = ({ iarticle }: IProps) => {
 
   return (
     <Fragment>
-      <Button size="tiny" icon onClick={handleFavorite} className="float-right">
+      {/* <Button size="tiny" icon onClick={handleFavorite} className="float-right">
         <Icon name={isZan == 1 ? "heart outline" : "heart"} />
-        {isZan == 1 ? "取消点赞" : "点赞"}&nbsp; ({thumbsCounts})
-      </Button>
+        {isZan == 1 ? "取消" : "点赞"}&nbsp; ({thumbsCounts})
+      </Button> */}
+      <Button
+        basic
+        color="violet"
+        content={isZan == 1 ? "取消" : "点赞"}
+        icon={isZan == 1 ? "heart outline" : "heart"}
+        label={{ as: "a", basic: true, content: thumbsCounts, color: "violet" }}
+        labelPosition="right"
+        size="tiny"
+        onClick={handleFavorite}
+        className="float-right"
+      />
     </Fragment>
   );
 };

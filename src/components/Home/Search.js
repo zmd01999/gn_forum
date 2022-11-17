@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import { useArticleService } from "src/hooks";
-
+import {Loader} from "semantic-ui-react";
 const Actions = styled.div`
   ${tw`relative max-w-xs text-center mx-auto -mr-8 float-right`}
   input {
@@ -13,22 +13,28 @@ const Actions = styled.div`
   }
 `;
 
-export const SearchInp=()=>{
+export const SearchInp=({setArticleList})=>{
     const [value, setValue] = useState("");
     const articleService = useArticleService();
+    const [loader,setLoader]=useState("0");
 
 return (
     <Actions>
     <input type="text" placeholder="" value={value} onChange={(event)=>setValue(event.target.value)}/>
     <button onClick={
         async ()=>{
+            setLoader("1")
             articleService.searchArticle({page:1, title:value}).then(
                 (res)=>{
-                    console.log(res.data)
+                   
+                    console.log(`first${loader}`)
+                    setArticleList(res.data.data.voList)
+                    setLoader("0")
+                    console.log(loader)
                 }
             );
         }
-    }>搜索</button>
+    }>{loader == "0" ? "搜索" : <Loader active inline='centered' />}</button>
   </Actions>
 );
 };

@@ -8,9 +8,11 @@ import { Tab, Search } from "semantic-ui-react";
 import _ from "lodash";
 import "./style.css";
 import { SearchInp } from "./Search";
+import { IMyArticle } from "src/models/types";
 interface IProps {
   tabs: object;
   setCurrentTab: Dispatch<SetStateAction<string>>;
+  setArticleList?: Dispatch<React.SetStateAction<IMyArticle[]>>;
 }
 
 interface ITabChangeEvent {
@@ -18,7 +20,7 @@ interface ITabChangeEvent {
   [key: string]: string;
 }
 
-export const Tabs = ({ tabs, setCurrentTab }: IProps) => {
+export const Tabs = ({ tabs, setCurrentTab, setArticleList }: IProps) => {
   const handleTabChange = (event: SyntheticEvent, data: object) => {
     // TODO destruct activeIndex in data directly
     const { activeIndex } = data as ITabChangeEvent;
@@ -42,7 +44,11 @@ export const Tabs = ({ tabs, setCurrentTab }: IProps) => {
           panes={pan1}
         />
         {/* <Search placeholder="搜索..." className="float-right !import" /> */}
-        <SearchInp></SearchInp>
+        {setArticleList !== undefined ? (
+          <SearchInp setArticleList={setArticleList}></SearchInp>
+        ) : (
+          <></>
+        )}
       </div>
     </Fragment>
   );

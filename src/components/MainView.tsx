@@ -205,7 +205,11 @@ export const MainView = () => {
     <div className="main-container">
       <div className="article-container">
         {/* <BreadCrumb></BreadCrumb> */}
-        <Tabs tabs={TABS} setCurrentTab={setCurrentTab} />
+        <Tabs
+          tabs={TABS}
+          setCurrentTab={setCurrentTab}
+          setArticleList={setArticleList}
+        />
         <div>
           {/* {tagList.map((topic) => {
             return (

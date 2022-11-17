@@ -6,6 +6,7 @@ import {
   Button,
   Divider,
   Form,
+  Grid,
   Icon,
   Label,
   Popup,
@@ -36,6 +37,7 @@ interface routeProps {
 export const ArticleView = () => {
   let { slug } = useParams<routeProps>();
   const articleService = useArticleService();
+  const profileService = useProfileService();
   const history = useHistory();
   const { isLoading, messageContent } = useSelector(
     (state: AppState) => state.loader
@@ -44,13 +46,18 @@ export const ArticleView = () => {
   const notifyDiapatch = useDispatch<Dispatch<NotificationAction>>();
   const [singleArticle, setSingleArticle] = useState<IMyArticle>();
   const [username, setUsername] = useState<string>();
-
-  const { isAuthenticated, user } = useSelector(
+  const [isF, setIsF] = useState<boolean>();
+  const { isAuthenticated, userInfo } = useSelector(
     (state: AppState) => state.auth
   );
   const retrieveArticle = async () => {
     const singleArticleRes = await articleService.getSingleArticle(slug);
     const article = singleArticleRes.data.data as IMyArticle;
+    await profileService.isFollow(article.author.id).then((res) => {
+      console.log(res.data);
+      setIsF(res.data.data);
+    });
+
     setSingleArticle(article);
     setUsername(article.author.nickname);
   };
@@ -93,7 +100,12 @@ export const ArticleView = () => {
             />
           </Link>
           &nbsp;&nbsp;&nbsp;&nbsp;
-          <FollowButton profile={singleArticle?.author} /> &nbsp;&nbsp;
+          <FollowButton
+            profile={singleArticle?.author}
+            isF={isF}
+            setIsF={setIsF}
+          />{" "}
+          &nbsp;&nbsp;
           <FavoriteButton iarticle={singleArticle!} />
         </div>
 
@@ -101,29 +113,97 @@ export const ArticleView = () => {
         <div
           dangerouslySetInnerHTML={{ __html: singleArticle.body.contentHtml }}
         ></div>
-        {isAuthenticated && user === singleArticle.author.nickname ? (
-          <Fragment>
-            <Link to={`/article/edit/${slug}`}>
-              <Popup
-                content="edit article"
-                trigger={<Button size="mini" color={"green"} icon="pencil" />}
-              />
-            </Link>
-            <Popup
-              content="delete article"
-              trigger={
-                <Button
-                  size="mini"
-                  color={"grey"}
-                  icon="trash"
-                  onClick={handleDeleteArticle}
+        <div className="my-8">
+          {isAuthenticated && userInfo.id === singleArticle.author.id ? (
+            <Fragment>
+              <Link to={`/article/edit/${slug}`}>
+                <Popup
+                  content="编辑文章"
+                  trigger={<Button size="mini" color={"green"} icon="pencil" />}
                 />
-              }
-            />
-          </Fragment>
-        ) : (
-          <></>
-        )}
+              </Link>
+              <Popup
+                content="删除文章"
+                trigger={
+                  <Button
+                    size="mini"
+                    color={"grey"}
+                    icon="trash"
+                    onClick={handleDeleteArticle}
+                  />
+                }
+              />
+            </Fragment>
+          ) : (
+            <></>
+          )}
+          {userInfo.id !== singleArticle.author.id ? (
+            <div>
+              <Popup
+                wide
+                trigger={
+                  <Button icon>
+                    {"打赏"}
+                    <Icon name="world" />
+                  </Button>
+                }
+                on="click"
+                content="对该文章作者打赏金币"
+              >
+                <Grid divided columns="equal">
+                  <Grid.Column>
+                    <Button
+                      color="blue"
+                      content="1金币"
+                      fluid
+                      onClick={() => {
+                        profileService
+                          .userReward({
+                            id: singleArticle.id,
+                            num: 1,
+                          })
+                          .then((res) => {
+                            if (res.data.success) {
+                              notifyDiapatch(
+                                setSuccess(
+                                  `成功为用户${singleArticle.author.nickname}打赏1金币.`
+                                )
+                              );
+                            }
+                          });
+                      }}
+                    />
+                  </Grid.Column>
+                  <Grid.Column>
+                    <Button
+                      color="red"
+                      content="2金币"
+                      fluid
+                      onClick={() => {
+                        profileService
+                          .userReward({
+                            id: singleArticle.id,
+                            num: 2,
+                          })
+                          .then((res) => {
+                            if (res.data.success) {
+                              notifyDiapatch(
+                                setSuccess(
+                                  `成功为用户${singleArticle.author.nickname}打赏2金币.`
+                                )
+                              );
+                            }
+                          });
+                      }}
+                    />
+                  </Grid.Column>
+                </Grid>
+              </Popup>
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
 
         <Comment slug={slug} authorId={singleArticle.author.id} />
       </div>

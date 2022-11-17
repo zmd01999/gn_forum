@@ -52,9 +52,20 @@ export const FollowArtButton = ({ iarticle }: IProps) => {
 
   return (
     <Fragment>
-      <Button size="tiny" icon onClick={handleFavorite} className="float-right">
-        <Icon name={isFollow == 1 ? "folder open outline" : "folder open"} />
-        {isFollow == 1 ? "取消收藏" : "收藏"}&nbsp;
+      <Button
+        size="tiny"
+        icon
+        onClick={handleFavorite}
+        className="float-right"
+        basic
+        color="violet"
+      >
+        <Icon
+          name={isFollow == 1 ? "folder open outline" : "folder open"}
+          basic
+          color="violet"
+        />
+        {isFollow == 1 ? "取消" : "收藏"}&nbsp;
       </Button>
     </Fragment>
   );

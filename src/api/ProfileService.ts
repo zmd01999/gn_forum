@@ -16,8 +16,8 @@ export class ProfileService {
     return this.api.post(`user/isUserFollow`,{id:id});
   }
 
-  public unfollowUser(username: string) {
-    return this.api.delete(`profiles/${username}/follow`);
+  public unfollowUser(id: string) {
+    return this.api.post(`user/cancelFollow`,{id:id});
   }
 
   public getUser(id: string) {
@@ -34,5 +34,9 @@ export class ProfileService {
         return Promise.resolve(res.data);
       }
     );
+  }
+
+  public userReward(paras:{id:string,num:number}) {
+    return this.api.post("user/reward",{id:paras.id,rewardMoney:paras.num});
   }
 }
