@@ -8,9 +8,10 @@ export class ApiService<T> {
   public async get<T>(url: string, body?: object | FormData): Promise<any> {
     return this.send(Method.Get, url, body);
   }
-  public async post<T>(url: string, body?: object | FormData): Promise<any> {
-    return this.send(Method.Post, url, body);
+  public async post<T>(url: string, body?: object | FormData,file?:boolean): Promise<any> {
+    return this.send(Method.Post, url, body,file);
   }
+
   public async delete<T>(url: string, body?: object | FormData): Promise<any> {
     return this.send(Method.Delete, url, body);
   }
@@ -21,7 +22,8 @@ export class ApiService<T> {
   private async send<T>(
     method: Method,
     url: string,
-    body?: object | FormData
+    body?: object | FormData,
+    file?:boolean,
   ): Promise<any> {
     let requestBody;
     if (body) {
@@ -31,15 +33,19 @@ export class ApiService<T> {
         // axios will stringfy json automaticaly so no need for it
         // headers.set(Header.ContentType, Type.JSON);
         // requestBody = JSON.stringify(body);
+        
       }
     }
+    const Head = file ? {'Content-Type': 'multipart/form-data'} :{};
 
     const options = {
       method: method,
       data: body,
       url: url,
-      // headers:headers,
+      headers: Head
+      
     };
+
 
     const token = getLocalStorage("token");
     if (token !== null) {

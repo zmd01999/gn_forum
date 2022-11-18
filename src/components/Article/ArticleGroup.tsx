@@ -10,7 +10,7 @@ import { IArticle, IMyArticle } from "../../models/types";
 import ArticleItem from "./ArticleItem";
 import { Pagination } from "../Home/Pagination";
 import SpeedD from "src/components/BaseUtils/SpeedD";
-
+import "./style.css";
 interface IProps {
   articleList: IMyArticle[];
   count: number;

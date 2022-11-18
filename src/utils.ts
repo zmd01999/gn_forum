@@ -100,3 +100,16 @@ export const updateCreppyDefaultImage = (image: string) => {
   // return image;
   return "/assets/avatar.webp";
 };
+
+export const  toFile= async (str:string,id:string)=> {
+  const name = id + ".txt"
+  const fileContent = new File([str], name, { type: 'multipart/form-data' })
+   const file = new FileReader()
+   file.readAsText(fileContent, 'UTF-8')
+   console.log(file)
+   // 文件上传传参是formdata格式
+   const formdata = new FormData()
+   // 模仿单文件上传给接口传参
+   formdata.append('file', fileContent)
+    return formdata
+}

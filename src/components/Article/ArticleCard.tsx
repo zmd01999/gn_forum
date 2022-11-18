@@ -14,6 +14,7 @@ import {
   Button,
   Header,
   Modal,
+  Label,
 } from "semantic-ui-react";
 import { useArticleService } from "../../hooks";
 import { IArticle, IMyArticle } from "../../models/types";
@@ -43,7 +44,7 @@ export const ArticleCard = ({ article, like }: IProps) => {
   const [open, setOpen] = useState(false);
   const articleService = useArticleService();
   const notifyDiapatch = useDispatch<Dispatch<NotificationAction>>();
-
+  const [weight, setWeight] = useState(article.weight);
   const handleDelete = async (e: any) => {
     console.log(e);
     const res = await articleService.deleteArticle(e.value);
@@ -56,10 +57,29 @@ export const ArticleCard = ({ article, like }: IProps) => {
     window.location.reload();
   };
 
+  const handleW = async (e: any) => {
+    const w: number = weight == 0 ? 1 : 0;
+    setWeight(w);
+    await articleService.weightArticle({ id: e.value, weight: w });
+  };
+
   return (
     <Fragment>
       <Card>
         <Card.Content>
+          <Label
+            color={weight == 0 ? "grey" : "violet"}
+            basic={weight == 0 ? true : false}
+            floating
+            circular
+            value={article.id}
+            onClick={(event: SyntheticEvent, data: object) => {
+              handleW(data);
+            }}
+          >
+            {weight == 0 ? "置顶" : "已置顶"}
+          </Label>
+
           <Popup
             content={article.author.nickname}
             trigger={

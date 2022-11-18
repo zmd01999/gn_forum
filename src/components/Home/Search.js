@@ -3,6 +3,10 @@ import styled from "styled-components";
 import tw from "twin.macro";
 import { useArticleService } from "src/hooks";
 import {Loader} from "semantic-ui-react";
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setWarning } from "src/redux/actions";
+
 const Actions = styled.div`
   ${tw`relative max-w-xs text-center mx-auto -mr-8 float-right`}
   input {
@@ -17,12 +21,23 @@ export const SearchInp=({setArticleList})=>{
     const [value, setValue] = useState("");
     const articleService = useArticleService();
     const [loader,setLoader]=useState("0");
-
+    const { isAuthenticated } = useSelector((state) => state.auth);
+    const history = useHistory();
+    const notifyDispatch = useDispatch();
 return (
     <Actions>
     <input type="text" placeholder="" value={value} onChange={(event)=>setValue(event.target.value)}/>
     <button onClick={
         async ()=>{
+            if(value == "") {
+                return ;
+            }
+            if(!isAuthenticated) {
+                notifyDispatch(setWarning("你需要先登录"));
+
+                history.push("/login");
+                return;
+            }
             setLoader("1")
             articleService.searchArticle({page:1, title:value}).then(
                 (res)=>{

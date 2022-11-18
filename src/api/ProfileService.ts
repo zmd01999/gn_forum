@@ -39,4 +39,8 @@ export class ProfileService {
   public userReward(paras:{id:string,num:number}) {
     return this.api.post("user/reward",{id:paras.id,rewardMoney:paras.num});
   }
+
+  public getDailyReward() {
+    return this.api.get("user/dailyReward");
+  }
 }

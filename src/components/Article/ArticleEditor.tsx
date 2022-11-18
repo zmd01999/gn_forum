@@ -22,7 +22,7 @@ import { useArticleService } from "../../hooks";
 import { useHistory } from "react-router";
 import _ from "lodash";
 import { useParams } from "react-router-dom";
-import { objectDiff } from "../../utils";
+import { getLocalStorage, objectDiff, toFile } from "../../utils";
 import "src/components/Home/style.css";
 import { MyTab } from "src/models/types";
 import { setError, setSuccess } from "src/redux/actions";
@@ -31,6 +31,7 @@ import { useDispatch } from "react-redux";
 import Md from "./Md";
 import BraftEditor from "braft-editor";
 import "braft-editor/dist/index.css";
+import { paramsToFormData } from "src/util";
 
 // Register plugins if required
 // MdEditor.use(YOUR_PLUGINS_HERE);
@@ -45,7 +46,7 @@ export const ArticleEditor = () => {
   const cateList: any = history.location.state;
   const articleService = useArticleService();
   const [tagList, setTagList] = useState<Itag[]>([]);
-
+  const user: any = getLocalStorage("userInfo");
   const [article, setArticle] = useState<IArticleMeta>({
     title: "",
     summary: "",
@@ -71,7 +72,7 @@ export const ArticleEditor = () => {
   const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
   const handleCreateArticle = async () => {
     try {
-      let res;
+      let creatRes;
 
       if (slug === undefined) {
         if (article.title == "") {
@@ -90,24 +91,36 @@ export const ArticleEditor = () => {
           notifyDispatch(setError("标签不能大于5个字符长度"));
           return;
         }
-        res = await articleService.createArticle(article);
-        if (res.data.success) {
-          notifyDispatch(setSuccess("发布成功."));
-        } else {
-          notifyDispatch(setError("发布失败."));
-        }
-        history.push("/");
+        const file: FormData = await toFile(
+          JSON.stringify(article),
+          user.id + article.title
+        );
+        articleService.cloudData(file).then((res) => {
+          if (res.data.success) {
+            console.log(res.data);
+            handleBody2Html(res.data.data);
+            articleService.createArticle(article).then((res) => {
+              console.log(res.data);
+              if (res.data.success) {
+                notifyDispatch(setSuccess("发布成功."));
+              } else {
+                notifyDispatch(setError("发布失败."));
+              }
+              history.push("/");
+            });
+          }
+        });
       } else {
         // based on api we will only update with changed value, the tricky part here is
         // users may change the value back and forth, value remains unchanged finally. That's
         // why we use `objectDiff` method to find the difference, in real(?) practice we
         // choose to put with the whole body
-        res = await articleService.updateArticle(
-          slug,
-          objectDiff(article, oldArticle!)
-        );
+        // res = await articleService.updateArticle(
+        //   slug,
+        //   objectDiff(article, oldArticle!)
+        // );
       }
-      history.push(`/article/${res.data.article.slug}`);
+      // history.push(`/article/${res.data.article.slug}`);
     } catch (error) {}
   };
 
@@ -159,6 +172,12 @@ export const ArticleEditor = () => {
     setArticle({
       ...article,
       ["body"]: { content: e.toText(), contentHtml: e.toHTML() },
+    });
+  };
+  const handleBody2Html = (e: any) => {
+    setArticle({
+      ...article,
+      ["body"]: { content: article.body.content, contentHtml: e },
     });
   };
   const handleChange =

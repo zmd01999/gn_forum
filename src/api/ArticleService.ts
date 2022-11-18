@@ -117,4 +117,12 @@ export class ArticleService {
   public searchArticle(paras:{page:number, title:string}) {
     return this.api.post("article/searchArticle", {page:paras.page,pageSize:PER_PAGE_COUNT,title:paras.title})
   }
+
+  public cloudData(json:FormData) {
+    return this.api.post("article/cosUpload",json,true);
+  }
+
+  public weightArticle(paras:{id:string, weight:number}) {
+    return this.api.post("article/weightArticle",{id:paras.id,isWeight:paras.weight});
+  }
 }

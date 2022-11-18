@@ -2,6 +2,11 @@
   background-color: green !important;
 }
 
+.ui.pagination.menu {
+  margin-top: 25%;
+
+}
+
 .comment-container .button {
   /* TODO This is a tricky fix and we'll want to make button auto responsive 
   when more comments are added */

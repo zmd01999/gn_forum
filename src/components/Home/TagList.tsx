@@ -17,7 +17,7 @@ import {
   Segment,
 } from "semantic-ui-react";
 import { NotificationAction } from "../../redux/reducers/NotifyReducer";
-import { setWarning } from "../../redux/actions";
+import { setSuccess, setWarning } from "../../redux/actions";
 import "./style.css";
 import HotTopic from "../BaseUtils/HotTopic";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,6 +25,7 @@ import { AppState } from "src/redux/store";
 import { useHistory } from "react-router";
 import { MyTab } from "src/models/types";
 import { getLocalStorage } from "src/utils";
+import { useProfileService } from "src/hooks";
 
 interface IProps {
   tags: {
@@ -60,7 +61,7 @@ export const TagList = ({
   ];
 
   const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
-
+  const profileService = useProfileService();
   const handleTagClick = (_: SyntheticEvent, data: object) => {
     const newTag = (data as any).children;
     if (tab !== "0") {
@@ -133,7 +134,20 @@ export const TagList = ({
                 </div>
               </Card.Content>
             </Card>
-            <Card fluid color="orange" header="领取今日登录奖励" />
+            <Card
+              fluid
+              color="orange"
+              header="领取今日登录奖励"
+              onClick={() => {
+                profileService.getDailyReward().then((res) => {
+                  if (res.data.success) {
+                    notifyDispatch(setSuccess(res.data.msg));
+                  } else {
+                    notifyDispatch(setWarning(res.data.msg));
+                  }
+                });
+              }}
+            />
           </Card.Group>
         ) : (
           <Card
