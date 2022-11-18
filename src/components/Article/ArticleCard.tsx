@@ -28,10 +28,11 @@ import { NotificationAction } from "../../redux/reducers/NotifyReducer";
 interface IProps {
   article: IMyArticle;
   like?: boolean;
+  isWeight?: boolean;
 }
 
 // TODO need to add article link
-export const ArticleCard = ({ article, like }: IProps) => {
+export const ArticleCard = ({ article, like, isWeight }: IProps) => {
   const history = useHistory();
 
   const gotoArticle = () => {
@@ -67,18 +68,22 @@ export const ArticleCard = ({ article, like }: IProps) => {
     <Fragment>
       <Card>
         <Card.Content>
-          <Label
-            color={weight == 0 ? "grey" : "violet"}
-            basic={weight == 0 ? true : false}
-            floating
-            circular
-            value={article.id}
-            onClick={(event: SyntheticEvent, data: object) => {
-              handleW(data);
-            }}
-          >
-            {weight == 0 ? "置顶" : "已置顶"}
-          </Label>
+          {isWeight ? (
+            <Label
+              color={weight == 0 ? "grey" : "violet"}
+              basic={weight == 0 ? true : false}
+              floating
+              circular
+              value={article.id}
+              onClick={(event: SyntheticEvent, data: object) => {
+                handleW(data);
+              }}
+            >
+              {weight == 0 ? "置顶" : "已置顶"}
+            </Label>
+          ) : (
+            <></>
+          )}
 
           <Popup
             content={article.author.nickname}
