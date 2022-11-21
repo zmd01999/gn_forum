@@ -86,8 +86,9 @@ export const TagList = ({
       <div className="mt-10 mb-8">
         {console.log(userInfo)}
 
-        {isAuthenticated ||
-        (userInfoLocal !== null && userInfoLocal !== "expire") ? (
+        {isAuthenticated &&
+        userInfoLocal !== null &&
+        userInfoLocal !== "expire" ? (
           <Card.Group>
             <Card>
               <Card.Content>
@@ -99,17 +100,29 @@ export const TagList = ({
                 <Card.Description>
                   <Grid columns={3} divided>
                     <Grid.Column>
-                      <span>1</span>
-                      <span>收藏</span>
+                      {/* <span>1</span> */}
+                      <span
+                        onClick={() => history.push(`/pcenter/${userInfo.id}`)}
+                      >
+                        我的
+                      </span>
                     </Grid.Column>
 
                     <Grid.Column verticalAlign="middle">
-                      <span>2</span>
-                      <span>关注</span>
+                      {/* <span>2</span> */}
+                      <span
+                        onClick={() => history.push(`/pcenter/${userInfo.id}`)}
+                      >
+                        喜欢
+                      </span>
                     </Grid.Column>
                     <Grid.Column verticalAlign="middle">
-                      <span>3</span>
-                      <span>喜欢</span>
+                      {/* <span>3</span> */}
+                      <span
+                        onClick={() => history.push(`/pcenter/${userInfo.id}`)}
+                      >
+                        收藏
+                      </span>
                     </Grid.Column>
                   </Grid>
                 </Card.Description>

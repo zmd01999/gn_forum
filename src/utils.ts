@@ -10,7 +10,7 @@ export const setLocalStorage = (key: string, token: string) => {
   
   const obj = {
     token:token,
-    expire: new Date().getTime() + 1000 * 60 * 60
+    expire: new Date().getTime() + 1000 * 60 * 60*6
 };
   localStorage.setItem(key, JSON.stringify(obj));
 };

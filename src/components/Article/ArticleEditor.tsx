@@ -87,7 +87,7 @@ export const ArticleEditor = () => {
           notifyDispatch(setError("标签不能为空"));
           return;
         }
-        if (article.tagName.length >= 5) {
+        if (article.tagName.length > 5) {
           notifyDispatch(setError("标签不能大于5个字符长度"));
           return;
         }
@@ -97,10 +97,8 @@ export const ArticleEditor = () => {
         );
         articleService.cloudData(file).then((res) => {
           if (res.data.success) {
-            console.log(res.data);
             handleBody2Html(res.data.data);
             articleService.createArticle(article).then((res) => {
-              console.log(res.data);
               if (res.data.success) {
                 notifyDispatch(setSuccess("发布成功."));
               } else {
@@ -168,7 +166,6 @@ export const ArticleEditor = () => {
     });
   };
   const handleBodyHtml = (e: any) => {
-    console.log(e.toText());
     setArticle({
       ...article,
       ["body"]: { content: e.toText(), contentHtml: e.toHTML() },

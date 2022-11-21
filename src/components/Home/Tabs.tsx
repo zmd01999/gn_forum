@@ -28,7 +28,6 @@ export const Tabs = ({ tabs, setCurrentTab, setArticleList }: IProps) => {
   };
 
   const pan1 = Object.entries(tabs).map(([key, value]) => {
-    console.log(key);
     return {
       menuItem: value,
       render: () => <Tab.Pane key={key} attached={false}></Tab.Pane>,
