@@ -95,7 +95,7 @@ export const TagList = ({
                 <Image floated="right" size="mini" src="/assets/avatar.webp" />
                 <Card.Header>{userInfoLocal!.nickname ?? ""}</Card.Header>
                 <Card.Meta>
-                  {userInfoLocal.introduction !== null
+                  {userInfoLocal.introduction != null
                     ? `${userInfoLocal.introduction.substring(0, 8)}...`
                     : ""}
                 </Card.Meta>
@@ -174,7 +174,7 @@ export const TagList = ({
         )}
       </div>
 
-      <div className="mb-8">
+      {/* <div className="mb-8">
         <Statistic label="TOP热度榜" value={tags.length} />
         <br />
         {tags.map(({ id, tagName, avatar }) => {
@@ -190,7 +190,7 @@ export const TagList = ({
             </Label>
           );
         })}
-      </div>
+      </div> */}
 
       <br />
       <div>{isAuthenticated ? <HotTopic></HotTopic> : <></>}</div>

@@ -24,15 +24,17 @@ import { FollowButton } from "../Home/FollowButton";
 import { useDispatch } from "react-redux";
 import { setSuccess, setError } from "src/redux/actions";
 import { NotificationAction } from "../../redux/reducers/NotifyReducer";
+import { FollowArtButton } from "../Home/FollowArtButton";
 
 interface IProps {
   article: IMyArticle;
   like?: boolean;
   isWeight?: boolean;
+  follow?: boolean;
 }
 
 // TODO need to add article link
-export const ArticleCard = ({ article, like, isWeight }: IProps) => {
+export const ArticleCard = ({ article, like, isWeight, follow }: IProps) => {
   const history = useHistory();
 
   const gotoArticle = () => {
@@ -142,7 +144,12 @@ export const ArticleCard = ({ article, like, isWeight }: IProps) => {
           ) : (
             <></>
           )}
-          <FavoriteButton iarticle={article} />
+          {follow ? <></> : <FavoriteButton iarticle={article} />}
+          {follow ? (
+            <FollowArtButton iarticle={article}></FollowArtButton>
+          ) : (
+            <></>
+          )}
         </Card.Content>
       </Card>
     </Fragment>

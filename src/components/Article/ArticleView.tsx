@@ -116,12 +116,12 @@ export const ArticleView = () => {
         <div className="my-8">
           {isAuthenticated && userInfo.id === singleArticle.author.id ? (
             <Fragment>
-              <Link to={`/article/edit/${slug}`}>
+              {/* <Link to={`/article/edit/${slug}`}>
                 <Popup
                   content="编辑文章"
                   trigger={<Button size="mini" color={"green"} icon="pencil" />}
                 />
-              </Link>
+              </Link> */}
               <Popup
                 content="删除文章"
                 trigger={

@@ -202,7 +202,12 @@ export default function MyArticle() {
           <Fragment>
             {articleList.map((article) => {
               return (
-                <ArticleCard key={article.id} article={article} like={true} />
+                <ArticleCard
+                  key={article.id}
+                  article={article}
+                  like={true}
+                  follow={true}
+                />
               );
             })}
 
