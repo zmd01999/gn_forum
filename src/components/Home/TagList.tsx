@@ -95,7 +95,9 @@ export const TagList = ({
                 <Image floated="right" size="mini" src="/assets/avatar.webp" />
                 <Card.Header>{userInfoLocal!.nickname ?? ""}</Card.Header>
                 <Card.Meta>
-                  {`${userInfoLocal.introduction.substring(0, 8)}...`}
+                  {userInfoLocal.introduction !== null
+                    ? `${userInfoLocal.introduction.substring(0, 8)}...`
+                    : ""}
                 </Card.Meta>
                 <Card.Description>
                   <Grid columns={3} divided>
@@ -191,9 +193,7 @@ export const TagList = ({
       </div>
 
       <br />
-      <div>
-        <HotTopic></HotTopic>
-      </div>
+      <div>{isAuthenticated ? <HotTopic></HotTopic> : <></>}</div>
     </Fragment>
   );
 };

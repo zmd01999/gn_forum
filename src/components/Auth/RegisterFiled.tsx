@@ -1,10 +1,4 @@
-import {
-  useState,
-  Fragment,
-  ChangeEvent,
-  MouseEvent,
-  Dispatch,
-} from "react";
+import { useState, Fragment, ChangeEvent, MouseEvent, Dispatch } from "react";
 
 // ** Next Imports
 // import Link from "next/link";
@@ -59,7 +53,6 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import Input from "@mui/material/Input";
 import SendCode from "@jiumao/rc-send-code";
-
 
 interface RFormlProps {
   children?: React.ReactNode;
@@ -122,28 +115,31 @@ export const RForm = (props: RFormlProps) => {
         );
         console.log(res.code);
 
-
         if (res.success) {
           authDispatch(loadUser(res.data.nickname, res.data.id));
-          history.push(`/pcenter/${res.data.nickname}`);
+          history.push(`/login`);
           notifyDispatch(setSuccess("注册成功."));
         } else {
-
           notifyDispatch(setError(res.msg));
-
         }
       } catch (error: any) {
         console.log(error);
         notifyDispatch(setError("注册失败"));
       }
     };
-    if(!checked) {
+    if (!checked) {
       notifyDispatch(setError("请同意隐私协议"));
-    } else if(values.username==""||values.password==""||values.phone==""||values.email==""||values.code=="") {
+    } else if (
+      values.username == "" ||
+      values.password == "" ||
+      values.phone == "" ||
+      values.email == "" ||
+      values.code == ""
+    ) {
       notifyDispatch(setError("请将信息填写完全"));
-    } else if(values.password.length < 6){
+    } else if (values.password.length < 6) {
       notifyDispatch(setError("密码必须大于等于6位"));
-    }else {
+    } else {
       registerUser();
     }
   };
@@ -383,7 +379,7 @@ export const RForm = (props: RFormlProps) => {
                 <InputAdornment position="end">
                   <SendCode
                     onCaptcha={() => {
-                      if(values.phone.length < 11 ) {
+                      if (values.phone.length < 11) {
                         notifyDispatch(setError("请填写正确的手机号"));
                         return true;
                       }
@@ -395,10 +391,9 @@ export const RForm = (props: RFormlProps) => {
             />
           </FormControl>
           <FormControlLabel
-            control={<Checkbox 
-              checked={checked}
-            onChange={handleCheckChange}
-            />}
+            control={
+              <Checkbox checked={checked} onChange={handleCheckChange} />
+            }
             label={
               <Fragment>
                 <span>同意</span>
