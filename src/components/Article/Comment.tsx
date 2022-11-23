@@ -84,9 +84,7 @@ export const Comment = ({ slug, authorId }: IProps) => {
           return (
             <SemanticComment>
               <SemanticComment.Avatar
-                src={updateCreppyDefaultImage(
-                  comment.author.avatar ?? "/assets/avatar.jfif"
-                )}
+                src={updateCreppyDefaultImage(comment.author.avatar ?? null)}
               />
               <SemanticComment.Content>
                 <Link to={`/profile/${comment.author.nickname}`}>
