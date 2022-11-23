@@ -32,6 +32,7 @@ import { useSelector, useDispatch } from "react-redux";
 // ** Icons Imports
 import Close from "mdi-material-ui/Close";
 import { AppState } from "src/redux/store";
+import { updateCreppyDefaultImage } from "src/utils";
 
 const ImgStyled = styled("img")(({ theme }) => ({
   width: 120,
@@ -65,11 +66,13 @@ interface routeProps {
 const TabAccount = () => {
   // ** State
   const [openAlert, setOpenAlert] = useState<boolean>(true);
-  const [imgSrc, setImgSrc] = useState<string>("/assets/avatar.webp");
 
   const profileService = useProfileService();
   const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
   const { id, userInfo } = useSelector((state: AppState) => state.auth);
+  const [imgSrc, setImgSrc] = useState<string>(
+    updateCreppyDefaultImage(userInfo.avatar)
+  );
 
   const [form, setForm] = useState<IUserInfo>({
     id: userInfo.id,
@@ -91,10 +94,10 @@ const TabAccount = () => {
     email: userInfo.email == null ? "" : userInfo.email,
     mobilePhoneNumber:
       userInfo.mobilePhoneNumber == null ? "" : userInfo.mobilePhoneNumber,
+    avatar: userInfo.avatar,
   });
   const handleChange =
     (prop: keyof IUserInfo) => (event: ChangeEvent<HTMLInputElement>) => {
-      console.log(userInfo.id);
       setForm({ ...form, [prop]: event.target.value });
     };
   const onChange = (file: ChangeEvent) => {
@@ -104,6 +107,15 @@ const TabAccount = () => {
       reader.onload = () => setImgSrc(reader.result as string);
 
       reader.readAsDataURL(files[0]);
+      const formdata = new FormData();
+      // 模仿单文件上传给接口传参
+      formdata.append("file", files[0]);
+      profileService.updateAvartar(formdata).then((res) => {
+        if (res.data.success) {
+          setForm({ ...form, ["avatar"]: res.data.data });
+          notifyDispatch(setSuccess("确认上传请点击保存"));
+        }
+      });
     }
   };
   const { username } = useParams<routeProps>();

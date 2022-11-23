@@ -31,7 +31,11 @@ import HelpCircleOutline from "mdi-material-ui/HelpCircleOutline";
 import { Label } from "semantic-ui-react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getLocalStorage, removeLocalStorage } from "src/utils";
+import {
+  getLocalStorage,
+  removeLocalStorage,
+  updateCreppyDefaultImage,
+} from "src/utils";
 import { logoutUser, setSuccess } from "src/redux/actions";
 import { AuthAction } from "src/redux/reducers/AuthReducer";
 import { NotificationAction } from "src/redux/reducers/NotifyReducer";
@@ -105,7 +109,7 @@ const UserDropdown = (props: user) => {
           alt="John Doe"
           onClick={handleDropdownOpen}
           sx={{ width: 40, height: 40 }}
-          src="/assets/avatar.webp"
+          src={updateCreppyDefaultImage(userInfo.avatar)}
         />
       </Badge>
       <Menu

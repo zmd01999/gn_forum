@@ -43,4 +43,8 @@ export class ProfileService {
   public getDailyReward() {
     return this.api.get("user/dailyReward");
   }
+
+  public updateAvartar(json:any) {
+    return this.api.post("article/cosUpload",json,true);
+  }
 }

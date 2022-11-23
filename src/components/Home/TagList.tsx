@@ -24,7 +24,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "src/redux/store";
 import { useHistory } from "react-router";
 import { MyTab } from "src/models/types";
-import { getLocalStorage } from "src/utils";
+import { getLocalStorage, updateCreppyDefaultImage } from "src/utils";
 import { useProfileService } from "src/hooks";
 
 interface IProps {
@@ -92,7 +92,11 @@ export const TagList = ({
           <Card.Group>
             <Card>
               <Card.Content>
-                <Image floated="right" size="mini" src="/assets/avatar.webp" />
+                <Image
+                  floated="right"
+                  size="mini"
+                  src={updateCreppyDefaultImage(userInfoLocal.avatar)}
+                />
                 <Card.Header>{userInfoLocal!.nickname ?? ""}</Card.Header>
                 <Card.Meta>
                   {userInfoLocal.introduction != null
@@ -163,6 +167,7 @@ export const TagList = ({
                 });
               }}
             />
+            <HotTopic></HotTopic>
           </Card.Group>
         ) : (
           <Card
@@ -193,7 +198,7 @@ export const TagList = ({
       </div> */}
 
       <br />
-      <div>{isAuthenticated ? <HotTopic></HotTopic> : <></>}</div>
+      {/* <div>{isAuthenticated ? <HotTopic></HotTopic> : <></>}</div> */}
     </Fragment>
   );
 };

@@ -49,7 +49,6 @@ export const ArticleCard = ({ article, like, isWeight, follow }: IProps) => {
   const notifyDiapatch = useDispatch<Dispatch<NotificationAction>>();
   const [weight, setWeight] = useState(article.weight);
   const handleDelete = async (e: any) => {
-    console.log(e);
     const res = await articleService.deleteArticle(e.value);
     if (res.data.success) {
       notifyDiapatch(setSuccess("成功删除文章."));

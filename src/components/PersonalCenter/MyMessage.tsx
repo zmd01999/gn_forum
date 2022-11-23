@@ -1,7 +1,7 @@
 import { Dispatch, SyntheticEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { Icon, Label, Message } from "semantic-ui-react";
+import { Icon, Label, Message, Placeholder } from "semantic-ui-react";
 import { IMyArticle } from "src/models/types";
 import { setLoading, clearLoading } from "src/redux/actions";
 import { LoaderAction } from "src/redux/reducers/LoaderReducer";
@@ -39,22 +39,50 @@ const MyMessage = () => {
   }, [currentPage]);
   return (
     <>
-      {articleList.map((art) => {
-        return (
-          <>
-            <Message icon info>
-              <Icon name="inbox" />
-              <Message.Content id={art.id} onClick={(e: any) => gotoArticle(e)}>
-                <Message.Header id={art.id}>{art.title}</Message.Header>
-                {`${art.body.content.substring(0, 64)}...`}
-                <Label id={art.id} color="teal" className="float-right">
-                  共{art.noCheck ?? 22}条回复未读
-                </Label>
-              </Message.Content>
-            </Message>
-          </>
-        );
-      })}
+      {articleList.length == 0 ? (
+        <>
+          <Message positive>
+            <Message.Header>您目前没有消息</Message.Header>
+            {/* <p>
+              Go to your <b>special offers</b> page to see now.
+            </p> */}
+          </Message>
+          <Placeholder>
+            <Placeholder.Paragraph>
+              <Placeholder.Line />
+              <Placeholder.Line />
+              <Placeholder.Line />
+              <Placeholder.Line />
+              <Placeholder.Line />
+            </Placeholder.Paragraph>
+            <Placeholder.Paragraph>
+              <Placeholder.Line />
+              <Placeholder.Line />
+              <Placeholder.Line />
+            </Placeholder.Paragraph>
+          </Placeholder>
+        </>
+      ) : (
+        articleList.map((art) => {
+          return (
+            <>
+              <Message icon info>
+                <Icon name="inbox" />
+                <Message.Content
+                  id={art.id}
+                  onClick={(e: any) => gotoArticle(e)}
+                >
+                  <Message.Header id={art.id}>{art.title}</Message.Header>
+                  {`${art.body.content.substring(0, 64)}...`}
+                  <Label id={art.id} color="teal" className="float-right">
+                    共{art.noCheck ?? 22}条回复未读
+                  </Label>
+                </Message.Content>
+              </Message>
+            </>
+          );
+        })
+      )}
     </>
   );
 };

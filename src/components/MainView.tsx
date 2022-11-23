@@ -176,7 +176,6 @@ export const MainView = () => {
       getLocalStorage("userInfo") == null ||
       getLocalStorage("userInfo") == "expire"
     ) {
-      console.log("logoutUserlogoutUser");
       authDispatch(logoutUser());
     }
     retrieve();
@@ -194,7 +193,6 @@ export const MainView = () => {
       getLocalStorage("userInfo") == null ||
       getLocalStorage("userInfo") == "expire"
     ) {
-      console.log("logoutUserlogoutUser");
       authDispatch(logoutUser());
     }
     retrieve();

@@ -72,7 +72,6 @@ const TabInfo = () => {
 
   const handleChange =
     (prop: keyof IUserInfo) => (event: ChangeEvent<HTMLInputElement>) => {
-      console.log(userInfo.id);
       setForm({ ...form, [prop]: event.target.value });
     };
 

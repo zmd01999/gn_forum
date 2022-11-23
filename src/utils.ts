@@ -92,13 +92,16 @@ export const objectDiff = (a1: IArticleMeta, a2: IArticleMeta) => {
   return s;
 };
 
-export const updateCreppyDefaultImage = (image: string) => {
+export const updateCreppyDefaultImage = (image: string|null) => {
   // Am I the only one that thinks default avatar is creppy ?
   // if (image === "https://static.productionready.io/images/smiley-cyrus.jpg") {
   //   return `${process.env.PUBLIC_URL}/default-avatar.jpg`;
   // }
-  // return image;
-  return "/assets/avatar.webp";
+  if(image === null || image === "NULL") {
+    return "/assets/avatar.webp";
+  } else {
+    return "https://"+image;
+  }
 };
 
 export const  toFile= async (str:string,id:string)=> {
