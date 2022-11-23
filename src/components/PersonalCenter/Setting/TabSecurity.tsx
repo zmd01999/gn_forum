@@ -1,5 +1,5 @@
 // ** React Imports
-import { ChangeEvent, MouseEvent, useState,Dispatch } from "react";
+import { ChangeEvent, MouseEvent, useState, Dispatch } from "react";
 
 // ** MUI Imports
 import Box from "@mui/material/Box";
@@ -20,11 +20,14 @@ import EyeOutline from "mdi-material-ui/EyeOutline";
 import KeyOutline from "mdi-material-ui/KeyOutline";
 import EyeOffOutline from "mdi-material-ui/EyeOffOutline";
 import LockOpenOutline from "mdi-material-ui/LockOpenOutline";
-import {useAuthService} from "src/hooks";
-import{useSelector,useDispatch} from "react-redux";
+import { useAuthService } from "src/hooks";
+import { useSelector, useDispatch } from "react-redux";
 import { AppState } from "src/redux/store";
+import TextField from "@mui/material/TextField";
+import { loadUser, setError, setSuccess } from "src/redux/actions";
 import { NotificationAction } from "src/redux/reducers/NotifyReducer";
-import {setError, setSuccess} from "src/redux/actions";
+
+import SendCode from "@jiumao/rc-send-code";
 interface State {
   newPassword: string;
   currentPassword: string;
@@ -32,20 +35,20 @@ interface State {
   confirmNewPassword: string;
   showCurrentPassword: boolean;
   showConfirmNewPassword: boolean;
+  phone: string;
+  code: string;
 }
 
 const TabSecurity = () => {
-
-  const { id } = useSelector(
-    (state:AppState) => state.auth
-
-    );
-    const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
+  const { id } = useSelector((state: AppState) => state.auth);
+  const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
 
   // ** States
   const [values, setValues] = useState<State>({
     newPassword: "",
     currentPassword: "",
+    phone: "",
+    code: "",
     showNewPassword: false,
     confirmNewPassword: "",
     showCurrentPassword: false,
@@ -132,7 +135,38 @@ const TabSecurity = () => {
                   />
                 </FormControl>
               </Grid>
-
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  id="phone"
+                  label="手机"
+                  value={values.phone}
+                  onChange={handleNewPasswordChange("phone")}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl fullWidth>
+                  <InputLabel htmlFor="standard-code">验证码</InputLabel>
+                  <OutlinedInput
+                    id="standard-code"
+                    value={values.code}
+                    onChange={handleNewPasswordChange("code")}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <SendCode
+                          onCaptcha={() => {
+                            if (values.phone.length < 11) {
+                              notifyDispatch(setError("请填写正确的手机号"));
+                              return true;
+                            }
+                            return authService.verifyCode(values.phone);
+                          }}
+                        />
+                      </InputAdornment>
+                    }
+                  />
+                </FormControl>
+              </Grid>
               <Grid item xs={12} sx={{ marginTop: 6 }}>
                 <FormControl fullWidth>
                   <InputLabel htmlFor="account-settings-new-password">
@@ -261,17 +295,27 @@ const TabSecurity = () => {
         </Box>
 
         <Box sx={{ mt: 11 }}>
-          <Button variant="contained" sx={{ marginRight: 3.5 }} onClick={
-            ()=>{
-              if(values.confirmNewPassword != values.newPassword) {
+          <Button
+            variant="contained"
+            sx={{ marginRight: 3.5 }}
+            onClick={() => {
+              if (values.confirmNewPassword != values.newPassword) {
                 notifyDispatch(setError("两次密码不一致"));
                 return;
               }
-              return authService.updatePwd(id, values.currentPassword, values.newPassword).then(
-                ()=> {notifyDispatch(setSuccess("更改成功"));}
-              );
-            }
-          }>
+              return authService
+                .updatePwd(
+                  id,
+                  values.currentPassword,
+                  values.newPassword,
+                  values.phone,
+                  values.code
+                )
+                .then(() => {
+                  notifyDispatch(setSuccess("更改成功"));
+                });
+            }}
+          >
             保存
           </Button>
           <Button

@@ -82,7 +82,7 @@ const TabAccount = () => {
     birthday: userInfo.birthday,
     region: userInfo.region == null ? "中国" : userInfo.region,
     qq: userInfo.qq,
-    wx: userInfo.wz,
+    wx: userInfo.wx,
     money: userInfo.money,
     level: userInfo.level,
     introduction:
@@ -216,7 +216,24 @@ const TabAccount = () => {
               onChange={handleChange("business")}
             />
           </Grid>
-
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              label="微信"
+              placeholder="example"
+              value={form.wx}
+              onChange={handleChange("wx")}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              label="QQ"
+              placeholder="12345678"
+              value={form.qq}
+              onChange={handleChange("qq")}
+            />
+          </Grid>
           {/* {openAlert ? (
             <Grid item xs={12} sx={{ mb: 3 }}>
               <Alert

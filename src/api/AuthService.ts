@@ -143,11 +143,13 @@ export class AuthService {
     return this.api.post(`/sms/send`, data);
   }
 
-  public updatePwd(id: string, pwd: string, newPwd: string) {
+  public updatePwd(id: string, pwd: string, newPwd: string,phone:string,sms:string) {
     const data = {
       id: id,
       oldPassword: pwd,
       newPassword: newPwd,
+      sms:sms,
+      phone:phone
     };
     return this.api.post('/user/updatepassword', data)
   }
