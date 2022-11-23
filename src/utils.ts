@@ -97,7 +97,7 @@ export const updateCreppyDefaultImage = (image: string|null) => {
   // if (image === "https://static.productionready.io/images/smiley-cyrus.jpg") {
   //   return `${process.env.PUBLIC_URL}/default-avatar.jpg`;
   // }
-  if(image === null || image === "NULL") {
+  if(image === null || image === "NULL"||image === "") {
     return "/assets/avatar.webp";
   } else {
     return "https://"+image;

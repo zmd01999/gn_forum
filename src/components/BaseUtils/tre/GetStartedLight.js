@@ -8,7 +8,7 @@ import { LightTooltip } from "src/components/BaseUtils/ToolTips";
 import { useSelector } from "react-redux";
 import { getLocalStorage } from "src/utils";
 import { Icon } from 'semantic-ui-react'
-
+import {updateCreppyDefaultImage} from "src/utils";
 
 const PrimaryBackgroundContainer = tw.div`py-16 lg:py-20 bg-purple-200 rounded-lg relative`
 const Row = tw.div`px-4 sm:px-16 mx-auto flex justify-center items-center relative z-10 flex-col lg:flex-row text-center lg:text-left`;
@@ -56,7 +56,7 @@ export default ({
                     <Badge badgeContent={`Lv${userInfo.level}`} color="primary">
                       <Avatar
                         alt={user}
-                        src={"/assets/avatar.webp"}
+                        src={updateCreppyDefaultImage(userInfo.avatar)}
                         sx={{ width: 60, height: 60 }}
                       />
                     </Badge>
