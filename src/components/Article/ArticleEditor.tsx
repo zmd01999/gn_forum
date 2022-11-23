@@ -87,8 +87,8 @@ export const ArticleEditor = () => {
           notifyDispatch(setError("标签不能为空"));
           return;
         }
-        if (article.tagName.length > 5) {
-          notifyDispatch(setError("标签不能大于5个字符长度"));
+        if (article.tagName.length > 10) {
+          notifyDispatch(setError("标签过长"));
           return;
         }
         const file: FormData = await toFile(

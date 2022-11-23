@@ -21,6 +21,6 @@ export class CommentService {
   }
 
   public deleteComment(slug: string, id: string) {
-    return this.api.delete(`articles/${slug}/comments/${id}`);
+    return this.api.post(`comments/deleteComment`,{id:id});
   }
 }

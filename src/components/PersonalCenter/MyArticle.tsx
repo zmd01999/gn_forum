@@ -117,14 +117,9 @@ export default function MyArticle() {
       case 2:
         res = await retrieveFollowArticle();
     }
-    // setArticleList(res.data.data.voList);
-    // setArticleCount(res.data.data.total);
-    // console.log(res.data.data.voList);
-    // console.log(res.data.data.total);
+
     setArticleList(res.data.data.voList);
     setArticleCount(res.data.data.total);
-    // setArticleList(articleList);
-    // setArticleCount(1);
   };
 
   useEffect(() => {

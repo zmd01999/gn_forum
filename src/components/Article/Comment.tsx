@@ -37,7 +37,7 @@ export const Comment = ({ slug, authorId }: IProps) => {
   const [singleComment, setSingleComment] = useState<string>("");
   const loaderDispatch = useDispatch<Dispatch<LoaderAction>>();
   const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
-  const { isAuthenticated, user } = useSelector(
+  const { isAuthenticated, userInfo } = useSelector(
     (state: AppState) => state.auth
   );
 
@@ -99,9 +99,11 @@ export const Comment = ({ slug, authorId }: IProps) => {
                 </SemanticComment.Metadata>
                 <SemanticComment.Text>{comment.content}</SemanticComment.Text>
                 <SemanticComment.Action>
-                  {isAuthenticated && user === comment.author.nickname ? (
+                  {isAuthenticated &&
+                  (userInfo.id === comment.author.id ||
+                    userInfo.id === authorId) ? (
                     <Popup
-                      content="delete the comment"
+                      content="删除此评论"
                       trigger={
                         <Icon
                           size="tiny"

@@ -8,6 +8,7 @@ import FileCopyIcon from "@mui/icons-material/FileCopyOutlined";
 import SaveIcon from "@mui/icons-material/Save";
 import PrintIcon from "@mui/icons-material/Print";
 import ShareIcon from "@mui/icons-material/Share";
+import { useHistory } from "react-router-dom";
 
 const actions = [{ icon: <FileCopyIcon />, name: "发帖" }];
 
@@ -15,7 +16,7 @@ export default function SpeedD() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  const history = useHistory();
   return (
     <SpeedDial
       ariaLabel="SpeedDial tooltip example"
@@ -31,7 +32,10 @@ export default function SpeedD() {
           icon={action.icon}
           tooltipTitle={action.name}
           tooltipOpen
-          onClick={handleClose}
+          onClick={() => {
+            history.push("/article/edit");
+            handleClose();
+          }}
         />
       ))}
     </SpeedDial>

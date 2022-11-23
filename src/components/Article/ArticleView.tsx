@@ -100,11 +100,15 @@ export const ArticleView = () => {
             />
           </Link>
           &nbsp;&nbsp;&nbsp;&nbsp;
-          <FollowButton
-            profile={singleArticle?.author}
-            isF={isF}
-            setIsF={setIsF}
-          />{" "}
+          {userInfo.id === singleArticle.author.id ? (
+            <></>
+          ) : (
+            <FollowButton
+              profile={singleArticle?.author}
+              isF={isF}
+              setIsF={setIsF}
+            />
+          )}{" "}
           &nbsp;&nbsp;
           <FavoriteButton iarticle={singleArticle!} />
         </div>

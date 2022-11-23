@@ -203,7 +203,7 @@ export const MainView = () => {
 
   return (
     <div className="main-container">
-      <div className="article-container">
+      <div className="article-container relative">
         {/* <BreadCrumb></BreadCrumb> */}
         <Tabs
           tabs={TABS}
@@ -244,6 +244,8 @@ export const MainView = () => {
           userInfo={userInfo}
           cateList={categoryList}
         />
+      </div>
+      <div className="fixed bottom-0 right-0 h-16 w-16">
         <SpeedD></SpeedD>
       </div>
     </div>
