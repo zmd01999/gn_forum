@@ -10,13 +10,14 @@ import {
   Games,
   Money,
   Star,
+  Help,
 } from "@mui/icons-material";
 import { SettingEditor } from "../Home/SettingEditor";
 import MyWork from "./MyWork";
 import MyArticle from "./MyArticle";
 import MySetting from "./MySetting";
 import MyMessage from "./MyMessage";
-
+import { MyHelp } from "./MyHelp";
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -95,6 +96,13 @@ export default function SwitchBar() {
               {...a11yProps(3)}
               sx={{ fontSize: 16 }}
             />
+            <Tab
+              icon={<Help />}
+              iconPosition="start"
+              label="帮助"
+              {...a11yProps(4)}
+              sx={{ fontSize: 16 }}
+            />
             {/* <Tab
               icon={<Money />}
               iconPosition="start"
@@ -117,9 +125,7 @@ export default function SwitchBar() {
           <MySetting></MySetting>
         </TabPanel>
         <TabPanel value={value} index={4}>
-          <div className="relative">
-            <SettingEditor />
-          </div>
+          <MyHelp></MyHelp>
         </TabPanel>
       </Box>
     </div>
