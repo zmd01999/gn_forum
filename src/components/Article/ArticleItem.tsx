@@ -34,7 +34,7 @@ const ArticleItem = ({ article }: IProps) => {
 
   return (
     <Item>
-      <Item.Image size="tiny" src="/assets/forum_1.webp" />
+      {/* <Item.Image size="tiny" src="/assets/forum_1.webp" /> */}
 
       <Item.Content>
         <Item.Header as="a" onClick={gotoArticle}>

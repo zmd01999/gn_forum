@@ -66,6 +66,7 @@ const TabInfo = () => {
     email: userInfo.email == null ? "" : userInfo.email,
     mobilePhoneNumber:
       userInfo.mobilePhoneNumber == null ? "" : userInfo.mobilePhoneNumber,
+    growthValue: userInfo.growthValue,
   });
   const profileService = useProfileService();
   const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
@@ -119,14 +120,20 @@ const TabInfo = () => {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
-              label="个人网站"
-              placeholder="https://example.com/"
-              defaultValue="https://themeselection.com/"
-            />
+            <TextField fullWidth disabled label="等级" value={form.level} />
           </Grid>
           <Grid item xs={12} sm={6}>
+            <TextField fullWidth disabled label="金币" value={form.money} />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              disabled
+              label="成长值"
+              value={form.growthValue}
+            />
+          </Grid>
+          {/* <Grid item xs={12} sm={6}>
             <FormControl fullWidth>
               <InputLabel>国家</InputLabel>
               <Select
@@ -141,8 +148,8 @@ const TabInfo = () => {
                 <MenuItem value="Germany">Germany</MenuItem>
               </Select>
             </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </Grid> */}
+          {/* <Grid item xs={12} sm={6}>
             <FormControl fullWidth>
               <InputLabel id="form-layouts-separator-multiple-select-label">
                 语言
@@ -168,8 +175,8 @@ const TabInfo = () => {
                 <MenuItem value="Chinese">简体中文</MenuItem>
               </Select>
             </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          </Grid> */}
+          {/* <Grid item xs={12} sm={6}>
             <FormControl>
               <FormLabel sx={{ fontSize: "0.875rem" }}>性别</FormLabel>
               <RadioGroup
@@ -193,7 +200,7 @@ const TabInfo = () => {
                 />
               </RadioGroup>
             </FormControl>
-          </Grid>
+          </Grid> */}
           <Grid item xs={12}>
             <Button
               variant="contained"

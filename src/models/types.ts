@@ -52,6 +52,7 @@ export interface IUserInfo {
   email: string | null;
   mobilePhoneNumber: string | null;
   avatar?:string;
+  growthValue?:string|null;
 }
 
 export interface IArticle {

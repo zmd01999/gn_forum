@@ -25,6 +25,7 @@ import { AppState } from "../../redux/store";
 import { FavoriteButton } from "../Home/FavoriteButton";
 import { FollowButton } from "../Home/FollowButton";
 import { Comment } from "./Comment";
+import copy from "copy-to-clipboard";
 
 import "./style.css";
 import { LoaderAction } from "../../redux/reducers/LoaderReducer";
@@ -127,6 +128,7 @@ export const ArticleView = () => {
                 />
               </Link> */}
               <Popup
+                basic
                 content="删除文章"
                 trigger={
                   <Button
@@ -146,7 +148,7 @@ export const ArticleView = () => {
               <Popup
                 wide
                 trigger={
-                  <Button icon>
+                  <Button icon basic color="violet" size="mini">
                     {"打赏"}
                     <Icon name="world" />
                   </Button>
@@ -203,9 +205,47 @@ export const ArticleView = () => {
                   </Grid.Column>
                 </Grid>
               </Popup>
+              <Popup
+                content="分享文章"
+                trigger={
+                  <Button
+                    basic
+                    size="mini"
+                    color={"violet"}
+                    icon="share"
+                    onClick={() => {
+                      const searchParams =
+                        "http://www.funcodeworld.com" +
+                        decodeURI(window.location.pathname);
+                      copy(searchParams);
+                      notifyDiapatch(setSuccess(`该文章链接已复制到粘贴板`));
+                    }}
+                  />
+                }
+              />
             </div>
           ) : (
-            <></>
+            <>
+              {" "}
+              <Popup
+                content="分享文章"
+                trigger={
+                  <Button
+                    basic
+                    size="mini"
+                    color={"violet"}
+                    icon="share"
+                    onClick={() => {
+                      const searchParams =
+                        "http://www.funcodeworld.com" +
+                        decodeURI(window.location.pathname);
+                      copy(searchParams);
+                      notifyDiapatch(setSuccess(`该文章链接已复制到粘贴板`));
+                    }}
+                  />
+                }
+              />
+            </>
           )}
         </div>
 

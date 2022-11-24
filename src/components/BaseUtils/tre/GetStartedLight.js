@@ -3,12 +3,12 @@ import { ReactComponent as SvgDecoratorBlob1 } from "src/assets/svg/svg-decorato
 import { ContentWithPaddingXl, Container } from "./Layouts";
 import { Avatar, Stack, Badge } from "@mui/material";
 
-import Progress from "src/components/PersonalCenter/Progress";
 import { LightTooltip } from "src/components/BaseUtils/ToolTips";
 import { useSelector } from "react-redux";
 import { getLocalStorage } from "src/utils";
 import { Icon } from 'semantic-ui-react'
 import {updateCreppyDefaultImage} from "src/utils";
+import { Progress } from 'semantic-ui-react'
 
 const PrimaryBackgroundContainer = tw.div`py-16 lg:py-20 bg-purple-200 rounded-lg relative`
 const Row = tw.div`px-4 sm:px-16 mx-auto flex justify-center items-center relative z-10 flex-col lg:flex-row text-center lg:text-left`;
@@ -67,8 +67,10 @@ export default ({
                       <span className="text-2xl font-semibold text-white">
                         {userInfo.nickname}
                       </span>
-                      <Progress props={userInfo.growthValue}></Progress>
+                      {/* <Progress props={userInfo.growthValue}></Progress> */}
                     </Stack>
+                    <Progress percent={userInfo.growthValue} indicating />
+
                   </div>
                 </Stack>
               </div>

@@ -154,7 +154,13 @@ const UserDropdown = (props: user) => {
           </Box>
         </Box>
         <Divider sx={{ mt: 0, mb: 1 }} />
-        <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
+        <MenuItem
+          sx={{ p: 0 }}
+          onClick={() => {
+            history.push(`/pcenter/${userInfo.id}`);
+            handleDropdownClose();
+          }}
+        >
           <Box sx={styles}>
             <MessageOutline sx={{ marginRight: 2 }} />
             未读动态<Label color="teal">{userInfo.checkMessage}</Label>
