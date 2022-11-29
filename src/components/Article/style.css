@@ -3,7 +3,7 @@
 }
 
 .ui.pagination.menu {
-  margin-top: 25%;
+  margin-top: 0%;
 
 }
 
@@ -11,6 +11,11 @@
   /* TODO This is a tricky fix and we'll want to make button auto responsive 
   when more comments are added */
   /* z-index: 999; */
+}
+
+div.pstyle {
+  margin-top: 10%;
+  margin-bottom: -15%;
 }
 
 .ui.card {
