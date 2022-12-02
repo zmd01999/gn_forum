@@ -10,10 +10,11 @@ import { ReactComponent as MenuIcon } from "feather-icons/dist/icons/menu.svg";
 import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
 import UserDropdown from "src/@core/layouts/components/shared-components/UserDropdown";
 import { getLocalStorage } from "src/utils.ts";
-
+import { Dropdown } from 'semantic-ui-react'
+import { useHistory } from "react-router-dom";
 const Header = tw.header`
   flex justify-between items-center
-  max-w-screen-xl mx-auto
+  max-w-screen-xl mx-auto lg:mb-8
 `;
 
 export const NavLinks = tw.div`inline-block`;
@@ -78,10 +79,28 @@ export default () => {
   const userInfo = getLocalStorage("userInfo");
   const roundedHeaderButton = false;
   const collapseBreakpointClass = "lg" ;
-  
+  const history = useHistory();
+  const options = [
+    { key: 1, text: '作品', value: 1 },
+    { key: 2, text: '更多作品', value: 2},
+    { key: 3, text: '创作', value: 3 },
+  ]
   const defaultLinks = [
     <NavLinks key={1}>
-      <NavLink href="/work">作品</NavLink>
+      <NavLink ><Dropdown text='作品' options={options}  onChange={(event, data)=>{
+        console.log(data.value);
+        if(data.value == 1) {
+          history.push("/work");
+        } else if(data.value ==2) {
+
+        } else {
+          const a = document.createElement('a');
+          a.style.display = 'none';
+          a.href = "/scratch/index.html?scene=create";
+          document.body.appendChild(a);
+          a.click();
+        }
+      }}/></NavLink>
       <NavLink href="/">论坛</NavLink>
       {/* <NavLink href="/#">Pricing</NavLink>
       <NavLink href="/#">Contact Us</NavLink> */}

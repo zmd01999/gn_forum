@@ -31,6 +31,7 @@ import {
   ContentWithVerticalPadding,
 } from "src/components/BaseUtils/tre/Layouts";
 import Footer from "src/components/Home/foot";
+import { WorkDetail } from "./components/Work/WorkDetail";
 function App() {
   let services: IServices;
 
@@ -58,9 +59,10 @@ function App() {
                       {/* <header className="App-header"> */}
                       <GuardRouter Comp={Header} />
                       <Switch>
-                        <Route path="/work">
+                        <Route path="/work" exact>
                           <Work />
                         </Route>
+                        <Route path="/work/:slug" component={WorkDetail} />
                         <Route
                           path="/pcenter/:username"
                           component={PersonalCenter}
