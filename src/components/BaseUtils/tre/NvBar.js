@@ -87,7 +87,7 @@ export default () => {
   ]
   const defaultLinks = [
     <NavLinks key={1}>
-      <NavLink ><Dropdown text='作品' options={options}  onChange={(event, data)=>{
+      <NavLink ><Dropdown text='作品' options={options} selectOnBlur={false}  onChange={(event, data)=>{
         console.log(data.value);
         if(data.value == 1) {
           history.push("/work");
