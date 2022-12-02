@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import { Comment } from "src/components/Article/Comment";
 import "./style.css";
 interface routeProps {
   slug: string;
@@ -9,8 +10,8 @@ export const WorkDetail = () => {
 
   return (
     <>
-      {/* <h1>作品详情</h1>
       <div className="project-detail">
+        <h1>作品详情</h1>
         <div className="scratch-player">
           <iframe
             src="
@@ -23,18 +24,8 @@ export const WorkDetail = () => {
             scrolling="yes"
           ></iframe>
         </div>
+        <Comment slug={slug} authorId={"1"} />
       </div>
-      <a href="/scratch/index.html?scene=create">创作</a> */}
-      <iframe
-        src="
-            /scratch/index.html?scene=create
-                "
-        id="player"
-        frameBorder="0"
-        width="100%"
-        height="100%"
-        scrolling="yes"
-      ></iframe>
     </>
   );
 };
