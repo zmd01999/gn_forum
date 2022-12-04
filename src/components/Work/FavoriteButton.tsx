@@ -20,7 +20,7 @@ export const FavoriteButton = () => {
   // const [article, setArticle] = useState<IMyArticle>(iarticle);
   // const { thumbsCounts, id, isZan } = article;
   const { isAuthenticated } = useSelector((state: AppState) => state.auth);
-  const isZan = 1;
+  const [isZan, setIsZan] = useState(1);
   // const handleFavorite = async () => {
   //   // TODO use anothe way to handle any
   //   // it's a little annoying here
@@ -57,7 +57,7 @@ export const FavoriteButton = () => {
         <Icon name={isZan == 1 ? "heart outline" : "heart"} />
         {isZan == 1 ? "取消" : "点赞"}&nbsp; ({thumbsCounts})
       </Button> */}
-      <Button
+      {/* <Button
         basic
         color="violet"
         content={isZan == 1 ? "取消" : "点赞"}
@@ -67,7 +67,13 @@ export const FavoriteButton = () => {
         size="tiny"
         // onClick={handleFavorite}
         className="float-right"
-      />
+      /> */}
+      <Icon
+        name={isZan == 1 ? "heart outline" : "heart"}
+        size="big"
+        color="red"
+      ></Icon>
+      1.1万
     </Fragment>
   );
 };

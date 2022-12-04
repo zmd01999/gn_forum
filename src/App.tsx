@@ -59,6 +59,9 @@ function App() {
                       {/* <header className="App-header"> */}
                       <GuardRouter Comp={Header} />
                       <Switch>
+                        <Route path="/" exact>
+                          <Work />
+                        </Route>
                         <Route path="/work" exact>
                           <Work />
                         </Route>
@@ -90,7 +93,7 @@ function App() {
                         <Route path="/article/:slug" exact>
                           <ArticleView />
                         </Route>
-                        <Route path="/" exact>
+                        <Route path="/forum" exact>
                           <GuardRouter Comp={MainView} />
                         </Route>
                         <Route component={NotFound} />

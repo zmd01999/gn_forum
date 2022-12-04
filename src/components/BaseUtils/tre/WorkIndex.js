@@ -96,7 +96,7 @@ export default ({
                   <Image imageSrc={post.imageSrc} />
                   <Info>
                     <Category>{post.category}</Category>
-                    <CreationDate>{post.date} <div  className="float-right flex space-x-4"><Icon name="eye" >{1}</Icon><Icon name="like">{2}</Icon></div></CreationDate>
+                    <CreationDate>{post.date} <div  className="float-right flex space-x-4"><Icon name="eye" size="large">{1}</Icon><Icon name="like" size="large">{2}</Icon></div></CreationDate>
                     <Title>{post.title}</Title>
                     
                     {post.featured && post.description && <Description>{post.description}</Description>}

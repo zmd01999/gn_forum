@@ -1,4 +1,4 @@
-import React, { Dispatch, useState, Fragment } from "react";
+import React, { Dispatch, useState, Fragment, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Comment } from "src/components/Article/Comment";
 import { FavoriteButton } from "./FavoriteButton";
@@ -25,6 +25,7 @@ import {
   setSuccess,
 } from "src/redux/actions";
 import { useProfileService } from "src/hooks";
+import { LeftList } from "./LeftList";
 
 interface routeProps {
   slug: string;
@@ -39,11 +40,13 @@ export const WorkDetail = () => {
   const { isAuthenticated, userInfo } = useSelector(
     (state: AppState) => state.auth
   );
+
+  useEffect(() => {});
   return (
     <>
       <div className="project-detail">
         <h1>作品详情</h1>
-        <div className="scratch-player">
+        <div className="scratch-player flex">
           <iframe
             src="
           /scratch/player.html?workUrl=1
@@ -52,33 +55,19 @@ export const WorkDetail = () => {
             frameBorder="0"
             width="100%"
             height="100%"
-            scrolling="yes"
+            // scrolling="yes"
           ></iframe>
+          <div className="ml-8 mt-10">
+            <LeftList></LeftList>
+          </div>
         </div>
-        <div className="my-8">
-          {isAuthenticated ? (
-            <Fragment>
-              {/* <Link to={`/article/edit/${slug}`}>
-                <Popup
-                  content="编辑文章"
-                  trigger={<Button size="mini" color={"green"} icon="pencil" />}
-                />
-              </Link> */}
-              <Popup
-                basic
-                content="删除文章"
-                trigger={<Button size="mini" color={"grey"} icon="trash" />}
-              />
-            </Fragment>
-          ) : (
-            <></>
-          )}
+        <div className="mb-8 sameW mt-4">
           {true ? (
             <div>
               <Popup
                 wide
                 trigger={
-                  <Button icon basic color="violet" size="mini">
+                  <Button icon basic color="violet" size="large">
                     {"打赏"}
                     <Icon name="world" />
                   </Button>
@@ -140,7 +129,7 @@ export const WorkDetail = () => {
                 trigger={
                   <Button
                     basic
-                    size="mini"
+                    size="large"
                     color={"violet"}
                     icon="share"
                     onClick={() => {
@@ -153,6 +142,16 @@ export const WorkDetail = () => {
                   />
                 }
               />
+              <div className="float-right flex space-x-4 mr-4">
+                <FavoriteButton></FavoriteButton>
+                <Icon
+                  name={true ? "star outline" : "star"}
+                  size="big"
+                  color="yellow"
+                ></Icon>
+                132
+              </div>
+              <Divider></Divider>
             </div>
           ) : (
             <>
@@ -162,7 +161,7 @@ export const WorkDetail = () => {
                 trigger={
                   <Button
                     basic
-                    size="mini"
+                    size="small"
                     color={"violet"}
                     icon="share"
                     onClick={() => {
@@ -178,9 +177,8 @@ export const WorkDetail = () => {
             </>
           )}
         </div>
-        <div>
-          <FavoriteButton></FavoriteButton>
-        </div>
+
+        <div></div>
         <Comment slug={slug} authorId={"1"} />
       </div>
     </>

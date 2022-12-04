@@ -53,7 +53,7 @@ export const FollowArtButton = ({ iarticle }: IProps) => {
   return (
     <Fragment>
       <Button
-        size="tiny"
+        size="small"
         icon
         onClick={handleFavorite}
         className="float-right"

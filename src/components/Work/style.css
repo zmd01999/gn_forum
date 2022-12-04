@@ -3,7 +3,11 @@
 }
 .scratch-player iframe{
     /* margin: auto; */
-      width: 80%;
-      height: 700px;
+      width: 81%;
+      height: 860px;
   }
 
+.sameW {
+    width: 81%;
+
+}
