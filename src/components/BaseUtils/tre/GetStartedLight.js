@@ -10,8 +10,8 @@ import { Icon } from 'semantic-ui-react'
 import {updateCreppyDefaultImage} from "src/utils";
 import { Progress } from 'semantic-ui-react'
 
-const PrimaryBackgroundContainer = tw.div`py-16 lg:py-20 bg-purple-200 rounded-lg relative`
-const Row = tw.div`px-4 sm:px-16 mx-auto flex justify-center items-center relative z-10 flex-col lg:flex-row text-center lg:text-left`;
+const PrimaryBackgroundContainer = tw.div`py-16 lg:py-6 bg-gray-200 rounded-lg relative`
+const Row = tw.div`px-4 sm:px-8 mx-auto flex justify-center items-center relative z-10 flex-col lg:flex-row text-center lg:text-left`;
 
 const ColumnContainer = tw.div`lg:w-1/2 max-w-lg`
 const TextContainer = tw(ColumnContainer)`text-2xl sm:text-4xl font-bold`;
@@ -29,11 +29,11 @@ const DecoratorBlobContainer = tw.div`absolute inset-0 overflow-hidden rounded-l
 const DecoratorBlob1 = tw(SvgDecoratorBlob1)`absolute bottom-0 left-0 w-80 h-80 transform -translate-x-20 translate-y-32 text-primary-500 opacity-5`
 const DecoratorBlob2 = tw(SvgDecoratorBlob1)`absolute top-0 right-0 w-80 h-80 transform  translate-x-20 -translate-y-64 text-primary-500 opacity-5`
 export default ({
-  subheading = "个人中心",
+  subheading = "",
   heading = "",
-  primaryLinkText = "代币",
+  primaryLinkText = "",
   primaryLinkUrl = "",
-  secondaryLinkText = "关于我们",
+  secondaryLinkText = "",
   secondaryLinkUrl = "",
   pushDownFooter = true
 }) => {
@@ -43,21 +43,46 @@ export default ({
   );
   const userInfo = getLocalStorage("userInfo");
   return (
-    <Container css={pushDownFooter && tw`mb-20 lg:mb-24`}>
+    <Container css={pushDownFooter && tw`mb-20 lg:mb-24 `}>
       <ContentWithPaddingXl>
         <PrimaryBackgroundContainer>
           <Row>
             <TextContainer>
               {subheading && <Subheading>{subheading}</Subheading>}
               <Heading>{heading}</Heading>
-              <div className="py-4">
-                <Stack direction="row" spacing={2}>
+              <div className="flex flex-row py-4 space-x-4">
+                <div>
+                <LightTooltip title={user}>
+                      <Avatar
+                        alt={user}
+                        src={updateCreppyDefaultImage(userInfo.avatar)}
+                        sx={{ width: 80, height: 80 }}
+                        variant="square"
+                      />
+                  </LightTooltip>
+                </div>
+                <div className="">
+                  <div className="flex flex-col  space-y-4">
+                  <span className="text-2xl font-semibold text-black">
+                          {userInfo.nickname}
+                        </span>
+                  <span className="text-sm text-gray-700">{`http://funcodeworld.com/pcenter/${userInfo.id}`}</span>
+                  <div className="flex flex-row text-sm text-gray-700">
+                    <div>{`发帖:11 |`}</div>
+                    <div>{`作品:12 |`}</div>
+                    <div>{`粉丝:134 `}</div>
+                  </div>
+                </div>
+
+                </div>
+                {/* <Stack direction="row" spacing={2}>
                   <LightTooltip title={user}>
                     <Badge badgeContent={`Lv${userInfo.level}`} color="primary">
                       <Avatar
                         alt={user}
                         src={updateCreppyDefaultImage(userInfo.avatar)}
                         sx={{ width: 60, height: 60 }}
+                        variant="square"
                       />
                     </Badge>
                   </LightTooltip>
@@ -67,23 +92,44 @@ export default ({
                       <span className="text-2xl font-semibold text-white">
                         {userInfo.nickname}
                       </span>
-                      {/* <Progress props={userInfo.growthValue}></Progress> */}
                     </Stack>
                     <Progress percent={userInfo.growthValue} indicating />
 
                   </div>
-                </Stack>
+                </Stack> */}
               </div>
             </TextContainer>
-            <LinksContainer>
-              <PrimaryLink href={primaryLinkUrl}><Icon name="won"></Icon>{`${userInfo.money}金币`}</PrimaryLink>
-              <SecondaryLink href={secondaryLinkUrl}>{secondaryLinkText}</SecondaryLink>
-            </LinksContainer>
+            {/* <LinksContainer>
+               <PrimaryLink href={primaryLinkUrl}><Icon name="won"></Icon>{`${userInfo.money}金币`}</PrimaryLink>
+              <SecondaryLink href={secondaryLinkUrl}>{secondaryLinkText}</SecondaryLink> 
+            </LinksContainer> */}
+            <div className="w-1/4"></div>
+            <div className="w-1/3">
+              <div className=" flex flex-row space-x-2">
+                <div className="w-4/5 ">            
+                <Progress progress='value'  size='small' color="yellow" value={userInfo.money}  total={100} active />
+                </div>
+                <div className="w-1/5 mb-4">
+                  <Icon name="money" size="large"></Icon>
+                </div>
+              </div>
+
+              <div className=" flex flex-row space-x-2">
+                <div className="w-4/5 mt-1">            
+                <Progress percent={userInfo.growthValue}  size='small' color="green" progress active /> 
+                </div>
+                <div className="w-1/5 font-semibold">
+                  {`Lv${userInfo.level}`}
+                </div>
+              </div>
+            </div>
+            
+
           </Row>
-          <DecoratorBlobContainer>
+          {/* <DecoratorBlobContainer>
             <DecoratorBlob1 />
             <DecoratorBlob2 />
-          </DecoratorBlobContainer>
+          </DecoratorBlobContainer> */}
         </PrimaryBackgroundContainer>
       </ContentWithPaddingXl>
     </Container>

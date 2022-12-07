@@ -33,7 +33,7 @@ export const PersonalCenter = () => {
     <div>
       <Header></Header>
 
-      <Container maxWidth="lg">
+      <Container maxWidth="xl">
         <SwitchBar></SwitchBar>
       </Container>
     </div>

@@ -221,7 +221,7 @@ const LoginPage = () => {
               justifyContent: "center",
             }}
           >
-            <svg
+            {/* <svg
               width={35}
               height={29}
               version="1.1"
@@ -279,7 +279,7 @@ const LoginPage = () => {
                   </g>
                 </g>
               </g>
-            </svg>
+            </svg> */}
             <Typography
               variant="h6"
               sx={{
@@ -290,7 +290,10 @@ const LoginPage = () => {
                 fontSize: "1.5rem !important",
               }}
             >
-              {themeConfig.templateName}
+              {/* {themeConfig.templateName} */}
+              <div className="w-40">
+                <img src="/assets/logo.png" />
+              </div>
             </Typography>
           </Box>
           <Box sx={{ mb: 6 }}>
@@ -298,9 +301,15 @@ const LoginPage = () => {
               variant="h5"
               sx={{ fontWeight: 600, marginBottom: 1.5 }}
             >
+              开 启 你 的 编 程 之 旅 吧~
+            </Typography>
+            {/* <Typography
+              variant="h5"
+              sx={{ fontWeight: 600, marginBottom: 1.5 }}
+            >
               欢迎来到 {themeConfig.templateName}! 👋🏻
             </Typography>
-            <Typography variant="body2">请登录您的账号开启旅途</Typography>
+            <Typography variant="body2">请登录您的账号开启旅途</Typography> */}
           </Box>
           <form
             noValidate

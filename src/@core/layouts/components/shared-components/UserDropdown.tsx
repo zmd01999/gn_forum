@@ -157,6 +157,18 @@ const UserDropdown = (props: user) => {
         <MenuItem
           sx={{ p: 0 }}
           onClick={() => {
+            history.push(`/pcenter/${userInfo.nickname}`);
+            handleDropdownClose();
+          }}
+        >
+          <Box sx={styles}>
+            <AccountOutline sx={{ marginRight: 2 }} />
+            个人中心
+          </Box>
+        </MenuItem>
+        <MenuItem
+          sx={{ p: 0 }}
+          onClick={() => {
             history.push(`/pcenter/${userInfo.id}`);
             handleDropdownClose();
           }}

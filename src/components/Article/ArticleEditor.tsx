@@ -45,7 +45,15 @@ export const ArticleEditor = () => {
   const { slug } = useParams<routeProps>();
   const cateList: any = history.location.state;
   const articleService = useArticleService();
-  const [tagList, setTagList] = useState<Itag[]>([]);
+  const [tagList, setTagList] = useState<Itag[]>([
+    { id: "1", tagName: "Scratch", avatar: "" },
+    { id: "2", tagName: "Python", avatar: "" },
+    { id: "3", tagName: "技术交流", avatar: "" },
+    { id: "4", tagName: "教程", avatar: "" },
+    { id: "5", tagName: "创客", avatar: "" },
+    { id: "6", tagName: "杂谈", avatar: "" },
+    { id: "7", tagName: "其他", avatar: "" },
+  ]);
   const user: any = getLocalStorage("userInfo");
   const [article, setArticle] = useState<IArticleMeta>({
     title: "",
@@ -144,17 +152,13 @@ export const ArticleEditor = () => {
   };
   const [content, setContent] = useState(BraftEditor.createEditorState(null));
 
-  // const handleTags = (e: ChangeEvent<HTMLInputElement>) => {
-  //   console.log(e.target.value);
-  //   setArticle({
-  //     ...article,
-  //     ["tags"]: [
-  //       {
-  //         tagName: e.target.value,
-  //       },
-  //     ],
-  //   });
-  // };
+  const handleTags = (e: any) => {
+    const name: string = e.name;
+    setArticle({
+      ...article,
+      ["tagName"]: name,
+    });
+  };
   const handleBody = (e: ChangeEvent<HTMLTextAreaElement>) => {
     console.log(e);
     setArticle({
@@ -201,7 +205,7 @@ export const ArticleEditor = () => {
     if (slug !== undefined) {
       retrieveSingleArticle();
     }
-    retrieveTag();
+    // retrieveTag();
   }, []);
 
   return (
@@ -212,16 +216,25 @@ export const ArticleEditor = () => {
       </Header>
       <div>
         <Form>
-          <Form.Field width={6}>
-            <label>标题</label>
-            <input
-              name="title"
-              placeholder="文章标题"
-              onChange={handleChange("title")}
-              value={article.title}
-              required
-            />
-          </Form.Field>
+          <div className="float-left w-2/5">
+            <Form.Field>
+              <label>标题</label>
+              <div className="flex flex-row space-x-4">
+                <input
+                  name="title"
+                  placeholder="文章标题"
+                  onChange={handleChange("title")}
+                  value={article.title}
+                  required
+                />
+                <div className="w-2/5 my-auto	">
+                  {" "}
+                  {`还可输入${30 - article.title.length}个字符`}
+                </div>
+              </div>
+            </Form.Field>
+          </div>
+
           <Form.Field>
             <label>简介</label>
             <input
@@ -289,7 +302,7 @@ export const ArticleEditor = () => {
               value={article.tagName}
               required
             />
-            {/* {tagList.map((tag) => {
+            {tagList.map((tag) => {
               return (
                 <Label
                   as="a"
@@ -300,14 +313,15 @@ export const ArticleEditor = () => {
                   name={tag.tagName}
                 >
                   {tag.tagName}
-                  <Icon name="delete" />
                 </Label>
               );
-            })} */}
+            })}
           </Form.Field>
-          <Button attached="right" color="green" onClick={handleCreateArticle}>
-            {slug === undefined ? "创建" : "编辑"} 帖子
-          </Button>
+          <div className="float-left">
+            <Button attached="right" color="blue" onClick={handleCreateArticle}>
+              {slug === undefined ? "发表" : "编辑"}帖子
+            </Button>
+          </div>
         </Form>
       </div>
     </Segment>

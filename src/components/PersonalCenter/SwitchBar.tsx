@@ -18,6 +18,7 @@ import MyArticle from "./MyArticle";
 import MySetting from "./MySetting";
 import MyMessage from "./MyMessage";
 import { MyHelp } from "./MyHelp";
+import "./style.css";
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -59,7 +60,7 @@ export default function SwitchBar() {
   };
 
   return (
-    <div className="container mx-auto">
+    <div className="mx-auto bg-gray-200">
       <Box sx={{ width: "100%", hight: "100%" }}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs
@@ -72,20 +73,25 @@ export default function SwitchBar() {
               iconPosition="start"
               label="论坛"
               {...a11yProps(0)}
-              sx={{ fontSize: 16 }}
+              sx={{
+                fontSize: 16,
+                border: 1,
+                borderColor: "primary.main",
+                p: 1,
+              }}
             />
             <Tab
               icon={<Games />}
               iconPosition="start"
               label="作品"
               {...a11yProps(1)}
-              sx={{ fontSize: 16 }}
+              sx={{ fontSize: 16, border: 1 }}
             />
             <Tab
               icon={<Star />}
               iconPosition="start"
               label="动态"
-              sx={{ fontSize: 16 }}
+              sx={{ fontSize: 16, border: 1 }}
               {...a11yProps(2)}
             />
 
@@ -94,14 +100,14 @@ export default function SwitchBar() {
               iconPosition="start"
               label="设置"
               {...a11yProps(3)}
-              sx={{ fontSize: 16 }}
+              sx={{ fontSize: 16, border: 1 }}
             />
             <Tab
               icon={<Help />}
               iconPosition="start"
               label="帮助"
               {...a11yProps(4)}
-              sx={{ fontSize: 16 }}
+              sx={{ fontSize: 16, border: 1 }}
             />
             {/* <Tab
               icon={<Money />}

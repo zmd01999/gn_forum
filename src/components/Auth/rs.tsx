@@ -102,7 +102,7 @@ const RegisterPage = () => {
               justifyContent: "center",
             }}
           >
-            <svg
+            {/* <svg
               width={35}
               height={29}
               version="1.1"
@@ -160,10 +160,10 @@ const RegisterPage = () => {
                   </g>
                 </g>
               </g>
-            </svg>
+            </svg> */}
 
             <Typography
-              variant="h6"
+              variant="subtitle2"
               sx={{
                 ml: 3,
                 lineHeight: 1,
@@ -172,7 +172,10 @@ const RegisterPage = () => {
                 fontSize: "1.5rem !important",
               }}
             >
-              {themeConfig.templateName}
+              {/* {themeConfig.templateName} */}
+              <div className="w-40">
+                <img src="/assets/logo.png" />
+              </div>
             </Typography>
           </Box>
           <Box sx={{ mb: 2 }}>
@@ -180,9 +183,9 @@ const RegisterPage = () => {
               variant="h5"
               sx={{ fontWeight: 600, marginBottom: 1.5 }}
             >
-              旅途从这里开始 🚀
+              开 启 你 的 编 程 之 旅 吧~
             </Typography>
-            <Typography variant="body2">玩的开心！</Typography>
+            {/* <Typography variant="body2">玩的开心！</Typography> */}
             <FormControl>
               {/* <FormLabel id="demo-controlled-radio-buttons-group">
                 Gender

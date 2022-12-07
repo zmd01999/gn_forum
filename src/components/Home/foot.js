@@ -32,8 +32,9 @@ export default () => {
       <Content>
         <Row>
           <LogoContainer>
-            <LogoImg src={logo} />
-            <LogoText>趣代码世界</LogoText>
+            {/* <LogoImg src={logo} />
+            <LogoText>趣代码世界</LogoText> */}
+            <img src="/assets/logo.png" className="w-40"></img>
           </LogoContainer>
           <LinksContainer>
             <Link href="#">作品</Link>
