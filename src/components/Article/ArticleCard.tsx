@@ -143,7 +143,7 @@ export const ArticleCard = ({ article, like, isWeight, follow }: IProps) => {
           ) : (
             <></>
           )}
-          {follow ? <></> : <FavoriteButton iarticle={article} />}
+          {follow ? <></> : <FavoriteButton iarticle={article} p={true} />}
           {follow ? (
             <FollowArtButton iarticle={article}></FollowArtButton>
           ) : (

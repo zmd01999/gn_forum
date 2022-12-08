@@ -1,7 +1,8 @@
 .css-19r6kue-MuiContainer-root {
-    padding-left: 5.5% !important;
-    padding-right: 5.5% !important;
+    padding-left: 0% !important;
+    padding-right: 0% !important;
     position: relative !important;
+    max-width: 1280px;
 }
 
 .css-pluffy {

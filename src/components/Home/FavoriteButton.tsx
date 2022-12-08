@@ -11,9 +11,10 @@ import { useHistory } from "react-router-dom";
 
 interface IProps {
   iarticle: IMyArticle;
+  p?: boolean;
 }
 
-export const FavoriteButton = ({ iarticle }: IProps) => {
+export const FavoriteButton = ({ iarticle, p }: IProps) => {
   const articleService = useArticleService();
   const history = useHistory();
   const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
@@ -56,17 +57,34 @@ export const FavoriteButton = ({ iarticle }: IProps) => {
         <Icon name={isZan == 1 ? "heart outline" : "heart"} />
         {isZan == 1 ? "取消" : "点赞"}&nbsp; ({thumbsCounts})
       </Button> */}
-      <Button
-        basic
-        color="violet"
-        content={isZan == 1 ? "取消" : "点赞"}
-        icon={isZan == 1 ? "heart outline" : "heart"}
-        label={{ as: "a", basic: true, content: thumbsCounts, color: "violet" }}
-        labelPosition="right"
-        size="tiny"
-        onClick={handleFavorite}
-        className="float-right"
-      />
+      {p ? (
+        <Button
+          basic
+          color="violet"
+          content={isZan == 1 ? "取消" : "点赞"}
+          icon={isZan == 1 ? "heart outline" : "heart"}
+          size="tiny"
+          onClick={handleFavorite}
+          className="float-right"
+        />
+      ) : (
+        <Button
+          basic
+          color="violet"
+          content={isZan == 1 ? "取消" : "点赞"}
+          icon={isZan == 1 ? "heart outline" : "heart"}
+          label={{
+            as: "a",
+            basic: true,
+            content: thumbsCounts,
+            color: "violet",
+          }}
+          labelPosition="right"
+          size="tiny"
+          onClick={handleFavorite}
+          className="float-right"
+        />
+      )}
     </Fragment>
   );
 };
