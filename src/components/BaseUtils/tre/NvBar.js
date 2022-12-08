@@ -183,6 +183,16 @@ export default () => {
       <NavLink href="/forum">论坛</NavLink>
       <NavLink href="/work">作品</NavLink>
       <NavLink href="/scratch/index.html?scene=create">创作</NavLink>
+
+      {isAuthenticated ? (<></>
+        )
+      :(
+        <Fragment>
+<NavLink href="/login" tw="lg:ml-12!">
+        登录
+      </NavLink>
+        </Fragment>
+      )}
           </div>
 
         {/* <Dropdown text='作品' options={options} selectOnBlur={false}  onChange={(event, data)=>{
@@ -203,12 +213,7 @@ export default () => {
       
       {isAuthenticated ? (<div className="ml-36"><SearchInp setArticleList={1}></SearchInp></div>
         )
-      :(
-        <Fragment>
-<NavLink href="/login" tw="lg:ml-12!">
-        登录
-      </NavLink>
-        </Fragment>
+      :(<></>
       )}
         </NavLinks>
        

@@ -14,6 +14,8 @@ import Header from "src/components/BaseUtils/tre/NvBar";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { MainView } from "./components/MainView";
 import { ArticleView } from "./components/Article/ArticleView";
+import { NewAView } from "./components/Article/NewAView";
+
 import { ArticleEditor } from "./components/Article/ArticleEditor";
 import { SettingEditor } from "./components/Home/SettingEditor";
 import { Loader } from "./components/Home/Loader";
@@ -91,7 +93,8 @@ function App() {
                           <ArticleEditor />
                         </Route>
                         <Route path="/article/:slug" exact>
-                          <ArticleView />
+                          {/* <ArticleView /> */}
+                          <NewAView></NewAView>
                         </Route>
                         <Route path="/forum" exact>
                           <GuardRouter Comp={MainView} />
