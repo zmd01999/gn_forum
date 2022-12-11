@@ -30,7 +30,9 @@ export const Tabs = ({ tabs, setCurrentTab, setArticleList }: IProps) => {
   const pan1 = Object.entries(tabs).map(([key, value]) => {
     return {
       menuItem: value,
-      render: () => <Tab.Pane key={key} attached={false}></Tab.Pane>,
+      render: () => (
+        <Tab.Pane key={key} attached={false} className="paneTab"></Tab.Pane>
+      ),
     };
   });
 
@@ -41,9 +43,10 @@ export const Tabs = ({ tabs, setCurrentTab, setArticleList }: IProps) => {
           onTabChange={handleTabChange}
           menu={{ secondary: true, pointing: true }}
           panes={pan1}
+          className="paneTab"
         />
         {/* <Search placeholder="搜索..." className="float-right !import" /> */}
-        {setArticleList !== undefined ? (
+        {setArticleList !== undefined && false ? (
           <SearchInp setArticleList={setArticleList}></SearchInp>
         ) : (
           <></>

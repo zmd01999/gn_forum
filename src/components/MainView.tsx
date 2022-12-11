@@ -30,6 +30,8 @@ import { getLocalStorage, getUserFromJWT } from "src/utils";
 import { AuthAction } from "src/redux/reducers/AuthReducer";
 import { loadUserInfo } from "src/redux/actions";
 import "./style.css";
+import { ATable } from "./Article/ArticleTable";
+import { SpeedEditor } from "./Article/SpeedEditor";
 interface obj {
   [key: string]: any;
 }
@@ -223,17 +225,26 @@ export const MainView = () => {
             );
           })} */}
         </div>
-        <Item.Group divided>
+        {/* <Item.Group divided>
           <ArticleGroup
             articleList={articleList}
             count={count}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
           ></ArticleGroup>
-        </Item.Group>
+        </Item.Group> */}
+        <ATable
+          articleList={articleList}
+          count={count}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        ></ATable>
+        <div className="speedPublish mt-8">
+          <SpeedEditor></SpeedEditor>
+        </div>
       </div>
 
-      <div className="tag-container">
+      {/* <div className="tag-container">
         <TagList
           currentTag={currentTag}
           tags={tagHotList}
@@ -242,7 +253,7 @@ export const MainView = () => {
           userInfo={userInfo}
           cateList={categoryList}
         />
-      </div>
+      </div> */}
       <div className="fixed bottom-0 right-0 h-16 w-16">
         <SpeedD></SpeedD>
       </div>

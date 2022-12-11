@@ -1,0 +1,35 @@
+.minheight {
+    min-height: 40rem;
+}
+.minheights {
+    min-height: 20rem;
+}
+.buttonC {
+    background-color: rgba(57, 180, 254, 1) !important;
+    border-radius: 0.5rem !important;
+    width: 7rem;
+    border: 1px solid !important;
+    border-color: black !important;
+    text-align: center !important;
+    height: 2.3rem;
+    padding: 0.1rem !important;
+    font-size: 1.1rem !important;
+}
+
+.mlabel {
+    
+    border: 1px solid !important;
+    border-radius: 1rem !important;
+
+}
+
+
+.tableMain {
+    background-color: white !important;
+    border-radius: 1rem !important;
+    padding: 1rem !important;
+}
+
+.blackBorder {
+    border-color: black !important;
+}

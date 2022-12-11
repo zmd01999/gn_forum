@@ -2,7 +2,7 @@
     padding-left: 0% !important;
     padding-right: 0% !important;
     position: relative !important;
-    max-width: 1280px;
+    max-width: 1280px !important;
 }
 
 .css-pluffy {

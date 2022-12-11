@@ -36,6 +36,7 @@
 
 .tab-container {
   display: flex;
+  margin-top: 2rem;
 }
 
 .ui.tab.active,
@@ -66,4 +67,8 @@
 /* .ui.card .meta,  */
 .card .meta {
   cursor:pointer;
+}
+
+.paneTab {
+  font-size: 1.1rem !important;
 }

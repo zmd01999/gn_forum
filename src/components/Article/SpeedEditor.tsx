@@ -42,7 +42,7 @@ interface routeProps {
   slug: string;
 }
 
-export const ArticleEditor = () => {
+export const SpeedEditor = () => {
   const history = useHistory();
   const { slug } = useParams<routeProps>();
   const cateList: any = history.location.state;
@@ -211,59 +211,34 @@ export const ArticleEditor = () => {
   }, []);
 
   return (
-    <Segment placeholder>
-      <Header icon>
-        <Icon name="comment alternate outline" />
-        机器人交流圣地
-      </Header>
-      <div>
-        <Form>
-          <div className="float-left w-2/5">
-            <Form.Field>
-              <label>标题</label>
-              <div className="flex flex-row space-x-4">
-                <input
-                  name="title"
-                  placeholder="文章标题"
-                  onChange={handleChange("title")}
-                  value={article.title}
-                  required
-                  className="blackBorder"
-                />
-                <div className="w-2/5 my-auto	">
-                  {" "}
-                  {`还可输入${30 - article.title.length}个字符`}
-                </div>
+    <div>
+      <Form>
+        <div className="float-left w-2/5">
+          <Form.Field>
+            <label>标题</label>
+            <div className="flex flex-row space-x-4">
+              <input
+                name="title"
+                placeholder="文章标题"
+                onChange={handleChange("title")}
+                value={article.title}
+                required
+                className="blackBorder"
+              />
+              <div className="w-2/5 my-auto	">
+                {" "}
+                {`还可输入${30 - article.title.length}个字符`}
               </div>
-            </Form.Field>
-          </div>
-          <div className="float-left w-5/6">
-            <Form.Field>
-              <label>简介</label>
-              <div className="flex flex-row space-x-4">
-                <input
-                  name="summary"
-                  placeholder="关于什么？"
-                  onChange={handleChange("summary")}
-                  value={article.summary}
-                  required
-                  className="blackBorder"
-                />
-                <div className="w-1/6 my-auto	">
-                  {" "}
-                  {`还可输入${200 - article.title.length}个字符`}
-                </div>
-              </div>
-            </Form.Field>
-          </div>
-
-          <div
-            style={{ minHeight: "40rem", color: "black", fontWeight: "700" }}
-            className="mb-24"
-          >
-            <Form.Field className="minheight">
-              <label>内容</label>
-              {/* <TextArea
+            </div>
+          </Form.Field>
+        </div>
+        <div
+          style={{ minHeight: "20rem", color: "black", fontWeight: "700" }}
+          className="mb-8"
+        >
+          <Form.Field className="minheights blackBorder">
+            <label>内容</label>
+            {/* <TextArea
               name="body"
               placeholder="文章内容"
               onChange={handleBody}
@@ -271,20 +246,20 @@ export const ArticleEditor = () => {
               value={article.body.content}
             /> */}
 
-              {/* <Md /> */}
-              <div className=".editor-container border overflow-y-scroll overflow-x-hidden blackBorder">
-                <BraftEditor
-                  value={article.body.contentHtml}
-                  onChange={(editorState) => {
-                    setContent(editorState);
-                    handleBodyHtml(editorState);
-                  }}
-                  // extendControls={extendControlsIntroduce}
-                ></BraftEditor>
-              </div>
-            </Form.Field>
-          </div>
-          {/* <Form.Field>
+            {/* <Md /> */}
+            <div className="speed-container border overflow-y-scroll blackBorder">
+              <BraftEditor
+                value={article.body.contentHtml}
+                onChange={(editorState) => {
+                  setContent(editorState);
+                  handleBodyHtml(editorState);
+                }}
+                // extendControls={extendControlsIntroduce}
+              ></BraftEditor>
+            </div>
+          </Form.Field>
+        </div>
+        {/* <Form.Field>
             <label>分类</label>
             <input
               // disabled={slug !== undefined}
@@ -311,46 +286,44 @@ export const ArticleEditor = () => {
               );
             })}
           </Form.Field> */}
-          <Form.Field>
-            <label>标签</label>
-            <input
-              // disabled={slug !== undefined}
-              name="tags"
-              placeholder="帖子标签"
-              onChange={handleChange("tagName")}
-              value={article.tagName}
-              required
-              className="blackBorder"
-            />
-            <div className="space-x-4 my-8">
-              {tagList.map((tag) => {
-                return (
-                  <Label
-                    className="mlabel"
-                    as="a"
-                    onClick={(event: SyntheticEvent, data: object) =>
-                      handleTags(data)
-                    }
-                    id={tag.id}
-                    name={tag.tagName}
-                  >
-                    {tag.tagName}
-                  </Label>
-                );
-              })}
+        <Form.Field>
+          <label>标签</label>
+          <input
+            // disabled={slug !== undefined}
+            name="tags"
+            placeholder="帖子标签"
+            onChange={handleChange("tagName")}
+            value={article.tagName}
+            required
+          />
+          <div className="space-x-4 mt-2">
+            {tagList.map((tag) => {
+              return (
+                <Label
+                  className="mlabel"
+                  as="a"
+                  onClick={(event: SyntheticEvent, data: object) =>
+                    handleTags(data)
+                  }
+                  id={tag.id}
+                  name={tag.tagName}
+                >
+                  {tag.tagName}
+                </Label>
+              );
+            })}
+            <div className="float-right">
+              <Button
+                color="blue"
+                onClick={handleCreateArticle}
+                className="buttonC"
+              >
+                发表帖子
+              </Button>
             </div>
-          </Form.Field>
-          <div className="float-left mt-8">
-            <Button
-              color="blue"
-              onClick={handleCreateArticle}
-              className="buttonC"
-            >
-              发表帖子
-            </Button>
           </div>
-        </Form>
-      </div>
-    </Segment>
+        </Form.Field>
+      </Form>
+    </div>
   );
 };

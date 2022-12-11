@@ -13,10 +13,7 @@
   /* z-index: 999; */
 }
 
-div.pstyle {
-  margin-top: 10%;
-  margin-bottom: -15%;
-}
+
 
 .ui.card {
   width: 450px;
@@ -45,6 +42,13 @@ div.pstyle {
   height: 30rem;
 }
 
+.speed-container {
+width: 90%;
+  height: 20rem;
+}
+.editor-container {
+    height: 40rem;
+  }
 .air-container{
   width: 1280px;
   margin-left: 6%;

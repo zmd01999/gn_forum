@@ -1,9 +1,18 @@
 .article-container {
-  width: 80%;
-  margin-right: 10%;
+  width: 100%;
+  /* margin-right: 10%; */
   margin-bottom: 50px;
 }
 
 .article-container .card {
   overflow-x: hidden;
 }
+
+
+.speedPublish {
+  background-color: white !important;
+  border-radius: 1rem !important;
+  padding: 1rem !important;
+}
+
+
