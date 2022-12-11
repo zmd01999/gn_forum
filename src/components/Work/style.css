@@ -1,13 +1,110 @@
 .project-detail {
-    margin-left: 10%;
+    margin: auto;
+
+    width: 1280px;
+    margin-top: 4rem;
 }
 .scratch-player iframe{
     /* margin: auto; */
-      width: 81%;
-      height: 860px;
+      width: 90%;
+      height: 660px;
   }
 
 .sameW {
     width: 81%;
 
 }
+
+.intro {
+    height: 600px;
+}
+
+.bgc {
+    background-color: rgba(242, 242, 242, 1)
+}
+
+.action {
+    float: right;
+  }
+
+  
+.bgImg {
+    background-image: url();
+  }
+  
+  .ui.basic.label1 {
+    background: rgba(57,180,254);
+    border: 1px solid rgb(34 36 38 / 79%);
+    box-shadow: none;
+    border-radius: 9999px;
+    color: rgb(255 255 255);
+    width: 4rem;
+    text-align: center;
+  
+  }
+  
+  .ui.label1 {
+    display: inline-block;
+    line-height: 1;
+    vertical-align: baseline;
+    margin: 0 0.14285714em;
+  
+    padding: 0.5833em 0.833em;
+    color: rgba(0,0,0,.6);
+    text-transform: none;
+    font-weight: 700;
+  
+  }
+  
+  .ui.w {
+    background-color: white;
+  
+  }
+  
+  .ui[class*="left pointing"].label:before {
+    top: 20% !important;
+  }
+  
+  .ui.form textarea {
+    border: 0px solid rgba(34,36,38,.15);
+    background-color: #e8e8e8;
+    height: 100% !important;
+  }
+  
+  .ui.form .field {
+  
+    height: 8rem;
+  }
+  
+  .publishButton {
+    float: right;
+      border: 1px solid;
+      border-color: black;
+      border-radius: 0.5rem;
+      width: 6.5rem;
+      height: 2rem;
+      background-color: rgb(57,180,254);
+      color: white;
+  }
+
+  .work-container {
+    max-width:1280px ;
+    margin: auto;
+  }
+
+  .toDesign {
+    background-color: rgb(64 114 196) !important;
+    font-size: 1.6rem !important;
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+    padding-left: 2.3rem !important;
+    padding-right: 2.3rem !important;
+    font-weight: 500 !important;
+    border-color: black !important;
+    border: 1px solid !important;
+    border-radius: 0.5rem !important;
+  }
+
+  .buttonColor {
+    background-color: rgb(64 114 196) !important;
+  }

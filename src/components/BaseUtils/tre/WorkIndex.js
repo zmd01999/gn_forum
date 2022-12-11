@@ -16,7 +16,7 @@ import {cyan,deepOrange} from "@mui/material/colors";
 
 const HeadingRow = tw.div`flex`;
 const Heading = tw(SectionHeading)`text-gray-900`;
-const Posts = tw.div`mt-6 sm:-mr-8 flex flex-wrap`;
+const Posts = tw.div`sm:-mr-8 flex flex-wrap`;
 const PostContainer = styled.div`
   ${tw`mt-10 w-full sm:w-1/2 lg:w-1/4 sm:pr-8`}
   ${props =>
@@ -52,7 +52,7 @@ const ButtonContainer = tw.div`flex justify-center`;
 const LoadMoreButton = tw(PrimaryButton)`mt-16 mx-auto`;
 
 export default ({
-  headingText = "作品",
+  headingText = "",
   posts = [
     // {
     //   imageSrc:
@@ -93,9 +93,9 @@ export default ({
 
       <Container>
         <ContentWithPaddingXl>
-          <HeadingRow>
+          {/* <HeadingRow>
             <Heading>{headingText}</Heading>
-          </HeadingRow>
+          </HeadingRow> */}
           <Posts>
             {posts.slice(0, visible).map((post, index) => (
               <PostContainer key={index} featured={post.featured}>
@@ -145,6 +145,55 @@ export default ({
               <LoadMoreButton onClick={onLoadMoreClick}>加载更多</LoadMoreButton>
             </ButtonContainer>
           )}
+          <div className="text-2xl font-bold mb-6 text-black">
+            作品推荐
+          </div>
+          <Posts>
+  
+          {posts.slice(0, 4).map((post, index) => (
+              <PostContainer key={index} featured={post.featured}>
+                <Post className="group" as="a" href={post.url}>
+                  <div className="h-64 w-full border-card border-blue-800  rounded-t-3xl">
+                    <div className="m-6 border-2 border-blue-800 rounded-3xl" style={{}}>
+                    <Image imageSrc={post.imageSrc} />
+
+                    </div>
+
+
+                  </div>
+                  <Info>
+                    <div className="flex flex-row space-x-2">
+                    <Button
+                        size="tiny"
+                        // attached="left"
+                        color="blue"
+                        // style={{ marginTop: "10px", marginLeft: "25%" }}
+                      
+                      >原创</Button>
+                    <Title>{post.title}</Title>
+                    </div>
+
+                    
+                    {/* <Category>{post.category}</Category> */}
+                    <CreationDate> <div  className="flex space-x-12 mr-4 mb-2"><VisibilityIcon/>{1}k<CommentIcon sx={{ color: cyan[200] }}/>{5.5}k<ThumbUpIcon sx={{ color: deepOrange[50] }}/>{3}k</div></CreationDate>
+
+                    <div className="flex flex-row space-x-6">
+                      <Avatar
+                        src={updateCreppyDefaultImage(post.author.avatar ?? null)}
+                        sx={{ width: 40, height: 40 ,border:1}}
+                      />
+                        <div className="text-xl font-black text-gray-900 my-auto">
+                          {post.author.nickname}
+                        </div>
+                    </div>
+
+                    {post.featured && post.description && <Description>{post.description}</Description>}
+                  </Info>
+                </Post>
+              </PostContainer>
+            ))}
+          
+          </Posts>
         </ContentWithPaddingXl>
       </Container>
   );
@@ -152,7 +201,8 @@ export default ({
 
 const getPlaceholderPost = () => ({
   imageSrc:
-    "https://images.unsplash.com/photo-1418854982207-12f710b74003?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1024&q=80",
+    // "https://images.unsplash.com/photo-1418854982207-12f710b74003?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1024&q=80",
+    "/assets/example.png",
   category: "创作",
   date: "April 19, 2020",
   title: "羊了个羊",
