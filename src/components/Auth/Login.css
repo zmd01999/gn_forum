@@ -1,4 +1,4 @@
-.border {
+.borderL {
   display: flex;
   justify-content: center;
   margin-top: 15%;
@@ -17,4 +17,40 @@
 
 .ui.form .field {
   margin-bottom:2em !important;
+}
+
+
+.bg {
+      background-color: rgb(188 233 254) !important;
+      padding-top: 1.6rem !important;
+      width: 120% !important;
+      
+    border-radius: 1.5rem !important;
+}
+
+.bgInput {
+  background-color: rgb(248 248 248) !important;
+  border-radius: 1rem !important;
+}
+
+.bgInput .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
+  border-radius: 1rem !important;
+
+}
+
+.lgB {
+  background-color: rgb(158 217 254) !important;
+  border-radius: 1.5rem !important;
+  height: 3rem !important;
+  font-size: 1.5rem !important;
+  margin-top: 2rem !important;
+}
+
+.bottom {
+  justify-content: space-between !important;
+}
+
+.bottom a {
+  color:white !important;
+  font-size: 1rem !important;
 }

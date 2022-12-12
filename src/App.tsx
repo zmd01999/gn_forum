@@ -34,6 +34,7 @@ import {
 } from "src/components/BaseUtils/tre/Layouts";
 import Footer from "src/components/Home/foot";
 import { WorkDetail } from "./components/Work/WorkDetail";
+import { MainPage } from "./components/Home/MainPage";
 function App() {
   let services: IServices;
 
@@ -62,7 +63,7 @@ function App() {
                       <GuardRouter Comp={Header} />
                       <Switch>
                         <Route path="/" exact>
-                          <Work />
+                          <MainPage />
                         </Route>
                         <Route path="/work" exact>
                           <Work />

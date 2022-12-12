@@ -104,6 +104,7 @@ const UserDropdown = (props: user) => {
         sx={{ ml: 2, cursor: "pointer" }}
         badgeContent={<BadgeContentSpan />}
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        style={{ zIndex: 0 }}
       >
         <Avatar
           alt="John Doe"

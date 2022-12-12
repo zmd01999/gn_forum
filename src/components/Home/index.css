@@ -1,0 +1,48 @@
+.bigPic {
+    height: 26rem;
+    position: relative;
+    top: -7.5rem;
+}
+
+.bigPic .logo {
+    height: 8rem;
+    width: 50%;
+    margin: auto;
+    margin-top: 4rem;
+}
+
+.middleM {
+    border: 1px solid;
+    border-radius: 1.5rem;
+    height: 9rem;
+    width: 80%;
+    margin: auto;
+    position: relative;
+    top: -11rem;
+    background-color: white;
+    border-color: #8080803d;
+}
+
+.login {
+    position: relative;
+    left: -12rem;
+    margin-top: 6%;
+}
+
+.middleM img {
+    height: 6rem;
+}
+
+.middleM img:hover {
+    background-color: #8080803b;
+}
+
+.infoMP {
+    border: 1px solid;
+    background-color: rgb(188 233 254) ;
+    height: 26rem;
+    margin-top: -8rem;
+    border-color: #7c8ba14f;
+    border-radius: 1.5rem;
+    color: black;
+}
