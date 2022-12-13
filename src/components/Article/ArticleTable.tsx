@@ -60,7 +60,8 @@ function TableRow({ article }: IProps) {
         {article.viewCounts}/{article.commentCounts}
       </td>
       <td className="" style={{ textAlign: "center" }}>
-        {article.createTime}
+        {`${article.createTime.toString().substring(0, 10)}` +
+          ` ${article.createTime.toString().substring(11, 18)}`}
       </td>
     </tr>
   );

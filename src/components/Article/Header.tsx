@@ -46,9 +46,7 @@ export const Header = ({ author }: IProps) => {
         {/* <a>
           <i aria-hidden="true" className="user icon"></i>10 Friends
         </a> */}
-        <Button attached="right" color="blue">
-          发消息
-        </Button>
+        <Button color="blue">发消息</Button>
       </div>
     </div>
   );

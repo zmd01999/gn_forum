@@ -145,7 +145,7 @@ export default ({
               <LoadMoreButton onClick={onLoadMoreClick}>加载更多</LoadMoreButton>
             </ButtonContainer>
           )}
-          <div className="text-2xl font-bold mb-6 text-black">
+          <div className="text-2xl font-bold mb-6 text-black mt-8">
             作品推荐
           </div>
           <Posts>
