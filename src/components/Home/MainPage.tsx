@@ -67,7 +67,11 @@ export const MainPage = () => {
         <div className="flex flex-row">
           <div
             className="w-4/5"
-            style={{ paddingRight: "20%", marginTop: "-6rem" }}
+            style={{
+              paddingRight: "10%",
+              marginTop: "-6rem",
+              marginLeft: "10%",
+            }}
           >
             <Work></Work>
             <div className="mt-8">
