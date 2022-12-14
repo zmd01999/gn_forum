@@ -345,11 +345,7 @@ export const ArticleEditor = () => {
             </div>
           </Form.Field>
           <div className="float-left mt-8">
-            <Button
-              color="blue"
-              onClick={handleCreateArticle}
-              className="buttonC"
-            >
+            <Button onClick={handleCreateArticle} className="buttonC">
               发表帖子
             </Button>
           </div>

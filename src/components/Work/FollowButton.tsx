@@ -60,7 +60,6 @@ export const FollowButton = ({ profile, isF, setIsF }: IProps) => {
 
       <Button
         basic={isF}
-        color="blue"
         content={isF ? "取消关注" : `关注`}
         icon={isF ? "minus" : "plus"}
         size="tiny"

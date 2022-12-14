@@ -307,11 +307,7 @@ export const SpeedEditor = () => {
               );
             })}
             <div className="float-right">
-              <Button
-                color="blue"
-                onClick={handleCreateArticle}
-                className="buttonC"
-              >
+              <Button onClick={handleCreateArticle} className="buttonC">
                 发表帖子
               </Button>
             </div>
