@@ -93,6 +93,10 @@ export const SpeedEditor = () => {
           notifyDispatch(setError("文章内容不能为空"));
           return;
         }
+        if (article.title.length > 50) {
+          notifyDispatch(setError("文章标题太长"));
+          return;
+        }
         if (article.tagName == "") {
           notifyDispatch(setError("标签不能为空"));
           return;
@@ -112,7 +116,7 @@ export const SpeedEditor = () => {
               if (res.data.success) {
                 notifyDispatch(setSuccess("发布成功."));
               } else {
-                notifyDispatch(setError("发布失败."));
+                notifyDispatch(setError(res.data.msg));
               }
               history.push("/");
             });
@@ -238,15 +242,6 @@ export const SpeedEditor = () => {
         >
           <Form.Field className="minheights blackBorder">
             <label>内容</label>
-            {/* <TextArea
-              name="body"
-              placeholder="文章内容"
-              onChange={handleBody}
-              style={{ minHeight: 280 }}
-              value={article.body.content}
-            /> */}
-
-            {/* <Md /> */}
             <div className="speed-container border overflow-y-scroll blackBorder">
               <BraftEditor
                 value={article.body.contentHtml}
@@ -254,7 +249,6 @@ export const SpeedEditor = () => {
                   setContent(editorState);
                   handleBodyHtml(editorState);
                 }}
-                // extendControls={extendControlsIntroduce}
               ></BraftEditor>
             </div>
           </Form.Field>

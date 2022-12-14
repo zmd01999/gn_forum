@@ -8,7 +8,12 @@ interface IProps {
 export const Header = ({ author }: IProps) => {
   return (
     <div className="ui card cardlenth">
-      <div className="header text-xl font-semibold">{author.nickname}</div>
+      <div
+        className="header text-xl font-semibold"
+        style={{ paddingBottom: "0.4rem" }}
+      >
+        {author.nickname}
+      </div>
 
       <div className="image">
         <img src={updateCreppyDefaultImage(author.avatar ?? null)} />
@@ -46,7 +51,7 @@ export const Header = ({ author }: IProps) => {
         {/* <a>
           <i aria-hidden="true" className="user icon"></i>10 Friends
         </a> */}
-        <Button color="blue">发消息</Button>
+        <Button className="header-button">发消息</Button>
       </div>
     </div>
   );

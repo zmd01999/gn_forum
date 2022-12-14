@@ -209,6 +209,9 @@ export const MainView = () => {
           tabs={TABS}
           setCurrentTab={setCurrentTab}
           setArticleList={setArticleList}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          count={count}
         />
         <div>
           {/* {tagList.map((topic) => {

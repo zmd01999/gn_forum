@@ -16,7 +16,7 @@ export const Comment = () => {
   };
   return (
     <div className="ui comments">
-      <h3 className="ui  header">评论 ({`${2}`})</h3>
+      <h3 className="ui  header">评论 ({`${4}`})</h3>
 
       <div className="flex flex-row">
         <div className="w-8 mt-6">

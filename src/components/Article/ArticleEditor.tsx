@@ -89,6 +89,10 @@ export const ArticleEditor = () => {
           notifyDispatch(setError("文章标题不能为空"));
           return;
         }
+        if (article.title.length > 50) {
+          notifyDispatch(setError("文章标题太长"));
+          return;
+        }
         if (article.body.contentHtml == "") {
           notifyDispatch(setError("文章内容不能为空"));
           return;
@@ -112,7 +116,7 @@ export const ArticleEditor = () => {
               if (res.data.success) {
                 notifyDispatch(setSuccess("发布成功."));
               } else {
-                notifyDispatch(setError("发布失败."));
+                notifyDispatch(setError(res.data.msg));
               }
               history.push("/");
             });

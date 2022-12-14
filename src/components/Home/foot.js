@@ -54,7 +54,8 @@ export default () => {
             </SocialLink>
           </SocialLinksContainer> */}
           <CopyrightText>
-            &copy; Copyright 2022, 趣代码世界. All Rights Reserved.
+            &copy; Copyright 2022, 趣代码世界. All Rights Reserved.<br/>
+            皖ICP备2022015871号
           </CopyrightText>
         </Row>
       </Content>

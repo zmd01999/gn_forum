@@ -19,9 +19,9 @@ window.uuid = function() {
 
 
 window.getUserInfo = function() {
-  userInfo = localStorage.getItem('pro__Login_Userinfo')
+  userInfo = localStorage.getItem('userInfo')
   if(userInfo){
-    userInfo = JSON.parse(userInfo).value
+    userInfo = JSON.parse(userInfo).token
     console.log(userInfo)
     return userInfo
   }
@@ -37,8 +37,8 @@ window.getUserRole = function(){
 }
 
 window.getUserToken = function() {
-  var token = JSON.parse(localStorage.getItem("pro__Access-Token"))
-  return token==null?null:token.value
+  var token = JSON.parse(localStorage.getItem("token"))
+  return token==null?null:token.token
 }
 
 window.getWorkInfo = function(workId, cb) {
@@ -107,13 +107,13 @@ window.getQiniuToken = function() {
   function uploadFile(fileName, fileTag, filePath, fileLocation) {
     var id = null;
     $.ajax({
-      url: '/api/system/sysFile/add',
+      url: 'http://1.15.61.98:8090/project/publish',
       type: 'POST',
       dataType: 'json',
       contentType: 'application/json',
       async: false,
       beforeSend: function (request) {
-        request.setRequestHeader('X-Access-Token', getUserToken())
+        request.setRequestHeader('Authorization', getUserToken())
       },
       data: JSON.stringify({
         fileType: 2,
@@ -175,21 +175,25 @@ window.getQiniuToken = function() {
   }
 
   function update2Local(file,filename,bizPath, cb){
-    let uploadApi = JSON.parse(localStorage.getItem("CONFIG")).domianURL+"/sys/common/upload"
+    let uploadApi = "http://1.15.61.98:8090/article/cosUpload"
 
     var formData = new FormData();
-    formData.append("file",file, filename);
-    formData.append("bizPath",bizPath);
+    const fileContent = new File([file], filename, { type: 'multipart/form-data' });
 
+    formData.append("file",fileContent);
+    // formData.append("bizPath",bizPath);
+    console.log(formData);
     $.ajax({
       url: uploadApi,
       type: 'POST',
-      cache: false,
+      // cache: false,
       data: formData,
       processData: false,
       contentType: false,
+      async: false,
+      // contentType:'multipart/form-data',
       beforeSend: function(request) {
-        request.setRequestHeader('X-Access-Token', getUserToken())
+        request.setRequestHeader('Authorization', getUserToken())
       },
       success: function (result) {
         if(cb){

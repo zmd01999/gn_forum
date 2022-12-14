@@ -15,7 +15,8 @@ export const Work = () => {
   });
   const [currentTab, setCurrentTab] = useState<string>("0");
   const [articleList, setArticleList] = useState<IMyArticle[]>([]);
-
+  const [count, setCount] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   return (
     <div className="work-container">
       {/* <MyCarousel></MyCarousel> */}
@@ -23,6 +24,9 @@ export const Work = () => {
         tabs={TABS}
         setCurrentTab={setCurrentTab}
         setArticleList={setArticleList}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        count={count}
       />
       <WorkIndex />
     </div>

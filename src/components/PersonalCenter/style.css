@@ -48,3 +48,11 @@
 .css-1gsv261 {
     border-bottom:0px !important;
 }
+
+.msgSelector {
+    background-color: #edf2f7 !important;
+}
+
+.msgSelector .ui.placeholder, .msgSelector .ui.placeholder .image.header:after, .msgSelector .ui.placeholder .line, .msgSelector .ui.placeholder .line:after,.msgSelector .ui.placeholder>:before{
+    background-color: #edf2f7 !important;
+}

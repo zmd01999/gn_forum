@@ -1,5 +1,6 @@
 .ui.pagination.menu .active.item {
-  background-color: green !important;
+  background-color: black!important;
+  color: white;
 }
 
 .ui.pagination.menu {
@@ -109,4 +110,28 @@ width: 90%;
 
 .cardlenth {
  height: 28rem;
+}
+
+
+.comment-button {
+  margin-top: 10px !important;
+    margin-left: 25% !important;
+    background-color: rgb(57 180 254) !important;
+    border: 1px solid !important;
+    border-color: black !important;
+    font-size: 1.3rem !important;
+    padding: 0.5rem !important;
+    width: 9.5rem !important;
+    border-radius: 0.5rem !important;
+}
+
+.header-button {
+  background-color: rgb(68, 114, 196) !important;
+    border: 1px solid !important;
+    border-color: black !important;
+
+    padding: 0.6rem !important;
+    width: 5.5rem !important;
+    border-radius: 0.5rem !important;
+    color: white !important;
 }

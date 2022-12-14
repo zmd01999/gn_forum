@@ -15,7 +15,7 @@ interface IData {
 }
 
 export const Pagination = ({ count, currentPage, setCurrentPage }: IProps) => {
-  type xx=React.ButtonHTMLAttributes<HTMLButtonElement>
+  type xx = React.ButtonHTMLAttributes<HTMLButtonElement>;
   const totalPages =
     count % PER_PAGE_COUNT == 0
       ? Math.floor(count / PER_PAGE_COUNT)
@@ -32,6 +32,14 @@ export const Pagination = ({ count, currentPage, setCurrentPage }: IProps) => {
       activePage={currentPage}
       totalPages={totalPages}
       onPageChange={handlePageChange}
+      prevItem={{ content: "上一页", icon: true }}
+      nextItem={{ content: "下一页", icon: true }}
+      ellipsisItem={{
+        content: <Icon name="ellipsis horizontal" />,
+        icon: true,
+      }}
+      firstItem={{ content: <Icon name="angle double left" />, icon: true }}
+      lastItem={{ content: <Icon name="angle double right" />, icon: true }}
     />
   );
 };

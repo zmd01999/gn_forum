@@ -224,7 +224,7 @@ body{
 	height: 375px;
 	/*background-color: #dcdcdc;*/
 }
-.release-success, .loading, .uploading{
+.release-success, .loading, .uploading {
     display: none;
 	position: absolute;
 	left: 0;
@@ -237,6 +237,58 @@ body{
 	background-color: #ffffff;
 	border-radius: 6px;
 }
+
+.release-form{
+    display: none;
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	margin: auto;
+    width: 950px;
+    height: 600px;
+	background-color: rgb(230, 233, 238);
+	border-radius: 6px;
+}
+
+.con-box1{
+	display: flex;
+	flex-direction: column;
+	margin: 2.2rem;
+}
+.con-box1 div{
+	margin-top: 2rem;
+	font-weight: 600;
+
+}.con-box1 h4 {
+	font-size: 1.4rem;
+    font-weight: 500;
+}
+ .con-box1 button {
+	border-radius: 1.2rem;
+    width: 4rem;
+    background-color: rgb(217 217 217);
+    color: white;
+    font-size: 0.9rem;
+    border-color: #0000007a;
+	margin-right: 1.2rem;
+ }
+
+ .commitButton {
+	position: relative;
+    bottom: 3.5rem;
+    right: rem;
+    left: 39rem;
+    width: 15rem;
+    height: 3rem;
+    border-radius: 0.5rem;
+    background-color: rgb(57 180 254);
+    font-weight: 500;
+    font-size: larger;
+    border-color: #00000069;
+ }
+
 .con-box{
 	display: flex;
 	align-items: center;
@@ -253,6 +305,8 @@ body{
 	letter-spacing: 0px;
 	color: #333;
 }
+
+
 .rights-img{
 	width: 42px;
 	height: 42px;

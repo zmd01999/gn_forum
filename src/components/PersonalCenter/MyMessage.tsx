@@ -6,6 +6,7 @@ import { IMyArticle } from "src/models/types";
 import { setLoading, clearLoading } from "src/redux/actions";
 import { LoaderAction } from "src/redux/reducers/LoaderReducer";
 import { useArticleService } from "../../hooks";
+import "./style.css";
 
 const MyMessage = () => {
   const articleService = useArticleService();
@@ -40,7 +41,7 @@ const MyMessage = () => {
   return (
     <>
       {articleList.length == 0 ? (
-        <>
+        <div className="msgSelector">
           <Message positive>
             <Message.Header>您目前没有消息</Message.Header>
             {/* <p>
@@ -61,7 +62,7 @@ const MyMessage = () => {
               <Placeholder.Line />
             </Placeholder.Paragraph>
           </Placeholder>
-        </>
+        </div>
       ) : (
         articleList.map((art) => {
           return (

@@ -105,7 +105,7 @@ export const ATable = ({
           })}
         </tbody>
       </table>
-      <div className="pstyle">
+      <div className="pstyle " style={{ left: "75%", position: "relative" }}>
         <Pagination
           count={count}
           currentPage={currentPage}

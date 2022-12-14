@@ -39,27 +39,43 @@
       },
       complete(res) {
         console.log(res)
-        if (res.key.endsWith('.jpg')) {
-          uploadParam.coverKey = uploadFile(res.key, '学生作业-封面', res.key,2)
+        if (res.data.data.endsWith('.jpg')) {
+          uploadParam.coverKey = uploadFile(res.key, '学生作业-封面', res.data.data,2)
         } else {
-          uploadParam.projectKey = uploadFile(res.key, '学生作业-sb3', res.key,2)
+          uploadParam.projectKey = uploadFile(res.key, '学生作业-sb3', res.data.data,2)
         }
         uploadWork()
+      }
+    }
+
+    function handleCoverUploaded(res){
+      console.log(res);
+      if(res.success){
+        var key = res.data
+        if(key.endsWith('.jpg')){
+          // uploadParam.coverKey = uploadFile(key, '学生作业-封面', key,1)
+          uploadParam.coverKey = key;
+        }else{
+          // uploadParam.projectKey = uploadFile(key, '学生作业-sb3', key,1)
+          uploadParam.projectKey = key;
+        }
+      }else{
+        alert("上传失败：" + res.msg)
       }
     }
 
     function handleFileUploaded(res){
       console.log(res);
       if(res.success){
-        var key = res.message
+        var key = res.data
         if(key.endsWith('.jpg')){
-          uploadParam.coverKey = uploadFile(key, '学生作业-封面', key,1)
+          uploadParam.coverKey = key;
         }else{
-          uploadParam.projectKey = uploadFile(key, '学生作业-sb3', key,1)
+          uploadParam.projectKey = key;
         }
         uploadWork()
       }else{
-        alert("上传失败：" + res.message)
+        alert("上传失败：" + res.msg)
       }
     }
 
@@ -69,7 +85,7 @@
     window.scratchConfig = {
       logo: {
         show: true, 
-        url: "/logo.png",
+        url: "/assets/logo.png",
         handleClickLogo: () => {
           window.open("/")
         }
@@ -132,17 +148,17 @@
          //我的物品按钮
          myStuff:{
           show: true,
-          url: '/account/center'
+          url: `/pcenter/${userInfo.id}`
         },
         //用户头像按钮
         userAvatar:{
           show: true,
-          username: (userInfo && userInfo.realname) || '未登录',
-          avatar: (userInfo && getFileAccessHttpUrl(userInfo.avatar)) || './static/avatar.png',
+          username: (userInfo && userInfo.nickname) || '未登录',
+          avatar: (userInfo && ("https://"+userInfo.avatar)) || './static/avatar.png',
           handleClick(){
             //弹出登录框等操作
             console.log("点击头像")
-            window.open("/account/settings/BaseSetting")
+            window.open(`/pcenter/${userInfo.id}`)
           }
         },
         customButtons: [
@@ -154,20 +170,21 @@
               background: 'hsla(30, 100%, 55%, 1)',
             },
             handleClick:()=>{
-              requestUpload(1)
+              $('.scratch-filter').show()
+              $('.release-form').show()
             }
           },
-          {
-            show: qn_token,
-            buttonName: '保存',
-            style: {
-              color: 'white',
-              background: 'hsl(271deg 89% 70%)',
-            },
-            handleClick:()=>{
-              requestUpload(0)
-            }
-          },
+          // {
+          //   show: qn_token,
+          //   buttonName: '保存',
+          //   style: {
+          //     color: 'white',
+          //     background: 'hsl(271deg 89% 70%)',
+          //   },
+          //   handleClick:()=>{
+          //     requestUpload(0)
+          //   }
+          // },
           //可继续新增按钮
         ],
       },
@@ -210,7 +227,7 @@
           })
         } else {
           window.scratch.loadProject('/project/project.sb3', () => {
-            window.scratch.setProjectName(userInfo?userInfo.realname + '作品' : 'Scratch作品')
+            window.scratch.setProjectName(userInfo?userInfo.nickname + '作品' : 'Scratch作品')
             $('.loading').hide()
             $('.scratch-filter').hide()
           })
@@ -262,6 +279,7 @@
       }
     }
 
+
     //请求提交作业
     function requestUpload(status){
       workStatus = status
@@ -269,50 +287,64 @@
       $('.uploading').show()
       var uuid = window.uuid()
       uploadParam.projectTitle = window.scratch.getProjectName()
-      var defaultUploadType = JSON.parse(localStorage.getItem("CONFIG")).defaultUploadType
-      window.scratch.getProjectCoverBlob(cover => {
-        if(defaultUploadType == 'qiniu'){
-          upload2Qiniu(cover, 'project3/' + uuid + '.jpg', uploadParam.projectTitle, observer)
-        }else{
-          update2Local(cover,uploadParam.projectTitle + ".jpg", 'project3', handleFileUploaded)
-        }
+      // var defaultUploadType = JSON.parse(localStorage.getItem("CONFIG")).defaultUploadType
+      var defaultUploadType = "a"
+      var cover = window.scratch.getProjectCoverBlob(cover => {
+        console.log(cover)
+        return cover;
       })
+      update2Local(cover,uploadParam.projectTitle+userInfo.id + ".jpg", 'project3', handleCoverUploaded);
       window.scratch.getProjectFile(file => {
+        console.log(file)
         if(defaultUploadType == 'qiniu'){
           upload2Qiniu(file, 'project3/' + uuid + '.sb3', uploadParam.projectTitle, observer)
         }else{
-          update2Local(file, uploadParam.projectTitle + '.sb3', 'project3', handleFileUploaded)
+          update2Local(file, uploadParam.projectTitle +userInfo.id+ '.sb3', 'project3', handleFileUploaded)
         }
       })
+
     }
 
     //上传作业
     function uploadWork() {
       if (!uploadParam.projectKey || !uploadParam.coverKey) {
+        console.log(uploadParam.projectKey);
         return
       }
       $.ajax({
-        url: '/api/teaching/teachingWork/submit',
+        url: 'http://1.15.61.98:8090/project/publish',
         type: 'POST',
         dataType: 'json',
         contentType: 'application/json',
         beforeSend: function (request) {
-          request.setRequestHeader('X-Access-Token', getUserToken())
+          request.setRequestHeader('Authorization', getUserToken())
         },
         data: JSON.stringify({
-          courseId: unitId,
-          workCover: uploadParam.coverKey,
-          workFile: uploadParam.projectKey,
-          workName: uploadParam.projectTitle,
-          id: workId,
-          workType: 2,
-          workStatus: workStatus,
-          departId: departId,
-          additionalId: additionalId,
+          // courseId: unitId,
+          // workCover: uploadParam.coverKey,
+          // workFile: uploadParam.projectKey,
+          // workName: uploadParam.projectTitle,
+          // id: workId,
+          // workType: 2,
+          // workStatus: workStatus,
+          // departId: departId,
+          // additionalId: additionalId,
+          title: uploadParam.projectTitle,
+          summary: "",
+          category: {
+            id: "1602196713374871554",
+          },
+          body: {
+            contentHtml: "",
+            content: uploadParam.projectKey,
+          },
+          tags: ["Scratch"],
+          avatar:uploadParam.coverKey,
+          project:1,
         }),
         success: function (res) {
           canShare = true
-          if (res.code == 200) {
+          if (res.success) {
             $('#projectTitle').html(projectTitle)
             var shareUrl =
               window.location.protocol +
@@ -320,11 +352,11 @@
               window.location.hostname +
               (window.location.port ? ':' + window.location.port : '') +
               '/scratch/scratch-mobile.html?workId=' +
-              res.result.id
+              res.data.id
             createCode('qrcode', shareUrl)
 		        var img = document.createElement('img');
             img.id = 'qrCodeIco';
-            img.src = '/logo.png';
+            img.src = '/assets/logo.png';
             qrcode.appendChild(img);
             $('.scratch-filter').show()
             $('.release-success').show()
@@ -377,6 +409,84 @@
         <span>&times</span>
       </div>
     </div>
+
+    <div class="release-form">
+      <div class="con-box1">
+        <h4><span id="projectTitle"></span>| 基本信息</h4>
+        <div> 作品标题 <input style="height: 1.7rem;
+          width: 15rem;">
+        <div style="    
+        position: relative;
+        left: 30rem;
+        margin-top: -1rem;">
+          作品封面  
+          <img src="/assets/forum_1.webp" style="height: 15rem;
+          width: 20rem;
+          position: fixed;
+          margin-left: 20px;">                
+          <input
+          hidden
+          type="file"
+          accept="image/png, image/jpeg"
+          id="account-settings-upload-image"
+        />
+        </div>  
+        </div>
+        <div>版权声明  
+          <input type="radio" id="contactChoice1"
+           name="contact" value="email">
+          <label for="contactChoice1">原创</label>
+      
+          <input type="radio" id="contactChoice2" style="margin-left: 1.7rem;"
+           name="contact" value="phone">
+          <label for="contactChoice2">转载,来源 <input style="    height: 1.7rem;
+            "></label>
+
+        
+        </div>
+        <div>作品标签 
+          <button type="button">动画</button>
+          <button type="button">游戏</button>
+          <button type="button">工具</button>
+          <button type="button">模拟</button>
+
+        </div>
+      
+        <h4 style="margin-top: 2.5rem;"><span id="projectTitle"></span>| 进阶信息</h4>
+        <div> 改变权限 
+          <input type="radio" id="notallow"
+          name="contact" value="notallow">
+         <label for="notallow">不允许</label>
+         <input type="radio" id="see" style="margin-left: 1.7rem;"
+         name="contact" value="see">
+        <label for="see">仅查看</label>
+        <input type="radio" id="allow" style="margin-left: 1.7rem;"
+        name="contact" value="allow">
+       <label for="allow">允许</label>
+           </div>
+        <div>作品介绍 <input style="    height: 3rem;
+          width: 20rem;"></div>
+        <div >操作说明 <input style="    height: 3rem;
+          width: 20rem;"></div>
+        <button style="	position: relative;
+        bottom: 3.5rem;
+        right: rem;
+        left: 39rem;
+        width: 15rem;
+        height: 3rem;
+        border-radius: 0.5rem;
+        background-color: rgb(57 180 254);
+        font-weight: 500;
+        font-size: larger;
+        border-color: #00000069;">确认无误,提交作品</button>
+      </div>
+      <div class="fault-code">
+        <span>&times</span>
+      </div>
+    </div>
+
+
+
     <div class="release-false">
       <div class="con-box-two">
         <h4>作品发布失败</h4>
@@ -392,6 +502,9 @@
       </div>
     </div>
   </div>
+
+
+
 
   <div id="scratch">
 

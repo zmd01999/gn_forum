@@ -157,14 +157,13 @@ export const NewAComment = ({ slug, authorId }: IProps) => {
       </div>
       <Button
         size="large"
-        attached="right"
         color="blue"
-        style={{ marginTop: "10px", marginLeft: "25%" }}
+        className="comment-button"
         onClick={() => {
           handleCommentAction("submit");
         }}
       >
-        发送评论
+        发表回复
       </Button>
     </Fragment>
   );

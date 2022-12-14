@@ -4,6 +4,8 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import WorkCard from "../Work/WorkCard";
+import { useState } from "react";
+import { Pagination } from "../Home/Pagination";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -40,7 +42,8 @@ function a11yProps(index: number) {
 
 export default function MyWork() {
   const [value, setValue] = React.useState(0);
-
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [articleCount, setArticleCount] = useState<number>(1);
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
@@ -51,7 +54,8 @@ export default function MyWork() {
         flexGrow: 1,
         bgcolor: "background.paper",
         display: "flex",
-        height: 224,
+        height: "auto",
+        width: "auto",
       }}
     >
       <Tabs
@@ -72,12 +76,33 @@ export default function MyWork() {
       </Tabs>
       <TabPanel value={value} index={0}>
         <WorkCard></WorkCard>
+        <div className="mt-6">
+          <Pagination
+            count={articleCount}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        </div>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <WorkCard></WorkCard>
+        <div className="mt-6">
+          <Pagination
+            count={articleCount}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        </div>
       </TabPanel>
       <TabPanel value={value} index={2}>
         我的喜欢
+        <div className="mt-6">
+          <Pagination
+            count={articleCount}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        </div>
       </TabPanel>
     </Box>
   );
