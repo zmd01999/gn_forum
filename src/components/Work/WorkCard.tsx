@@ -11,8 +11,12 @@ import Link from "@mui/joy/Link";
 import Favorite from "@mui/icons-material/Favorite";
 import Visibility from "@mui/icons-material/Visibility";
 import CreateNewFolder from "@mui/icons-material/CreateNewFolder";
-
-export default function WorkCard() {
+import { IProject } from "src/models/types";
+import { updateCreppyDefaultImage } from "src/utils";
+interface props {
+  project: IProject;
+}
+export const WorkCard = ({ project }: props) => {
   return (
     <Card
       sx={{
@@ -26,8 +30,9 @@ export default function WorkCard() {
         <AspectRatio ratio="4/3">
           <figure>
             <img
+              // src={"https://" + project.avatar}
+              // srcSet={"https://" + project.avatar + " 2x"}
               src="https://images.unsplash.com/photo-1515825838458-f2a94b20105a?auto=format&fit=crop&w=300"
-              srcSet="https://images.unsplash.com/photo-1515825838458-f2a94b20105a?auto=format&fit=crop&w=300&dpr=2 2x"
               loading="lazy"
               alt="Yosemite by Casey Horner"
             />
@@ -69,7 +74,7 @@ export default function WorkCard() {
                     display: "block",
                   }}
                 >
-                  羊了个羊
+                  {project.title}
                 </Link>
               </Typography>
               <IconButton size="sm" color="neutral" sx={{ ml: "auto" }}>
@@ -84,12 +89,12 @@ export default function WorkCard() {
       </Box>
       <Box sx={{ display: "flex", gap: 1, mt: 1.5, alignItems: "center" }}>
         <Avatar
-          src="https://images.unsplash.com/profile-1502669002421-a8d274ad2897?dpr=2&auto=format&fit=crop&w=32&h=32&q=60&crop=faces&bg=fff"
+          src={updateCreppyDefaultImage(project.author.avatar ?? null)}
           size="sm"
           sx={{ "--Avatar-size": "1.5rem" }}
         />
         <Typography sx={{ fontSize: "sm", fontWeight: "md" }}>
-          东方不败
+          {project.author.nickname}
         </Typography>
         <Chip
           variant="outlined"
@@ -101,7 +106,7 @@ export default function WorkCard() {
             px: 0.5,
           }}
         >
-          羊了个羊
+          {project.title}
         </Chip>
         <Link
           href="#dribbble-shot"
@@ -115,7 +120,7 @@ export default function WorkCard() {
             "&:hover": { color: "danger.plainColor" },
           }}
         >
-          117
+          {project.thumbsCounts}
         </Link>
         <Link
           href="#dribbble-shot"
@@ -128,9 +133,9 @@ export default function WorkCard() {
             "&:hover": { color: "primary.plainColor" },
           }}
         >
-          10.4k
+          {project.viewCounts}
         </Link>
       </Box>
     </Card>
   );
-}
+};

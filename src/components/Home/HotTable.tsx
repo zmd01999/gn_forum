@@ -33,7 +33,12 @@ function TableRow({ article, rank }: IProps) {
     <tr className="">
       <td
         className="text-gray-400"
-        style={{ textAlign: "center", margin: "auto", width: "3rem" }}
+        style={{
+          textAlign: "center",
+          margin: "auto",
+          width: "3rem",
+          padding: "0.3rem",
+        }}
       >
         {rank <= 3 ? (
           <img

@@ -53,6 +53,39 @@ export interface IUserInfo {
   mobilePhoneNumber: string | null;
   avatar?:string;
   growthValue?:string|null;
+  articleNum?:number;
+  projectNum?:number;
+}
+
+export interface IProject {
+  id:string;
+  title: string;
+  summary: string;
+  avatar:string;
+  body: {content:string, contentHtml:string};
+  tags: {                    
+    id: string,
+    tagName: string,
+    avatar: string
+}[];
+  createTime: Date | string;
+  commentCounts:number;
+  weight:number;
+  author:IUserInfo;
+  viewCounts: number;
+  thumbsCounts: number;
+  isZan:number;
+  isFollow:number;
+  category:{
+    id:string;
+    avatar:string;
+    description:string;
+    name:string;
+  };
+  tagName?:string;
+  noCheck?:string;
+  copyright?:string;
+
 }
 
 export interface IArticle {

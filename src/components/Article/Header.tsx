@@ -7,7 +7,7 @@ interface IProps {
 
 export const Header = ({ author }: IProps) => {
   return (
-    <div className="ui card cardlenth">
+    <div className="ui card cardlenth" style={{ flexGrow: "1" }}>
       <div
         className="header text-xl font-semibold"
         style={{ paddingBottom: "0.4rem" }}
@@ -24,7 +24,7 @@ export const Header = ({ author }: IProps) => {
           <Grid columns={3} divided>
             <Grid.Column>
               <div className="text-center">
-                777
+                {author.articleNum}
                 <br />
                 帖子
               </div>
@@ -46,13 +46,14 @@ export const Header = ({ author }: IProps) => {
             </Grid.Column>
           </Grid>
         </div>
+        <div style={{ marginTop: "3rem" }}>
+          <Button className="header-button">发消息</Button>
+        </div>
       </div>
-      <div className="extra content">
-        {/* <a>
-          <i aria-hidden="true" className="user icon"></i>10 Friends
-        </a> */}
+      {/* <div className="extra content">
+
         <Button className="header-button">发消息</Button>
-      </div>
+      </div> */}
     </div>
   );
 };

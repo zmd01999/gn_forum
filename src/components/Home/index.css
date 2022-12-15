@@ -2,6 +2,8 @@
     height: 26rem;
     position: relative;
     top: -7.5rem;
+    width: 110%;
+    margin-left: -2rem;
 }
 
 .bigPic .logo {

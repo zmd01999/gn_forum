@@ -73,6 +73,7 @@ import { TransitionProps } from "@mui/material/transitions";
 import SendCode from "@jiumao/rc-send-code";
 import Input from "@mui/material/Input";
 import FilledInput from "@mui/material/FilledInput";
+import "./Login.css";
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -208,7 +209,11 @@ const LoginPage = () => {
     setOpen(false);
   };
   return (
-    <Box className="content-center" sx={{ mx: "auto" }}>
+    <Box
+      className="content-center"
+      sx={{ mx: "auto", my: "2" }}
+      style={{ marginTop: "3rem", marginBottom: "-12rem" }}
+    >
       <Card sx={{ zIndex: 1, mx: "auto" }}>
         <CardContent
           sx={{ padding: (theme) => `${theme.spacing(2, 3, 2)} !important` }}
@@ -492,7 +497,8 @@ const LoginPage = () => {
           </form>
         </CardContent>
       </Card>
-      <FooterIllustrationsV1 />
+      {/* <FooterIllustrationsV1 /> */}
+      <div className="coverBL"></div>
     </Box>
   );
 };

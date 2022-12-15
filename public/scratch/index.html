@@ -148,7 +148,7 @@
          //我的物品按钮
          myStuff:{
           show: true,
-          url: `/pcenter/${userInfo.id}`
+          url: (userInfo&&(`/pcenter/${userInfo.id}`)) || "/"
         },
         //用户头像按钮
         userAvatar:{
@@ -158,7 +158,7 @@
           handleClick(){
             //弹出登录框等操作
             console.log("点击头像")
-            window.open(`/pcenter/${userInfo.id}`)
+            window.open((userInfo&& (`/pcenter/${userInfo.id}`))|| "/")
           }
         },
         customButtons: [

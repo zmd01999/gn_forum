@@ -192,7 +192,29 @@ export const ArticleEditor = () => {
     (
       event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
     ) => {
-      setArticle({ ...article, [prop]: event.target.value });
+      if (prop == "title" || prop == "summary") {
+        if (prop == "title") {
+          if (event.target.value.length < 30) {
+            setArticle({ ...article, [prop]: event.target.value });
+          } else {
+            setArticle({
+              ...article,
+              [prop]: event.target.value.substring(0, 30),
+            });
+          }
+        } else {
+          if (event.target.value.length < 200) {
+            setArticle({ ...article, [prop]: event.target.value });
+          } else {
+            setArticle({
+              ...article,
+              [prop]: event.target.value.substring(0, 200),
+            });
+          }
+        }
+      } else {
+        setArticle({ ...article, [prop]: event.target.value });
+      }
     };
 
   useEffect(() => {
@@ -255,7 +277,7 @@ export const ArticleEditor = () => {
                 />
                 <div className="w-1/6 my-auto	">
                   {" "}
-                  {`还可输入${200 - article.title.length}个字符`}
+                  {`还可输入${200 - article.summary.length}个字符`}
                 </div>
               </div>
             </Form.Field>

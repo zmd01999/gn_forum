@@ -3,6 +3,7 @@ import { ArticleService } from "./api/ArticleService";
 import { AuthService } from "./api/AuthService";
 import { CommentService } from "./api/CommentService";
 import { ProfileService } from "./api/ProfileService";
+import { ProjectService } from "./api/ProjectService";
 import { ServicesContext } from "./models/Services";
 
 export function useAuthService(): AuthService {
@@ -38,6 +39,15 @@ export function useProfileService(): ProfileService {
   }
 
   return services.profileService;
+}
+
+export function useProjectService(): ProjectService {
+  const services = useContext(ServicesContext);
+  if (!services.projectService) {
+    throw new Error("Project Service is not initialized.");
+  }
+
+  return services.projectService;
 }
 
 export function useConstructor(callBack=()=>{}) {

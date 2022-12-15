@@ -64,7 +64,13 @@ export const Tabs = ({
         ) : (
           <div
             className="float-right"
-            style={{ marginLeft: "40%", position: "relative", left: "4%" }}
+            style={{
+              marginLeft: "40%",
+              position: "relative",
+              left: "4%",
+              marginTop: "auto",
+              marginBottom: "auto",
+            }}
           >
             <Pagination
               count={count ?? 1}

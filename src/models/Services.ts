@@ -1,4 +1,5 @@
 import { createContext } from "react";
+import { ProjectService } from "src/api/ProjectService";
 import { ArticleService } from "../api/ArticleService";
 import { AuthService } from "../api/AuthService";
 import { CommentService } from "../api/CommentService";
@@ -9,6 +10,7 @@ export interface IServices {
     articleService?:ArticleService;
     commentService?:CommentService;
     profileService?:ProfileService;
+    projectService?:ProjectService;
 }
 
 export const ServicesContext = createContext<IServices>({})
@@ -18,6 +20,7 @@ export function initServices() {
     authService: new AuthService(),
     articleService: new ArticleService(),
     commentService:new CommentService(),
-    profileService:new ProfileService()
+    profileService:new ProfileService(),
+    projectService:new ProjectService()
   }
 }

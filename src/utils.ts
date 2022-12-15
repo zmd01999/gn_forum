@@ -50,6 +50,9 @@ export const removeLocalStorage = (key: string) => {
 // will show 10 articles in each page
 export const PER_PAGE_COUNT = 16;
 
+export const PROJECT_PER_PAGE_COUNT = 8;
+
+
 const isExpValid = (date: number) => {
   // timestamp in typescript will be in miliseconds format
   // epoch

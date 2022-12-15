@@ -13,7 +13,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { updateCreppyDefaultImage } from "src/utils";
 import { Avatar } from "@mui/material";
 import {cyan,deepOrange} from "@mui/material/colors";
-
+import { Pagination } from "src/components/Home/Pagination";
 const HeadingRow = tw.div`flex`;
 const Heading = tw(SectionHeading)`text-gray-900`;
 const Posts = tw.div`sm:-mr-8 flex flex-wrap`;
@@ -45,7 +45,7 @@ const Image = styled.div`
 const Info = tw.div`p-8 border-2 border-t-0 rounded-3xl rounded-t-none border-blue-800`;
 const Category = tw.div`uppercase text-primary-500 text-xs font-bold tracking-widest leading-loose after:content after:block after:border-b-2 after:border-primary-500 after:w-8`;
 const CreationDate = tw.div`mt-4 uppercase text-gray-600 italic font-semibold text-xs`;
-const Title = tw.div`mt-1 font-black text-2xl text-gray-900 group-hover:text-primary-500 transition duration-300`;
+const Title = tw.div` font-black text-2xl text-gray-900 group-hover:text-primary-500 transition duration-300`;
 const Description = tw.div`mt-2`;
 
 const ButtonContainer = tw.div`flex justify-center`;
@@ -86,6 +86,8 @@ export default ({
   ]
 }) => {
   const [visible, setVisible] = useState(8);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [projectCount, setProjectCount] = useState(1);
   const onLoadMoreClick = () => {
     setVisible(v => v + 8);
   };
@@ -96,7 +98,7 @@ export default ({
           {/* <HeadingRow>
             <Heading>{headingText}</Heading>
           </HeadingRow> */}
-          <Posts>
+          <Posts style={{marginLeft:"4rem",marginRight:"4rem"}}>
             {posts.slice(0, visible).map((post, index) => (
               <PostContainer key={index} featured={post.featured}>
                 <Post className="group" as="a" href={post.url}>
@@ -108,13 +110,16 @@ export default ({
 
 
                   </div>
-                  <Info>
+                  <Info style={{paddingBottom:"0.5rem"}}>
                     <div className="flex flex-row space-x-2">
                     <Button
                         size="tiny"
                         // attached="left"
                         color="blue"
                         // style={{ marginTop: "10px", marginLeft: "25%" }}
+                        style={{
+                          width: "3rem",padding: "0rem"
+                        }}
                       
                       >原创</Button>
                     <Title>{post.title}</Title>
@@ -127,9 +132,9 @@ export default ({
                     <div className="flex flex-row space-x-6">
                       <Avatar
                         src={updateCreppyDefaultImage(post.author.avatar ?? null)}
-                        sx={{ width: 40, height: 40 ,border:1}}
+                        sx={{ width: 30, height: 30 ,border:0.5}}
                       />
-                        <div className="text-xl font-black text-gray-900 my-auto">
+                        <div className="text-xl font-black text-gray-900 my-auto" style={{marginLeft:"0.5rem"}}>
                           {post.author.nickname}
                         </div>
                     </div>
@@ -141,56 +146,63 @@ export default ({
             ))}
           </Posts>
           {visible < posts.length && (
-            <ButtonContainer>
-              <LoadMoreButton onClick={onLoadMoreClick}>加载更多</LoadMoreButton>
+            <ButtonContainer style={{marginTop:"1.5rem" ,position:"relative",right:"-29rem"}}>
+              {/* <LoadMoreButton onClick={onLoadMoreClick}>加载更多</LoadMoreButton> */}
+              <Pagination             
+              count={projectCount}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}></Pagination>
             </ButtonContainer>
           )}
           <div className="text-2xl font-bold mb-6 text-black mt-8">
             作品推荐
           </div>
-          <Posts>
+          <Posts style={{marginLeft:"4rem",marginRight:"4rem"}}>
   
           {posts.slice(0, 4).map((post, index) => (
               <PostContainer key={index} featured={post.featured}>
-                <Post className="group" as="a" href={post.url}>
-                  <div className="h-64 w-full border-card border-blue-800  rounded-t-3xl">
-                    <div className="m-6 border-2 border-blue-800 rounded-3xl" style={{}}>
-                    <Image imageSrc={post.imageSrc} />
-
-                    </div>
-
+              <Post className="group" as="a" href={post.url}>
+                <div className="h-64 w-full border-card border-blue-800  rounded-t-3xl">
+                  <div className="m-6 border-2 border-blue-800 rounded-3xl" style={{}}>
+                  <Image imageSrc={post.imageSrc} />
 
                   </div>
-                  <Info>
-                    <div className="flex flex-row space-x-2">
-                    <Button
-                        size="tiny"
-                        // attached="left"
-                        color="blue"
-                        // style={{ marginTop: "10px", marginLeft: "25%" }}
-                      
-                      >原创</Button>
-                    <Title>{post.title}</Title>
-                    </div>
 
+
+                </div>
+                <Info style={{paddingBottom:"0.5rem"}}>
+                  <div className="flex flex-row space-x-2">
+                  <Button
+                      size="tiny"
+                      // attached="left"
+                      color="blue"
+                      // style={{ marginTop: "10px", marginLeft: "25%" }}
+                      style={{
+                        width: "3rem",padding: "0rem"
+                      }}
                     
-                    {/* <Category>{post.category}</Category> */}
-                    <CreationDate> <div  className="flex space-x-12 mr-4 mb-2"><VisibilityIcon/>{1}k<CommentIcon sx={{ color: cyan[200] }}/>{5.5}k<ThumbUpIcon sx={{ color: deepOrange[50] }}/>{3}k</div></CreationDate>
+                    >原创</Button>
+                  <Title>{post.title}</Title>
+                  </div>
 
-                    <div className="flex flex-row space-x-6">
-                      <Avatar
-                        src={updateCreppyDefaultImage(post.author.avatar ?? null)}
-                        sx={{ width: 40, height: 40 ,border:1}}
-                      />
-                        <div className="text-xl font-black text-gray-900 my-auto">
-                          {post.author.nickname}
-                        </div>
-                    </div>
+                  
+                  {/* <Category>{post.category}</Category> */}
+                  <CreationDate> <div  className="flex space-x-12 mr-4 mb-2"><VisibilityIcon/>{1}k<CommentIcon sx={{ color: cyan[200] }}/>{5.5}k<ThumbUpIcon sx={{ color: deepOrange[50] }}/>{3}k</div></CreationDate>
 
-                    {post.featured && post.description && <Description>{post.description}</Description>}
-                  </Info>
-                </Post>
-              </PostContainer>
+                  <div className="flex flex-row space-x-6">
+                    <Avatar
+                      src={updateCreppyDefaultImage(post.author.avatar ?? null)}
+                      sx={{ width: 30, height: 30 ,border:0.5}}
+                    />
+                      <div className="text-xl font-black text-gray-900 my-auto" style={{marginLeft:"0.5rem"}}>
+                        {post.author.nickname}
+                      </div>
+                  </div>
+
+                  {post.featured && post.description && <Description>{post.description}</Description>}
+                </Info>
+              </Post>
+            </PostContainer>
             ))}
           
           </Posts>

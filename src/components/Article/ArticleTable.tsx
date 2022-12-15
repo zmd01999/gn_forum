@@ -46,7 +46,7 @@ function TableRow({ article }: IProps) {
           <div style={{ textAlign: "center", marginRight: "0.5rem" }}>
             <Avatar
               src={updateCreppyDefaultImage(article.author.avatar ?? null)}
-              sx={{ width: 30, height: 30, border: 1 }}
+              sx={{ width: 20, height: 20, border: 0.5 }}
             />
           </div>
           <div className="my-auto" style={{ textAlign: "center" }}>
@@ -61,7 +61,7 @@ function TableRow({ article }: IProps) {
       </td>
       <td className="" style={{ textAlign: "center" }}>
         {`${article.createTime.toString().substring(0, 10)}` +
-          ` ${article.createTime.toString().substring(11, 18)}`}
+          ` ${article.createTime.toString().substring(11, 19)}`}
       </td>
     </tr>
   );

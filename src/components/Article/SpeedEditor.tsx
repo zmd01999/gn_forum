@@ -192,7 +192,18 @@ export const SpeedEditor = () => {
     (
       event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
     ) => {
-      setArticle({ ...article, [prop]: event.target.value });
+      if (prop == "title") {
+        if (event.target.value.length < 30) {
+          setArticle({ ...article, [prop]: event.target.value });
+        } else {
+          setArticle({
+            ...article,
+            [prop]: event.target.value.substring(0, 30),
+          });
+        }
+      } else {
+        setArticle({ ...article, [prop]: event.target.value });
+      }
     };
 
   useEffect(() => {
@@ -217,7 +228,7 @@ export const SpeedEditor = () => {
   return (
     <div>
       <Form>
-        <div className="float-left w-2/5">
+        <div className="float-left w-2/5" style={{ height: "5.5rem" }}>
           <Form.Field>
             <label>标题</label>
             <div className="flex flex-row space-x-4">
@@ -237,12 +248,12 @@ export const SpeedEditor = () => {
           </Form.Field>
         </div>
         <div
-          style={{ minHeight: "20rem", color: "black", fontWeight: "700" }}
+          style={{ minHeight: "25rem", color: "black", fontWeight: "700" }}
           className="mb-8"
         >
           <Form.Field className="minheights blackBorder">
             <label>内容</label>
-            <div className="speed-container border overflow-y-scroll blackBorder">
+            <div className="speed-container border overflow-y-hidden blackBorder">
               <BraftEditor
                 value={article.body.contentHtml}
                 onChange={(editorState) => {
@@ -280,7 +291,7 @@ export const SpeedEditor = () => {
               );
             })}
           </Form.Field> */}
-        <Form.Field>
+        <Form.Field style={{ width: "90%" }}>
           <label>标签</label>
           <input
             // disabled={slug !== undefined}
@@ -289,6 +300,7 @@ export const SpeedEditor = () => {
             onChange={handleChange("tagName")}
             value={article.tagName}
             required
+            disabled
           />
           <div className="space-x-4 mt-2">
             {tagList.map((tag) => {

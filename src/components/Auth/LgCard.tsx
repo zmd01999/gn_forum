@@ -156,7 +156,7 @@ export const LgCard = () => {
         authDispatch(loadUser(res.data.nickname, res.data.id));
         authDispatch(loadUserInfo(res.data));
 
-        history.push(`/pcenter/${res.data.nickname}`);
+        history.push(`/`);
         notifyDispatch(setSuccess("登录成功."));
       } else {
         notifyDispatch(setError(res.msg));

@@ -90,7 +90,7 @@ export const NewAView = () => {
   return (
     <div>
       <div className="air-container flex flex-row space-x-12">
-        <div className="w-1/6 leftInfo">
+        <div className="w-1/6 leftInfo flex flex-col">
           <div className="airticleInfo p-6 text-black text-center">
             查看：{singleArticle.viewCounts} | 回复：
             {singleArticle.commentCounts}

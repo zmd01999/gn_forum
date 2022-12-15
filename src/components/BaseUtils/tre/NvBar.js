@@ -91,7 +91,6 @@ export default () => {
     <div className="flex min-w-max">
     <NavLinks key={2} >
       <NavLink href="/">首页</NavLink>
-      <NavLink href="/forum" >论坛</NavLink>
       <NavLink ><Dropdown text='作品' options={options} selectOnBlur={false}  onChange={(event, data)=>{
         console.log(data.value);
         if(data.value == 1) {
@@ -106,14 +105,16 @@ export default () => {
           a.click();
         }
       }}/></NavLink>
-      <NavLink href="/scratch/index.html?scene=create">创作</NavLink> 
+            <NavLink href="/forum" >论坛</NavLink>
+
+      <NavLink href="/scratch/index.html?scene=create" target = "_blank">创作</NavLink> 
       <SearchInp setArticleList={1}></SearchInp>
     </NavLinks>
     </div>
 
   ]
   const defaultLinks = [
-    <NavLinks key={1}>
+    <NavLinks key={1} style={{marginLeft:"3rem"}} className="my-auto ">
       {/* <NavLink href="/">首页</NavLink>
       <NavLink href="/forum">论坛</NavLink>
       <NavLink ><Dropdown text='作品' options={options} selectOnBlur={false}  onChange={(event, data)=>{
@@ -142,7 +143,15 @@ export default () => {
         
         )
       :(
-        <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="/register">注册</PrimaryLink>
+        <Fragment >
+        <NavLink href="/login">
+                登录
+              </NavLink>
+              {/* <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="/register">注册</PrimaryLink> */}
+              <NavLink href="/register">
+              注册
+              </NavLink>
+                </Fragment>
 
 //         <Fragment>
 // <NavLink href="/login" tw="lg:ml-12!">
@@ -177,14 +186,15 @@ export default () => {
     <Header className={ "header-light"}>
       <DesktopNavLinks css={collapseBreakpointCss.desktopNavLinks}>
         {logoLink}
-        <NavLinks key={2} >
-          <div className="lg:mt-4 my-auto flex space-x-24">
+        <NavLinks key={2} style={{marginLeft:"3rem"}}>
+          <div className="my-auto flex space-x-24">
           <NavLink href="/">首页</NavLink>
-      <NavLink href="/forum">论坛</NavLink>
-      <NavLink href="/work">作品</NavLink>
-      <NavLink href="/scratch/index.html?scene=create">创作</NavLink>
+          <NavLink href="/work">作品</NavLink>
 
-      {isAuthenticated ? (<></>
+      <NavLink href="/forum">论坛</NavLink>
+      <NavLink href="/scratch/index.html?scene=create" target = "_blank">创作</NavLink>
+
+      {true ? (<></>
         )
       :(
         <Fragment>
@@ -211,7 +221,7 @@ export default () => {
       }}/> */}
       
       
-      {isAuthenticated ? (<div className="ml-36"><SearchInp setArticleList={1}></SearchInp></div>
+      {true ? (<div className="ml-36"><SearchInp setArticleList={1}></SearchInp></div>
         )
       :(<></>
       )}

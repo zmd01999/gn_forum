@@ -20,14 +20,17 @@ export const Work = () => {
   return (
     <div className="work-container">
       {/* <MyCarousel></MyCarousel> */}
-      <Tabs
-        tabs={TABS}
-        setCurrentTab={setCurrentTab}
-        setArticleList={setArticleList}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        count={count}
-      />
+      <div style={{ marginLeft: "4rem", marginRight: "2rem" }}>
+        <Tabs
+          tabs={TABS}
+          setCurrentTab={setCurrentTab}
+          setArticleList={setArticleList}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          count={count}
+        />
+      </div>
+
       <WorkIndex />
     </div>
   );

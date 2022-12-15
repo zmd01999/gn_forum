@@ -45,7 +45,7 @@
 
 .speed-container {
 width: 90%;
-  height: 20rem;
+  height: 25rem;
 }
 .editor-container {
     height: 40rem;
@@ -100,7 +100,7 @@ width: 90%;
 .element::-webkit-scrollbar { width: 0 !important }
 
 .articleHigh {
-  height: 30rem;
+  height: 100%;
 }
 
 

@@ -205,14 +205,17 @@ export const MainView = () => {
     <div className="main-container">
       <div className="article-container relative">
         {/* <BreadCrumb></BreadCrumb> */}
-        <Tabs
-          tabs={TABS}
-          setCurrentTab={setCurrentTab}
-          setArticleList={setArticleList}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          count={count}
-        />
+        <div style={{ marginTop: "-1.6rem" }}>
+          <Tabs
+            tabs={TABS}
+            setCurrentTab={setCurrentTab}
+            setArticleList={setArticleList}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            count={count}
+          />
+        </div>
+
         <div>
           {/* {tagList.map((topic) => {
             return (

@@ -68,8 +68,8 @@ export default ({
                         </span>
                   <span className="text-sm text-gray-700">{`http://funcodeworld.com/pcenter/${userInfo.id}`}</span>
                   <div className="flex flex-row text-sm text-gray-700">
-                    <div>{`发帖:11 |`}</div>
-                    <div>{`作品:12 |`}</div>
+                    <div>{`发帖:${userInfo.articleNum} |`}</div>
+                    <div>{`作品:${userInfo.projectNum} |`}</div>
                     <div>{`粉丝:134 `}</div>
                   </div>
                 </div>

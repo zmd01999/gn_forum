@@ -10,6 +10,14 @@ import { AppState } from "src/redux/store";
 import { getLocalStorage, updateCreppyDefaultImage } from "src/utils";
 import { useHistory } from "react-router-dom";
 import { Avatar } from "@mui/material";
+import {
+  clearLoading,
+  logoutUser,
+  setLoading,
+  setWarning,
+} from "src/redux/actions";
+import { NotificationAction } from "../../redux/reducers/NotifyReducer";
+
 export const MainPage = () => {
   const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
   const profileService = useProfileService();
@@ -37,6 +45,7 @@ export const MainPage = () => {
                 const a = document.createElement("a");
                 a.style.display = "none";
                 a.href = "/scratch/index.html?scene=create";
+                a.target = "_blank";
                 document.body.appendChild(a);
                 a.click();
               }}
@@ -58,7 +67,14 @@ export const MainPage = () => {
         <div>
           <img
             src="/assets/tab4.png"
-            onClick={() => history.push(`/pcenter/${userInfoLocal.id}`)}
+            onClick={() => {
+              if (!isAuthenticated) {
+                notifyDispatch(setWarning("您需要先登录"));
+
+                return;
+              }
+              history.push(`/pcenter/${userInfoLocal.id}`);
+            }}
           ></img>
         </div>
       </div>
@@ -86,15 +102,15 @@ export const MainPage = () => {
               {isAuthenticated &&
               userInfoLocal !== null &&
               userInfoLocal !== "expire" ? (
-                <div className="infoMP text-center">
-                  <div className="mt-8" style={{ marginLeft: "36%" }}>
+                <div className="infoMP text-center shadow-2xl">
+                  <div className="mt-8" style={{ marginLeft: "34%" }}>
                     {" "}
                     <Avatar
                       src={updateCreppyDefaultImage(userInfoLocal.avatar)}
                       sx={{ width: 80, height: 80, border: 0 }}
                     />
                   </div>
-                  <div style={{ fontSize: "2rem" }} className="my-8">
+                  <div style={{ fontSize: "1.8rem" }} className="my-8">
                     {userInfoLocal.nickname}
                   </div>
                   <div className="mb-12">
@@ -103,11 +119,11 @@ export const MainPage = () => {
                       ? `${userInfoLocal.introduction.substring(0, 8)}...`
                       : ""}
                   </div>
-                  <div style={{ fontSize: "1.35rem" }}>
+                  <div style={{ fontSize: "1.1rem", margin: "1rem" }}>
                     <Grid columns={3} divided>
                       <Grid.Column>
                         <div className="">
-                          777
+                          {`${userInfoLocal.projectNum}`}
                           <br />
                           <br />
                           作品
@@ -116,7 +132,7 @@ export const MainPage = () => {
 
                       <Grid.Column verticalAlign="middle">
                         <div className=" text-center">
-                          {`${userInfoLocal.level}`}
+                          {`${userInfoLocal.articleNum}`}
                           <br />
                           <br />
                           帖子

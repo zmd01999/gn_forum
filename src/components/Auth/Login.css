@@ -54,3 +54,14 @@
   color:white !important;
   font-size: 1rem !important;
 }
+
+
+.coverBL {
+  height: 10rem;
+  width: 20rem;
+  margin: auto;
+  position: relative;
+  bottom: -5rem;
+  background-color: white;
+  z-index: 1;
+}
