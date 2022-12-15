@@ -102,42 +102,45 @@ export default ({
           <Posts>
   
           {posts.slice(0, 6).map((post, index) => (
-              <PostContainer key={index} featured={post.featured}>
+                <PostContainer key={index} featured={post.featured}>
                 <Post className="group" as="a" href={post.url}>
                   <div className="h-64 w-full border-card border-blue-800  rounded-t-3xl">
                     <div className="m-6 border-2 border-blue-800 rounded-3xl" style={{}}>
                     <Image imageSrc={post.imageSrc} />
-
+  
                     </div>
-
-
+  
+  
                   </div>
-                  <Info>
+                  <Info style={{paddingBottom:"0.5rem"}}>
                     <div className="flex flex-row space-x-2">
                     <Button
                         size="tiny"
                         // attached="left"
                         color="blue"
                         // style={{ marginTop: "10px", marginLeft: "25%" }}
+                        style={{
+                          width: "3rem",padding: "0rem"
+                        }}
                       
                       >原创</Button>
                     <Title>{post.title}</Title>
                     </div>
-
+  
                     
                     {/* <Category>{post.category}</Category> */}
                     <CreationDate> <div  className="flex space-x-12 mr-4 mb-2"><VisibilityIcon/>{1}k<CommentIcon sx={{ color: cyan[200] }}/>{5.5}k<ThumbUpIcon sx={{ color: deepOrange[50] }}/>{3}k</div></CreationDate>
-
+  
                     <div className="flex flex-row space-x-6">
                       <Avatar
                         src={updateCreppyDefaultImage(post.author.avatar ?? null)}
-                        sx={{ width: 40, height: 40 ,border:1}}
+                        sx={{ width: 30, height: 30 ,border:0.5}}
                       />
-                        <div className="text-xl font-black text-gray-900 my-auto">
+                        <div className="text-xl font-black text-gray-900 my-auto" style={{marginLeft:"0.5rem"}}>
                           {post.author.nickname}
                         </div>
                     </div>
-
+  
                     {post.featured && post.description && <Description>{post.description}</Description>}
                   </Info>
                 </Post>
