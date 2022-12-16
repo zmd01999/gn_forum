@@ -89,7 +89,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <Box className="content-center">
+    <Box className="content-center" style={{ marginBottom: "-16rem" }}>
       <Card sx={{ zIndex: 1, mx: "auto" }}>
         <CardContent
           sx={{ padding: (theme) => `${theme.spacing(2, 3, 2)} !important` }}
@@ -214,7 +214,7 @@ const RegisterPage = () => {
           <RForm value={selectedValue}></RForm>
         </CardContent>
       </Card>
-      <FooterIllustrationsV1 />
+      <div className="coverBR"></div>
     </Box>
   );
 };

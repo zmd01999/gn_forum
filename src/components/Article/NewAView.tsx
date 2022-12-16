@@ -32,6 +32,7 @@ import { LoaderAction } from "../../redux/reducers/LoaderReducer";
 import { Avatar } from "../Home/Avatar";
 import { Header } from "./Header";
 import { NewAComment } from "./NewAComment";
+import { FollowArtButton } from "../Home/FollowArtButton";
 
 interface routeProps {
   slug: string;
@@ -89,7 +90,10 @@ export const NewAView = () => {
   }
   return (
     <div>
-      <div className="air-container flex flex-row space-x-12">
+      <div
+        className="air-container flex flex-row space-x-12"
+        style={{ marginTop: "-5rem" }}
+      >
         <div className="w-1/6 leftInfo flex flex-col">
           <div className="airticleInfo p-6 text-black text-center">
             查看：{singleArticle.viewCounts} | 回复：
@@ -210,6 +214,14 @@ export const NewAView = () => {
                       />
                     }
                   />
+                  <Popup
+                    content="收藏文章"
+                    trigger={
+                      <FollowArtButton
+                        iarticle={singleArticle}
+                      ></FollowArtButton>
+                    }
+                  />
                 </div>
               ) : (
                 <>
@@ -232,6 +244,14 @@ export const NewAView = () => {
                           );
                         }}
                       />
+                    }
+                  />
+                  <Popup
+                    content="收藏文章"
+                    trigger={
+                      <FollowArtButton
+                        iarticle={singleArticle}
+                      ></FollowArtButton>
                     }
                   />
                 </>

@@ -96,8 +96,9 @@ export default ({
           {/* <HeadingRow>
             <Heading>{headingText}</Heading>
           </HeadingRow> */}
-          <div className="text-2xl font-bold mb-6 text-black">
-            本周精选
+          <div className=" mb-6  flex flex-row" style={{ overflow: "hidden" ,height:"2.5rem"}}>
+           <div className="font-black colorL1" style={{fontSize:"5rem"}}>|
+           </div> <div className="ml-2 text-2xl font-bold text-black" style={{marginTop:"0.5rem"}}>本周精选</div>
           </div>
           <Posts>
   

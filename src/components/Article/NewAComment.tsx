@@ -17,9 +17,9 @@ import {
   TextArea,
 } from "semantic-ui-react";
 import { useCommentService } from "../../hooks";
-import { IComment } from "../../models/types";
+import { IComment, IUserInfo } from "../../models/types";
 import { AppState } from "../../redux/store";
-import { updateCreppyDefaultImage } from "../../utils";
+import { getLocalStorage, updateCreppyDefaultImage } from "../../utils";
 import { LoaderAction } from "../../redux/reducers/LoaderReducer";
 import { NotificationAction } from "../../redux/reducers/NotifyReducer";
 import { setError } from "../../redux/actions";
@@ -39,10 +39,8 @@ export const NewAComment = ({ slug, authorId }: IProps) => {
   const [singleComment, setSingleComment] = useState<string>("");
   const loaderDispatch = useDispatch<Dispatch<LoaderAction>>();
   const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
-  const { isAuthenticated, userInfo } = useSelector(
-    (state: AppState) => state.auth
-  );
-
+  const { isAuthenticated } = useSelector((state: AppState) => state.auth);
+  const userInfo = getLocalStorage("userInfo");
   const handleCommentChange = (data: any) => {
     setSingleComment(data.toHTML());
   };
@@ -157,11 +155,11 @@ export const NewAComment = ({ slug, authorId }: IProps) => {
       </div>
       <Button
         size="large"
-        color="blue"
         className="comment-button"
         onClick={() => {
           handleCommentAction("submit");
         }}
+        style={{ color: "white" }}
       >
         发表回复
       </Button>

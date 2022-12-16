@@ -40,6 +40,7 @@ export const Pagination = ({ count, currentPage, setCurrentPage }: IProps) => {
       }}
       firstItem={{ content: <Icon name="angle double left" />, icon: true }}
       lastItem={{ content: <Icon name="angle double right" />, icon: true }}
+      style={{ minHeight: "2rem", height: "2.2rem" }}
     />
   );
 };

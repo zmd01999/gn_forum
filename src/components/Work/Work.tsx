@@ -20,7 +20,7 @@ export const Work = () => {
   return (
     <div className="work-container">
       {/* <MyCarousel></MyCarousel> */}
-      <div style={{ marginLeft: "4rem", marginRight: "2rem" }}>
+      <div style={{ marginLeft: "4rem", marginRight: "6rem" }}>
         <Tabs
           tabs={TABS}
           setCurrentTab={setCurrentTab}

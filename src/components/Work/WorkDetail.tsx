@@ -29,10 +29,12 @@ import { LeftList } from "./LeftList";
 import { Avatar } from "@mui/material";
 import { updateCreppyDefaultImage } from "src/utils";
 import { FollowButton } from "./FollowButton";
-
+import "./hook";
+import { exitF, isFull, launch } from "./hook";
 interface routeProps {
   slug: string;
 }
+
 export const WorkDetail = () => {
   let { slug } = useParams<routeProps>();
   const profileService = useProfileService();
@@ -44,9 +46,16 @@ export const WorkDetail = () => {
     (state: AppState) => state.auth
   );
 
-  useEffect(() => {});
+  useEffect(() => {
+    //scratch全屏
+    launch();
+    exitF();
+    isFull();
+  });
   return (
     <>
+      <script src="/js/common.js"></script>
+
       <div className="project-detail">
         <div className="flex justify-between">
           <div className="text-4xl font-medium text-black">我的世界：历史</div>
@@ -80,7 +89,7 @@ export const WorkDetail = () => {
               frameBorder="0"
               width="100%"
               height="100%"
-              // scrolling="yes"
+              scrolling="no"
             ></iframe>
             <div className="mb-8 sameW mt-4">
               {false ? (

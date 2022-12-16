@@ -38,7 +38,7 @@ export const MainPage = () => {
 
       <div className="flex justify-between middleM px-8 py-6">
         <div>
-          <div>
+          <div className="flex flex-row">
             <img
               src="/assets/tab1.png"
               onClick={() => {
@@ -50,21 +50,67 @@ export const MainPage = () => {
                 a.click();
               }}
             ></img>
+            <div className="navlm">
+              <div
+                className="navBf"
+                onClick={() => {
+                  const a = document.createElement("a");
+                  a.style.display = "none";
+                  a.href = "/scratch/index.html?scene=create";
+                  a.target = "_blank";
+                  document.body.appendChild(a);
+                  a.click();
+                }}
+              >
+                在线创作
+              </div>
+              <div
+                className="navSf"
+                onClick={() => {
+                  const a = document.createElement("a");
+                  a.style.display = "none";
+                  a.href = "/scratch/index.html?scene=create";
+                  a.target = "_blank";
+                  document.body.appendChild(a);
+                  a.click();
+                }}
+              >
+                把创意变成现实
+              </div>
+            </div>
           </div>
         </div>
-        <div>
-          <img
-            src="/assets/tab2.png"
-            onClick={() => history.push("/work")}
-          ></img>
+
+        <div className="flex flex-row">
+          <div>
+            <img
+              src="/assets/tab2.png"
+              onClick={() => history.push("/work")}
+            ></img>
+          </div>
+
+          <div className="navlm">
+            <div className="navBf" onClick={() => history.push("/work")}>
+              发现作品
+            </div>
+            <div className="navSf" onClick={() => history.push("/work")}>
+              高质量作品资源库
+            </div>
+          </div>
         </div>
-        <div>
+
+        <div className="flex flex-row">
           <img
             src="/assets/tab3.png"
             onClick={() => history.push("/forum")}
           ></img>
+          <div className="navlm" onClick={() => history.push("/forum")}>
+            <div className="navBf">交流论坛</div>
+            <div className="navSf">青少年编程学习必看</div>
+          </div>
         </div>
-        <div>
+
+        <div className="flex flex-row">
           <img
             src="/assets/tab4.png"
             onClick={() => {
@@ -76,6 +122,20 @@ export const MainPage = () => {
               history.push(`/pcenter/${userInfoLocal.id}`);
             }}
           ></img>
+          <div
+            className="navlm"
+            onClick={() => {
+              if (!isAuthenticated) {
+                notifyDispatch(setWarning("您需要先登录"));
+
+                return;
+              }
+              history.push(`/pcenter/${userInfoLocal.id}`);
+            }}
+          >
+            <div className="navBf">个人中心</div>
+            <div className="navSf">专属你的灵感空间</div>
+          </div>
         </div>
       </div>
 
@@ -91,7 +151,20 @@ export const MainPage = () => {
           >
             <Work></Work>
             <div className="mt-8">
-              <div className="text-2xl font-bold mb-6 text-black">实时热榜</div>
+              <div
+                className="flex flex-row"
+                style={{ overflow: "hidden", height: "2.5rem" }}
+              >
+                <div className="colorL2" style={{ fontSize: "5rem" }}>
+                  |
+                </div>
+                <div
+                  className="text-2xl font-bold mb-6 text-black ml-2"
+                  style={{ marginTop: "0.5rem" }}
+                >
+                  实时热榜
+                </div>
+              </div>
               <div>
                 <HotTable></HotTable>
               </div>

@@ -146,7 +146,7 @@ export default ({
             ))}
           </Posts>
           {visible < posts.length && (
-            <ButtonContainer style={{marginTop:"1.5rem" ,position:"relative",right:"-29rem"}}>
+            <ButtonContainer style={{marginTop:"1.5rem" , justifyContent: "end",marginRight: "6rem"}}>
               {/* <LoadMoreButton onClick={onLoadMoreClick}>加载更多</LoadMoreButton> */}
               <Pagination             
               count={projectCount}

@@ -72,3 +72,37 @@
 .paneTab {
   font-size: 1.1rem !important;
 }
+
+
+
+.navlm {
+  margin-left: 1rem;
+}
+
+.navBf {
+  margin-top: 1.3rem;
+  font-size: 2rem;
+  color: black;
+  font-weight: 300;
+}
+
+.navSf {
+  margin-top: 1rem;
+  color: gray;
+  font-size: 1.2rem;
+}
+
+.navlm:hover {
+  color:violet
+}
+
+.navBf:hover {
+  color:violet
+}
+
+.navSf:hover {
+  color:violet
+}
+.colorL2 {
+  color: rgb(251 229 214);
+}

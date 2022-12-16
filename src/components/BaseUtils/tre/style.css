@@ -27,3 +27,12 @@ ui.blue.button, .ui.blue.buttons .button {
     border-right-width: 2px;
 
 }
+
+
+.colorL1 {
+    color: rgb(255 242 204);
+}
+
+.colorL2 {
+    color: rgb(251 229 214);
+}

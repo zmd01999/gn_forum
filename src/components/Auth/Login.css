@@ -61,7 +61,17 @@
   width: 20rem;
   margin: auto;
   position: relative;
-  bottom: -5rem;
+  bottom: -0.6rem;
+  background-color: white;
+  z-index: 1;
+}
+
+.coverBR {
+  height: 10rem;
+  width: 20rem;
+  margin: auto;
+  position: relative;
+  bottom: -1rem;
   background-color: white;
   z-index: 1;
 }

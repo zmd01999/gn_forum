@@ -16,6 +16,7 @@ import {
   Header,
   Icon,
   Label,
+  Dropdown,
 } from "semantic-ui-react";
 import { IArticleMeta, Itag } from "../../models/types";
 import { useArticleService } from "../../hooks";
@@ -77,6 +78,26 @@ export const SpeedEditor = () => {
     { id: "主题3", text: "Vietnam" },
     { id: "主题4", text: "Turkey" },
   ];
+  const [options, setOptions] = useState([{ key: "", text: "", value: "" }]);
+
+  const [currentValues, setCurrentValues] = useState<string>();
+
+  const handleAddition = (event: SyntheticEvent, data: any) => {
+    console.log("handleAddition");
+
+    console.log(data);
+    setOptions([
+      ...options,
+      { key: data.value, text: data.value, value: data.value },
+    ]);
+  };
+
+  const handleChangeCV = (event: SyntheticEvent, data: any) => {
+    console.log("changeCV");
+
+    console.log(data.value);
+    // setCurrentValues(data.value);
+  };
 
   const [oldArticle, setOldArticle] = useState<IArticleMeta>();
   const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
@@ -293,15 +314,35 @@ export const SpeedEditor = () => {
           </Form.Field> */}
         <Form.Field style={{ width: "90%" }}>
           <label>标签</label>
-          <input
-            // disabled={slug !== undefined}
-            name="tags"
-            placeholder="帖子标签"
-            onChange={handleChange("tagName")}
-            value={article.tagName}
-            required
-            disabled
-          />
+          <div className=" flex flex-row justify-between">
+            <div className="w-1/2">
+              <input
+                // disabled={slug !== undefined}
+                name="tags"
+                placeholder="帖子标签"
+                onChange={handleChange("tagName")}
+                value={article.tagName}
+                required
+                disabled
+              />
+            </div>
+            <div className="w-2/5 ml-10">
+              {" "}
+              <Dropdown
+                options={options}
+                placeholder="添加自定义标签"
+                search
+                selection
+                fluid
+                multiple
+                allowAdditions
+                value={currentValues}
+                onAddItem={handleAddition}
+                onChange={handleChangeCV}
+              />
+            </div>
+          </div>
+
           <div className="space-x-4 mt-2">
             {tagList.map((tag) => {
               return (

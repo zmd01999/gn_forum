@@ -18,11 +18,11 @@ function TableRow({ article, rank }: IProps) {
   const { isAuthenticated } = useSelector((state: AppState) => state.auth);
 
   const gotoArticle = () => {
-    if (!isAuthenticated) {
-      notifyDispatch(setWarning("你需要先登录"));
-      history.push("/login");
-      return;
-    }
+    // if (!isAuthenticated) {
+    //   notifyDispatch(setWarning("你需要先登录"));
+    //   history.push("/login");
+    //   return;
+    // }
     history.push(`/article/${article.id}`);
   };
 

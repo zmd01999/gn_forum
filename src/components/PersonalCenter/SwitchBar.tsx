@@ -90,7 +90,7 @@ export default function SwitchBar() {
             <Tab
               icon={<Star />}
               iconPosition="start"
-              label="动态"
+              label="消息"
               sx={{ fontSize: 16, border: 1 }}
               {...a11yProps(2)}
             />

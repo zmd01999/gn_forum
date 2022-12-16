@@ -2,7 +2,7 @@ import { Button, Divider, Grid } from "semantic-ui-react";
 import { IUserInfo } from "src/models/types";
 import { updateCreppyDefaultImage } from "src/utils";
 interface IProps {
-  author: IUserInfo;
+  author: IUserInfo | null | any;
 }
 
 export const Header = ({ author }: IProps) => {
@@ -12,11 +12,13 @@ export const Header = ({ author }: IProps) => {
         className="header text-xl font-semibold"
         style={{ paddingBottom: "0.4rem" }}
       >
-        {author.nickname}
+        {(author && author.nickname) || "游客"}
       </div>
 
       <div className="image">
-        <img src={updateCreppyDefaultImage(author.avatar ?? null)} />
+        <img
+          src={updateCreppyDefaultImage((author && author.avatar) || null)}
+        />
       </div>
       <div className="content">
         {/* <div className="meta">Joined in 2016</div> */}
@@ -24,7 +26,7 @@ export const Header = ({ author }: IProps) => {
           <Grid columns={3} divided>
             <Grid.Column>
               <div className="text-center">
-                {author.articleNum}
+                {(author && author.articleNum) || "0"}
                 <br />
                 帖子
               </div>
@@ -32,14 +34,14 @@ export const Header = ({ author }: IProps) => {
 
             <Grid.Column verticalAlign="middle">
               <div className=" text-center">
-                {`Lv${author.level}`}
+                {`Lv${(author && author.level) || "0"}`}
                 <br />
                 等级
               </div>
             </Grid.Column>
             <Grid.Column verticalAlign="middle">
               <div className="text-center">
-                {author.money}
+                {(author && author.money) || "0"}
                 <br />
                 金币
               </div>

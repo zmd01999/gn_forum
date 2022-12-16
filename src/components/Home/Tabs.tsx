@@ -51,7 +51,7 @@ export const Tabs = ({
 
   return (
     <Fragment>
-      <div className="tab-container">
+      <div className="tab-container flex justify-between">
         <Tab
           onTabChange={handleTabChange}
           menu={{ secondary: true, pointing: true }}
@@ -65,9 +65,9 @@ export const Tabs = ({
           <div
             className="float-right"
             style={{
-              marginLeft: "40%",
-              position: "relative",
-              left: "4%",
+              // marginLeft: "40%",
+              // position: "relative",
+              // left: "4%",
               marginTop: "auto",
               marginBottom: "auto",
             }}

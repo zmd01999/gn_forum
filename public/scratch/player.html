@@ -15,13 +15,21 @@
         width: 480,
         height: 360,
         showControl: true, //是否显示舞台区控制按钮
+        showLoading: false,
         fullscreenButton:{ //全屏按钮
           show: true,
           handleBeforeSetStageUnFull(){ //退出全屏前的操作
+            var event = new CustomEvent('scratchUnFullScreen');
+            window.parent.document.dispatchEvent(event);
             return true
           },
           handleBeforeSetStageFull(){ //全屏前的操作
-            return true
+            var event = new CustomEvent('scratchFullScreen');
+            window.parent.document.dispatchEvent(event);
+            setTimeout(()=>{
+              window.scratch.setFullScreen(true)
+            },100)
+            return false
           }
         },
         startButton:{ //开始按钮
@@ -56,7 +64,21 @@
   </div>
 <script type="text/javascript" src="lib.min.js"></script><script type="text/javascript" src="chunks/player.js"></script></body>
 <script>
-
+//scratch全屏
+document.addEventListener("scratchFullScreen", function (e) {
+    window.launchIntoFullscreen(document.getElementById("player"));
+  });
+  //scratch退出全屏
+  document.addEventListener("scratchUnFullScreen", function (e) {
+    window.exitFullscreen();
+  });
+  document.addEventListener("scratchInit", function (e) {
+    var p = document.getElementById("player");
+    var s = p.contentDocument.getElementById("scratch");
+    s.addEventListener("click", () => {
+      p.focus();
+    });
+})
 </script>
 
 </html>

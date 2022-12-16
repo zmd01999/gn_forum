@@ -205,7 +205,7 @@ export const MainView = () => {
     <div className="main-container">
       <div className="article-container relative">
         {/* <BreadCrumb></BreadCrumb> */}
-        <div style={{ marginTop: "-1.6rem" }}>
+        <div style={{ marginTop: "-2.3rem" }}>
           <Tabs
             tabs={TABS}
             setCurrentTab={setCurrentTab}
