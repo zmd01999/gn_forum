@@ -83,7 +83,8 @@ export default ({
     getPlaceholderPost(),
     getPlaceholderPost(),
     getPlaceholderPost()
-  ]
+  ],
+  projectList,
 }) => {
   const [visible, setVisible] = useState(8);
   const [currentPage, setCurrentPage] = useState(1);
@@ -99,12 +100,12 @@ export default ({
             <Heading>{headingText}</Heading>
           </HeadingRow> */}
           <Posts style={{marginLeft:"4rem",marginRight:"4rem"}}>
-            {posts.slice(0, visible).map((post, index) => (
+            {projectList.slice(0, visible).map((post, index) => (
               <PostContainer key={index} featured={post.featured}>
-                <Post className="group" as="a" href={post.url}>
+                <Post className="group" as="a" href={`/work/${post.id}`}>
                   <div className="h-64 w-full border-card border-blue-800  rounded-t-3xl">
                     <div className="m-6 border-2 border-blue-800 rounded-3xl" style={{}}>
-                    <Image imageSrc={post.imageSrc} />
+                    <Image imageSrc={`https://+${post.author.avatar}`} />
 
                     </div>
 
@@ -121,13 +122,13 @@ export default ({
                           width: "3rem",padding: "0rem"
                         }}
                       
-                      >原创</Button>
-                    <Title>{post.title}</Title>
+                      >{post.copyright == "1" ? "原创":"转载"}</Button>
+                    <div className="font-black text-2xl Hov">{post.title}</div>
                     </div>
 
                     
                     {/* <Category>{post.category}</Category> */}
-                    <CreationDate> <div  className="flex space-x-12 mr-4 mb-2"><VisibilityIcon/>{1}k<CommentIcon sx={{ color: cyan[200] }}/>{5.5}k<ThumbUpIcon sx={{ color: deepOrange[50] }}/>{3}k</div></CreationDate>
+                    <CreationDate> <div  className="flex space-x-12 mr-4 mb-2"><VisibilityIcon/>{post.viewCounts}<CommentIcon sx={{ color: cyan[200] }}/>{post.commentCounts}<ThumbUpIcon sx={{ color: deepOrange[50] }}/>{post.thumbsCounts}</div></CreationDate>
 
                     <div className="flex flex-row space-x-6">
                       <Avatar
@@ -139,7 +140,7 @@ export default ({
                         </div>
                     </div>
 
-                    {post.featured && post.description && <Description>{post.description}</Description>}
+                    {/* {post.featured && post.description && <Description>{post.description}</Description>} */}
                   </Info>
                 </Post>
               </PostContainer>
@@ -159,7 +160,7 @@ export default ({
           </div>
           <Posts style={{marginLeft:"4rem",marginRight:"4rem"}}>
   
-          {posts.slice(0, 4).map((post, index) => (
+          {projectList.slice(0, 4).map((post, index) => (
               <PostContainer key={index} featured={post.featured}>
               <Post className="group" as="a" href={post.url}>
                 <div className="h-64 w-full border-card border-blue-800  rounded-t-3xl">
@@ -182,7 +183,7 @@ export default ({
                       }}
                     
                     >原创</Button>
-                  <Title>{post.title}</Title>
+                    <div className="font-black text-2xl Hov">{post.title}</div>
                   </div>
 
                   

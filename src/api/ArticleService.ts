@@ -52,7 +52,7 @@ export class ArticleService {
   }
 
   public getSingleArticle(slug: string) {
-    return this.api.get(`article/${slug}`);
+    return this.api.get(`article/detail/${slug}`);
   }
 
   public favoriteArticle(slug: string) {
@@ -117,6 +117,8 @@ export class ArticleService {
   public searchArticle(paras:{page:number, title:string}) {
     return this.api.post("article/searchArticle", {page:paras.page,pageSize:PER_PAGE_COUNT,title:paras.title})
   }
+
+
 
   public cloudData(json:FormData) {
     return this.api.post("article/cosUpload",json,true);

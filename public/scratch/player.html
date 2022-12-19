@@ -7,8 +7,11 @@
   <meta name="google" value="notranslate">
   <link rel="shortcut icon" href="static/favicon.ico">
   <title>EasyScratch 3.0: Player Example</title>
-  
+  <script src="../js/jquery.min.js"></script>
+  <script src="../js/common.js"></script>
   <script>
+        var workId = urlParams('workId')
+    var workUrl = urlParams('workUrl')
     window.scratchConfig = {
       stageArea:{
         scale: window.innerWidth / 480, //自适应屏幕尺寸
@@ -51,9 +54,21 @@
       handleProjectLoaded:() => {
       },
       handleDefaultProjectLoaded:() => {
+        if(workUrl){
+          window.scratch.loadProject(workUrl, () => {
+            vm.runtime.start()
+          })
+        }else if(workId){
+          getWorkInfo(workId, function (info) {
+            console.log(info);
+            window.scratch.loadProject(info.body.content, () => {
+              vm.runtime.start()
+            })
+          })
+        }
       },
       //默认项目地址,不需要修请删除本配置项
-      defaultProjectURL: "./static/project.sb3",
+      defaultProjectURL: "./static/project1.sb3",
     }
   </script>
 </head>

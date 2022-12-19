@@ -236,6 +236,7 @@ body{
 	height: 448px;
 	background-color: #ffffff;
 	border-radius: 6px;
+	z-index: 5;
 }
 
 .release-form{

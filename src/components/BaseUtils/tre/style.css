@@ -36,3 +36,13 @@ ui.blue.button, .ui.blue.buttons .button {
 .colorL2 {
     color: rgb(251 229 214);
 }
+
+.Hov {
+    color: black;
+}
+
+.Hov:hover {
+    color:rgb(255, 214, 132) !important;
+
+}
+

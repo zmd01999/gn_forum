@@ -1,5 +1,4 @@
-import { MyCarousel } from "./MyCarousel";
-import WorkIndex from "src/components/BaseUtils/tre/WorkIndex";
+import WorkRes from "src/components/BaseUtils/tre/WorkRes";
 import React, {
   Dispatch,
   SyntheticEvent,
@@ -21,9 +20,9 @@ import {
   setLoading,
   setWarning,
 } from "src/redux/actions";
-import { Tabs } from "./Tabs";
+import { Tabs } from "../Work/Tabs";
 import { NotificationAction } from "src/redux/reducers/NotifyReducer";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import "src/components/Home/style.css";
 import { Item, Segment, Label } from "semantic-ui-react";
 import { ArticleGroup } from "src/components/Article/ArticleGroup";
@@ -32,7 +31,12 @@ import { getLocalStorage, getUserFromJWT } from "src/utils";
 import { AuthAction } from "src/redux/reducers/AuthReducer";
 import { loadUserInfo } from "src/redux/actions";
 
-export const Work = () => {
+interface IProps {
+  slug: string;
+}
+
+export const ProjectRes = () => {
+  let { slug } = useParams<IProps>();
   const projectService = useProjectService();
   const [projectList, setProjectList] = useState<IProject[]>([]);
   const [tagList, setTagList] = useState<Itag[]>([]);
@@ -63,12 +67,7 @@ export const Work = () => {
 
   const [currentTab, setCurrentTab] = useState<string>("0");
   const [TABS, setTabs] = useState<any>({
-    "0": "全部",
-    "1": "动画",
-    "2": "游戏",
-    "3": "实用工具",
-    "4": "模拟",
-    //   feed: "我的点赞",
+    "0": "搜索结果",
   });
 
   const retrieveArticle = async () => {
@@ -81,44 +80,21 @@ export const Work = () => {
     let articleRes;
     switch (currentTab) {
       case "0":
-        articleRes = await projectService.listProject({
-          page: currentPage,
+        projectService.searchProject({ page: 1, title: slug }).then((res) => {
+          setProjectList(res.data.data.voList);
+          setCount(res.data.data.total);
         });
         break;
-      case "1":
-        articleRes = await projectService.getCateProject({
-          page: currentPage,
-          categoryId: "1602196644605063169",
-        });
-        break;
-      case "2":
-        articleRes = await projectService.getCateProject({
-          page: currentPage,
-          categoryId: "1602196713374871554",
-        });
-        break;
-      case "3":
-        articleRes = await projectService.getCateProject({
-          page: currentPage,
-          categoryId: "1602196785894387713",
-        });
-        break;
-      case "4":
-        articleRes = await projectService.getCateProject({
-          page: currentPage,
-          categoryId: "1602196856455163906",
-        });
-        break;
+
       default:
         // articleRes = await articleService.getFeed(currentPage);
-        articleRes = await projectService.listProject({
-          page: currentPage,
+        projectService.searchProject({ page: 1, title: slug }).then((res) => {
+          setProjectList(res.data.data.voList);
+          setCount(res.data.data.total);
         });
 
         break;
     }
-    setProjectList(articleRes.data.data.voList);
-    setCount(articleRes.data.data.total);
   };
   useEffect(() => {
     const retrieve = async () => {
@@ -176,7 +152,7 @@ export const Work = () => {
         />
       </div>
 
-      <WorkIndex projectList={projectList} />
+      <WorkRes projectList={projectList} />
     </div>
   );
 };

@@ -84,7 +84,9 @@ export const SpeedEditor = () => {
 
   const handleAddition = (event: SyntheticEvent, data: any) => {
     console.log("handleAddition");
-
+    if (options.length > 3 || data.value.length > 5) {
+      return;
+    }
     console.log(data);
     setOptions([
       ...options,
@@ -93,10 +95,13 @@ export const SpeedEditor = () => {
   };
 
   const handleChangeCV = (event: SyntheticEvent, data: any) => {
+    if (data.value.length > 3 || data.value[data.length - 1].length > 5) {
+      return;
+    }
     console.log("changeCV");
 
     console.log(data.value);
-    // setCurrentValues(data.value);
+    setCurrentValues(data.value);
   };
 
   const [oldArticle, setOldArticle] = useState<IArticleMeta>();
@@ -119,7 +124,7 @@ export const SpeedEditor = () => {
           return;
         }
         if (article.tagName == "") {
-          notifyDispatch(setError("标签不能为空"));
+          notifyDispatch(setError("必选标签不能为空"));
           return;
         }
         if (article.tagName.length > 10) {

@@ -33,6 +33,7 @@ import { Avatar } from "../Home/Avatar";
 import { Header } from "./Header";
 import { NewAComment } from "./NewAComment";
 import { FollowArtButton } from "../Home/FollowArtButton";
+import { getLocalStorage } from "src/utils";
 
 interface routeProps {
   slug: string;
@@ -51,9 +52,8 @@ export const NewAView = () => {
   const [singleArticle, setSingleArticle] = useState<IMyArticle>();
   const [username, setUsername] = useState<string>();
   const [isF, setIsF] = useState<boolean>();
-  const { isAuthenticated, userInfo } = useSelector(
-    (state: AppState) => state.auth
-  );
+  const { isAuthenticated } = useSelector((state: AppState) => state.auth);
+  const userInfo: any = getLocalStorage("userInfo");
   const retrieveArticle = async () => {
     const singleArticleRes = await articleService.getSingleArticle(slug);
     const article = singleArticleRes.data.data as IMyArticle;
@@ -108,7 +108,9 @@ export const NewAView = () => {
             </div>
 
             <div className="my-8">
-              {isAuthenticated && userInfo.id === singleArticle.author.id ? (
+              {isAuthenticated &&
+              ((userInfo && userInfo.id) || "游客") ===
+                singleArticle.author.id ? (
                 <Fragment>
                   {/* <Link to={`/article/edit/${slug}`}>
                 <Popup
@@ -132,7 +134,8 @@ export const NewAView = () => {
               ) : (
                 <></>
               )}
-              {userInfo.id !== singleArticle.author.id ? (
+              {((userInfo && userInfo.id) || "游客") !==
+              singleArticle.author.id ? (
                 <div>
                   <Popup
                     wide

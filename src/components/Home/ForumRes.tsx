@@ -21,7 +21,7 @@ import {
 } from "src/redux/actions";
 import { Tabs } from "src/components/Home/Tabs";
 import { NotificationAction } from "src/redux/reducers/NotifyReducer";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import "src/components/Home/style.css";
 import { Item, Segment, Label } from "semantic-ui-react";
 import { ArticleGroup } from "src/components/Article/ArticleGroup";
@@ -30,13 +30,16 @@ import { getLocalStorage, getUserFromJWT } from "src/utils";
 import { AuthAction } from "src/redux/reducers/AuthReducer";
 import { loadUserInfo } from "src/redux/actions";
 import "./style.css";
-import { ATable } from "./Article/ArticleTable";
-import { SpeedEditor } from "./Article/SpeedEditor";
+import { ATable } from "../Article/ArticleTable";
 interface obj {
   [key: string]: any;
 }
+interface IProps {
+  slug: string;
+}
+export const ForumRes = () => {
+  let { slug } = useParams<IProps>();
 
-export const MainView = () => {
   const articleService = useArticleService();
   const [articleList, setArticleList] = useState<IMyArticle[]>([]);
   const [tagList, setTagList] = useState<Itag[]>([]);
@@ -72,12 +75,7 @@ export const MainView = () => {
   // };
 
   const [TABS, setTabs] = useState<any>({
-    "0": "全部",
-    "1": "最新热门",
-    "2": "最新精华",
-    "3": "最新回复",
-    "4": "最新发表",
-    //   feed: "我的点赞",
+    "0": "搜索结果",
   });
 
   const retrieveTag = async () => {
@@ -101,51 +99,23 @@ export const MainView = () => {
   };
 
   const retrieveArticle = async () => {
-    // if (!isAuthenticated && currentTab !== "0") {
-    //   notifyDispatch(setWarning("你需要先登录"));
-    //   history.push("/login");
-    //   return;
-    // }
-
-    let articleRes;
     switch (currentTab) {
       case "0":
-        articleRes = await articleService.getArticles({
-          page: currentPage,
-          tag: currentTag,
+        articleService.searchArticle({ page: 1, title: slug }).then((res) => {
+          setArticleList(res.data.data.voList);
+          setCount(res.data.data.total);
         });
         break;
-      case "1":
-        articleRes = await articleService.getTopArticle({
-          page: currentPage,
-        });
-        break;
-      case "2":
-        articleRes = await articleService.getLastWeightArticle({
-          page: currentPage,
-        });
-        break;
-      case "3":
-        articleRes = await articleService.getLastCommentArticle({
-          page: currentPage,
-        });
-        break;
-      case "4":
-        articleRes = await articleService.getLastPublish({
-          page: currentPage,
-        });
-        break;
+
       default:
         // articleRes = await articleService.getFeed(currentPage);
-        articleRes = await articleService.getCategoryById({
-          id: currentTab,
-          page: currentPage,
+        articleService.searchArticle({ page: 1, title: slug }).then((res) => {
+          setArticleList(res.data.data.voList);
+          setCount(res.data.data.total);
         });
 
         break;
     }
-    setArticleList(articleRes.data.data.voList);
-    setCount(articleRes.data.data.total);
   };
 
   const memorizedSetTag = useCallback(
@@ -218,48 +188,45 @@ export const MainView = () => {
 
         <div>
           {/* {tagList.map((topic) => {
-            return (
-              <Label
-                tag
-                value={topic.id}
-                onClick={(event: SyntheticEvent, data: object) => {
-                  handleTag(data);
-                }}
-              >
-                {topic.tagName}
-              </Label>
-            );
-          })} */}
+              return (
+                <Label
+                  tag
+                  value={topic.id}
+                  onClick={(event: SyntheticEvent, data: object) => {
+                    handleTag(data);
+                  }}
+                >
+                  {topic.tagName}
+                </Label>
+              );
+            })} */}
         </div>
         {/* <Item.Group divided>
-          <ArticleGroup
-            articleList={articleList}
-            count={count}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          ></ArticleGroup>
-        </Item.Group> */}
+            <ArticleGroup
+              articleList={articleList}
+              count={count}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            ></ArticleGroup>
+          </Item.Group> */}
         <ATable
           articleList={articleList}
           count={count}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
         ></ATable>
-        <div className="speedPublish mt-8">
-          <SpeedEditor></SpeedEditor>
-        </div>
       </div>
 
       {/* <div className="tag-container">
-        <TagList
-          currentTag={currentTag}
-          tags={tagHotList}
-          tab={currentTab}
-          setCurrentTag={setCurrentTag}
-          userInfo={userInfo}
-          cateList={categoryList}
-        />
-      </div> */}
+          <TagList
+            currentTag={currentTag}
+            tags={tagHotList}
+            tab={currentTab}
+            setCurrentTag={setCurrentTag}
+            userInfo={userInfo}
+            cateList={categoryList}
+          />
+        </div> */}
       <div className="fixed bottom-0 right-0 h-16 w-16">
         <SpeedD></SpeedD>
       </div>

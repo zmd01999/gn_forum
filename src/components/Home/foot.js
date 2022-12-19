@@ -24,7 +24,7 @@ const SocialLink = styled.a`
     ${tw`w-5 h-5`}
   }
 `;
-
+const ss = `<div style="width:300px;margin:0 auto; padding:20px 0;"><a target="_blank" href=" " style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">< img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">皖公网安备 34019202002006号</p ></ a></div>`
 const CopyrightText = tw.p`text-center mt-10 font-medium tracking-wide text-sm text-gray-600`
 export default () => {
   return (
@@ -55,7 +55,10 @@ export default () => {
           </SocialLinksContainer> */}
           <CopyrightText>
             &copy; Copyright 2022, 趣代码世界. All Rights Reserved.<br/>
-            皖ICP备2022015871号
+            皖ICP备2022015871号<br/>
+            皖公网安备 34019202002006号
+    {/* <div dangerouslySetInnerHTML={{__html:ss}}></div> */}
+            
           </CopyrightText>
         </Row>
       </Content>

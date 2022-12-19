@@ -26,7 +26,7 @@ export const NavLinks = tw.div` space-x-24 text-center flex flex-row`;
 export const NavLink = tw.a`
   text-lg my-2 lg:text-xl lg:my-auto!
   font-semibold tracking-wide transition duration-300
-  pb-1 border-b-2 border-transparent hover:border-primary-500 hocus:text-primary-500 text-center text-black
+  pb-1 border-b-2 border-transparent hover:border-yellow-400 hocus:text-yellow-400 text-center text-black
 `;
 
 export const PrimaryLink = tw(NavLink)`

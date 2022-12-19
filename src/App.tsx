@@ -35,6 +35,8 @@ import {
 import Footer from "src/components/Home/foot";
 import { WorkDetail } from "./components/Work/WorkDetail";
 import { MainPage } from "./components/Home/MainPage";
+import { ProjectRes } from "./components/Home/ProjectRes";
+import { ForumRes } from "./components/Home/ForumRes";
 function App() {
   let services: IServices;
 
@@ -64,6 +66,12 @@ function App() {
                       <Switch>
                         <Route path="/" exact>
                           <MainPage />
+                        </Route>
+                        <Route path="/work/search/:slug" exact>
+                          <ProjectRes></ProjectRes>
+                        </Route>
+                        <Route path="/article/search/:slug" exact>
+                          <ForumRes />
                         </Route>
                         <Route path="/work" exact>
                           <Work />
@@ -97,6 +105,7 @@ function App() {
                           {/* <ArticleView /> */}
                           <NewAView></NewAView>
                         </Route>
+
                         <Route path="/forum" exact>
                           <GuardRouter Comp={MainView} />
                         </Route>

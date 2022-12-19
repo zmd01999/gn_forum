@@ -154,7 +154,7 @@
         userAvatar:{
           show: true,
           username: (userInfo && userInfo.nickname) || '未登录',
-          avatar: (userInfo && ("https://"+userInfo.avatar)) || './static/avatar.png',
+          avatar: (userInfo && (userInfo.avatar != "NULL" &&("https://"+userInfo.avatar) || './static/avatar.webp')) || './static/avatar.png',
           handleClick(){
             //弹出登录框等操作
             console.log("点击头像")
@@ -234,7 +234,7 @@
         }
       },
       //默认项目地址
-      defaultProjectURL: "./static/project.sb3",
+      defaultProjectURL: "./static/project1.sb3",
       //素材库配置
       assets:{
         //素材库地址
@@ -286,7 +286,7 @@
       $('.scratch-filter').show()
       $('.uploading').show()
       var uuid = window.uuid()
-      uploadParam.projectTitle = window.scratch.getProjectName()
+      // uploadParam.projectTitle = window.scratch.getProjectName()
       // var defaultUploadType = JSON.parse(localStorage.getItem("CONFIG")).defaultUploadType
       var defaultUploadType = "a"
       var cover = window.scratch.getProjectCoverBlob(cover => {
@@ -330,9 +330,9 @@
           // departId: departId,
           // additionalId: additionalId,
           title: uploadParam.projectTitle,
-          summary: "",
+          summary: uploadParam.summary,
           category: {
-            id: "1602196713374871554",
+            id: uploadParam.category,
           },
           body: {
             contentHtml: "",
@@ -341,6 +341,9 @@
           tags: ["Scratch"],
           avatar:uploadParam.coverKey,
           project:1,
+          description:uploadParam.description,
+          copyright:uploadParam.copyright,
+          status:uploadParam.status,
         }),
         success: function (res) {
           canShare = true
@@ -360,6 +363,8 @@
             qrcode.appendChild(img);
             $('.scratch-filter').show()
             $('.release-success').show()
+            $('.release-form').hide()
+
           } else {
             $('.release-false').show()
           }
@@ -414,7 +419,7 @@
       <div class="con-box1">
         <h4><span id="projectTitle"></span>| 基本信息</h4>
         <div> 作品标题 <input style="height: 1.7rem;
-          width: 15rem;">
+          width: 15rem;" id="projectName">
         <div style="    
         position: relative;
         left: 30rem;
@@ -434,40 +439,42 @@
         </div>
         <div>版权声明  
           <input type="radio" id="contactChoice1"
-           name="contact" value="email">
+           name="contact" value="1">
           <label for="contactChoice1">原创</label>
       
           <input type="radio" id="contactChoice2" style="margin-left: 1.7rem;"
-           name="contact" value="phone">
+           name="contact" value="0">
           <label for="contactChoice2">转载,来源 <input style="    height: 1.7rem;
-            "></label>
+            " id="cC2input"></label>
 
         
         </div>
-        <div>作品标签 
-          <button type="button">动画</button>
-          <button type="button">游戏</button>
-          <button type="button">工具</button>
-          <button type="button">模拟</button>
+        <div >作品分类 <span id="categoryName"></span>
+          <button type="button" id="1602196644605063169" name="动画">动画</button>
+          <button type="button" id="1602196713374871554" name="游戏">游戏</button>
+          <button type="button" id="1602196785894387713" name="工具">工具</button>
+          <button type="button" id="1602196856455163906" name="模拟">模拟</button>
 
         </div>
       
         <h4 style="margin-top: 2.5rem;"><span id="projectTitle"></span>| 进阶信息</h4>
         <div> 改变权限 
           <input type="radio" id="notallow"
-          name="contact" value="notallow">
+          name="notallow1" value="0">
          <label for="notallow">不允许</label>
-         <input type="radio" id="see" style="margin-left: 1.7rem;"
-         name="contact" value="see">
+
+         <input type="radio" id="olnysee" style="margin-left: 1.7rem;"
+         name="notallow1" value="2">
         <label for="see">仅查看</label>
+
         <input type="radio" id="allow" style="margin-left: 1.7rem;"
-        name="contact" value="allow">
+        name="notallow1" value="1">
        <label for="allow">允许</label>
            </div>
         <div>作品介绍 <input style="    height: 3rem;
-          width: 20rem;"></div>
+          width: 20rem;" id="summary"></div>
         <div >操作说明 <input style="    height: 3rem;
-          width: 20rem;"></div>
+          width: 20rem;" id="description"></div>
         <button style="	position: relative;
         bottom: 3.5rem;
         right: rem;
@@ -478,7 +485,7 @@
         background-color: rgb(57 180 254);
         font-weight: 500;
         font-size: larger;
-        border-color: #00000069;">确认无误,提交作品</button>
+        border-color: #00000069;"  type="submit" id="btn_submit">确认无误,提交作品</button>
       </div>
       <div class="fault-code">
         <span>&times</span>
@@ -520,6 +527,80 @@
     $('.release-success').hide()
     $('.release-false').hide()
   })
+
+//   document.getElementById("#btn_submit").addEventListener('click', function(){
+//       console.log("点击")
+// }, false);
+
+
+$('#btn_submit').click(function(){
+  console.log("点击");
+  requestUpload(0);
+
+});
+
+$('#projectName').on('input',function(e){
+  var name = $('#projectName').val();
+  uploadParam.projectTitle = name;
+  console.log(uploadParam.projectTitle)
+});
+$('#summary').on('input',function(e){
+  var summary = $('#summary').val();
+  uploadParam.summary = summary;
+});
+$('#description').on('input',function(e){
+  var description = $('#description').val();
+  uploadParam.description = description;
+  console.log(uploadParam.projectTitle)
+});
+$('#contactChoice1').on('input',function(e){
+  var checked = $("#contactChoice1:checked").val();
+   uploadParam.copyright = checked;
+});
+$('#cC2input').click(function(e){
+  $('#contactChoice2').prop('checked', true);
+  var checked = $("#contactChoice2:checked").val();
+  console.log(checked)
+   uploadParam.copyright = checked;
+});
+$('#contactChoice2').on('input',function(e){
+  var checked = $("#contactChoice2:checked").val();
+   uploadParam.copyright = checked;
+});
+
+$('#notallow').on('input',function(e){
+  var checked = $("#notallow:checked").val();
+   uploadParam.status = checked;
+});
+$('#allowsee').on('input',function(e){
+  var checked = $("#allowsee:checked").val();
+   uploadParam.status = checked;
+});
+$('#olnysee').on('input',function(e){
+  var checked = $("#olnysee:checked").val();
+   uploadParam.status = checked;
+});
+
+$('#1602196644605063169').click(function(){
+  var checked = $("#1602196644605063169").attr("name");
+  $("#categoryName").text(checked)
+  uploadParam.category = "1602196644605063169"
+});
+$('#1602196713374871554').click(function(){
+  var checked = $("#1602196713374871554").attr("name");
+  $("#categoryName").text(checked)
+  uploadParam.category = "1602196713374871554"
+});
+$('#1602196785894387713').click(function(){
+  var checked = $("#1602196785894387713").attr("name");
+  $("#categoryName").text(checked)
+  uploadParam.category = "1602196785894387713"
+});
+$('#1602196856455163906').click(function(){
+  var checked = $("#1602196856455163906").attr("name");
+  $("#categoryName").text(checked)
+  uploadParam.category = "1602196856455163906"
+});
 </script>
 
 </html>

@@ -130,7 +130,7 @@ const UserDropdown = (props: user) => {
             >
               <Avatar
                 alt="John Doe"
-                src="/images/avatars/1.png"
+                src={updateCreppyDefaultImage(userInfo.avatar)}
                 sx={{ width: "2.5rem", height: "2.5rem" }}
               />
             </Badge>

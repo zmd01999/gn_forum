@@ -22,7 +22,7 @@ import { AppState } from "../../redux/store";
 import { getLocalStorage, updateCreppyDefaultImage } from "../../utils";
 import { LoaderAction } from "../../redux/reducers/LoaderReducer";
 import { NotificationAction } from "../../redux/reducers/NotifyReducer";
-import { setError } from "../../redux/actions";
+import { setError, setWarning } from "../../redux/actions";
 import "./style.css";
 import { clearLoading, setLoading } from "../../redux/actions";
 import { Header } from "./Header";
@@ -51,6 +51,11 @@ export const NewAComment = ({ slug, authorId }: IProps) => {
   };
 
   const handleCommentAction = async (type: string, id?: string) => {
+    if (!userInfo) {
+      notifyDispatch(setWarning("评论需要先登录"));
+
+      return;
+    }
     try {
       loaderDispatch(setLoading(`begin ${type} comment`));
 

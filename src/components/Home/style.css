@@ -80,8 +80,8 @@
 }
 
 .navBf {
-  margin-top: 1.3rem;
-  font-size: 2rem;
+  margin-top: 0.7rem;
+  font-size: 1.5rem;
   color: black;
   font-weight: 300;
 }
@@ -89,19 +89,22 @@
 .navSf {
   margin-top: 1rem;
   color: gray;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .navlm:hover {
-  color:violet
+  color:rgb(255, 214, 132);
+  cursor:pointer;
 }
 
 .navBf:hover {
-  color:violet
+  color:rgb(255, 214, 132);
+  cursor:pointer;
 }
 
 .navSf:hover {
-  color:violet
+  color:rgb(255, 214, 132);
+  cursor:pointer;
 }
 .colorL2 {
   color: rgb(251 229 214);

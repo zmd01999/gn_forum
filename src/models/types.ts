@@ -85,7 +85,7 @@ export interface IProject {
   tagName?:string;
   noCheck?:string;
   copyright?:string;
-
+  description?:string;
 }
 
 export interface IArticle {

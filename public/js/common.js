@@ -43,11 +43,12 @@ window.getUserToken = function() {
 
 window.getWorkInfo = function(workId, cb) {
   $.ajax({
-    url: '/api/teaching/teachingWork/studentWorkInfo',
-    data: { workId: workId },
+    url: `http://1.15.61.98:8090/project/detail/${workId}`,
+    type: 'GET',
     success: function (res) {
-      if (res.code == 0) {
-        cb(res.result)
+      if (res.code == 200) {
+        console.log(res)
+        cb(res.data)
       }
     },
     error: function (e) {

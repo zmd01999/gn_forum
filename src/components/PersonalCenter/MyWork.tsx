@@ -161,7 +161,11 @@ export default function MyWork() {
         </div>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        我的喜欢
+        <div className="grid grid-cols-3 gap-12">
+          {projectList.map((project) => {
+            return <WorkCard project={project}></WorkCard>;
+          })}
+        </div>
         <div className="mt-6">
           <Pagination
             count={projectCount}

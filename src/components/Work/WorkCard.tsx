@@ -64,7 +64,7 @@ export const WorkCard = ({ project }: props) => {
             >
               <Typography level="h2" noWrap sx={{ fontSize: "lg" }}>
                 <Link
-                  href="#dribbble-shot"
+                  href={`/work/${project.id}`}
                   overlay
                   underline="none"
                   sx={{
