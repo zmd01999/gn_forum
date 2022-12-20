@@ -107,7 +107,7 @@ export default ({
                 <Post className="group" as="a" href={`/work/${post.id}`}>
                   <div className="h-64 w-full border-card border-blue-800  rounded-t-3xl">
                     <div className="m-6 border-2 border-blue-800 rounded-3xl" style={{}}>
-                    <Image imageSrc={`https://+${post.author.avatar}`} />
+                    <Image imageSrc={`https://${post.avatar}`} />
 
                     </div>
 

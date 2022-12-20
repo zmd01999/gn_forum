@@ -70,7 +70,7 @@ export default ({
                   <div className="flex flex-row text-sm text-gray-700">
                     <div>{`发帖:${userInfo.articleNum} |`}</div>
                     <div>{`作品:${userInfo.projectNum} |`}</div>
-                    <div>{`粉丝:134 `}</div>
+                    <div>{`粉丝:${userInfo.fans} `}</div>
                   </div>
                 </div>
 

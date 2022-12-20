@@ -14,6 +14,21 @@
   <script src="../js/jquery.qrcode.min.js"></script>
   <script src="../js/qiniu.min.js"></script>
   <script src="../js/common.js"></script>
+  <style type="text/css">
+  #image-preview {
+	/* border: 1px solid #ccc; */
+	width: 100%;
+	height: 100%;
+	max-width: 200px;
+	max-height: 200px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+  /* height: 15rem;
+          width: 20rem; */
+}
+
+    </style>
   <script>
     var canShare = true
     var uploadParam = {}
@@ -27,6 +42,7 @@
     var userInfo = getUserInfo();
     var qn_token = "a";
     var workStatus = 0
+    var COVER = null;
     // setInterval(function () {
     //   qn_token = getQiniuToken();
     // }, 600 * 1000)
@@ -289,18 +305,14 @@
       // uploadParam.projectTitle = window.scratch.getProjectName()
       // var defaultUploadType = JSON.parse(localStorage.getItem("CONFIG")).defaultUploadType
       var defaultUploadType = "a"
-      var cover = window.scratch.getProjectCoverBlob(cover => {
-        console.log(cover)
-        return cover;
-      })
-      update2Local(cover,uploadParam.projectTitle+userInfo.id + ".jpg", 'project3', handleCoverUploaded);
+      // var cover = window.scratch.getProjectCoverBlob(cover => {
+      //   console.log(cover)
+      //   return cover;
+      // })
+      update2Local(COVER,uploadParam.projectTitle+userInfo.id + ".jpg", 'project3', handleCoverUploaded);
       window.scratch.getProjectFile(file => {
         console.log(file)
-        if(defaultUploadType == 'qiniu'){
-          upload2Qiniu(file, 'project3/' + uuid + '.sb3', uploadParam.projectTitle, observer)
-        }else{
           update2Local(file, uploadParam.projectTitle +userInfo.id+ '.sb3', 'project3', handleFileUploaded)
-        }
       })
 
     }
@@ -424,17 +436,33 @@
         position: relative;
         left: 30rem;
         margin-top: -1rem;">
-          作品封面  
+          <!-- 作品封面  
           <img src="/assets/forum_1.webp" style="height: 15rem;
           width: 20rem;
           position: fixed;
-          margin-left: 20px;">                
-          <input
-          hidden
-          type="file"
-          accept="image/png, image/jpeg"
-          id="account-settings-upload-image"
-        />
+          margin-left: 20px;">          
+          <button                   
+          component="label"
+          variant="contained"
+          htmlFor="account-settings-upload-image1">
+            上传头像
+            <input
+            hidden
+            type="file"
+            accept="image/png, image/jpeg"
+            id="account-settings-upload-image1"
+          />
+          </button>       -->
+          <form method="post" enctype="multipart/form-data" id="file_upload" style="position: absolute;">
+            <p>作品封面：</p>
+            <img id="image-preview">
+            <p>
+            <input type="file" id="file" name="upload_image" accept="image/gif, image/jpeg, image/png, image/jpg">
+            <input type="button" value="下载图片" onclick="save()" />
+            </p>
+              <p id="info"></p>
+          </form>
+
         </div>  
         </div>
         <div>版权声明  
@@ -601,6 +629,56 @@ $('#1602196856455163906').click(function(){
   $("#categoryName").text(checked)
   uploadParam.category = "1602196856455163906"
 });
+
+let fileInput = document.getElementById('file');
+			let info = document.getElementById('info');
+			let preview = document.getElementById('image-preview');
+			// 监听change事件:
+			fileInput.addEventListener('change', function() {
+				// 清除背景图片:
+				preview.style.backgroundImage = '';
+				if (!fileInput.value) {
+					info.innerHTML = '没有选择文件';
+					return;
+				}
+				let file = fileInput.files[0];
+				let size = file.size;
+				if (size >= 1 * 1024 * 1024) {
+					alert('文件大小超出限制');
+					info.innerHTML = '文件大小超出限制';
+					return false;
+				}
+				// 获取File信息:
+				// info.innerHTML = `文件名称:  + ${file.name}<br>文件大小: ${file.size} <br>上传时间: ${file.lastModifiedDate}`;
+        info.innerHTML = `文件名称:  + ${file.name}<br>文件大小: ${file.size}`;
+
+				if (!['image/jpeg', 'image/png', 'image/gif'].includes(file.type)) {
+					alert('不是有效的图片文件!');
+					return;
+				}
+				// 读取文件:
+				let reader = new FileReader();
+				reader.onload = function(e) {
+					let data = e.target.result;
+					console.log(preview, 'a标签')
+					preview.src = data
+				};
+				// 以DataURL的形式读取文件:
+				reader.readAsDataURL(file);
+        COVER = file;
+			});
+ 
+			function save() {
+ 
+				var url = preview.src; // 获取图片地址
+				var a = document.createElement('a'); // 创建一个a节点插入的document
+				var event = new MouseEvent('click') // 模拟鼠标click点击事件
+				a.download = 'beautifulGirl' // 设置a节点的download属性值
+				a.href = url; // 将图片的src赋值给a节点的href
+				a.dispatchEvent(event)
+			}
+
+
 </script>
 
 </html>

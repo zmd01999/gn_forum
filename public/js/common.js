@@ -44,7 +44,6 @@ window.getUserToken = function() {
 window.getWorkInfo = function(workId, cb) {
   $.ajax({
     url: `http://1.15.61.98:8090/project/detail/${workId}`,
-    type: 'GET',
     success: function (res) {
       if (res.code == 200) {
         console.log(res)

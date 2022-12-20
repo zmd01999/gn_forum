@@ -61,14 +61,14 @@
         }else if(workId){
           getWorkInfo(workId, function (info) {
             console.log(info);
-            window.scratch.loadProject(info.body.content, () => {
+            window.scratch.loadProject("https://"+info.body.content, () => {
               vm.runtime.start()
             })
           })
         }
       },
       //默认项目地址,不需要修请删除本配置项
-      defaultProjectURL: "./static/project1.sb3",
+      // defaultProjectURL: "./static/project1.sb3",
     }
   </script>
 </head>
