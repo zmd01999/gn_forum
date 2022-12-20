@@ -154,7 +154,7 @@ export default ({
               <Pagination             
               count={count}
             currentPage={currentPage&&currentPage || 1}
-            setCurrentPage={setCurrentPage&&setCurrentPage ||setProjectCount}></Pagination>
+            setCurrentPage={setCurrentPage&&setCurrentPage ||setProjectCount} project={true}></Pagination>
             </ButtonContainer>
           )}
           

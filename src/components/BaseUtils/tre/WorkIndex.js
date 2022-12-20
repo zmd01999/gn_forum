@@ -154,7 +154,7 @@ export default ({
               <Pagination             
               count={count&&count || 1}
             currentPage={currentPage&&currentPage || 1}
-            setCurrentPage={setCurrentPage&&setCurrentPage ||setProjectCount}></Pagination>
+            setCurrentPage={setCurrentPage&&setCurrentPage ||setProjectCount} project={true}></Pagination>
             </ButtonContainer>
           )}
           <div className="text-2xl font-bold mb-6 text-black mt-8">

@@ -13,10 +13,10 @@ import { Pagination } from "src/components/Home/Pagination";
 interface IProps {
   tabs: object;
   setCurrentTab: Dispatch<SetStateAction<string>>;
-  setProjectList?: Dispatch<React.SetStateAction<IProject[]>>;
-  currentPage?: number;
-  setCurrentPage?: Dispatch<SetStateAction<number>>;
-  count?: number;
+  setProjectList: Dispatch<React.SetStateAction<IProject[]>>;
+  currentPage: number;
+  setCurrentPage: Dispatch<SetStateAction<number>>;
+  count: number;
 }
 
 interface ITabChangeEvent {
@@ -66,12 +66,15 @@ export const Tabs = ({
             style={{
               marginTop: "auto",
               marginBottom: "auto",
+              cursor: "pointer",
+              zIndex: "2",
             }}
           >
             <Pagination
-              count={count ?? 1}
-              currentPage={currentPage ?? 1}
-              setCurrentPage={setCurrentPage ?? setNumber}
+              count={count}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              project={true}
             ></Pagination>
           </div>
         )}
