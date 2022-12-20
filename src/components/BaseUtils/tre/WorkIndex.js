@@ -85,9 +85,11 @@ export default ({
     getPlaceholderPost()
   ],
   projectList,
+  currentPage,
+  setCurrentPage,
+  count,
 }) => {
   const [visible, setVisible] = useState(8);
-  const [currentPage, setCurrentPage] = useState(1);
   const [projectCount, setProjectCount] = useState(1);
   const onLoadMoreClick = () => {
     setVisible(v => v + 8);
@@ -150,9 +152,9 @@ export default ({
             <ButtonContainer style={{marginTop:"1.5rem" , justifyContent: "end",marginRight: "6rem"}}>
               {/* <LoadMoreButton onClick={onLoadMoreClick}>加载更多</LoadMoreButton> */}
               <Pagination             
-              count={projectCount}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}></Pagination>
+              count={count&&count || 1}
+            currentPage={currentPage&&currentPage || 1}
+            setCurrentPage={setCurrentPage&&setCurrentPage ||setProjectCount}></Pagination>
             </ButtonContainer>
           )}
           <div className="text-2xl font-bold mb-6 text-black mt-8">

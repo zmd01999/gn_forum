@@ -152,7 +152,12 @@ export const ProjectRes = () => {
         />
       </div>
 
-      <WorkRes projectList={projectList} />
+      <WorkRes
+        projectList={projectList}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        count={count}
+      />
     </div>
   );
 };

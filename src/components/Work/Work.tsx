@@ -176,7 +176,12 @@ export const Work = () => {
         />
       </div>
 
-      <WorkIndex projectList={projectList} />
+      <WorkIndex
+        projectList={projectList}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        count={count}
+      />
     </div>
   );
 };
