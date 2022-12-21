@@ -227,7 +227,21 @@ export const RForm = (props: RFormlProps) => {
                   <LinkStyled
                     onClick={(e: MouseEvent<HTMLElement>) => e.preventDefault()}
                   >
-                    隐私协议
+                    用户协议、
+                  </LinkStyled>
+                </Link>
+                <Link to="/">
+                  <LinkStyled
+                    onClick={(e: MouseEvent<HTMLElement>) => e.preventDefault()}
+                  >
+                    隐私协议、
+                  </LinkStyled>
+                </Link>
+                <Link to="/">
+                  <LinkStyled
+                    onClick={(e: MouseEvent<HTMLElement>) => e.preventDefault()}
+                  >
+                    儿童隐私政策
                   </LinkStyled>
                 </Link>
               </Fragment>
@@ -349,13 +363,15 @@ export const RForm = (props: RFormlProps) => {
             label={
               <Fragment>
                 <span>同意</span>
-                <Link to="/">
-                  <LinkStyled
-                    onClick={(e: MouseEvent<HTMLElement>) => e.preventDefault()}
-                  >
-                    隐私协议
-                  </LinkStyled>
-                </Link>
+                <a href="/privacy/1">
+                  <LinkStyled>用户协议、</LinkStyled>
+                </a>
+                <a href="/privacy/2">
+                  <LinkStyled>隐私协议、</LinkStyled>
+                </a>
+                <a href="/privacy/3">
+                  <LinkStyled>儿童隐私政策</LinkStyled>
+                </a>
               </Fragment>
             }
           />

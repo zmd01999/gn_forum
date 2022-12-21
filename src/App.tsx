@@ -23,7 +23,7 @@ import { ToastProvider } from "react-toast-notifications";
 import { NotFound } from "./components/Home/NotFound";
 import { Profile } from "./components/Home/Profile";
 import { Work } from "./components/Work/Work";
-
+import Privacy_1 from "./components/Auth/Privacy_1";
 import { GuardRouter } from "./GuardRouter";
 import { PersonalCenter } from "./components/PersonalCenter/PersonalCenter";
 import AnimationRevealPage from "src/components/BaseUtils/tre/AnimationRevealPage.js";
@@ -37,6 +37,9 @@ import { WorkDetail } from "./components/Work/WorkDetail";
 import { MainPage } from "./components/Home/MainPage";
 import { ProjectRes } from "./components/Home/ProjectRes";
 import { ForumRes } from "./components/Home/ForumRes";
+import { Private_1 } from "./components/Auth/Private_1";
+import Privacy_3 from "./components/Auth/Privacy_3";
+import Privacy_2 from "./components/Auth/Privacy_2";
 function App() {
   let services: IServices;
 
@@ -82,7 +85,15 @@ function App() {
                           component={PersonalCenter}
                           exact
                         />
-
+                        <Route path="/privacy/1" exact>
+                          <Privacy_1 />
+                        </Route>
+                        <Route path="/privacy/2" exact>
+                          <Privacy_2 />
+                        </Route>
+                        <Route path="/privacy/3" exact>
+                          <Privacy_3 />
+                        </Route>
                         <Route
                           path="/profile/:username"
                           component={Profile}

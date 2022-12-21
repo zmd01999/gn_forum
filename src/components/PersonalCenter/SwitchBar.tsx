@@ -11,6 +11,7 @@ import {
   Money,
   Star,
   Help,
+  People,
 } from "@mui/icons-material";
 import { SettingEditor } from "../Home/SettingEditor";
 import MyWork from "./MyWork";
@@ -19,6 +20,7 @@ import MySetting from "./MySetting";
 import MyMessage from "./MyMessage";
 import { MyHelp } from "./MyHelp";
 import "./style.css";
+import { MyFollow } from "./MyFollow";
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -94,19 +96,25 @@ export default function SwitchBar() {
               sx={{ fontSize: 16, border: 1 }}
               {...a11yProps(2)}
             />
-
+            <Tab
+              icon={<People />}
+              iconPosition="start"
+              label="我的关注"
+              sx={{ fontSize: 16, border: 1 }}
+              {...a11yProps(3)}
+            />
             <Tab
               icon={<Settings />}
               iconPosition="start"
               label="设置"
-              {...a11yProps(3)}
+              {...a11yProps(4)}
               sx={{ fontSize: 16, border: 1 }}
             />
             <Tab
               icon={<Help />}
               iconPosition="start"
               label="帮助"
-              {...a11yProps(4)}
+              {...a11yProps(5)}
               sx={{ fontSize: 16, border: 1 }}
             />
             {/* <Tab
@@ -128,9 +136,12 @@ export default function SwitchBar() {
           <MyMessage />
         </TabPanel>
         <TabPanel value={value} index={3}>
-          <MySetting></MySetting>
+          <MyFollow />
         </TabPanel>
         <TabPanel value={value} index={4}>
+          <MySetting></MySetting>
+        </TabPanel>
+        <TabPanel value={value} index={5}>
           <MyHelp></MyHelp>
         </TabPanel>
       </Box>

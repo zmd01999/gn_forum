@@ -47,4 +47,5 @@ export class ProfileService {
   public updateAvartar(json:any) {
     return this.api.post("article/cosUpload",json,true);
   }
+
 }

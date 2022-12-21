@@ -127,4 +127,15 @@ export class ArticleService {
   public weightArticle(paras:{id:string, weight:number}) {
     return this.api.post("article/weightArticle",{id:paras.id,isWeight:paras.weight});
   }
+
+  public getFans(paras:{page:number}) {
+    return this.api.post("user/findFans", {page:paras.page,pageSize:PER_PAGE_COUNT})
+
+  }
+
+  public getFollow(paras:{page:number}) {
+    return this.api.post("user/myFollow", {page:paras.page,pageSize:PER_PAGE_COUNT})
+
+  }
+
 }

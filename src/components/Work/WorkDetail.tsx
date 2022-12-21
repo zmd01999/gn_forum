@@ -63,10 +63,10 @@ export const WorkDetail = () => {
   const retrieveArticle = async () => {
     const singleArticleRes = await projectService.getProject(slug);
     const article = singleArticleRes.data.data as IProject;
-    // await profileService.isFollow(article.author.id).then((res) => {
-    //   console.log(res.data);
-    //   setIsF(res.data.data);
-    // });
+    await profileService.isFollow(article.author.id).then((res) => {
+      console.log(res.data);
+      setIsF(res.data.data);
+    });
 
     setSingleProject(article);
     setUsername(article.author.nickname);
@@ -97,7 +97,7 @@ export const WorkDetail = () => {
     exitF();
     isFull();
   });
-  if (slug == "1") {
+  if (slug == "1" || singleProject === undefined) {
     return (
       <>
         <script src="/js/common.js"></script>
@@ -122,7 +122,11 @@ export const WorkDetail = () => {
             />
             <div>{"JackChen"}</div>
             <div>
-              <FollowButton></FollowButton>
+              {/* <FollowButton
+                profile={singleProject?.author ?? null}
+                isF={isF}
+                setIsF={setIsF}
+              ></FollowButton> */}
             </div>
             <div>{"LV1"}</div>
             <div>{"发布于2022-12-11 5:42"}</div>
@@ -320,7 +324,11 @@ export const WorkDetail = () => {
           />
           <div>{singleProject?.author.nickname}</div>
           <div>
-            <FollowButton></FollowButton>
+            <FollowButton
+              profile={singleProject?.author}
+              isF={isF}
+              setIsF={setIsF}
+            ></FollowButton>
           </div>
           <div>{`LV${singleProject?.author.level}`}</div>
           <div>{`发布于${singleProject?.createTime}`}</div>

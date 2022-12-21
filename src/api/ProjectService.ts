@@ -31,6 +31,6 @@ export class ProjectService {
     return this.api.post("project/searchArticle", {page:paras.page,pageSize:PROJECT_PER_PAGE_COUNT,title:paras.title,project:1})
   }
   public getMyProject(paras:{page:number}) {
-    return this.api.post(`project/myArticle`,{page:paras.page,pageSize:PROJECT_PER_PAGE_COUNT});
+    return this.api.post(`project/myArticle`,{page:paras.page,pageSize:PROJECT_PER_PAGE_COUNT,project:1});
   }
   }

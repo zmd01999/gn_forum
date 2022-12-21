@@ -6,6 +6,7 @@ import {
   useState,
   Dispatch,
   forwardRef,
+  Fragment,
 } from "react";
 
 // ** Next Imports
@@ -120,7 +121,11 @@ export const LgCard = () => {
   const history = useHistory();
   const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
   const authDispatch = useDispatch<Dispatch<AuthAction>>();
+  const [checked, setChecked] = useState(false);
 
+  const handleCheckChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked);
+  };
   const handleChange =
     (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
       setValues({ ...values, [prop]: event.target.value });
@@ -146,6 +151,10 @@ export const LgCard = () => {
 
     if (values.username == "" || values.password == "") {
       notifyDispatch(setError("请填写完整账号和密码"));
+      return;
+    }
+    if (!checked) {
+      notifyDispatch(setError("请同意隐私协议"));
       return;
     }
     try {
@@ -202,7 +211,7 @@ export const LgCard = () => {
     <Box className="content-center " sx={{ mx: "auto" }}>
       <Card sx={{ zIndex: 1, mx: "auto" }} className="bg">
         <CardContent
-          sx={{ padding: (theme) => `${theme.spacing(2, 3, 2)} !important` }}
+          sx={{ padding: (theme) => `${theme.spacing(2, 2, 2)} !important` }}
         >
           <Box
             sx={{
@@ -273,6 +282,35 @@ export const LgCard = () => {
                 }
               />
             </FormControl>
+            <Box
+              sx={{
+                mt: "1",
+                display: "flex",
+                alignItems: "center",
+                flexWrap: "wrap",
+                justifyContent: "space-between",
+              }}
+            >
+              <FormControlLabel
+                control={
+                  <Checkbox checked={checked} onChange={handleCheckChange} />
+                }
+                label={
+                  <Fragment>
+                    <span>同意</span>
+                    <a href="/privacy/1">
+                      <LinkStyled>用户协议、</LinkStyled>
+                    </a>
+                    <a href="/privacy/2">
+                      <LinkStyled>隐私协议、</LinkStyled>
+                    </a>
+                    <a href="/privacy/3">
+                      <LinkStyled>儿童隐私政策</LinkStyled>
+                    </a>
+                  </Fragment>
+                }
+              />
+            </Box>
             {/* <Box
               sx={{
                 mb: 4,

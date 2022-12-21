@@ -6,6 +6,7 @@ import {
   useState,
   Dispatch,
   forwardRef,
+  Fragment,
 } from "react";
 
 // ** Next Imports
@@ -122,7 +123,11 @@ const LoginPage = () => {
 
   const [phone, setPhone] = useState<string>("");
   const [code, setCode] = useState<string>("");
+  const [checked, setChecked] = useState(false);
 
+  const handleCheckChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked);
+  };
   // ** Hook
   const theme = useTheme();
   const router = useRouter();
@@ -156,6 +161,10 @@ const LoginPage = () => {
 
     if (values.username == "" || values.password == "") {
       notifyDispatch(setError("请填写完整账号和密码"));
+      return;
+    }
+    if (!checked) {
+      notifyDispatch(setError("请同意隐私协议"));
       return;
     }
     try {
@@ -362,7 +371,25 @@ const LoginPage = () => {
                 justifyContent: "space-between",
               }}
             >
-              <FormControlLabel control={<Checkbox />} label="记住密码" />
+              <FormControlLabel
+                control={
+                  <Checkbox checked={checked} onChange={handleCheckChange} />
+                }
+                label={
+                  <Fragment>
+                    <span>同意</span>
+                    <a href="/privacy/1">
+                      <LinkStyled>用户协议、</LinkStyled>
+                    </a>
+                    <a href="/privacy/2">
+                      <LinkStyled>隐私协议、</LinkStyled>
+                    </a>
+                    <a href="/privacy/3">
+                      <LinkStyled>儿童隐私政策</LinkStyled>
+                    </a>
+                  </Fragment>
+                }
+              />
               <Link to="/">
                 <LinkStyled onClick={(e) => e.preventDefault()}>
                   忘记密码？

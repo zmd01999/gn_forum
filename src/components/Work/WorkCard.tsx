@@ -30,9 +30,9 @@ export const WorkCard = ({ project }: props) => {
         <AspectRatio ratio="4/3">
           <figure>
             <img
-              // src={"https://" + project.avatar}
+              src={"https://" + project.avatar}
               // srcSet={"https://" + project.avatar + " 2x"}
-              src="https://images.unsplash.com/photo-1515825838458-f2a94b20105a?auto=format&fit=crop&w=300"
+              // src="https://images.unsplash.com/photo-1515825838458-f2a94b20105a?auto=format&fit=crop&w=300"
               loading="lazy"
               alt="Yosemite by Casey Horner"
             />
