@@ -48,7 +48,7 @@ const MyMessage = () => {
   }, [currentPage]);
   return (
     <>
-      {articleList.length == 0 ? (
+      {articleList.length == 0 && articleList1.length == 0 ? (
         <div className="msgSelector">
           <Message positive>
             <Message.Header>您目前没有消息</Message.Header>
