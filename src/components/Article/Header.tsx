@@ -1,11 +1,33 @@
-import { Button, Divider, Grid } from "semantic-ui-react";
+import { Dispatch, SyntheticEvent, useState } from "react";
+import { useDispatch } from "react-redux";
+import {
+  Button,
+  Divider,
+  Form,
+  Grid,
+  Icon,
+  Modal,
+  TextArea,
+} from "semantic-ui-react";
+import { useProfileService } from "src/hooks";
 import { IUserInfo } from "src/models/types";
+import { setError, setSuccess } from "src/redux/actions";
 import { updateCreppyDefaultImage } from "src/utils";
+import { NotificationAction } from "src/redux/reducers/NotifyReducer";
+
 interface IProps {
   author: IUserInfo | null | any;
 }
 
 export const Header = ({ author }: IProps) => {
+  const [open, setOpen] = useState(false);
+  const profileService = useProfileService();
+  const [content, setContent] = useState<string>();
+  const handleContent = (data: any) => {
+    setContent(data.value);
+  };
+  const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
+
   return (
     <div className="ui card cardlenth" style={{ flexGrow: "1" }}>
       <div
@@ -49,7 +71,52 @@ export const Header = ({ author }: IProps) => {
           </Grid>
         </div>
         <div style={{ marginTop: "3rem" }}>
-          <Button className="header-button">发消息</Button>
+          <Modal
+            closeIcon
+            open={open}
+            trigger={<Button className="header-button">发消息</Button>}
+            onClose={() => setOpen(false)}
+            onOpen={() => setOpen(true)}
+          >
+            <Modal.Header>私信</Modal.Header>
+            <Modal.Content>
+              <Form>
+                <TextArea
+                  placeholder="填写您的内容"
+                  value={content}
+                  onChange={(event: SyntheticEvent, data: object) => {
+                    handleContent(data);
+                  }}
+                />
+              </Form>
+            </Modal.Content>
+            <Modal.Actions>
+              <Button
+                color="green"
+                onClick={() => {
+                  profileService
+                    .sendMsg({
+                      toUserId: author.id,
+                      content: content ?? "默认消息",
+                    })
+                    .then((res) => {
+                      console.log(res);
+                      if (res.data.success) {
+                        notifyDispatch(setSuccess("发送成功."));
+                      } else {
+                        notifyDispatch(setError(res.data.msg));
+                      }
+                    });
+                  setOpen(false);
+                }}
+              >
+                <Icon name="checkmark" /> 发送
+              </Button>
+              <Button color="red" onClick={() => setOpen(false)}>
+                <Icon name="remove" /> 取消
+              </Button>
+            </Modal.Actions>
+          </Modal>
         </div>
       </div>
       {/* <div className="extra content">

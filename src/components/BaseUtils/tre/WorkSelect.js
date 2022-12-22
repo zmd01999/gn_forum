@@ -83,7 +83,7 @@ export default ({
     getPlaceholderPost(),
     getPlaceholderPost(),
     getPlaceholderPost()
-  ]
+  ],project,
 }) => {
   const [visible, setVisible] = useState(8);
   const onLoadMoreClick = () => {
@@ -102,12 +102,12 @@ export default ({
           </div>
           <Posts>
   
-          {posts.slice(0, 6).map((post, index) => (
+          {project&&project.slice(0, 6).map((post, index) => (
                 <PostContainer key={index} featured={post.featured}>
-                <Post className="group" as="a" href={post.url}>
+                <Post className="group" as="a" href={`/work/${post.id}`}>
                   <div className="h-64 w-full border-card border-blue-800  rounded-t-3xl">
                     <div className="m-6 border-2 border-blue-800 rounded-3xl" style={{}}>
-                    <Image imageSrc={post.imageSrc} />
+                    <Image imageSrc={"https://"+post.avatar} />
   
                     </div>
   
@@ -124,14 +124,14 @@ export default ({
                           width: "3rem",padding: "0rem"
                         }}
                       
-                      >原创</Button>
+                      >{post.copyright == "1" ? "原创":"转载"}</Button>
                     <div className="font-black text-2xl Hov">{post.title}</div>
                     </div>
-  
+
                     
                     {/* <Category>{post.category}</Category> */}
-                    <CreationDate> <div  className="flex space-x-12 mr-4 mb-2"><VisibilityIcon/>{1}k<CommentIcon sx={{ color: cyan[200] }}/>{5.5}k<ThumbUpIcon sx={{ color: deepOrange[50] }}/>{3}k</div></CreationDate>
-  
+                    <CreationDate> <div  className="flex space-x-12 mr-4 mb-2"><VisibilityIcon/>{post.viewCounts}<CommentIcon sx={{ color: cyan[200] }}/>{post.commentCounts}<ThumbUpIcon sx={{ color: deepOrange[50] }}/>{post.thumbsCounts}</div></CreationDate>
+
                     <div className="flex flex-row space-x-6">
                       <Avatar
                         src={updateCreppyDefaultImage(post.author.avatar ?? null)}
@@ -141,8 +141,8 @@ export default ({
                           {post.author.nickname}
                         </div>
                     </div>
-  
-                    {post.featured && post.description && <Description>{post.description}</Description>}
+
+                    {/* {post.featured && post.description && <Description>{post.description}</Description>} */}
                   </Info>
                 </Post>
               </PostContainer>

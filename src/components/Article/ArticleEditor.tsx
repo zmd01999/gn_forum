@@ -264,8 +264,8 @@ export const ArticleEditor = () => {
   return (
     <Segment placeholder>
       <Header icon>
-        <Icon name="comment alternate outline" />
-        机器人交流圣地
+        {/* <Icon name="comment alternate outline" />
+        机器人交流圣地 */}
       </Header>
       <div>
         <Form>
@@ -374,6 +374,7 @@ export const ArticleEditor = () => {
                   value={article.tagName}
                   required
                   className="blackBorder"
+                  disabled
                 />
               </div>
 

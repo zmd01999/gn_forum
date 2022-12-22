@@ -48,4 +48,11 @@ export class ProfileService {
     return this.api.post("article/cosUpload",json,true);
   }
 
+  public sendMsg(paras:{toUserId:string,content:string}) {
+    return this.api.post("letter/send",{toUserId:paras.toUserId,content:paras.content});
+  }
+
+  public msgList(slug:string) {
+    return this.api.get("letter/detail/"+slug);
+  }
 }

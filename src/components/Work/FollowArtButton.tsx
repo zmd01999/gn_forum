@@ -67,6 +67,13 @@ export const FollowArtButton = ({ iarticle }: IProps) => {
         />
         {isFollow == 1 ? "取消" : "收藏"}&nbsp;
       </Button>
+
+      <Icon
+        name={isFollow == 1 ? "star" : "star outline"}
+        size="big"
+        color="yellow"
+        onClick={handleFavorite}
+      ></Icon>
     </Fragment>
   );
 };

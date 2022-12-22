@@ -33,4 +33,23 @@ export class ProjectService {
   public getMyProject(paras:{page:number}) {
     return this.api.post(`project/myArticle`,{page:paras.page,pageSize:PROJECT_PER_PAGE_COUNT,project:1});
   }
+
+  public getTopProject(paras:{page:number,thumbs?:number,follow?:number,limit?:number,}) {
+    return this.api.post(`project/topArticle`,{page:paras.page,pageSize:PROJECT_PER_PAGE_COUNT,limit:paras.limit,thumbs:paras.thumbs,follow:paras.follow,project:1});
+  }
+
+  public getWeekProject(paras:{page:number}) {
+    return this.api.post(`project/weekProject`,{page:paras.page,pageSize:PROJECT_PER_PAGE_COUNT});
+  }
+  public favoriteProject(slug: string) {
+    return this.api.post(`project/zan/`,{id:slug});
+  }
+
+  public unfavoriteProject(slug: string) {
+    return this.api.post(`project/popZan`,{id:slug});
+  }
+
+  public getRecom() {
+    return this.api.get(`project/random/1`);
+  }
   }

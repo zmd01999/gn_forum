@@ -11,7 +11,7 @@
   }
 
 .sameW {
-    width: 81%;
+    width: 90%;
 
 }
 
@@ -109,3 +109,9 @@
     background-color: rgb(64 114 196) !important;
     color: white !important;
   }
+
+  .buttonColor1 {
+    background-color: rgb(184, 38, 38) !important;
+    color: white !important;
+  }
+

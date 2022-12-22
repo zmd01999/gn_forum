@@ -55,7 +55,7 @@ export const Work = () => {
 
   const { isAuthenticated } = useSelector((state: AppState) => state.auth);
   const [userInfo, setUserInfo] = useState<string | null>(null);
-
+  const [recom, setRecom] = useState<IProject[]>();
   const { isLoading, messageContent } = useSelector(
     (state: AppState) => state.loader
   );
@@ -77,7 +77,8 @@ export const Work = () => {
     //   history.push("/login");
     //   return;
     // }
-
+    let res;
+    res = await projectService.getRecom();
     let articleRes;
     switch (currentTab) {
       case "0":
@@ -117,6 +118,7 @@ export const Work = () => {
 
         break;
     }
+    setRecom(res.data.data);
     setProjectList(articleRes.data.data.voList);
     setCount(articleRes.data.data.total);
   };
@@ -181,6 +183,7 @@ export const Work = () => {
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         count={count}
+        recom={recom}
       />
     </div>
   );

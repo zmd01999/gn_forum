@@ -227,10 +227,10 @@
           })
         }else if (workId) {
           getWorkInfo(workId, function (info) {
-            window.scratch.loadProject(info.workFileKey_url, () => {
+            window.scratch.loadProject("https://"+info.body.content, () => {
               $('.loading').hide()
               $('.scratch-filter').hide()
-              window.scratch.setProjectName(info.workName)
+              window.scratch.setProjectName(info.title)
             })
           })
         } else if(unitId){
@@ -298,6 +298,15 @@
 
     //请求提交作业
     function requestUpload(status){
+      if(uploadParam.projectTitle==null ||uploadParam.summary==null||uploadParam.projectKey==null||uploadParam.category==null||uploadParam.description==null||uploadParam.copyright==null||uploadParam.status==null){
+        alert('请填写完整作品信息!');
+        return;
+      }
+      if(COVER == null) {
+        alert('请上传封面!');
+        return;
+      }
+
       workStatus = status
       $('.scratch-filter').show()
       $('.uploading').show()

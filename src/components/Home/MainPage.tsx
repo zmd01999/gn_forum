@@ -4,8 +4,8 @@ import { LgCard } from "../Auth/LgCard";
 import { HotTable } from "./HotTable";
 import { Card, Grid, Image } from "semantic-ui-react";
 import { useDispatch, useSelector } from "react-redux";
-import { useProfileService } from "src/hooks";
-import { Dispatch } from "react";
+import { useProfileService, useProjectService } from "src/hooks";
+import { Dispatch, useEffect, useState } from "react";
 import { AppState } from "src/redux/store";
 import { getLocalStorage, updateCreppyDefaultImage } from "src/utils";
 import { useHistory } from "react-router-dom";
@@ -17,14 +17,26 @@ import {
   setWarning,
 } from "src/redux/actions";
 import { NotificationAction } from "../../redux/reducers/NotifyReducer";
+import { IProject } from "src/models/types";
 
 export const MainPage = () => {
   const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
   const profileService = useProfileService();
-
+  const projectService = useProjectService();
   const { isAuthenticated } = useSelector((state: AppState) => state.auth);
   const history = useHistory();
   const userInfoLocal: any = getLocalStorage("userInfo");
+  const [project1, setProject1] = useState<IProject[]>();
+  useEffect(() => {
+    let articleRes;
+    const retrieve = async () => {
+      articleRes = await projectService.getWeekProject({
+        page: 1,
+      });
+      setProject1(articleRes.data.data);
+    };
+    retrieve();
+  }, []);
   return (
     <div>
       <div
@@ -149,7 +161,7 @@ export const MainPage = () => {
               marginLeft: "10%",
             }}
           >
-            <Work></Work>
+            <Work project={project1}></Work>
             <div className="mt-8">
               <div
                 className="flex flex-row"

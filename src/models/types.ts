@@ -129,6 +129,17 @@ export interface IMyArticle {
   noCheck?:string;
 }
 
+export interface IMsg {
+  id: string;
+  fromUser: string;
+  toUser: string;
+  content:string;
+  createTime: string;
+  updateTime: string;
+  status: string;
+  conversation: string;
+}
+
 export interface ILikeArticle {
 authorId:string;
 bodyId: string;
