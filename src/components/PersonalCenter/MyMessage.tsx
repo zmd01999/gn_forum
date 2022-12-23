@@ -34,7 +34,7 @@ const MyMessage = () => {
 
     setArticleList(res.data.data.voList);
     setArticleCount(res.data.data.total);
-    setArticleList1(res.data.data.userMessage);
+    setArticleList1(res1.data.data.userMessage);
   };
 
   useEffect(() => {

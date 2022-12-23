@@ -151,7 +151,8 @@ export const NewAView = () => {
                     <Grid divided columns="equal">
                       <Grid.Column>
                         <Button
-                          color="blue"
+                          style={{ cursor: "pointer" }}
+                          className="ccc"
                           content="1金币"
                           fluid
                           onClick={() => {

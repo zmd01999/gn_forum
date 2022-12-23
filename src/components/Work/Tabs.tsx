@@ -56,6 +56,7 @@ export const Tabs = ({
           menu={{ secondary: true, pointing: true }}
           panes={pan1}
           className="paneTab"
+          style={{ zIndex: "5" }}
         />
         {/* <Search placeholder="搜索..." className="float-right !import" /> */}
         {setProjectList !== undefined && false ? (

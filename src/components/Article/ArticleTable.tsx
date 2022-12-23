@@ -32,7 +32,11 @@ function TableRow({ article }: IProps) {
   };
   return (
     <tr className="">
-      <td className="" style={{ width: "40%" }} onClick={gotoArticle}>
+      <td
+        className=""
+        style={{ width: "40%", cursor: "pointer" }}
+        onClick={gotoArticle}
+      >
         {article.title}
       </td>
       <td className="" style={{ textAlign: "center" }}>
@@ -43,7 +47,13 @@ function TableRow({ article }: IProps) {
           className="flex justify-start  my-auto"
           style={{ paddingLeft: "20%" }}
         >
-          <div style={{ textAlign: "center", marginRight: "0.5rem" }}>
+          <div
+            style={{
+              textAlign: "center",
+              marginRight: "0.5rem",
+              cursor: "pointer",
+            }}
+          >
             <Avatar
               src={updateCreppyDefaultImage(article.author.avatar ?? null)}
               sx={{ width: 20, height: 20, border: 0.5 }}

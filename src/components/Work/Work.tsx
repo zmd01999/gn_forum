@@ -166,6 +166,7 @@ export const Work = () => {
           marginLeft: "4rem",
           marginRight: "6rem",
           marginBottom: "-2.6rem",
+          zIndex: "5",
         }}
       >
         <Tabs
