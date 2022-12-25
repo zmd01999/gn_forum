@@ -165,7 +165,7 @@ export const WorkDetail = () => {
               className="mb-8 sameW mt-4"
               style={{ marginTop: "-2rem", marginLeft: "0.8rem" }}
             >
-              {userInfo.id != singleProject.author.id ? (
+              {userInfo && userInfo.id != singleProject.author.id ? (
                 <div>
                   <Popup
                     wide

@@ -126,7 +126,7 @@ export default ({
                         }}
                       
                       >{post.copyright == "1" ? "原创":"转载"}</Button>
-                    <div className="font-black text-2xl Hov">{post.title}</div>
+                  <div className="font-black text-2xl Hov">{post.title.length >5 ? post.title.substring(0,5)+"..":post.title}</div>
                     </div>
 
                     
@@ -186,7 +186,7 @@ export default ({
                       }}
                     
                     >{post.copyright == "1" ? "原创":"转载"}</Button>
-                  <div className="font-black text-2xl Hov">{post.title}</div>
+                  <div className="font-black text-2xl Hov">{post.title.length >5 ? post.title.substring(0,5)+"..":post.title}</div>
                   </div>
 
                   
