@@ -42,13 +42,17 @@ export const Pagination = ({
       activePage={currentPage}
       totalPages={totalPages}
       onPageChange={handlePageChange}
-      prevItem={{ content: "上一页", icon: true }}
+      prevItem={currentPage == 1 ? null : { content: "上一页", icon: true }}
       nextItem={{ content: "下一页", icon: true }}
       ellipsisItem={{
         content: <Icon name="ellipsis horizontal" />,
         icon: true,
       }}
-      firstItem={{ content: <Icon name="angle double left" />, icon: true }}
+      firstItem={
+        currentPage == 1
+          ? null
+          : { content: <Icon name="angle double left" />, icon: true }
+      }
       lastItem={{ content: <Icon name="angle double right" />, icon: true }}
       style={{ minHeight: "2rem", height: "2.2rem" }}
     />

@@ -11,8 +11,10 @@ import {
   Button,
   Comment as SemanticComment,
   Divider,
+  Feed,
   Form,
   Icon,
+  Modal,
   Popup,
   TextArea,
 } from "semantic-ui-react";
@@ -27,6 +29,7 @@ import "./style.css";
 import { clearLoading, setLoading } from "../../redux/actions";
 import { Header } from "./Header";
 import BraftEditor from "braft-editor";
+import { Tooltip } from "@mui/material";
 
 interface IProps {
   slug: string;
@@ -41,6 +44,13 @@ export const NewAComment = ({ slug, authorId }: IProps) => {
   const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
   const { isAuthenticated } = useSelector((state: AppState) => state.auth);
   const userInfo = getLocalStorage("userInfo");
+  const [open, setOpen] = React.useState(false);
+  const [content, setContent] = useState("");
+  const [commentId, setCommentId] = useState("");
+  const [commentAId, setCommentAId] = useState("");
+  const handleContent = (data: any) => {
+    setContent(data.value);
+  };
   const handleCommentChange = (data: any) => {
     setSingleComment(data.toHTML());
   };
@@ -84,7 +94,10 @@ export const NewAComment = ({ slug, authorId }: IProps) => {
     <Fragment>
       {comments.map((comment) => {
         return (
-          <div className="air-container flex flex-row space-x-12">
+          <div
+            className="air-container flex flex-row space-x-12"
+            id={comment.id}
+          >
             <div className="w-1/6 leftInfo">
               <Header author={comment.author}></Header>
             </div>
@@ -100,9 +113,93 @@ export const NewAComment = ({ slug, authorId }: IProps) => {
               </div>
               <Divider className="customDivider" />
               <div className="flex justify-between text-lg">
-                <div className="text-gray-400 ">回复</div>
+                <Modal
+                  id={comment.id}
+                  closeIcon
+                  open={open}
+                  trigger={
+                    <div
+                      className="text-gray-400 "
+                      style={{ cursor: "pointer" }}
+                      id={comment.id}
+                      onClick={() => {
+                        setCommentId(comment.id);
+                        setCommentAId(comment.author.id);
+                      }}
+                    >
+                      回复
+                    </div>
+                  }
+                  onClose={() => setOpen(false)}
+                  onOpen={() => setOpen(true)}
+                >
+                  <Modal.Header icon="archive" content={`回复`} />
+                  <Modal.Content>
+                    <Form>
+                      <TextArea
+                        placeholder="填写您的内容"
+                        value={content}
+                        onChange={(event: SyntheticEvent, data: object) => {
+                          handleContent(data);
+                        }}
+                      />
+                    </Form>
+                  </Modal.Content>
+                  <Modal.Actions>
+                    <Button color="red" onClick={() => setOpen(false)}>
+                      <Icon name="remove" /> 取消
+                    </Button>
+                    <Button
+                      color="green"
+                      id={comment.id}
+                      value={comment.author.id}
+                      onClick={async (event: SyntheticEvent, data: any) => {
+                        console.log(commentId);
+
+                        commentService.sendComment(
+                          slug,
+                          content,
+                          authorId,
+                          commentId,
+                          commentAId
+                        );
+                        setOpen(false);
+                        await retrieveComments();
+                      }}
+                    >
+                      <Icon name="checkmark" /> 发送
+                    </Button>
+                  </Modal.Actions>
+                </Modal>
                 <div className="text-gray-400 ">举报</div>
               </div>
+              <Feed>
+                {comment.childrens.map((children: IComment) => {
+                  return (
+                    <Feed.Event>
+                      <Popup
+                        // content={comment.author.nickname}
+                        key={children.author.nickname}
+                        header={children.author.nickname}
+                        trigger={
+                          <Feed.Label
+                            image={updateCreppyDefaultImage(
+                              children.author.avatar ?? null
+                            )}
+                          />
+                        }
+                      />
+
+                      <Feed.Content>
+                        <Feed.Summary
+                          content={children.content}
+                          date={children.createTime}
+                        />
+                      </Feed.Content>
+                    </Feed.Event>
+                  );
+                })}
+              </Feed>
             </div>
           </div>
           //   <SemanticComment>

@@ -105,15 +105,16 @@ export default ({
           {project&&project.slice(0, 6).map((post, index) => (
                 <PostContainer key={index} featured={post.featured}>
                 <Post className="group" as="a" href={`/work/${post.id}`}>
-                  <div className="h-64 w-full border-card border-blue-800  rounded-t-3xl">
-                    <div className="m-6 border-2 border-blue-800 rounded-3xl" style={{}}>
-                    <Image imageSrc={"https://"+post.avatar} />
-  
+                  <div className="h-64 w-full border-card border-gray-900  rounded-t-3xl">
+                    <div className="m-6 border-2 border-gray-900 rounded-3xl" style={{    borderColor: "transparent"
+}}>
+                    <Image imageSrc={`https://${post.avatar}`} style={{height:"13rem"}}/>
+
                     </div>
-  
-  
+
+
                   </div>
-                  <Info style={{paddingBottom:"0.5rem"}}>
+                  <Info style={{paddingBottom:"0.5rem"}} className="border-card1">
                     <div className="flex flex-row space-x-2">
                     <Button
                         size="tiny"
@@ -130,14 +131,14 @@ export default ({
 
                     
                     {/* <Category>{post.category}</Category> */}
-                    <CreationDate> <div  className="flex space-x-12 mr-4 mb-2"><VisibilityIcon/>{post.viewCounts}<CommentIcon sx={{ color: cyan[200] }}/>{post.commentCounts}<ThumbUpIcon sx={{ color: deepOrange[50] }}/>{post.thumbsCounts}</div></CreationDate>
+                    <CreationDate> <div  className="flex space-x-12 mr-4 mb-2"><div className="flex flex-row"><VisibilityIcon/><div style={{marginLeft:"0.5rem",fontWeight:"400"}}>{post.viewCounts}</div></div><div className="flex flex-row"><CommentIcon sx={{ color: cyan[200] }}/><div style={{marginLeft:"0.5rem",fontWeight:"400"}}>{post.commentCounts}</div></div><div className="flex flex-row"><ThumbUpIcon sx={{ color: deepOrange[50] }}/><div style={{marginLeft:"0.5rem",fontWeight:"400"}}>{post.thumbsCounts}</div></div></div></CreationDate>
 
                     <div className="flex flex-row space-x-6">
                       <Avatar
                         src={updateCreppyDefaultImage(post.author.avatar ?? null)}
-                        sx={{ width: 30, height: 30 ,border:0.5}}
+                        sx={{ width: 20, height: 20 ,border:0}}
                       />
-                        <div className="text-xl font-black text-gray-900 my-auto" style={{marginLeft:"0.5rem"}}>
+                        <div className="text-xl font-medium text-gray-900 my-auto" style={{marginLeft:"0.5rem"}}>
                           {post.author.nickname}
                         </div>
                     </div>

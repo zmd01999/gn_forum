@@ -172,12 +172,12 @@ export const MainPage = () => {
                 </div>
                 <div
                   className="text-2xl font-bold mb-6 text-black ml-2"
-                  style={{ marginTop: "0.5rem" }}
+                  style={{ marginTop: "0.5rem", marginBottom: "2rem" }}
                 >
                   实时热榜
                 </div>
               </div>
-              <div>
+              <div style={{ marginTop: "2.5rem" }}>
                 <HotTable></HotTable>
               </div>
             </div>
@@ -207,7 +207,13 @@ export const MainPage = () => {
                   <div style={{ fontSize: "1.1rem", margin: "1rem" }}>
                     <Grid columns={3} divided>
                       <Grid.Column>
-                        <div className="">
+                        <div
+                          className=""
+                          onClick={() =>
+                            history.push(`/pcenter/${userInfoLocal.id}`)
+                          }
+                          style={{ cursor: "pointer" }}
+                        >
                           {`${userInfoLocal.projectNum}`}
                           <br />
                           <br />
@@ -216,7 +222,13 @@ export const MainPage = () => {
                       </Grid.Column>
 
                       <Grid.Column verticalAlign="middle">
-                        <div className=" text-center">
+                        <div
+                          className=" text-center"
+                          onClick={() =>
+                            history.push(`/pcenter/${userInfoLocal.id}`)
+                          }
+                          style={{ cursor: "pointer" }}
+                        >
                           {`${userInfoLocal.articleNum}`}
                           <br />
                           <br />
@@ -224,7 +236,13 @@ export const MainPage = () => {
                         </div>
                       </Grid.Column>
                       <Grid.Column verticalAlign="middle">
-                        <div className="text-center">
+                        <div
+                          className="text-center"
+                          onClick={() =>
+                            history.push(`/pcenter/${userInfoLocal.id}`)
+                          }
+                          style={{ cursor: "pointer" }}
+                        >
                           {`Lv${userInfoLocal.level}`}
                           <br />
                           <br />

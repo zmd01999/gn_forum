@@ -284,7 +284,7 @@ export const LgCard = () => {
             </FormControl>
             <Box
               sx={{
-                mt: "1",
+                mt: "1rem",
                 display: "flex",
                 alignItems: "center",
                 flexWrap: "wrap",
@@ -331,7 +331,7 @@ export const LgCard = () => {
               fullWidth
               size="large"
               variant="contained"
-              sx={{ marginBottom: 7 }}
+              sx={{ marginBottom: 5 }}
               onClick={handleSubmit}
               className="lgB mt-6"
             >

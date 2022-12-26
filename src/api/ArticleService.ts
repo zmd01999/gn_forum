@@ -86,8 +86,8 @@ export class ArticleService {
     return this.api.post(`article/view/`,{categoryId:paras.id,page:paras.page,pageSize:PER_PAGE_COUNT});
   }
 
-  public getMyArticle(paras:{page:number}) {
-    return this.api.post(`article/myArticle`,{page:paras.page,pageSize:PER_PAGE_COUNT});
+  public getMyArticle(paras:{page:number,userId:string}) {
+    return this.api.post(`article/myArticle`,{page:paras.page,pageSize:PER_PAGE_COUNT,userId:paras.userId});
   }
 
   public getTFArticle(paras:{page:number,thumbs?:number,follow?:number}) {

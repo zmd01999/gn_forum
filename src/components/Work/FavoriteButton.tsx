@@ -1,7 +1,7 @@
 import produce from "immer";
 import React, { Dispatch, Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Icon } from "semantic-ui-react";
+import { Button, Icon, Popup } from "semantic-ui-react";
 import { useArticleService, useProjectService } from "../../hooks";
 import { NotificationAction } from "../../redux/reducers/NotifyReducer";
 import { IArticle, IUser, IMyArticle, IProject } from "../../models/types";
@@ -51,29 +51,32 @@ export const FavoriteButton = ({ iarticle }: IProps) => {
   };
 
   return (
-    <Fragment>
-      {/* <Button size="tiny" icon onClick={handleFavorite} className="float-right">
-        <Icon name={isZan == 1 ? "heart outline" : "heart"} />
-        {isZan == 1 ? "取消" : "点赞"}&nbsp; ({thumbsCounts})
-      </Button> */}
-      {/* <Button
-        basic
-        color="violet"
-        content={isZan == 1 ? "取消" : "点赞"}
-        icon={isZan == 1 ? "heart outline" : "heart"}
-        label={{ as: "a", basic: true, content: "3", color: "violet" }}
-        labelPosition="right"
-        size="tiny"
-        // onClick={handleFavorite}
-        className="float-right"
-      /> */}
-      <Icon
-        name={isZan == 1 ? "heart" : "heart outline"}
-        size="big"
-        color="red"
-        onClick={handleFavorite}
-      ></Icon>
-      <div style={{ textAlign: "center" }}>{article.thumbsCounts}</div>
-    </Fragment>
+    <div>
+      <Popup
+        content="点赞"
+        trigger={
+          <Button
+            icon
+            className="thumbButton shadow-md"
+            onClick={handleFavorite}
+          >
+            <div className="flex flex-row" style={{ cursor: "pointer" }}>
+              <div
+                style={{
+                  marginLeft: " 0.1rem",
+                  cursor: "pointer",
+                }}
+              >
+                {"点赞"}
+              </div>
+              <img
+                src="/assets/thumb.png"
+                style={{ marginLeft: "0.4rem" }}
+              ></img>
+            </div>
+          </Button>
+        }
+      />
+    </div>
   );
 };

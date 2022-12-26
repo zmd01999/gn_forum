@@ -98,7 +98,7 @@ const UserDropdown = (props: user) => {
   };
   return (
     <Fragment>
-      <Badge
+      {/* <Badge
         overlap="circular"
         onClick={handleDropdownOpen}
         sx={{ ml: 2, cursor: "pointer" }}
@@ -106,12 +106,25 @@ const UserDropdown = (props: user) => {
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         style={{ zIndex: 0 }}
       >
+
         <Avatar
           alt="John Doe"
           onClick={handleDropdownOpen}
           sx={{ width: 40, height: 40 }}
           src={updateCreppyDefaultImage(userInfo.avatar)}
         />
+      </Badge> */}
+      <Badge
+        badgeContent={userInfo.checkMessage}
+        color="warning"
+        style={{ zIndex: 0 }}
+      >
+        <Avatar
+          alt="John Doe"
+          onClick={handleDropdownOpen}
+          sx={{ width: 40, height: 40 }}
+          src={updateCreppyDefaultImage(userInfo.avatar)}
+        />{" "}
       </Badge>
       <Menu
         anchorEl={anchorEl}

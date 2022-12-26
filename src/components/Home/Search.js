@@ -32,7 +32,7 @@ export const SearchInp=({setArticleList})=>{
     const [page,setPage]=useState("work");
 return (
     <Actions style={{display:"flex"}}>
-      <Dropdown inline  selectOnBlur={false} options={options} defaultValue='work' style={{width:"4rem", position:"absolute", left:"1rem",bottom:"0.8rem"}} onChange={(event,data)=>{
+      <Dropdown inline  selectOnBlur={false} options={options} defaultValue='work' style={{width:"4rem", position:"absolute", left:"1rem",bottom:"0.8rem",fontWeight:"500",color:"black"}} onChange={(event,data)=>{
           setPage(data.value)
       }}/>
     <input type="text" placeholder="" value={value} onChange={(event)=>setValue(event.target.value)} style={{paddingLeft:"4.5rem"}}/>

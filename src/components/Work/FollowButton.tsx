@@ -59,12 +59,12 @@ export const FollowButton = ({ profile, isF, setIsF }: IProps) => {
       </Button> */}
 
       <Button
-        basic={isF}
-        content={isF ? "取消关注" : `关注`}
-        icon={isF ? "minus" : "plus"}
+        // basic={isF}
+        content={isF ? "已关注" : `关注`}
+        icon={isF ? false : "plus"}
         size="tiny"
         onClick={handleFollowUser}
-        className="buttonColor"
+        className="bccc"
       />
     </Fragment>
   );

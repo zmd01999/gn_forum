@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { Divider, Icon, Image, Item } from "semantic-ui-react";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import CommentIcon from "@mui/icons-material/Comment";
@@ -44,14 +44,25 @@ const sameple = [
 
 interface Props {
   hotList: IProject[];
+  setCurrentPage: Dispatch<SetStateAction<number>>;
 }
-export const LeftList = ({ hotList }: Props) => {
+export const LeftList = ({ hotList, setCurrentPage }: Props) => {
   const history = useHistory();
+  let x = 1;
   return (
     <div className="border rounded-xl p-4 bgc w-5/6">
       <div className=" flex  justify-between">
         <div className="text-lg text-black">|推荐作品</div>
-        <div className="text-gray-400">换一批</div>
+        <div
+          className="text-gray-400"
+          onClick={() => {
+            setCurrentPage(x + 1);
+            x = x + 1;
+          }}
+          style={{ cursor: "pointer" }}
+        >
+          换一批
+        </div>
       </div>
       <div className="p-4 mt-6">
         <Item.Group>

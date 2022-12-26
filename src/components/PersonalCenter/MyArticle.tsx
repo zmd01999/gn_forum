@@ -25,6 +25,7 @@ import { ArticleLikeCard } from "../Article/ArticleLikeCard";
 import { LoaderAction } from "../../redux/reducers/LoaderReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { clearLoading, setLoading } from "../../redux/actions";
+import { getLocalStorage } from "src/utils";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -75,7 +76,7 @@ export default function MyArticle() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [articleCount, setArticleCount] = useState<number>(0);
   const [articleLikeCount, setArticleLikeCount] = useState<number>(0);
-
+  const userInfo: any = getLocalStorage("userInfo");
   const loaderDiapatch = useDispatch<Dispatch<LoaderAction>>();
 
   const retrieveProfile = async () => {
@@ -85,7 +86,10 @@ export default function MyArticle() {
   };
 
   const retrievePublishedArticle = async () => {
-    return articleService.getMyArticle({ page: currentPage });
+    return articleService.getMyArticle({
+      page: currentPage,
+      userId: userInfo && userInfo.id,
+    });
   };
 
   const retrieveFavoritedArticle = async () => {

@@ -105,13 +105,70 @@
     border-radius: 0.5rem !important;
   }
 
+.bccc {
+  background-color: rgb(33 133 208) !important;
+  color: white !important;
+  padding: 0.5rem !important;
+  width: 4.8rem !important;
+  height: 2.5rem !important;
+  font-size: 1.1rem !important;
+  font-weight: 500 !important;
+}
+
   .buttonColor {
-    background-color: rgb(64 114 196) !important;
+    background-color: rgb(33 133 208) !important;
+    padding: 1rem !important;
+    height: 3rem !important;
+    width: 4.8rem !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
     color: white !important;
   }
 
   .buttonColor1 {
     background-color: rgb(184, 38, 38) !important;
     color: white !important;
+    padding: 1rem !important; 
+  }
+
+
+  .moneyButton {
+    padding: 0.1rem !important;
+    padding-left: 0.9rem !important;
+    width: 6rem !important;
+    height: 2.8rem !important;
+    font-size: 1.2rem !important;
+    font-weight: 500 !important;
+    color: white !important;
+    background-color: rgb(243 133 27) !important;
+    border-radius: 0.5rem !important;
+
+  }
+
+  .shareButton {
+    padding: 0.1rem !important;
+    padding-left: 0.9rem !important;
+    width: 6rem !important;
+    height: 2.8rem !important;
+    font-size: 1.2rem !important;
+    font-weight: 500 !important;
+    color: white !important;
+    background-color: rgb(255 192 0) !important;
+    border-radius: 0.5rem !important;
+
+  }
+
+  .thumbButton {
+    padding: 0.1rem !important;
+    padding-left: 0.9rem !important;
+    width: 6rem !important;
+    height: 2.8rem !important;
+    font-size: 1.2rem !important;
+    font-weight: 500 !important;
+    color: white !important;
+    background-color: rgb(213 0 0) !important;
+    border-radius: 0.5rem !important;
+    cursor: pointer !important;
+
   }
 

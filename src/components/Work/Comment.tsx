@@ -15,7 +15,9 @@ import {
   Comment as SemanticComment,
   Divider,
   Form,
+  Header,
   Icon,
+  Modal,
   Popup,
   TextArea,
 } from "semantic-ui-react";
@@ -52,7 +54,8 @@ export const Comment = ({ slug, authorId }: IProps) => {
   const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
   const { isAuthenticated } = useSelector((state: AppState) => state.auth);
   const userInfo: any = getLocalStorage("userInfo");
-
+  const [commentId, setCommentId] = useState("");
+  const [commentAId, setCommentAId] = useState("");
   const retrieveComments = async () => {
     const res = await commentService.getComments(slug);
     setComments(res.data.data);
@@ -77,7 +80,11 @@ export const Comment = ({ slug, authorId }: IProps) => {
       loaderDispatch(clearLoading());
     }
   };
-
+  const [open, setOpen] = React.useState(false);
+  const [content, setContent] = useState("");
+  const handleContent = (data: any) => {
+    setContent(data.value);
+  };
   useEffect(() => {
     // TODO : check whether we need async/await here
     retrieveComments();
@@ -154,7 +161,58 @@ export const Comment = ({ slug, authorId }: IProps) => {
                 <p>{comment.content}</p>
               </div>
               <div className="actions action">
-                <a className="">回复</a>
+                <Modal
+                  closeIcon
+                  open={open}
+                  trigger={
+                    <a
+                      className=""
+                      id={comment.id}
+                      onClick={() => {
+                        setCommentId(comment.id);
+                        setCommentAId(comment.author.id);
+                      }}
+                    >
+                      回复
+                    </a>
+                  }
+                  onClose={() => setOpen(false)}
+                  onOpen={() => setOpen(true)}
+                >
+                  <Header icon="archive" content={`回复`} />
+                  <Modal.Content>
+                    <Form>
+                      <TextArea
+                        placeholder="填写您的内容"
+                        value={content}
+                        onChange={(event: SyntheticEvent, data: object) => {
+                          handleContent(data);
+                        }}
+                      />
+                    </Form>
+                  </Modal.Content>
+                  <Modal.Actions>
+                    <Button color="red" onClick={() => setOpen(false)}>
+                      <Icon name="remove" /> 取消
+                    </Button>
+                    <Button
+                      color="green"
+                      onClick={async () => {
+                        commentService.sendComment(
+                          slug,
+                          content,
+                          authorId,
+                          commentId,
+                          commentAId
+                        );
+                        setOpen(false);
+                        await retrieveComments();
+                      }}
+                    >
+                      <Icon name="checkmark" /> 发送
+                    </Button>
+                  </Modal.Actions>
+                </Modal>
                 <ThumbUpIcon sx={{ color: deepOrange[50] }} />
                 {}
               </div>
@@ -177,7 +235,7 @@ export const Comment = ({ slug, authorId }: IProps) => {
                       </div>
                       <div className="text">{children.content}</div>
                       <div className="actions action">
-                        <a className="">回复</a>
+                        {/* <a className="">回复</a> */}
                         <ThumbUpIcon sx={{ color: deepOrange[50] }} />
                         {}
                       </div>

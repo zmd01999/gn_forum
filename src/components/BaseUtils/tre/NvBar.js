@@ -148,8 +148,8 @@ export default () => {
                 登录
               </NavLink>
               {/* <PrimaryLink css={roundedHeaderButton && tw`rounded-full`}href="/register">注册</PrimaryLink> */}
-              <NavLink href="/register">
-              注册
+              <NavLink href="/register" style={{marginLeft:"0.5rem"}}>
+              | 注册
               </NavLink>
                 </Fragment>
 

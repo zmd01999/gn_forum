@@ -104,48 +104,49 @@ export default ({
           <Posts style={{marginLeft:"4rem",marginRight:"4rem"}}>
             {projectList.slice(0, visible).map((post, index) => (
               <PostContainer key={index} featured={post.featured}>
-                <Post className="group" as="a" href={`/work/${post.id}`}>
-                  <div className="h-64 w-full border-card border-blue-800  rounded-t-3xl">
-                    <div className="m-6 border-2 border-blue-800 rounded-3xl" style={{}}>
-                    <Image imageSrc={`https://${post.author.avatar}`} />
-
-                    </div>
-
+              <Post className="group" as="a" href={`/work/${post.id}`}>
+                <div className="h-64 w-full border-card border-gray-900  rounded-t-3xl">
+                  <div className="m-6 border-2 border-gray-900 rounded-3xl" style={{    borderColor: "transparent"
+}}>
+                  <Image imageSrc={`https://${post.avatar}`} style={{height:"13rem"}}/>
 
                   </div>
-                  <Info style={{paddingBottom:"0.5rem"}}>
-                    <div className="flex flex-row space-x-2">
-                    <Button
-                        size="tiny"
-                        // attached="left"
-                        color="blue"
-                        // style={{ marginTop: "10px", marginLeft: "25%" }}
-                        style={{
-                          width: "3rem",padding: "0rem"
-                        }}
-                      
-                      >{post.copyright == "1" ? "原创":"转载"}</Button>
-                  <div className="font-black text-2xl Hov">{post.title.length >5 ? post.title.substring(0,5)+"..":post.title}</div>
-                    </div>
 
+
+                </div>
+                <Info style={{paddingBottom:"0.5rem"}} className="border-card1">
+                  <div className="flex flex-row space-x-2">
+                  <Button
+                      size="tiny"
+                      // attached="left"
+                      color="blue"
+                      // style={{ marginTop: "10px", marginLeft: "25%" }}
+                      style={{
+                        width: "3rem",padding: "0rem"
+                      }}
                     
-                    {/* <Category>{post.category}</Category> */}
-                    <CreationDate> <div  className="flex space-x-12 mr-4 mb-2"><VisibilityIcon/>{post.viewCounts}<CommentIcon sx={{ color: cyan[200] }}/>{post.commentCounts}<ThumbUpIcon sx={{ color: deepOrange[50] }}/>{post.thumbsCounts}</div></CreationDate>
+                    >{post.copyright == "1" ? "原创":"转载"}</Button>
+                <div className="font-black text-2xl Hov">{post.title.length >5 ? post.title.substring(0,5)+"..":post.title}</div>
+                  </div>
 
-                    <div className="flex flex-row space-x-6">
-                      <Avatar
-                        src={updateCreppyDefaultImage(post.author.avatar ?? null)}
-                        sx={{ width: 30, height: 30 ,border:0.5}}
-                      />
-                        <div className="text-xl font-black text-gray-900 my-auto" style={{marginLeft:"0.5rem"}}>
-                          {post.author.nickname}
-                        </div>
-                    </div>
+                  
+                  {/* <Category>{post.category}</Category> */}
+                  <CreationDate> <div  className="flex space-x-12 mr-4 mb-2"><div className="flex flex-row"><VisibilityIcon/><div style={{marginLeft:"0.5rem",fontWeight:"400"}}>{post.viewCounts}</div></div><div className="flex flex-row"><CommentIcon sx={{ color: cyan[200] }}/><div style={{marginLeft:"0.5rem",fontWeight:"400"}}>{post.commentCounts}</div></div><div className="flex flex-row"><ThumbUpIcon sx={{ color: deepOrange[50] }}/><div style={{marginLeft:"0.5rem",fontWeight:"400"}}>{post.thumbsCounts}</div></div></div></CreationDate>
 
-                    {/* {post.featured && post.description && <Description>{post.description}</Description>} */}
-                  </Info>
-                </Post>
-              </PostContainer>
+                  <div className="flex flex-row space-x-6">
+                    <Avatar
+                      src={updateCreppyDefaultImage(post.author.avatar ?? null)}
+                      sx={{ width: 20, height: 20 ,border:0}}
+                    />
+                      <div className="text-xl font-medium text-gray-900 my-auto" style={{marginLeft:"0.5rem"}}>
+                        {post.author.nickname}
+                      </div>
+                  </div>
+
+                  {/* {post.featured && post.description && <Description>{post.description}</Description>} */}
+                </Info>
+              </Post>
+            </PostContainer>
             ))}
           </Posts>
           {visible < posts.length && (

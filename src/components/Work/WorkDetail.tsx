@@ -60,6 +60,7 @@ export const WorkDetail = () => {
   const [hotProject, setHotProject] = useState<IProject[]>();
 
   const [isF, setIsF] = useState<boolean>();
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   const retrieveArticle = async () => {
     const singleArticleRes = await projectService.getProject(slug);
@@ -87,6 +88,15 @@ export const WorkDetail = () => {
     };
     retrieveSingleArticle();
   }, []);
+
+  useEffect(() => {
+    const retrieveSingleArticle = async () => {
+      const proHotRes = await projectService.getRecom();
+
+      setHotProject(proHotRes.data.data);
+    };
+    retrieveSingleArticle();
+  }, [currentPage]);
 
   // const handleDeleteArticle = async () => {
   //   try {
@@ -131,25 +141,189 @@ export const WorkDetail = () => {
             转到设计页
           </Button>
         </div>
-
-        <div
-          style={{ display: "flex" }}
-          className="text-2xl mt-6 space-x-8 items-center text-black font-normal"
-        >
-          <Avatar
-            src={updateCreppyDefaultImage(singleProject?.author.avatar ?? null)}
-            sx={{ width: 30, height: 30, border: 1 }}
-          />
-          <div>{singleProject?.author.nickname}</div>
-          <div>
-            <FollowButton
-              profile={singleProject?.author}
-              isF={isF}
-              setIsF={setIsF}
-            ></FollowButton>
+        <div className="flex flex-row  justify-between">
+          <div
+            style={{ display: "flex" }}
+            className="text-2xl mt-6 space-x-8 items-center text-black font-normal"
+          >
+            <Avatar
+              src={updateCreppyDefaultImage(
+                singleProject?.author.avatar ?? null
+              )}
+              sx={{ width: 30, height: 30, border: 1 }}
+            />
+            <div style={{ marginLeft: "1rem" }}>
+              {singleProject?.author.nickname}
+            </div>
+            <div>
+              <FollowButton
+                profile={singleProject?.author}
+                isF={isF}
+                setIsF={setIsF}
+              ></FollowButton>
+            </div>
+            <div
+              style={{ fontSize: "1.1rem" }}
+            >{`LV${singleProject?.author.level}`}</div>
+            <div
+              style={{ fontSize: "1.1rem" }}
+            >{`发布于${singleProject?.createTime}`}</div>
           </div>
-          <div>{`LV${singleProject?.author.level}`}</div>
-          <div>{`发布于${singleProject?.createTime}`}</div>
+
+          <div style={{ marginTop: "1rem", marginRight: "-0.8rem" }}>
+            {userInfo && userInfo.id != singleProject.author.id ? (
+              <div>
+                <Popup
+                  wide
+                  trigger={
+                    <Button icon className="moneyButton shadow-md">
+                      <div className="flex flex-row">
+                        <div
+                          style={{
+                            marginLeft: " 0.1rem",
+                            paddingTop: "0.4rem",
+                          }}
+                        >
+                          {"打赏"}
+                        </div>
+                        <img src="/assets/money.png"></img>
+                      </div>
+                    </Button>
+                  }
+                  on="click"
+                  content="对该文章作者打赏金币"
+                >
+                  <Grid divided columns="equal">
+                    <Grid.Column>
+                      <Button
+                        className="buttonColor"
+                        content="1金币"
+                        fluid
+                        onClick={() => {
+                          profileService
+                            .userReward({
+                              id: singleProject.id,
+                              num: 1,
+                            })
+                            .then((res) => {
+                              if (res.data.success) {
+                                notifyDiapatch(
+                                  setSuccess(
+                                    `成功为用户${singleProject.author.nickname}打赏1金币.`
+                                  )
+                                );
+                              }
+                            });
+                        }}
+                      />
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Button
+                        className="buttonColor1"
+                        content="2金币"
+                        fluid
+                        onClick={() => {
+                          profileService
+                            .userReward({
+                              id: singleProject.id,
+                              num: 2,
+                            })
+                            .then((res) => {
+                              if (res.data.success) {
+                                notifyDiapatch(
+                                  setSuccess(
+                                    `成功为用户${singleProject.author.nickname}打赏2金币.`
+                                  )
+                                );
+                              }
+                            });
+                        }}
+                      />
+                    </Grid.Column>
+                  </Grid>
+                </Popup>
+                <Popup
+                  content="分享作品"
+                  trigger={
+                    <Button
+                      className="shareButton"
+                      onClick={() => {
+                        const searchParams =
+                          "http://www.funcodeworld.com" +
+                          decodeURI(window.location.pathname);
+                        copy(searchParams);
+                        notifyDiapatch(setSuccess(`该文章链接已复制到粘贴板`));
+                      }}
+                    >
+                      <div className="flex flex-row">
+                        <div
+                          style={{
+                            marginLeft: " 0.1rem",
+                            paddingTop: "0.4rem",
+                          }}
+                        >
+                          {"分享"}
+                        </div>
+                        <img src="/assets/share1.png"></img>
+                      </div>
+                    </Button>
+                  }
+                />
+                <div className="float-right flex space-x-4 mr-4">
+                  <FavoriteButton iarticle={singleProject}></FavoriteButton>
+                  {/* <Icon
+                      name={true ? "star outline" : "star"}
+                      size="big"
+                      color="yellow"
+                    ></Icon>
+                    132 */}
+                </div>
+              </div>
+            ) : (
+              <>
+                <div>
+                  <Popup
+                    content="分享作品"
+                    trigger={
+                      <Button
+                        className="shareButton"
+                        onClick={() => {
+                          const searchParams =
+                            "http://www.funcodeworld.com" +
+                            decodeURI(window.location.pathname);
+                          copy(searchParams);
+                          notifyDiapatch(
+                            setSuccess(`该文章链接已复制到粘贴板`)
+                          );
+                        }}
+                      >
+                        <div className="flex flex-row">
+                          <div
+                            style={{
+                              marginLeft: " 0.1rem",
+                              paddingTop: "0.4rem",
+                            }}
+                          >
+                            {"分享"}
+                          </div>
+                          <img src="/assets/share1.png"></img>
+                        </div>
+                      </Button>
+                    }
+                  />
+                  <div className="float-right flex space-x-4 mr-4">
+                    <FavoriteButton iarticle={singleProject}></FavoriteButton>
+                    {/* <Icon
+                        name={true ? "star outline" : "star"}
+                        size="big"
+                        color="yellow"
+                      ></Icon>
+                      132 */}
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
         </div>
         <div className="scratch-player flex">
           <div className="w-4/5 overflow-hidden">
@@ -164,137 +338,7 @@ export const WorkDetail = () => {
             <div
               className="mb-8 sameW mt-4"
               style={{ marginTop: "-2rem", marginLeft: "0.8rem" }}
-            >
-              {userInfo && userInfo.id != singleProject.author.id ? (
-                <div>
-                  <Popup
-                    wide
-                    trigger={
-                      <Button icon basic color="violet" size="large">
-                        {"打赏"}
-                        <Icon name="world" />
-                      </Button>
-                    }
-                    on="click"
-                    content="对该文章作者打赏金币"
-                  >
-                    <Grid divided columns="equal">
-                      <Grid.Column>
-                        <Button
-                          className="buttonColor"
-                          content="1金币"
-                          fluid
-                          onClick={() => {
-                            profileService
-                              .userReward({
-                                id: singleProject.id,
-                                num: 1,
-                              })
-                              .then((res) => {
-                                if (res.data.success) {
-                                  notifyDiapatch(
-                                    setSuccess(
-                                      `成功为用户${singleProject.author.nickname}打赏1金币.`
-                                    )
-                                  );
-                                }
-                              });
-                          }}
-                        />
-                      </Grid.Column>
-                      <Grid.Column>
-                        <Button
-                          className="buttonColor1"
-                          content="2金币"
-                          fluid
-                          onClick={() => {
-                            profileService
-                              .userReward({
-                                id: singleProject.id,
-                                num: 2,
-                              })
-                              .then((res) => {
-                                if (res.data.success) {
-                                  notifyDiapatch(
-                                    setSuccess(
-                                      `成功为用户${singleProject.author.nickname}打赏2金币.`
-                                    )
-                                  );
-                                }
-                              });
-                          }}
-                        />
-                      </Grid.Column>
-                    </Grid>
-                  </Popup>
-                  <Popup
-                    content="分享作品"
-                    trigger={
-                      <Button
-                        basic
-                        size="large"
-                        color={"violet"}
-                        icon="share"
-                        onClick={() => {
-                          const searchParams =
-                            "http://www.funcodeworld.com" +
-                            decodeURI(window.location.pathname);
-                          copy(searchParams);
-                          notifyDiapatch(
-                            setSuccess(`该文章链接已复制到粘贴板`)
-                          );
-                        }}
-                      />
-                    }
-                  />
-                  <div className="float-right flex space-x-4 mr-4">
-                    <FavoriteButton iarticle={singleProject}></FavoriteButton>
-                    {/* <Icon
-                      name={true ? "star outline" : "star"}
-                      size="big"
-                      color="yellow"
-                    ></Icon>
-                    132 */}
-                  </div>
-                  <Divider></Divider>
-                </div>
-              ) : (
-                <>
-                  <div>
-                    <Popup
-                      content="分享作品"
-                      trigger={
-                        <Button
-                          basic
-                          size="large"
-                          color={"violet"}
-                          icon="share"
-                          onClick={() => {
-                            const searchParams =
-                              "http://www.funcodeworld.com" +
-                              decodeURI(window.location.pathname);
-                            copy(searchParams);
-                            notifyDiapatch(
-                              setSuccess(`该文章链接已复制到粘贴板`)
-                            );
-                          }}
-                        />
-                      }
-                    />
-                    <div className="float-right flex space-x-4 mr-4">
-                      <FavoriteButton iarticle={singleProject}></FavoriteButton>
-                      {/* <Icon
-                        name={true ? "star outline" : "star"}
-                        size="big"
-                        color="yellow"
-                      ></Icon>
-                      132 */}
-                    </div>
-                    <Divider></Divider>
-                  </div>
-                </>
-              )}
-            </div>
+            ></div>
 
             <div></div>
             {/* <Comment slug={slug} authorId={"1"} /> */}
@@ -307,8 +351,10 @@ export const WorkDetail = () => {
                 {singleProject?.tagName?.split(",").map((tag) => {
                   <a className="ui basic label1 ">{tag}</a>;
                 })}
-                <a className="ui basic label1 ">游戏</a>
-                <a className="ui basic label1 ">MC</a>
+                <a className="ui basic label1 ">
+                  {singleProject.category.name}
+                </a>
+                {/* <a className="ui basic label1 ">MC</a> */}
               </div>
               <div>
                 <div className="text-2xl mt-10 font-black">游戏介绍</div>
@@ -322,7 +368,10 @@ export const WorkDetail = () => {
             {hotProject == undefined ? (
               <></>
             ) : (
-              <LeftList hotList={hotProject}></LeftList>
+              <LeftList
+                hotList={hotProject}
+                setCurrentPage={setCurrentPage}
+              ></LeftList>
             )}
           </div>
         </div>
