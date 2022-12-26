@@ -138,7 +138,7 @@ export const WorkDetail = () => {
               a.click();
             }}
           >
-            转到设计页
+            <Icon name="sync"></Icon>转到设计页
           </Button>
         </div>
         <div className="flex flex-row  justify-between">

@@ -93,13 +93,13 @@
   }
 
   .toDesign {
-    background-color: rgb(64 114 196) !important;
-    font-size: 1.6rem !important;
+    background-color: rgb(33 133 208) !important;
+    font-size: 1.4rem !important;
     padding-top: 0.5rem !important;
     padding-bottom: 0.5rem !important;
-    padding-left: 2.3rem !important;
-    padding-right: 2.3rem !important;
-    font-weight: 500 !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+    font-weight: 300 !important;
     border-color: black !important;
     border: 1px solid !important;
     border-radius: 0.5rem !important;
