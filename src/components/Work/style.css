@@ -78,13 +78,13 @@
   
   .publishButton {
     float: right;
-      border: 1px solid;
-      border-color: black;
-      border-radius: 0.5rem;
-      width: 6.5rem;
-      height: 2rem;
-      background-color: rgb(57,180,254);
-      color: white;
+    /* border: 1px solid; */
+    border-color: black;
+    border-radius: 0.5rem;
+    width: 6.5rem;
+    height: 2rem;
+    background-color: rgb(33 133 208);
+    color: white;
   }
 
   .work-container {
@@ -166,7 +166,7 @@
     font-size: 1.2rem !important;
     font-weight: 500 !important;
     color: white !important;
-    background-color: rgb(213 0 0) !important;
+    background-color: rgb(213 0 0);
     border-radius: 0.5rem !important;
     cursor: pointer !important;
 

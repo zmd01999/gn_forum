@@ -52,7 +52,10 @@ export const LeftList = ({ hotList, setCurrentPage }: Props) => {
   return (
     <div className="border rounded-xl p-4 bgc w-5/6">
       <div className=" flex  justify-between">
-        <div className="text-lg text-black">|推荐作品</div>
+        <div className="flex flex-row text-lg text-black">
+          <div style={{ fontWeight: "900" }}>| </div>{" "}
+          <div className="ml-4">推荐作品</div>
+        </div>
         <div
           className="text-gray-400"
           onClick={() => {
@@ -102,11 +105,14 @@ export const LeftList = ({ hotList, setCurrentPage }: Props) => {
                   <Item.Meta></Item.Meta>
                   <Item.Description>
                     <div className="flex space-x-2 mr-4 mb-2">
-                      <VisibilityIcon />
+                      <VisibilityIcon fontSize="small" />
                       {hot.viewCounts}
-                      <CommentIcon sx={{ color: cyan[200] }} />
+                      <CommentIcon fontSize="small" sx={{ color: cyan[200] }} />
                       {hot.commentCounts}
-                      <ThumbUpIcon sx={{ color: deepOrange[50] }} />
+                      <ThumbUpIcon
+                        fontSize="small"
+                        sx={{ color: deepOrange[50] }}
+                      />
                       {hot.thumbsCounts}
                     </div>
                   </Item.Description>
@@ -117,9 +123,12 @@ export const LeftList = ({ hotList, setCurrentPage }: Props) => {
                         src={updateCreppyDefaultImage(
                           hot.author.avatar ?? null
                         )}
-                        sx={{ width: 30, height: 30, border: 1 }}
+                        sx={{ width: 25, height: 25, border: 0 }}
                       />
-                      <div className="text-xl font-black text-gray-900 my-auto">
+                      <div
+                        className="text-xl font-black text-gray-900 my-auto"
+                        style={{ marginLeft: "0.2rem" }}
+                      >
                         {hot.author.nickname.length > 5
                           ? hot.author.nickname.substring(0, 5) + "..."
                           : hot.author.nickname}

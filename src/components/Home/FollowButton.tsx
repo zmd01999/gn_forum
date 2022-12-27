@@ -1,4 +1,4 @@
-import React, { Dispatch, Fragment, useState } from "react";
+import React, { Dispatch, Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Icon } from "semantic-ui-react";
 import { useProfileService } from "../../hooks";
@@ -7,22 +7,24 @@ import { AppState } from "../../redux/store";
 import { NotificationAction } from "../../redux/reducers/NotifyReducer";
 import { setWarning } from "../../redux/actions";
 import { useHistory } from "react-router-dom";
-
+import "../Article/style.css";
 interface IProps {
   profile: IUserInfo;
   isF?: boolean;
   setIsF?: React.Dispatch<React.SetStateAction<boolean | undefined>>;
 }
 
-export const FollowButton = ({ profile, isF, setIsF }: IProps) => {
+export const FollowButton = ({ profile }: IProps) => {
   const profileService = useProfileService();
   const { nickname, id } = profile;
+  const [isF, setIsF] = useState<boolean>();
   const history = useHistory();
   const [following, setFollowing] = useState<Boolean>(true);
   const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
   const { isAuthenticated, user } = useSelector(
     (state: AppState) => state.auth
   );
+
   const handleFollowUser = async () => {
     if (!isAuthenticated) {
       notifyDispatch(setWarning("你需要先登录"));
@@ -46,6 +48,16 @@ export const FollowButton = ({ profile, isF, setIsF }: IProps) => {
     }
   };
 
+  useEffect(() => {
+    const retrieveSingleArticle = async () => {
+      await profileService.isFollow(profile.id).then((res) => {
+        console.log(res.data);
+        setIsF(res.data.data);
+      });
+    };
+    retrieveSingleArticle();
+  }, []);
+
   if (isAuthenticated && user === nickname) {
     // no need to follow userself
     return <Fragment></Fragment>;
@@ -59,12 +71,12 @@ export const FollowButton = ({ profile, isF, setIsF }: IProps) => {
       </Button> */}
 
       <Button
-        basic={isF}
-        color="violet"
-        content={isF ? "取消关注" : `关注${nickname}`}
-        icon={isF ? "minus" : "plus"}
+        // basic={isF}
+        content={isF ? "已关注" : `关注`}
+        icon={isF ? false : "plus"}
         size="tiny"
         onClick={handleFollowUser}
+        className="bccc2"
       />
     </Fragment>
   );

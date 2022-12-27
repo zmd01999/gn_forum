@@ -1,13 +1,14 @@
 import produce from "immer";
 import React, { Dispatch, Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Icon } from "semantic-ui-react";
+import { Button, Icon, Popup } from "semantic-ui-react";
 import { useArticleService } from "../../hooks";
 import { NotificationAction } from "../../redux/reducers/NotifyReducer";
 import { IArticle, IUser, IMyArticle } from "../../models/types";
 import { setWarning } from "../../redux/actions";
 import { AppState } from "../../redux/store";
 import { useHistory } from "react-router-dom";
+import "../Article/style.css";
 
 interface IProps {
   iarticle: IMyArticle;
@@ -52,21 +53,36 @@ export const FollowArtButton = ({ iarticle }: IProps) => {
 
   return (
     <Fragment>
-      <Button
-        size="mini"
-        icon
-        onClick={handleFavorite}
-        className="float-right"
-        basic
-        color="violet"
-      >
-        <Icon
-          name={isFollow == 1 ? "folder open outline" : "folder open"}
-          basic
-          color="violet"
-        />
-        {isFollow == 1 ? "取消" : "收藏"}&nbsp;
-      </Button>
+      <Popup
+        content="收藏"
+        trigger={
+          <Button
+            icon
+            className="thumbButton2 shadow-md"
+            style={
+              isFollow == 0
+                ? { backgroundColor: "rgb(172 172 172)" }
+                : { backgroundColor: "rgb(59 109 199)" }
+            }
+            onClick={handleFavorite}
+          >
+            <div className="flex flex-row" style={{ cursor: "pointer" }}>
+              <div
+                style={{
+                  marginLeft: " 0.1rem",
+                  cursor: "pointer",
+                }}
+              >
+                {"收藏"}
+              </div>
+              <img
+                src="/assets/thumb.png"
+                style={{ marginLeft: "0.4rem" }}
+              ></img>
+            </div>
+          </Button>
+        }
+      />
     </Fragment>
   );
 };

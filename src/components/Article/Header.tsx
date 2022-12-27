@@ -14,6 +14,8 @@ import { IUserInfo } from "src/models/types";
 import { setError, setSuccess } from "src/redux/actions";
 import { updateCreppyDefaultImage } from "src/utils";
 import { NotificationAction } from "src/redux/reducers/NotifyReducer";
+import { FollowArtButton } from "../Home/FollowArtButton";
+import { FollowButton } from "../Home/FollowButton";
 
 interface IProps {
   author: IUserInfo | null | any;
@@ -32,7 +34,7 @@ export const Header = ({ author }: IProps) => {
     <div className="ui card cardlenth" style={{ flexGrow: "1" }}>
       <div
         className="header text-xl font-semibold"
-        style={{ paddingBottom: "0.4rem" }}
+        style={{ paddingBottom: "0.4rem", paddingLeft: "1.2rem" }}
       >
         {(author && author.nickname) || "游客"}
       </div>
@@ -117,6 +119,7 @@ export const Header = ({ author }: IProps) => {
               </Button>
             </Modal.Actions>
           </Modal>
+          <FollowButton profile={author}></FollowButton>
         </div>
       </div>
       {/* <div className="extra content">

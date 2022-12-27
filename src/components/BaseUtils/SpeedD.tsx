@@ -10,7 +10,7 @@ import PrintIcon from "@mui/icons-material/Print";
 import ShareIcon from "@mui/icons-material/Share";
 import { useHistory } from "react-router-dom";
 
-const actions = [{ icon: <FileCopyIcon />, name: "发帖" }];
+const actions = [{ icon: <FileCopyIcon />, name: "点击右侧发帖" }];
 
 export default function SpeedD() {
   const [open, setOpen] = React.useState(false);

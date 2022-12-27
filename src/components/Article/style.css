@@ -66,7 +66,7 @@ width: 90%;
   padding-left: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.2rem;
-  border-bottom: 1px dashed;
+  /* border-bottom: 1px dashed; */
 }
 
 .ui.card>.content, .ui.cards>.card>.content {
@@ -127,18 +127,73 @@ width: 90%;
 }
 
 .header-button {
-  background-color: rgb(68, 114, 196) !important;
-    border: 1px solid !important;
-    border-color: black !important;
-
-    padding: 0.6rem !important;
-    width: 5.5rem !important;
-    border-radius: 0.5rem !important;
-    color: white !important;
+  background-color: rgb(33, 133, 208) !important;
+  /* border: 1px solid !important; */
+  border-color: black !important;
+  padding: 0.6rem !important;
+  width: 5.5rem !important;
+  border-radius: 0.5rem !important;
+  color: white !important;
+  height: 2.5rem !important;
+  font-size: 1.1rem !important;
+  font-weight: 400 !important;
+  margin-right: 1.9rem !important;
 }
 
 .ccc {
   background-color: rgb(68, 114, 196) !important;
   color: white !important;
+
+}
+
+.bccc2 {
+  background-color: rgb(33 133 208) !important;
+  color: white !important;
+  padding: 0.5rem !important;
+  width: 5.5rem !important;
+  height: 2.5rem !important;
+  font-size: 1.1rem !important;
+  font-weight: 500 !important;
+  border-radius: 0.5rem !important;
+}
+
+
+.moneyButton2 {
+  padding: 0.1rem !important;
+  padding-left: 0.9rem !important;
+  width: 6rem !important;
+  height: 2.8rem !important;
+  font-size: 1.2rem !important;
+  font-weight: 500 !important;
+  color: white !important;
+  background-color: rgb(243 133 27) !important;
+  border-radius: 0.5rem !important;
+
+}
+
+.shareButton2 {
+  padding: 0.1rem !important;
+  padding-left: 0.9rem !important;
+  width: 6rem !important;
+  height: 2.8rem !important;
+  font-size: 1.2rem !important;
+  font-weight: 500 !important;
+  color: white !important;
+  background-color: rgb(255 192 0) !important;
+  border-radius: 0.5rem !important;
+
+}
+
+.thumbButton2 {
+  padding: 0.1rem !important;
+  padding-left: 0.9rem !important;
+  width: 6rem !important;
+  height: 2.8rem !important;
+  font-size: 1.2rem !important;
+  font-weight: 500 !important;
+  color: white !important;
+  background-color: rgb(213 0 0);
+  border-radius: 0.5rem !important;
+  cursor: pointer !important;
 
 }

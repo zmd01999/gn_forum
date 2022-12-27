@@ -58,6 +58,11 @@ export const FavoriteButton = ({ iarticle }: IProps) => {
           <Button
             icon
             className="thumbButton shadow-md"
+            style={
+              isZan == 0
+                ? { backgroundColor: "rgb(172 172 172)" }
+                : { backgroundColor: "rgb(213 0 0)" }
+            }
             onClick={handleFavorite}
           >
             <div className="flex flex-row" style={{ cursor: "pointer" }}>

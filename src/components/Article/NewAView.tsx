@@ -140,9 +140,18 @@ export const NewAView = () => {
                   <Popup
                     wide
                     trigger={
-                      <Button icon basic color="violet" size="mini">
-                        {"打赏"}
-                        <Icon name="world" />
+                      <Button icon className="moneyButton2 shadow-md">
+                        <div className="flex flex-row">
+                          <div
+                            style={{
+                              marginLeft: " 0.1rem",
+                              paddingTop: "0.4rem",
+                            }}
+                          >
+                            {"打赏"}
+                          </div>
+                          <img src="/assets/money.png"></img>
+                        </div>
                       </Button>
                     }
                     on="click"
@@ -199,13 +208,10 @@ export const NewAView = () => {
                     </Grid>
                   </Popup>
                   <Popup
-                    content="分享文章"
+                    content="分享作品"
                     trigger={
                       <Button
-                        basic
-                        size="mini"
-                        color={"violet"}
-                        icon="share"
+                        className="shareButton2"
                         onClick={() => {
                           const searchParams =
                             "http://www.funcodeworld.com" +
@@ -215,7 +221,19 @@ export const NewAView = () => {
                             setSuccess(`该文章链接已复制到粘贴板`)
                           );
                         }}
-                      />
+                      >
+                        <div className="flex flex-row">
+                          <div
+                            style={{
+                              marginLeft: " 0.1rem",
+                              paddingTop: "0.4rem",
+                            }}
+                          >
+                            {"分享"}
+                          </div>
+                          <img src="/assets/share1.png"></img>
+                        </div>
+                      </Button>
                     }
                   />
                   <Popup
@@ -231,13 +249,10 @@ export const NewAView = () => {
                 <>
                   {" "}
                   <Popup
-                    content="分享文章"
+                    content="分享作品"
                     trigger={
                       <Button
-                        basic
-                        size="mini"
-                        color={"violet"}
-                        icon="share"
+                        className="shareButton2"
                         onClick={() => {
                           const searchParams =
                             "http://www.funcodeworld.com" +
@@ -247,7 +262,19 @@ export const NewAView = () => {
                             setSuccess(`该文章链接已复制到粘贴板`)
                           );
                         }}
-                      />
+                      >
+                        <div className="flex flex-row">
+                          <div
+                            style={{
+                              marginLeft: " 0.1rem",
+                              paddingTop: "0.4rem",
+                            }}
+                          >
+                            {"分享"}
+                          </div>
+                          <img src="/assets/share1.png"></img>
+                        </div>
+                      </Button>
                     }
                   />
                   <Popup
