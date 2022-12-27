@@ -26,6 +26,7 @@
 	background-position: center center;
   /* height: 15rem;
           width: 20rem; */
+
 }
 
     </style>
@@ -254,7 +255,7 @@
       //素材库配置
       assets:{
         //素材库地址
-        // assetHost: JSON.parse(localStorage.getItem("CONFIG")).qn_base,
+        assetHost: "https://open.qn.teaching.vip/",
         //素材库索引地址
         defaultIndex:{
           sprites: "./static/json_index/sprites.json",
@@ -437,14 +438,15 @@
     </div>
 
     <div class="release-form">
+      <h2 style="position: absolute;left: 2rem; top: 0.5rem;">作品信息</h2>
       <div class="con-box1">
-        <h4><span id="projectTitle"></span>| 基本信息</h4>
+        <!-- <h4><span id="projectTitle"></span>| 基本信息</h4> -->
         <div> 作品标题 <input style="height: 1.7rem;
           width: 15rem;" id="projectName">
         <div style="    
         position: relative;
         left: 30rem;
-        margin-top: -1rem;">
+        margin-top: -1rem; top: 7rem;left: 27.5rem;">
           <!-- 作品封面  
           <img src="/assets/forum_1.webp" style="height: 15rem;
           width: 20rem;
@@ -494,7 +496,7 @@
 
         </div>
       
-        <h4 style="margin-top: 2.5rem;"><span id="projectTitle"></span>| 进阶信息</h4>
+        <!-- <h4 style="margin-top: 2.5rem;"><span id="projectTitle"></span>| 进阶信息</h4> -->
         <div> 改变权限 
           <input type="radio" id="notallow"
           name="notallow1" value="0">
@@ -508,21 +510,38 @@
         name="notallow1" value="1">
        <label for="allow">允许</label>
            </div>
-        <div>作品介绍 <input style="    height: 3rem;
-          width: 20rem;" id="summary"></div>
-        <div >操作说明 <input style="    height: 3rem;
-          width: 20rem;" id="description"></div>
+        <div style="display: flex;"><p>作品介绍</p> 
+        <!-- <input style="    height: 13rem;
+          width: 20rem;    margin-left: 1rem;" id="summary"> -->
+        <textarea cols="10" rows="5" style="    height: 13rem;
+        width: 20rem;    margin-left: 1rem; border: 0;" id="summary"></textarea>
+
+  
+        </div>
+        <div style=" position: absolute;
+        left: 30rem;"><p>操作说明 </p>
+        <!-- <input style="    height: 5rem;
+          width: 20rem; position: absolute;
+    left: 5rem;
+    top: 0rem;  " id="description"> -->
+        <textarea cols="10" rows="5" style="    height: 5rem;
+        width: 20rem; position: absolute;
+  left: 5rem;
+  top: 0rem; border: 0; " id="description"></textarea>  
+  
+  </div>
         <button style="	position: relative;
-        bottom: 3.5rem;
+        bottom: 2rem;
         right: rem;
-        left: 39rem;
+        left: 32rem;
         width: 15rem;
-        height: 3rem;
+        height: 2.3rem;
         border-radius: 0.5rem;
-        background-color: rgb(57 180 254);
+        background-color: rgb(255 216 145);
         font-weight: 500;
         font-size: larger;
-        border-color: #00000069;"  type="submit" id="btn_submit">确认无误,提交作品</button>
+        border-color: black;
+        "  type="submit" id="btn_submit">确认无误,提交作品</button>
       </div>
       <div class="fault-code">
         <span>&times</span>
