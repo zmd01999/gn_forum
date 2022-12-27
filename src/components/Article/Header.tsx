@@ -119,7 +119,7 @@ export const Header = ({ author }: IProps) => {
               </Button>
             </Modal.Actions>
           </Modal>
-          <FollowButton profile={author}></FollowButton>
+          {author ? <FollowButton profile={author}></FollowButton> : <></>}
         </div>
       </div>
       {/* <div className="extra content">

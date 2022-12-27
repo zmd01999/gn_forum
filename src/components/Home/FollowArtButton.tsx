@@ -76,7 +76,7 @@ export const FollowArtButton = ({ iarticle }: IProps) => {
                 {"收藏"}
               </div>
               <img
-                src="/assets/thumb.png"
+                src="/assets/follow.png"
                 style={{ marginLeft: "0.4rem" }}
               ></img>
             </div>
