@@ -55,7 +55,7 @@ export default function MyWork() {
   const [projectList, setProjectList] = useState<IProject[]>([]);
 
   const retrievePublishedProject = async () => {
-    return projectService.getMyProject({ page: currentPage });
+    return projectService.getMyProject({ page: currentPage, userId: "1111" });
   };
 
   const retrieveFavoritedProject = async () => {

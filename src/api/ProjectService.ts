@@ -30,8 +30,8 @@ export class ProjectService {
   public searchProject(paras:{page:number, title:string}) {
     return this.api.post("project/searchArticle", {page:paras.page,pageSize:PROJECT_PER_PAGE_COUNT,title:paras.title,project:1})
   }
-  public getMyProject(paras:{page:number}) {
-    return this.api.post(`project/myArticle`,{page:paras.page,pageSize:PROJECT_PER_PAGE_COUNT,project:1});
+  public getMyProject(paras:{page:number,userId:string}) {
+    return this.api.post(`project/myArticle`,{page:paras.page,pageSize:PROJECT_PER_PAGE_COUNT,project:1,userId:paras.userId});
   }
 
   public getTopProject(paras:{page:number,thumbs?:number,follow?:number,limit?:number,}) {

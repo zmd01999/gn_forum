@@ -1,8 +1,7 @@
 import * as React from "react";
 import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
-import { Box, Card } from "@mui/material";
+import { Box, Card, Tab } from "@mui/material";
 import {
   Forum,
   Favorite,
@@ -19,8 +18,8 @@ import MyArticle from "./MyArticle";
 import MySetting from "./MySetting";
 import MyMessage from "./MyMessage";
 import { MyHelp } from "./MyHelp";
-// import "./style.css";
 import { MyFollow } from "./MyFollow";
+// import { Tab } from "semantic-ui-react";
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -39,7 +38,7 @@ function TabPanel(props: TabPanelProps) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 0 }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -54,7 +53,22 @@ function a11yProps(index: number) {
   };
 }
 
-export default function SwitchBar() {
+// const panes = [
+//   {
+//     menuItem: "我的作品",
+//     render: () => <Tab.Pane attached={false} >Tab 3 Content </Tab.Pane>,
+//   },
+//   {
+//     menuItem: "我的帖子",
+//     render: () => <Tab.Pane attached={false}> Tab 3 Content </Tab.Pane>,
+//   },
+//   {
+//     menuItem: "喜欢",
+//     render: () => <Tab.Pane attached={false}>Tab 3 Content</Tab.Pane>,
+//   },
+// ];
+
+export default function MyTab() {
   const [value, setValue] = React.useState(0);
   const p: boolean = true;
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -62,9 +76,15 @@ export default function SwitchBar() {
   };
 
   return (
-    <div className="mx-auto bg-gray-200">
+    <div>
+      {/* <Tab
+        menu={{ secondary: true, pointing: true, vertical: false }}
+        panes={panes}
+        renderActiveOnly={false}
+      /> */}
+
       <Box sx={{ width: "100%", hight: "100%" }}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Box sx={{ borderBottom: 1, borderColor: "divider", display: "none" }}>
           <Tabs
             value={value}
             onChange={handleChange}
@@ -120,16 +140,9 @@ export default function SwitchBar() {
               {...a11yProps(5)}
               sx={{ fontSize: 16, border: 1 }}
             />
-            {/* <Tab
-              icon={<Money />}
-              iconPosition="start"
-              label="金币"
-              {...a11yProps(4)}
-            /> */}
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          {/* <Profile isPc={p}></Profile> */}
           <MyArticle></MyArticle>
         </TabPanel>
         <TabPanel value={value} index={1}>

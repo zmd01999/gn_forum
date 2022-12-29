@@ -27,7 +27,7 @@ import { AppState } from "../../redux/store";
 import { getLocalStorage, updateCreppyDefaultImage } from "../../utils";
 import { LoaderAction } from "../../redux/reducers/LoaderReducer";
 import { NotificationAction } from "../../redux/reducers/NotifyReducer";
-import { setError } from "../../redux/actions";
+import { setError, setSuccess } from "../../redux/actions";
 import { clearLoading, setLoading } from "../../redux/actions";
 import BraftEditor from "braft-editor";
 
@@ -213,7 +213,15 @@ export const Comment = ({ slug, authorId }: IProps) => {
                     </Button>
                   </Modal.Actions>
                 </Modal>
-                <ThumbUpIcon sx={{ color: deepOrange[50] }} />
+                <ThumbUpIcon
+                  sx={{ color: deepOrange[50] }}
+                  onClick={() => {
+                    commentService.thumbComment(comment.id).then((res) => {
+                      notifyDispatch(setSuccess("点赞成功"));
+                    });
+                  }}
+                  style={{ cursor: "pointer" }}
+                />
                 {}
               </div>
             </div>
@@ -236,7 +244,17 @@ export const Comment = ({ slug, authorId }: IProps) => {
                       <div className="text">{children.content}</div>
                       <div className="actions action">
                         {/* <a className="">回复</a> */}
-                        <ThumbUpIcon sx={{ color: deepOrange[50] }} />
+                        <ThumbUpIcon
+                          sx={{ color: deepOrange[50] }}
+                          onClick={() => {
+                            commentService
+                              .thumbComment(children.id)
+                              .then((res) => {
+                                notifyDispatch(setSuccess("点赞成功"));
+                              });
+                          }}
+                          style={{ cursor: "pointer" }}
+                        />
                         {}
                       </div>
                     </div>

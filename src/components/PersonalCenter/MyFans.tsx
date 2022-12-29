@@ -27,10 +27,10 @@ import { LoaderAction } from "../../redux/reducers/LoaderReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { clearLoading, setLoading } from "../../redux/actions";
 import { Icon, Item } from "semantic-ui-react";
-import { Avatar } from "@mui/material";
 import { updateCreppyDefaultImage } from "src/utils";
+import { Avatar } from "@mui/material";
 
-export const MyFollow = () => {
+export const MyFans = () => {
   const articleService = useArticleService();
   const [value, setValue] = React.useState(0);
 
@@ -86,12 +86,9 @@ export const MyFollow = () => {
     <div style={{ marginRight: "3%" }}>
       {" "}
       <div>
-        <div
-          style={{ fontSize: "1.5rem", fontWeight: "700", marginTop: "1rem" }}
-        ></div>
-
+        <div style={{ fontSize: "1.5rem", fontWeight: "700" }}></div>
         <div className="grid grid-cols-4 gap-12">
-          {articleList1.map((user) => {
+          {articleList.map((user) => {
             return (
               <div
                 className="shadow-2xl"
@@ -120,7 +117,7 @@ export const MyFollow = () => {
                       >
                         {user.nickname.length > 8
                           ? user.nickname.substring(0, 7) + "..."
-                          : user.nickname}{" "}
+                          : user.nickname}
                       </span>
 
                       <div

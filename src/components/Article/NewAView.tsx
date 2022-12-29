@@ -208,7 +208,7 @@ export const NewAView = () => {
                     </Grid>
                   </Popup>
                   <Popup
-                    content="分享作品"
+                    content="分享文章"
                     trigger={
                       <Button
                         className="shareButton2"
@@ -249,7 +249,7 @@ export const NewAView = () => {
                 <>
                   {" "}
                   <Popup
-                    content="分享作品"
+                    content="分享文章"
                     trigger={
                       <Button
                         className="shareButton2"

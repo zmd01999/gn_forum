@@ -25,4 +25,8 @@ export class CommentService {
   public deleteComment(slug: string, id: string) {
     return this.api.post(`comments/deleteComment`,{id:id});
   }
+
+  public thumbComment(slug: string) {
+    return this.api.post("comments/thumbComment",{id:slug})
+  }
 }

@@ -10,12 +10,18 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { useArticleService, useProfileService } from "../../hooks";
+import {
+  useArticleService,
+  useProfileService,
+  useProjectService,
+} from "../../hooks";
 import {
   IArticle,
   IProfile,
   IMyArticle,
   ILikeArticle,
+  IProject,
+  IUserInfo,
 } from "../../models/types";
 import { useParams } from "react-router-dom";
 import { Pagination } from "../Home/Pagination";
@@ -26,7 +32,14 @@ import { LoaderAction } from "../../redux/reducers/LoaderReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { clearLoading, setLoading } from "../../redux/actions";
 import { getLocalStorage } from "src/utils";
-
+import { WorkCard } from "../Work/WorkCard";
+import { MyFollow } from "./MyFollow";
+import { MyHelp } from "./MyHelp";
+import { MyFans } from "./MyFans";
+import { ATable } from "./ArticleTable";
+import TabAccount from "./Setting/TabAccount";
+import "./myart.css";
+import WorkMine from "../BaseUtils/tre/WorkMine";
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -48,9 +61,9 @@ function TabPanel(props: TabPanelProps) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
-          <div className="w-5/6 mx-auto">{children}</div>
-        </Box>
+        // <Box sx={{ p: 3 }}>
+        <div className="">{children}</div>
+        // </Box>
       )}
     </div>
   );
@@ -108,28 +121,101 @@ export default function MyArticle() {
   const retrieveArticles = async () => {
     let res;
     switch (value) {
-      case 0:
+      case 1:
         res = await retrievePublishedArticle();
         setArticleList(res.data.data.voList);
         setArticleCount(res.data.data.total);
         break;
-      case 1:
-        res = await retrieveFavoritedArticle();
+      case 3:
+        res = await retrieveFollowArticle();
         // setArticleLikeList(res.data.data.articles);
         // setArticleLikeCount(res.data.data.total);
+        setArticleList(res.data.data.voList);
+        setArticleCount(res.data.data.total);
+        break;
+    }
+  };
+
+  const [projectCount, setProjectCount] = useState<number>(1);
+  const projectService = useProjectService();
+
+  const [projectList, setProjectList] = useState<IProject[]>([]);
+
+  const retrievePublishedProject = async () => {
+    return projectService.getMyProject({
+      page: currentPage,
+      userId: userInfo && userInfo.id,
+    });
+  };
+
+  const retrieveFavoritedProject = async () => {
+    return projectService.getTFProject({
+      page: currentPage,
+      thumbs: 1,
+    });
+  };
+  const retrieveFollowProject = async () => {
+    return projectService.getTFProject({
+      page: currentPage,
+      follow: 1,
+    });
+  };
+
+  const retrieveProjects = async () => {
+    let res;
+    switch (value) {
+      case 0:
+        res = await retrievePublishedProject();
+        setProjectList(res.data.data.voList);
+        setProjectCount(res.data.data.total);
         break;
       case 2:
-        res = await retrieveFollowArticle();
+        res = await retrieveFavoritedProject();
+        // setArticleLikeList(res.data.data.articles);
+        // setArticleLikeCount(res.data.data.total);
+        setProjectList(res.data.data.voList);
+        setProjectCount(res.data.data.total);
+        break;
+      // case 2:
+      //   res = await retrieveFollowProject();
+    }
+  };
+  const [myFans, setMyFans] = useState<IUserInfo[]>([]);
+  const [myFollow, setMyFollow] = useState<IUserInfo[]>([]);
+  const retrieveFans = async () => {
+    return articleService.getFans({ page: currentPage });
+  };
+
+  const retrieveFollow = async () => {
+    return articleService.getFollow({ page: currentPage });
+  };
+
+  const retrieveFollows = async () => {
+    let res;
+    let res1;
+    switch (value) {
+      case 4:
+        res = await retrieveFans();
+        res1 = await retrieveFollow();
+
+        // setArticleList(res.data.data.voList);
+        // setArticleCount(res.data.data.total);
+        setMyFans(res.data.data);
+        setMyFollow(res1.data.data);
+        break;
     }
 
-    setArticleList(res.data.data.voList);
-    setArticleCount(res.data.data.total);
+    // setArticleCount(res.data.data.total);
   };
 
   useEffect(() => {
     const loadAllData = async () => {
       loaderDiapatch(setLoading("请等待"));
-      await Promise.all([retrieveProfile(), retrieveArticles()]);
+      await Promise.all([
+        retrieveProfile(),
+        retrieveArticles(),
+        retrieveProjects(),
+      ]);
       loaderDiapatch(clearLoading());
     };
     loadAllData();
@@ -141,83 +227,158 @@ export default function MyArticle() {
   };
 
   return (
-    <Box
-      sx={{
-        flexGrow: 1,
-        bgcolor: "background.paper",
-        display: "flex",
-        height: "auto",
-        width: "auto",
-      }}
-    >
-      <Tabs
-        orientation="vertical"
-        variant="scrollable"
-        value={value}
-        onChange={handleChange}
-        aria-label="Vertical tabs example"
-        sx={{ borderRight: 1, borderColor: "divider", fontSize: 16 }}
+    <div className="magic">
+      <Box
+        sx={{
+          flexGrow: 1,
+          bgcolor: "background.paper",
+          display: "flex",
+          height: "auto",
+          width: "auto",
+        }}
       >
-        <Tab label="我的帖子" {...a11yProps(0)} sx={{ fontSize: 16 }} />
-        <Tab label="我的喜欢" {...a11yProps(1)} sx={{ fontSize: 16 }} />
-        <Tab label="我的收藏" {...a11yProps(2)} sx={{ fontSize: 16 }} />
-      </Tabs>
-      <div className="w-5/6">
-        <TabPanel value={value} index={0}>
-          <Fragment>
-            {articleList.map((article) => {
-              return (
-                <ArticleCard
-                  key={article.id}
-                  article={article}
-                  isWeight={true}
+        <Tabs
+          orientation="vertical"
+          variant="scrollable"
+          value={value}
+          onChange={handleChange}
+          aria-label="Vertical tabs example"
+          sx={{ borderRight: 1, borderColor: "divider", fontSize: 16 }}
+        >
+          <Tab
+            label="我的作品"
+            {...a11yProps(0)}
+            sx={{ fontSize: 16, fontWeight: "600", color: "black" }}
+          />
+
+          <Tab
+            label="我的帖子"
+            {...a11yProps(1)}
+            sx={{ fontSize: 16, fontWeight: "600", color: "black" }}
+          />
+          <Tab
+            label="喜欢"
+            {...a11yProps(2)}
+            sx={{ fontSize: 16, fontWeight: "600", color: "black" }}
+          />
+          <Tab
+            label="收藏"
+            {...a11yProps(3)}
+            sx={{ fontSize: 16, fontWeight: "600", color: "black" }}
+          />
+          <Tab
+            label="关注"
+            {...a11yProps(4)}
+            sx={{ fontSize: 16, fontWeight: "600", color: "black" }}
+          />
+          <Tab
+            label="粉丝"
+            {...a11yProps(5)}
+            sx={{ fontSize: 16, fontWeight: "600", color: "black" }}
+          />
+          <Tab
+            label="设置"
+            {...a11yProps(6)}
+            sx={{ fontSize: 16, fontWeight: "600", color: "black" }}
+          />
+          <Tab
+            label="帮助"
+            {...a11yProps(7)}
+            sx={{ fontSize: 16, fontWeight: "600", color: "black" }}
+          />
+        </Tabs>
+        <div className="">
+          <TabPanel value={value} index={0}>
+            <div
+              style={{
+                width: "80rem",
+                marginTop: "-1rem",
+                marginLeft: "2.5rem",
+              }}
+            >
+              <WorkMine project={projectList}></WorkMine>
+            </div>
+            {/* <Fragment>
+              <div className="grid grid-cols-3 gap-12">
+                {projectList.map((project) => {
+                  return <WorkCard project={project}></WorkCard>;
+                })}
+              </div>
+              <div className="mt-6">
+                <Pagination
+                  count={projectCount}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
                 />
-              );
-            })}
-
-            <Pagination
-              count={articleCount}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-            />
-          </Fragment>
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <Fragment>
-            {articleList.map((article) => {
-              return (
-                <ArticleCard key={article.id} article={article} like={true} />
-              );
-            })}
-
-            <Pagination
-              count={articleCount}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-            />
-          </Fragment>{" "}
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          <Fragment>
-            {articleList.map((article) => {
-              return (
-                <ArticleCard
-                  key={article.id}
-                  article={article}
-                  like={true}
-                  follow={true}
-                />
-              );
-            })}
-
-            <Pagination
-              count={articleCount}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-            />
-          </Fragment>{" "}
-        </TabPanel>
-      </div>
-    </Box>
+              </div>
+            </Fragment> */}
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            <div
+              style={{
+                width: "75rem",
+                marginTop: "1rem",
+                marginLeft: "2.5rem",
+              }}
+            >
+              <ATable
+                articleList={articleList}
+                count={articleCount}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              ></ATable>
+            </div>
+          </TabPanel>
+          <TabPanel value={value} index={2}>
+            <div
+              style={{
+                width: "80rem",
+                marginTop: "-1rem",
+                marginLeft: "2.5rem",
+              }}
+            >
+              <WorkMine project={projectList}></WorkMine>
+            </div>
+          </TabPanel>
+          <TabPanel value={value} index={3}>
+            <div
+              style={{
+                width: "75rem",
+                marginTop: "0rem",
+                marginLeft: "2.5rem",
+              }}
+            >
+              <ATable
+                articleList={articleList}
+                count={articleCount}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              ></ATable>
+            </div>
+          </TabPanel>
+          <TabPanel value={value} index={4}>
+            <div style={{ marginLeft: "2.5rem" }}>
+              <MyFollow></MyFollow>
+            </div>
+          </TabPanel>
+          <TabPanel value={value} index={5}>
+            {" "}
+            <div style={{ marginLeft: "2.5rem" }}>
+              {" "}
+              <MyFans />
+            </div>
+          </TabPanel>
+          <TabPanel value={value} index={6}>
+            {" "}
+            <div style={{ marginLeft: "2.5rem" }}>
+              <TabAccount></TabAccount>
+            </div>
+          </TabPanel>
+          <TabPanel value={value} index={7}>
+            <MyHelp></MyHelp>
+          </TabPanel>
+        </div>
+      </Box>
+    </div>
   );
 }

@@ -5,6 +5,7 @@ import {
   ChangeEvent,
   SyntheticEvent,
   Dispatch,
+  MouseEvent,
 } from "react";
 
 // ** MUI Imports
@@ -33,7 +34,25 @@ import { useSelector, useDispatch } from "react-redux";
 import Close from "mdi-material-ui/Close";
 import { AppState } from "src/redux/store";
 import { updateCreppyDefaultImage } from "src/utils";
+import EyeOutline from "mdi-material-ui/EyeOutline";
+import KeyOutline from "mdi-material-ui/KeyOutline";
+import EyeOffOutline from "mdi-material-ui/EyeOffOutline";
+import LockOpenOutline from "mdi-material-ui/LockOpenOutline";
+import { useAuthService } from "src/hooks";
+import { setError } from "src/redux/actions";
 
+import SendCode from "@jiumao/rc-send-code";
+import { Avatar, InputAdornment, OutlinedInput } from "@mui/material";
+interface State {
+  newPassword: string;
+  currentPassword: string;
+  showNewPassword: boolean;
+  confirmNewPassword: string;
+  showCurrentPassword: boolean;
+  showConfirmNewPassword: boolean;
+  phone: string;
+  code: string;
+}
 const ImgStyled = styled("img")(({ theme }) => ({
   width: 120,
   height: 120,
@@ -120,12 +139,68 @@ const TabAccount = () => {
   };
   const { username } = useParams<routeProps>();
 
+  // ** States
+  const [values, setValues] = useState<State>({
+    newPassword: "",
+    currentPassword: "",
+    phone: "",
+    code: "",
+    showNewPassword: false,
+    confirmNewPassword: "",
+    showCurrentPassword: false,
+    showConfirmNewPassword: false,
+  });
+
+  // Handle Current Password
+  const handleCurrentPasswordChange =
+    (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
+      setValues({ ...values, [prop]: event.target.value });
+    };
+  const handleClickShowCurrentPassword = () => {
+    setValues({ ...values, showCurrentPassword: !values.showCurrentPassword });
+  };
+  const handleMouseDownCurrentPassword = (
+    event: MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+  };
+
+  // Handle New Password
+  const handleNewPasswordChange =
+    (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
+      setValues({ ...values, [prop]: event.target.value });
+    };
+  const handleClickShowNewPassword = () => {
+    setValues({ ...values, showNewPassword: !values.showNewPassword });
+  };
+  const handleMouseDownNewPassword = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+
+  // Handle Confirm New Password
+  const handleConfirmNewPasswordChange =
+    (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
+      setValues({ ...values, [prop]: event.target.value });
+    };
+  const handleClickShowConfirmNewPassword = () => {
+    setValues({
+      ...values,
+      showConfirmNewPassword: !values.showConfirmNewPassword,
+    });
+  };
+  const handleMouseDownConfirmNewPassword = (
+    event: MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+  };
+
+  const authService = useAuthService();
   return (
-    <CardContent>
-      <form>
-        <Grid container spacing={7}>
-          <Grid item xs={12} sx={{ marginTop: 4.8, marginBottom: 3 }}>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
+    <div className="flex flex-row" style={{ width: "75rem" }}>
+      <div>
+        <CardContent>
+          <form>
+            <Box sx={{ display: "flex", alignItems: "center", mb: "5" }}>
               <ImgStyled src={imgSrc} alt="Profile Pic" />
               <Box>
                 <ButtonStyled
@@ -154,27 +229,32 @@ const TabAccount = () => {
                 </Typography>
               </Box>
             </Box>
-          </Grid>
-
-          <Grid item xs={12} sm={6}>
             <TextField
               disabled
               fullWidth
               label="用户名"
               placeholder="johnDoe"
               value={form.nickname}
+              style={{ marginBottom: "2rem" }}
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
             <TextField
-              disabled
               fullWidth
-              label="实名"
-              placeholder="John Doe"
-              value={form.realName}
+              multiline
+              label="个人简介"
+              minRows={2}
+              placeholder="Bio"
+              value={form.introduction}
+              onChange={handleChange("introduction")}
+              style={{ marginBottom: "2rem" }}
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              label="手机"
+              placeholder="123456789"
+              value={form.mobilePhoneNumber}
+              onChange={handleChange("mobilePhoneNumber")}
+              style={{ marginBottom: "2rem" }}
+            />
             <TextField
               fullWidth
               type="email"
@@ -182,88 +262,8 @@ const TabAccount = () => {
               placeholder="zmd@example.com"
               value={form.email}
               onChange={handleChange("email")}
+              style={{ marginBottom: "2rem" }}
             />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
-              <InputLabel>权限</InputLabel>
-              <Select label="Role" defaultValue="user">
-                <MenuItem value="admin">管理员</MenuItem>
-                <MenuItem value="author">版主</MenuItem>
-                <MenuItem value="editor">会员</MenuItem>
-                <MenuItem value="user">会员</MenuItem>
-                {/* <MenuItem value="maintainer">Maintainer</MenuItem>
-                <MenuItem value="subscriber">Subscriber</MenuItem> */}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
-              <InputLabel>状态</InputLabel>
-              <Select label="Status" defaultValue="active">
-                <MenuItem value="active">在线</MenuItem>
-                <MenuItem value="inactive">隐身</MenuItem>
-                <MenuItem value="pending">未知</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
-              label="工作室"
-              placeholder="ABC Pvt. Ltd."
-              value={form.business}
-              onChange={handleChange("business")}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
-              label="微信"
-              placeholder="example"
-              value={form.wx}
-              onChange={handleChange("wx")}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
-              label="QQ"
-              placeholder="12345678"
-              value={form.qq}
-              onChange={handleChange("qq")}
-            />
-          </Grid>
-          {/* {openAlert ? (
-            <Grid item xs={12} sx={{ mb: 3 }}>
-              <Alert
-                severity="warning"
-                sx={{ "& a": { fontWeight: 400 } }}
-                action={
-                  <IconButton
-                    size="small"
-                    color="inherit"
-                    aria-label="close"
-                    onClick={() => setOpenAlert(false)}
-                  >
-                    <Close fontSize="inherit" />
-                  </IconButton>
-                }
-              >
-                <AlertTitle>
-                  您的电子邮件未被确认。请检查您的收件箱。
-                </AlertTitle>
-                <Link
-                  href="/"
-                  onClick={(e: SyntheticEvent) => e.preventDefault()}
-                >
-                  重新发送
-                </Link>
-              </Alert>
-            </Grid>
-          ) : null} */}
-
-          <Grid item xs={12}>
             <Button
               variant="contained"
               sx={{ marginRight: 3.5 }}
@@ -275,13 +275,196 @@ const TabAccount = () => {
             >
               保存
             </Button>
-            <Button type="reset" variant="outlined" color="secondary">
-              重置
-            </Button>
-          </Grid>
-        </Grid>
-      </form>
-    </CardContent>
+          </form>
+        </CardContent>
+      </div>
+      <div style={{ paddingLeft: "4rem" }}>
+        <form>
+          <CardContent sx={{ paddingBottom: 0 }}>
+            <Grid container spacing={5}>
+              <Grid item xs={12} sm={6}>
+                <Grid container spacing={5}>
+                  <Grid item xs={12} sx={{ marginTop: 4.75 }}>
+                    <FormControl fullWidth>
+                      <InputLabel htmlFor="account-settings-current-password">
+                        原密码
+                      </InputLabel>
+                      <OutlinedInput
+                        label="Current Password"
+                        value={values.currentPassword}
+                        id="account-settings-current-password"
+                        type={values.showCurrentPassword ? "text" : "password"}
+                        onChange={handleCurrentPasswordChange(
+                          "currentPassword"
+                        )}
+                        endAdornment={
+                          <InputAdornment position="end">
+                            <IconButton
+                              edge="end"
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowCurrentPassword}
+                              onMouseDown={handleMouseDownCurrentPassword}
+                            >
+                              {values.showCurrentPassword ? (
+                                <EyeOutline />
+                              ) : (
+                                <EyeOffOutline />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        }
+                      />
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      id="phone"
+                      label="手机"
+                      value={values.phone}
+                      onChange={handleNewPasswordChange("phone")}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FormControl fullWidth>
+                      <InputLabel htmlFor="standard-code">验证码</InputLabel>
+                      <OutlinedInput
+                        id="standard-code"
+                        value={values.code}
+                        onChange={handleNewPasswordChange("code")}
+                        endAdornment={
+                          <InputAdornment position="end">
+                            <SendCode
+                              onCaptcha={() => {
+                                if (values.phone.length < 11) {
+                                  notifyDispatch(
+                                    setError("请填写正确的手机号")
+                                  );
+                                  return true;
+                                }
+                                return authService.verifyCode(values.phone);
+                              }}
+                            />
+                          </InputAdornment>
+                        }
+                      />
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12} sx={{ marginTop: 6 }}>
+                    <FormControl fullWidth>
+                      <InputLabel htmlFor="account-settings-new-password">
+                        新密码
+                      </InputLabel>
+                      <OutlinedInput
+                        label="New Password"
+                        value={values.newPassword}
+                        id="account-settings-new-password"
+                        onChange={handleNewPasswordChange("newPassword")}
+                        type={values.showNewPassword ? "text" : "password"}
+                        endAdornment={
+                          <InputAdornment position="end">
+                            <IconButton
+                              edge="end"
+                              onClick={handleClickShowNewPassword}
+                              aria-label="toggle password visibility"
+                              onMouseDown={handleMouseDownNewPassword}
+                            >
+                              {values.showNewPassword ? (
+                                <EyeOutline />
+                              ) : (
+                                <EyeOffOutline />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        }
+                      />
+                    </FormControl>
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <FormControl fullWidth>
+                      <InputLabel htmlFor="account-settings-confirm-new-password">
+                        确认新密码
+                      </InputLabel>
+                      <OutlinedInput
+                        label="Confirm New Password"
+                        value={values.confirmNewPassword}
+                        id="account-settings-confirm-new-password"
+                        type={
+                          values.showConfirmNewPassword ? "text" : "password"
+                        }
+                        onChange={handleConfirmNewPasswordChange(
+                          "confirmNewPassword"
+                        )}
+                        endAdornment={
+                          <InputAdornment position="end">
+                            <IconButton
+                              edge="end"
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowConfirmNewPassword}
+                              onMouseDown={handleMouseDownConfirmNewPassword}
+                            >
+                              {values.showConfirmNewPassword ? (
+                                <EyeOutline />
+                              ) : (
+                                <EyeOffOutline />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        }
+                      />
+                    </FormControl>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          </CardContent>
+
+          <CardContent>
+            <Box sx={{ mt: 11 }}>
+              <Button
+                variant="contained"
+                sx={{ marginRight: 3.5 }}
+                onClick={() => {
+                  if (values.confirmNewPassword != values.newPassword) {
+                    notifyDispatch(setError("两次密码不一致"));
+                    return;
+                  }
+                  return authService
+                    .updatePwd(
+                      id,
+                      values.currentPassword,
+                      values.newPassword,
+                      values.phone,
+                      values.code
+                    )
+                    .then(() => {
+                      notifyDispatch(setSuccess("更改成功"));
+                    });
+                }}
+              >
+                保存
+              </Button>
+              <Button
+                type="reset"
+                variant="outlined"
+                color="secondary"
+                onClick={() =>
+                  setValues({
+                    ...values,
+                    currentPassword: "",
+                    newPassword: "",
+                    confirmNewPassword: "",
+                  })
+                }
+              >
+                重置
+              </Button>
+            </Box>
+          </CardContent>
+        </form>
+      </div>
+    </div>
   );
 };
 

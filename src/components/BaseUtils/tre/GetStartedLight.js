@@ -9,6 +9,11 @@ import { getLocalStorage } from "src/utils";
 import { Icon } from 'semantic-ui-react'
 import {updateCreppyDefaultImage} from "src/utils";
 import { Progress } from 'semantic-ui-react'
+import copy from "copy-to-clipboard";
+import {
+  setSuccess,
+} from "src/redux/actions";
+import { useDispatch } from "react-redux";
 
 const PrimaryBackgroundContainer = tw.div`py-16 lg:py-6 bg-gray-200 rounded-lg relative`
 const Row = tw.div`px-4 sm:px-8 mx-auto flex justify-center items-center relative z-10 flex-col lg:flex-row text-center lg:text-left`;
@@ -41,6 +46,8 @@ export default ({
   const { user } = useSelector(
     (state) => state.auth
   );
+  const notifyDiapatch = useDispatch();
+
   const userInfo = getLocalStorage("userInfo");
   return (
     <Container css={pushDownFooter && tw`mb-20 lg:mb-24 `}>
@@ -66,8 +73,14 @@ export default ({
                   <span className="text-2xl font-semibold text-black">
                           {userInfo.nickname}
                         </span>
-                  <span className="text-sm text-gray-700">{`http://funcodeworld.com/pcenter/${userInfo.id}`}</span>
-                  <div className="flex flex-row text-sm text-gray-700">
+                  <span className="text-sm text-gray-700" 
+                  onClick={()=>{
+                                              copy(`http://funcodeworld.com/pcenter/${userInfo.id}`);
+                                              notifyDiapatch(
+                                                setSuccess(`该文章链接已复制到粘贴板`)
+                                              );
+                  }} style={{cursor:"pointer",fontWeight:"500"}}>{`http://funcodeworld.com/pcenter/${userInfo.id}`}</span>
+                  <div className="flex flex-row text-sm text-gray-700" style={{fontWeight:"500"}}>
                     <div>{`发帖:${userInfo.articleNum} |`}</div>
                     <div>{`作品:${userInfo.projectNum} |`}</div>
                     <div>{`粉丝:${userInfo.fans} `}</div>
@@ -107,16 +120,17 @@ export default ({
             <div className="w-1/3">
               <div className=" flex flex-row space-x-2">
                 <div className="w-4/5 ">            
-                <Progress progress='value'  size='small' color="yellow" value={userInfo.money}  total={100} active />
+                <Progress progress='value'  size='small' color="yellow" value={userInfo.money}  total={100} active style={{marginTop:"0.6rem"}}/>
                 </div>
                 <div className="w-1/5 mb-4">
-                  <Icon name="money" size="large"></Icon>
+                  {/* <Icon name="money" size="large"></Icon> */}
+                  <img src="/assets/money.png"></img>
                 </div>
               </div>
 
               <div className=" flex flex-row space-x-2">
                 <div className="w-4/5 mt-1">            
-                <Progress percent={userInfo.growthValue}  size='small' color="green" progress active /> 
+                <Progress percent={userInfo.growthValue}  size='small' color="olive" progress active /> 
                 </div>
                 <div className="w-1/5 font-semibold">
                   {`Lv${userInfo.level}`}

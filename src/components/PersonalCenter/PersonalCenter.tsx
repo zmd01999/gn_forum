@@ -13,6 +13,7 @@ import Header from "src/components/BaseUtils/tre/GetStartedLight";
 import NvBar from "src/components/BaseUtils/tre/NvBar";
 import { getLocalStorage, setLocalStorage } from "src/utils";
 import { useProfileService } from "src/hooks";
+import MyTab from "./MyTab";
 
 export const PersonalCenter = () => {
   const profileService = useProfileService();
@@ -34,7 +35,8 @@ export const PersonalCenter = () => {
       <Header></Header>
 
       <Container maxWidth="xl">
-        <SwitchBar></SwitchBar>
+        {/* <SwitchBar></SwitchBar> */}
+        <MyTab></MyTab>
       </Container>
     </div>
   );

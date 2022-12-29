@@ -13,12 +13,12 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { updateCreppyDefaultImage } from "src/utils";
 import { Avatar } from "@mui/material";
 import {cyan,deepOrange} from "@mui/material/colors";
-import { Pagination } from "src/components/Home/Pagination";
+
 const HeadingRow = tw.div`flex`;
 const Heading = tw(SectionHeading)`text-gray-900`;
 const Posts = tw.div`sm:-mr-8 flex flex-wrap`;
 const PostContainer = styled.div`
-  ${tw`mt-10 w-full sm:w-1/2 lg:w-1/4 sm:pr-8`}
+  ${tw`mt-10 w-full sm:w-1/2 lg:w-1/6 sm:pr-8`}
   ${props =>
     props.featured &&
     css`
@@ -42,10 +42,10 @@ const Image = styled.div`
   ${props => css`background-image: url("${props.imageSrc}");`}
   ${tw`h-56 w-full bg-cover bg-center rounded-3xl` }
 `;
-const Info = tw.div`p-8 border-2 border-t-0 rounded-3xl rounded-t-none border-gray-900`;
+const Info = tw.div`p-8 border-2 border-t-0 rounded-3xl rounded-t-none border-blue-800`;
 const Category = tw.div`uppercase text-primary-500 text-xs font-bold tracking-widest leading-loose after:content after:block after:border-b-2 after:border-primary-500 after:w-8`;
 const CreationDate = tw.div`mt-4 uppercase text-gray-600 italic font-semibold text-xs`;
-const Title = tw.div` font-black text-2xl text-gray-900 group-hover:text-primary-500 transition duration-300`;
+const Title = tw.div`mt-1 font-black text-2xl text-gray-900 group-hover:text-primary-500 transition duration-300`;
 const Description = tw.div`mt-2`;
 
 const ButtonContainer = tw.div`flex justify-center`;
@@ -83,15 +83,9 @@ export default ({
     getPlaceholderPost(),
     getPlaceholderPost(),
     getPlaceholderPost()
-  ],
-  projectList,
-  currentPage,
-  setCurrentPage,
-  count,
-  recom,
+  ],project,
 }) => {
   const [visible, setVisible] = useState(8);
-  const [projectCount, setProjectCount] = useState(1);
   const onLoadMoreClick = () => {
     setVisible(v => v + 8);
   };
@@ -102,20 +96,25 @@ export default ({
           {/* <HeadingRow>
             <Heading>{headingText}</Heading>
           </HeadingRow> */}
-          <Posts style={{marginLeft:"4rem",marginRight:"4rem"}}>
-            {projectList.slice(0, visible).map((post, index) => (
-              <PostContainer key={index} featured={post.featured}>
+          {/* <div className=" mb-6  flex flex-row" style={{ overflow: "hidden" ,height:"2.5rem"}}>
+           <div className="font-black colorL1" style={{fontSize:"5rem"}}>|
+           </div> <div className="ml-2 text-2xl font-bold text-black" style={{marginTop:"0.5rem"}}>本周精选</div>
+          </div> */}
+          <Posts>
+  
+          {project&&project.map((post, index) => (
+                <PostContainer key={index} featured={post.featured}>
                 <Post className="group" as="a" href={`/work/${post.id}`}>
-                  <div className="h-64 w-full border-card border-gray-900  rounded-t-3xl">
-                    <div className="m-6 border-2 border-gray-900 rounded-3xl" style={{    borderColor: "transparent"
+                  <div className="h-32 w-full border-card border-gray-900  rounded-t-3xl">
+                    <div className="m-6 border-2 border-gray-900 rounded-3xl" style={{    borderColor: "transparent",marginLeft:"1.7rem",marginTop:"1rem"
 }}>
-                    <Image imageSrc={`https://${post.avatar}`} style={{height:"13rem"}}/>
+                    <Image imageSrc={`https://${post.avatar}`} style={{height:"6rem",width:"8.8rem",marginLeft:"-0.5rem"}}/>
 
                     </div>
 
 
                   </div>
-                  <Info style={{paddingBottom:"0.5rem"}} className="border-card1">
+                  <Info style={{paddingBottom:"0.5rem",paddingTop:"0.2rem",paddingLeft:"1rem",paddingRight:"0.5rem"}} className="border-card1">
                     <div className="flex flex-row space-x-2">
                     <Button
                         size="tiny"
@@ -127,12 +126,12 @@ export default ({
                         }}
                       
                       >{post.copyright == "1" ? "原创":"转载"}</Button>
-                  <div className="font-black text-2xl Hov">{post.title.length >5 ? post.title.substring(0,5)+"..":post.title}</div>
+                  <div className="font-black text-base Hov">{post.title.length >4 ? post.title.substring(0,3)+"..":post.title}</div>
                     </div>
 
                     
                     {/* <Category>{post.category}</Category> */}
-                    <CreationDate> <div  className="flex space-x-12 mr-4 mb-2"><div className="flex flex-row"><VisibilityIcon/><div style={{marginLeft:"0.5rem",fontWeight:"400"}}>{post.viewCounts}</div></div><div className="flex flex-row"><CommentIcon sx={{ color: cyan[200] }}/><div style={{marginLeft:"0.5rem",fontWeight:"400"}}>{post.commentCounts}</div></div><div className="flex flex-row"><ThumbUpIcon sx={{ color: deepOrange[50] }}/><div style={{marginLeft:"0.5rem",fontWeight:"400"}}>{post.thumbsCounts}</div></div></div></CreationDate>
+                    <CreationDate> <div  className="flex space-x-2 mr-4 mb-2"><div className="flex flex-row"><VisibilityIcon fontSize="small"/><div style={{marginLeft:"0.5rem",fontWeight:"400"}}>{post.viewCounts}</div></div><div className="flex flex-row"><CommentIcon fontSize="small" sx={{ color: cyan[200] }}/><div style={{marginLeft:"0.5rem",fontWeight:"400"}}>{post.commentCounts}</div></div><div className="flex flex-row"><ThumbUpIcon fontSize="small" sx={{ color: deepOrange[50] }}/><div style={{marginLeft:"0.5rem",fontWeight:"400"}}>{post.thumbsCounts}</div></div></div></CreationDate>
 
                     <div className="flex flex-row space-x-6">
                       <Avatar
@@ -148,72 +147,6 @@ export default ({
                   </Info>
                 </Post>
               </PostContainer>
-            ))}
-          </Posts>
-          {visible < posts.length && (
-            <ButtonContainer style={{marginTop:"1.5rem" , justifyContent: "end",marginRight: "6rem"}}>
-              {/* <LoadMoreButton onClick={onLoadMoreClick}>加载更多</LoadMoreButton> */}
-              <Pagination             
-              count={count&&count || 1}
-            currentPage={currentPage&&currentPage || 1}
-            setCurrentPage={setCurrentPage&&setCurrentPage ||setProjectCount} project={true}></Pagination>
-            </ButtonContainer>
-          )}
-
-<div className=" mb-6  flex flex-row" style={{ overflow: "hidden" ,height:"2.5rem"}}>
-           <div className="font-black colorL1" style={{fontSize:"5rem"}}>|
-           </div> <div className="ml-2 text-2xl font-bold text-black" style={{marginTop:"0.5rem"}}>作品推荐</div>
-          </div>
-          <div className="text-2xl font-bold mb-6 text-black mt-8">
-            作品推荐
-          </div>
-          <Posts style={{marginLeft:"4rem",marginRight:"4rem"}}>
-  
-          {recom&&recom.slice(0, 4).map((post, index) => (
-              <PostContainer key={index} featured={post.featured}>
-              <Post className="group" as="a" href={`/work/${post.id}`}>
-                <div className="h-64 w-full border-card border-gray-900  rounded-t-3xl">
-                  <div className="m-6 border-2 border-gray-900 rounded-3xl" style={{    borderColor: "transparent"
-}}>
-                  <Image imageSrc={`https://${post.avatar}`} style={{height:"13rem"}}/>
-
-                  </div>
-
-
-                </div>
-                <Info style={{paddingBottom:"0.5rem"}} className="border-card1">
-                  <div className="flex flex-row space-x-2">
-                  <Button
-                      size="tiny"
-                      // attached="left"
-                      color="blue"
-                      // style={{ marginTop: "10px", marginLeft: "25%" }}
-                      style={{
-                        width: "3rem",padding: "0rem"
-                      }}
-                    
-                    >{post.copyright == "1" ? "原创":"转载"}</Button>
-                <div className="font-black text-2xl Hov">{post.title.length >5 ? post.title.substring(0,5)+"..":post.title}</div>
-                  </div>
-
-                  
-                  {/* <Category>{post.category}</Category> */}
-                  <CreationDate> <div  className="flex space-x-12 mr-4 mb-2"><div className="flex flex-row"><VisibilityIcon/><div style={{marginLeft:"0.5rem",fontWeight:"400"}}>{post.viewCounts}</div></div><div className="flex flex-row"><CommentIcon sx={{ color: cyan[200] }}/><div style={{marginLeft:"0.5rem",fontWeight:"400"}}>{post.commentCounts}</div></div><div className="flex flex-row"><ThumbUpIcon sx={{ color: deepOrange[50] }}/><div style={{marginLeft:"0.5rem",fontWeight:"400"}}>{post.thumbsCounts}</div></div></div></CreationDate>
-
-                  <div className="flex flex-row space-x-6">
-                    <Avatar
-                      src={updateCreppyDefaultImage(post.author.avatar ?? null)}
-                      sx={{ width: 20, height: 20 ,border:0}}
-                    />
-                      <div className="text-xl font-medium text-gray-900 my-auto" style={{marginLeft:"0.5rem"}}>
-                        {post.author.nickname}
-                      </div>
-                  </div>
-
-                  {/* {post.featured && post.description && <Description>{post.description}</Description>} */}
-                </Info>
-              </Post>
-            </PostContainer>
             ))}
           
           </Posts>

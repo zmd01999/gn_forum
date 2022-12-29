@@ -17,5 +17,16 @@ const panels = [
   // },
 ];
 export const MyHelp = () => {
-  return <Accordion defaultActiveIndex={0} panels={panels} />;
+  return (
+    <div style={{ width: "75rem", height: "900px", marginLeft: "2rem" }}>
+      <iframe
+        src={`/assets/help.htm`}
+        id="help"
+        frameBorder="0"
+        width="650px"
+        height="800px"
+        scrolling="no"
+      ></iframe>
+    </div>
+  );
 };
