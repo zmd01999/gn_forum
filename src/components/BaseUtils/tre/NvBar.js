@@ -221,7 +221,7 @@ export default () => {
       }}/> */}
       
       
-      {true ? (<div className="ml-36"><SearchInp setArticleList={1}></SearchInp></div>
+      {true ? (<div className="ml-36" style={{marginTop:"-0.4rem"}}><SearchInp setArticleList={1}></SearchInp></div>
         )
       :(<></>
       )}

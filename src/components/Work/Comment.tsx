@@ -56,9 +56,11 @@ export const Comment = ({ slug, authorId }: IProps) => {
   const userInfo: any = getLocalStorage("userInfo");
   const [commentId, setCommentId] = useState("");
   const [commentAId, setCommentAId] = useState("");
+  const [commentNum, setCommentNum] = useState(0);
   const retrieveComments = async () => {
     const res = await commentService.getComments(slug);
-    setComments(res.data.data);
+    setComments(res.data.data.commentVoList);
+    setCommentNum(res.data.data.commentNum);
   };
 
   const handleCommentAction = async (type: string, id?: string) => {
@@ -93,7 +95,7 @@ export const Comment = ({ slug, authorId }: IProps) => {
 
   return (
     <div className="ui comments">
-      <h3 className="ui  header">评论 ({`${comments.length}`})</h3>
+      <h3 className="ui  header">评论 ({`${commentNum}`})</h3>
 
       <div className="flex flex-row">
         <div className="w-8 mt-6">

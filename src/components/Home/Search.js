@@ -48,7 +48,12 @@ return (
             //     return;
             // }
             if(page == "work") {
-              history.push(`/work/search/${value}`);
+              // history.push(`/work/search/${value}`);
+              const a = document.createElement('a');
+              a.style.display = 'none';
+              a.href = `/work/search/${value}`;
+              document.body.appendChild(a);
+              a.click();
             //   console.log("work")
             //   articleService.searchProject({page:1, title:value}).then(
             //     (res)=>{
@@ -60,8 +65,12 @@ return (
             //     }
             // );
             } else {
-              history.push(`/article/search/${value}`);
-
+              // history.push(`/article/search/${value}`);
+              const a = document.createElement('a');
+              a.style.display = 'none';
+              a.href = `/article/search/${value}`;
+              document.body.appendChild(a);
+              a.click();
             //   articleService.searchArticle({page:1, title:value}).then(
 
             //     (res)=>{

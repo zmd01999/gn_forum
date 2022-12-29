@@ -2,18 +2,20 @@ import tw from "twin.macro";
 import { ReactComponent as SvgDecoratorBlob1 } from "src/assets/svg/svg-decorator-blob-9.svg";
 import { ContentWithPaddingXl, Container } from "./Layouts";
 import { Avatar, Stack, Badge } from "@mui/material";
-
+import React ,{useState,useEffect}from "react"
 import { LightTooltip } from "src/components/BaseUtils/ToolTips";
 import { useSelector } from "react-redux";
 import { getLocalStorage } from "src/utils";
-import { Icon } from 'semantic-ui-react'
+import { Icon ,Modal,Form,TextArea,Button} from 'semantic-ui-react'
 import {updateCreppyDefaultImage} from "src/utils";
 import { Progress } from 'semantic-ui-react'
 import copy from "copy-to-clipboard";
 import {
   setSuccess,
+  setError
 } from "src/redux/actions";
 import { useDispatch } from "react-redux";
+import { useProfileService } from "src/hooks";
 
 const PrimaryBackgroundContainer = tw.div`py-16 lg:py-6 bg-gray-200 rounded-lg relative`
 const Row = tw.div`px-4 sm:px-8 mx-auto flex justify-center items-center relative z-10 flex-col lg:flex-row text-center lg:text-left`;
@@ -47,9 +49,25 @@ export default ({
   const { user } = useSelector(
     (state) => state.auth
   );
+  const [open, setOpen] = React.useState(false);
+  const [content, setContent] = useState("");
+  const handleContent = (data) => {
+    setContent(data.value);
+  };
   const notifyDiapatch = useDispatch();
-
+  const profileService = useProfileService();
+  const [isF,setIsF] = useState(true);
   const userInfo = getLocalStorage("userInfo");
+
+
+  useEffect(() => {
+    const retrieve = async () => {
+      await profileService.isFollow(profile.id).then((res) => {
+        setIsF(res.data.data);
+      });
+    };
+    retrieve();
+  }, []);
   return (
     <Container css={pushDownFooter && tw`mb-20 lg:mb-24 `}>
       <ContentWithPaddingXl>
@@ -68,11 +86,71 @@ export default ({
                         variant="square"
                       />
                   </LightTooltip>
+
                 </div>
                 <div className="">
                   <div className="flex flex-col  space-y-4">
                   <span className="text-2xl font-semibold text-black">
                           {profile&&profile.nickname}
+                          <Modal
+            closeIcon
+            open={open}
+            trigger={<Icon name="comment" style={{marginLeft:"2rem",cursor:"pointer"}} ></Icon>
+          }
+            onClose={() => setOpen(false)}
+            onOpen={() => setOpen(true)}
+          >
+            <Modal.Header>私信</Modal.Header>
+            <Modal.Content>
+              <Form>
+                <TextArea
+                  placeholder="填写您的内容"
+                  value={content}
+                  onChange={(event, data) => {
+                    handleContent(data);
+                  }}
+                />
+              </Form>
+            </Modal.Content>
+            <Modal.Actions>
+              <Button
+                color="green"
+                onClick={() => {
+                  profileService
+                    .sendMsg({
+                      toUserId: profile.id,
+                      content: content ?? "默认消息",
+                    })
+                    .then((res) => {
+                      console.log(res);
+                      if (res.data.success) {
+                        notifyDiapatch(setSuccess("发送成功."));
+                      } else {
+                        notifyDiapatch(setError(res.data.msg));
+                      }
+                    });
+                  setOpen(false);
+                }}
+              >
+                <Icon name="checkmark" /> 发送
+              </Button>
+              <Button color="red" onClick={() => setOpen(false)}>
+                <Icon name="remove" /> 取消
+              </Button>
+            </Modal.Actions>
+          </Modal>
+               <Icon name={isF?"minus":"plus"} style={{marginLeft:"0.5rem",cursor:"pointer"}} onClick={async()=>{
+                let res;
+                        if (isF) {
+                          res = await profileService.unfollowUser(profile&&profile.id);
+                        } else {
+                          res = await profileService.followUser(profile&&profile.id);
+                        }
+                        if (res.data.success) {
+                          setIsF(!isF);
+                        }
+
+               }}></Icon>
                         </span>
                   <span className="text-sm text-gray-700" 
                   onClick={()=>{
