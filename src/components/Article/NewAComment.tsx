@@ -171,7 +171,64 @@ export const NewAComment = ({ slug, authorId }: IProps) => {
                     </Button>
                   </Modal.Actions>
                 </Modal>
-                <div className="text-gray-400 ">举报</div>
+                <Modal
+                  id={comment.id}
+                  closeIcon
+                  open={open}
+                  trigger={
+                    <div
+                      className="text-gray-400 "
+                      style={{ cursor: "pointer" }}
+                      id={comment.id}
+                      onClick={() => {
+                        setCommentId(comment.id);
+                        setCommentAId(comment.author.id);
+                      }}
+                    >
+                      举报
+                    </div>
+                  }
+                  onClose={() => setOpen(false)}
+                  onOpen={() => setOpen(true)}
+                >
+                  <Modal.Header icon="archive" content={`回复`} />
+                  <Modal.Content>
+                    <Form>
+                      <TextArea
+                        placeholder="填写您的内容"
+                        value={content}
+                        onChange={(event: SyntheticEvent, data: object) => {
+                          handleContent(data);
+                        }}
+                      />
+                    </Form>
+                  </Modal.Content>
+                  {/* <Modal.Actions>
+                    <Button color="red" onClick={() => setOpen(false)}>
+                      <Icon name="remove" /> 取消
+                    </Button>
+                    <Button
+                      color="green"
+                      id={comment.id}
+                      value={comment.author.id}
+                      onClick={async (event: SyntheticEvent, data: any) => {
+                        console.log(commentId);
+
+                        commentService.sendComment(
+                          slug,
+                          content,
+                          authorId,
+                          commentId,
+                          commentAId
+                        );
+                        setOpen(false);
+                        await retrieveComments();
+                      }}
+                    >
+                      <Icon name="checkmark" /> 发送
+                    </Button>
+                  </Modal.Actions> */}
+                </Modal>
               </div>
               <Feed>
                 {comment.childrens.map((children: IComment) => {

@@ -21,7 +21,7 @@ import { SettingEditor } from "./components/Home/SettingEditor";
 import { Loader } from "./components/Home/Loader";
 import { ToastProvider } from "react-toast-notifications";
 import { NotFound } from "./components/Home/NotFound";
-import { Profile } from "./components/Home/Profile";
+import { Profile } from "./components/PersonalCenter/Profile";
 import { Work } from "./components/Work/Work";
 import Privacy_1 from "./components/Auth/Privacy_1";
 import { GuardRouter } from "./GuardRouter";
@@ -95,7 +95,7 @@ function App() {
                           <Privacy_3 />
                         </Route>
                         <Route
-                          path="/profile/:username"
+                          path="/profile/:slug"
                           component={Profile}
                           exact
                         />

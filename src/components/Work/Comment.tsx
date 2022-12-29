@@ -9,7 +9,7 @@ import React, {
   useState,
 } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   Button,
   Comment as SemanticComment,
@@ -82,6 +82,7 @@ export const Comment = ({ slug, authorId }: IProps) => {
   };
   const [open, setOpen] = React.useState(false);
   const [content, setContent] = useState("");
+  const history = useHistory();
   const handleContent = (data: any) => {
     setContent(data.value);
   };
@@ -150,10 +151,21 @@ export const Comment = ({ slug, authorId }: IProps) => {
             <div className="avatar">
               <img
                 src={updateCreppyDefaultImage(comment.author.avatar ?? null)}
+                onClick={() => {
+                  history.push(`/profile/${comment && comment.author.id}`);
+                }}
+                style={{ cursor: "pointer" }}
               />
             </div>
             <div className="content">
-              <a className="author">{comment.author.nickname}</a>
+              <a
+                className="author"
+                onClick={() => {
+                  history.push(`/profile/${comment && comment.author.id}`);
+                }}
+              >
+                {comment.author.nickname}
+              </a>
               <div className="metadata">
                 <div>{comment.createTime}</div>
               </div>

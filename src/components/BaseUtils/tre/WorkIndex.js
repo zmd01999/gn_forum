@@ -164,9 +164,9 @@ export default ({
            <div className="font-black colorL1" style={{fontSize:"5rem"}}>|
            </div> <div className="ml-2 text-2xl font-bold text-black" style={{marginTop:"0.5rem"}}>作品推荐</div>
           </div>
-          <div className="text-2xl font-bold mb-6 text-black mt-8">
+          {/* <div className="text-2xl font-bold mb-6 text-black mt-8">
             作品推荐
-          </div>
+          </div> */}
           <Posts style={{marginLeft:"4rem",marginRight:"4rem"}}>
   
           {recom&&recom.slice(0, 4).map((post, index) => (

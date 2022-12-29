@@ -18,7 +18,7 @@ import {
   ILikeArticle,
   IUserInfo,
 } from "../../models/types";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { Pagination } from "../Home/Pagination";
 import { ArticleCard } from "../Article/ArticleCard";
 import { ArticleLikeCard } from "../Article/ArticleLikeCard";
@@ -43,7 +43,7 @@ export const MyFans = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [articleCount, setArticleCount] = useState<number>(0);
   const [articleLikeCount, setArticleLikeCount] = useState<number>(0);
-
+  const history = useHistory();
   const loaderDiapatch = useDispatch<Dispatch<LoaderAction>>();
 
   const retrieveFans = async () => {
@@ -98,6 +98,10 @@ export const MyFans = () => {
                   borderWidth: "2px",
                   width: "17rem",
                   borderRadius: "0.5rem",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  history.push(`/profile/${user.id}`);
                 }}
               >
                 <div className="flex flex-row py-4 space-x-4">

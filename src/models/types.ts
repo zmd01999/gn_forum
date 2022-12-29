@@ -55,7 +55,8 @@ export interface IUserInfo {
   growthValue?:string|null;
   articleNum?:number;
   projectNum?:number;
-  fans?:string;
+  fans?:string; 
+  administrators?:number;
 }
 
 export interface IProject {

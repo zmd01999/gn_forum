@@ -55,4 +55,8 @@ export class ProfileService {
   public msgList(slug:string) {
     return this.api.get("letter/detail/"+slug);
   }
+  public homepage(slug:string) {
+    return this.api.get("user/homepage/"+slug);
+  }
+
 }

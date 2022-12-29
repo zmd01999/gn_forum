@@ -16,6 +16,7 @@ import { updateCreppyDefaultImage } from "src/utils";
 import { NotificationAction } from "src/redux/reducers/NotifyReducer";
 import { FollowArtButton } from "../Home/FollowArtButton";
 import { FollowButton } from "../Home/FollowButton";
+import { useHistory } from "react-router-dom";
 
 interface IProps {
   author: IUserInfo | null | any;
@@ -29,7 +30,7 @@ export const Header = ({ author }: IProps) => {
     setContent(data.value);
   };
   const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
-
+  const history = useHistory();
   return (
     <div className="ui card cardlenth" style={{ flexGrow: "1" }}>
       <div
@@ -42,6 +43,10 @@ export const Header = ({ author }: IProps) => {
       <div className="image">
         <img
           src={updateCreppyDefaultImage((author && author.avatar) || null)}
+          onClick={() => {
+            history.push(`/profile/${author && author.id}`);
+          }}
+          style={{ cursor: "pointer" }}
         />
       </div>
       <div className="content">

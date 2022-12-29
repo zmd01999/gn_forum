@@ -138,4 +138,9 @@ export class ArticleService {
 
   }
 
+  public report(paras:{articleId:string,content:string}) {
+    return this.api.post("article/report", {articleId:paras.articleId,content:paras.content})
+
+  }
+
 }

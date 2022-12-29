@@ -1,4 +1,10 @@
-import React, { Dispatch, Fragment, useEffect, useState } from "react";
+import React, {
+  Dispatch,
+  Fragment,
+  SyntheticEvent,
+  useEffect,
+  useState,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import { Link } from "react-router-dom";
@@ -9,6 +15,7 @@ import {
   Grid,
   Icon,
   Label,
+  Modal,
   Popup,
   TextArea,
 } from "semantic-ui-react";
@@ -54,6 +61,13 @@ export const NewAView = () => {
   const [isF, setIsF] = useState<boolean>();
   const { isAuthenticated } = useSelector((state: AppState) => state.auth);
   const userInfo: any = getLocalStorage("userInfo");
+  const [open, setOpen] = React.useState(false);
+  const [content, setContent] = useState("");
+  const [commentId, setCommentId] = useState("");
+  const [commentAId, setCommentAId] = useState("");
+  const handleContent = (data: any) => {
+    setContent(data.value);
+  };
   const retrieveArticle = async () => {
     const singleArticleRes = await articleService.getSingleArticle(slug);
     const article = singleArticleRes.data.data as IMyArticle;
@@ -329,7 +343,53 @@ export const NewAView = () => {
           <Divider className="customDivider" />
           <div className="flex justify-between text-lg">
             <div className="text-gray-400 ">回复</div>
-            <div className="text-gray-400 ">举报</div>
+            <Modal
+              closeIcon
+              open={open}
+              trigger={
+                <div className="text-gray-400 " style={{ cursor: "pointer" }}>
+                  举报
+                </div>
+              }
+              onClose={() => setOpen(false)}
+              onOpen={() => setOpen(true)}
+            >
+              <Modal.Header icon="archive" content={`举报`} />
+              <Modal.Content>
+                <Form>
+                  <TextArea
+                    placeholder="填写您的举报内容"
+                    value={content}
+                    onChange={(event: SyntheticEvent, data: object) => {
+                      handleContent(data);
+                    }}
+                  />
+                </Form>
+              </Modal.Content>
+              <Modal.Actions>
+                <Button color="red" onClick={() => setOpen(false)}>
+                  <Icon name="remove" /> 取消
+                </Button>
+                <Button
+                  color="green"
+                  onClick={async (event: SyntheticEvent, data: any) => {
+                    articleService
+                      .report({
+                        articleId: singleArticle.id,
+                        content: content,
+                      })
+                      .then((res) => {
+                        if (res.data.success) {
+                          notifyDiapatch(setSuccess("举报成功"));
+                        }
+                      });
+                    setOpen(false);
+                  }}
+                >
+                  <Icon name="checkmark" /> 发送
+                </Button>
+              </Modal.Actions>
+            </Modal>
           </div>
         </div>
       </div>
