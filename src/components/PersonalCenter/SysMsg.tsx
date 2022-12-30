@@ -10,7 +10,7 @@ import { getLocalStorage } from "src/utils";
 import { useArticleService, useProfileService } from "../../hooks";
 import "./style.css";
 
-const MyMessage = () => {
+const SysMsg = () => {
   const articleService = useArticleService();
   const profileService = useProfileService();
   const [articleList, setArticleList] = useState<IMyArticle[]>([]);
@@ -48,7 +48,7 @@ const MyMessage = () => {
   }, [currentPage]);
   return (
     <>
-      {articleList.length == 0 ? (
+      {true ? (
         <div className="msgSelector">
           <Message positive>
             <Message.Header>您目前没有消息</Message.Header>
@@ -72,7 +72,7 @@ const MyMessage = () => {
           </Placeholder>
         </div>
       ) : (
-        articleList.map((art) => {
+        articleList1.map((art) => {
           return (
             <>
               <Message icon info>
@@ -81,10 +81,10 @@ const MyMessage = () => {
                   id={art.id}
                   onClick={(e: any) => gotoArticle(e)}
                 >
-                  <Message.Header id={art.id}>{art.title}</Message.Header>
-                  {`${art.body.content.substring(0, 64)}...`}
+                  <Message.Header id={art.id}>{"我的私信"}</Message.Header>
+                  {`${art.content.substring(0, 64)}...`}
                   <Label id={art.id} color="teal" className="float-right">
-                    共{art.noCheck ?? 22}条回复未读
+                    {art.createTime}
                   </Label>
                 </Message.Content>
               </Message>
@@ -95,4 +95,4 @@ const MyMessage = () => {
     </>
   );
 };
-export default MyMessage;
+export default SysMsg;

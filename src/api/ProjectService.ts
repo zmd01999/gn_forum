@@ -52,4 +52,8 @@ export class ProjectService {
   public getRecom() {
     return this.api.get(`project/random/1`);
   }
+
+  public deleteProject(slug: string) {
+    return this.api.post(`project/deleteArticle`,{id:slug});
+  }
   }

@@ -61,7 +61,15 @@ export const WorkDetail = () => {
 
   const [isF, setIsF] = useState<boolean>();
   const [currentPage, setCurrentPage] = useState<number>(1);
-
+  const handleDeleteArticle = async () => {
+    try {
+      await projectService.deleteProject(slug);
+      notifyDiapatch(setSuccess("成功删除作品."));
+      history.push("/");
+    } catch (error: any) {
+      notifyDiapatch(setError(error.data.errors));
+    }
+  };
   const retrieveArticle = async () => {
     const singleArticleRes = await projectService.getProject(slug);
     const article = singleArticleRes.data.data as IProject;
@@ -168,6 +176,25 @@ export const WorkDetail = () => {
             <div
               style={{ fontSize: "1.1rem" }}
             >{`发布于${singleProject?.createTime}`}</div>
+            {(isAuthenticated &&
+              ((userInfo && userInfo.id) || "游客") ===
+                singleProject.author.id) ||
+            (userInfo && userInfo.administrators == 2) ? (
+              <Popup
+                basic
+                content="删除文章"
+                trigger={
+                  <Button
+                    size="mini"
+                    color={"grey"}
+                    icon="trash"
+                    onClick={handleDeleteArticle}
+                  />
+                }
+              />
+            ) : (
+              <></>
+            )}
           </div>
 
           <div style={{ marginTop: "1rem", marginRight: "-0.8rem" }}>

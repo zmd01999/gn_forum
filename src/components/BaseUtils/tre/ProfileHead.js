@@ -116,6 +116,7 @@ export default ({
               <Button
                 color="green"
                 onClick={() => {
+                  if(content.length == 0) return ;
                   profileService
                     .sendMsg({
                       toUserId: profile.id,
@@ -156,7 +157,7 @@ export default ({
                   onClick={()=>{
                                               copy(`http://funcodeworld.com/profile/${profile&&profile.id}`);
                                               notifyDiapatch(
-                                                setSuccess(`该文章链接已复制到粘贴板`)
+                                                setSuccess(`该链接已复制到粘贴板`)
                                               );
                   }} style={{cursor:"pointer",fontWeight:"500"}}>{`http://funcodeworld.com/profile/${profile&&profile.id}`}</span>
                   <div className="flex flex-row text-sm text-gray-700" style={{fontWeight:"500"}}>

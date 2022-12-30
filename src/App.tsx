@@ -40,6 +40,7 @@ import { ForumRes } from "./components/Home/ForumRes";
 import { Private_1 } from "./components/Auth/Private_1";
 import Privacy_3 from "./components/Auth/Privacy_3";
 import Privacy_2 from "./components/Auth/Privacy_2";
+import { MsgPC } from "./components/PersonalCenter/MsgPC";
 function App() {
   let services: IServices;
 
@@ -78,6 +79,9 @@ function App() {
                         </Route>
                         <Route path="/work" exact>
                           <Work />
+                        </Route>
+                        <Route path="/msgcenter/:slug" exact>
+                          <MsgPC />
                         </Route>
                         <Route path="/work/:slug" component={WorkDetail} />
                         <Route

@@ -162,7 +162,7 @@ const UserDropdown = (props: user) => {
                 variant="body2"
                 sx={{ fontSize: "0.8rem", color: "text.disabled" }}
               >
-                用户
+                {userInfo.administrators == 2 ? "管理员" : "用户"}
               </Typography>
             </Box>
           </Box>
@@ -183,13 +183,13 @@ const UserDropdown = (props: user) => {
         <MenuItem
           sx={{ p: 0 }}
           onClick={() => {
-            history.push(`/pcenter/${userInfo.id}`);
+            history.push(`/msgcenter/${userInfo.id}`);
             handleDropdownClose();
           }}
         >
           <Box sx={styles}>
             <MessageOutline sx={{ marginRight: 2 }} />
-            未读动态<Label color="teal">{userInfo.checkMessage}</Label>
+            未读消息<Label color="teal">{userInfo.checkMessage}</Label>
           </Box>
         </MenuItem>
         {/* <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>

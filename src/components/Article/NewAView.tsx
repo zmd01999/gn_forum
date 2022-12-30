@@ -122,9 +122,10 @@ export const NewAView = () => {
             </div>
 
             <div className="my-8">
-              {isAuthenticated &&
-              ((userInfo && userInfo.id) || "游客") ===
-                singleArticle.author.id ? (
+              {(isAuthenticated &&
+                ((userInfo && userInfo.id) || "游客") ===
+                  singleArticle.author.id) ||
+              (userInfo && userInfo.administrators == 2) ? (
                 <Fragment>
                   {/* <Link to={`/article/edit/${slug}`}>
                 <Popup

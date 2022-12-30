@@ -36,11 +36,11 @@ export default () => {
             <LogoText>趣代码世界</LogoText> */}
             <img src="/assets/logo.png" className="w-40"></img>
           </LogoContainer>
-          <LinksContainer>
-            <Link href="#">作品</Link>
-            <Link href="#">论坛</Link>
-            <Link href="#">关于</Link>
-            <Link href="#">联系我们</Link>
+          <LinksContainer style={{height:"4rem"}}>
+            <Link href="#" style={{display:"none"}}>作品</Link>
+            <Link href="#" style={{display:"none"}}>论坛</Link>
+            <Link href="#" style={{display:"none"}}>关于</Link>
+            <Link href="#" style={{display:"none"}}>联系我们</Link>
           </LinksContainer>
           {/* <SocialLinksContainer>
             <SocialLink href="https://facebook.com">
