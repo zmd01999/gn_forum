@@ -43,7 +43,7 @@ window.getUserToken = function() {
 
 window.getWorkInfo = function(workId, cb) {
   $.ajax({
-    url: `http://1.15.61.98:8090/project/detail/${workId}?type=scratch`,
+    url: `https://www.funcodeworld.com/api/project/detail/${workId}?type=scratch`,
     success: function (res) {
       if (res.code == 200) {
         console.log(res)
@@ -107,7 +107,7 @@ window.getQiniuToken = function() {
   function uploadFile(fileName, fileTag, filePath, fileLocation) {
     var id = null;
     $.ajax({
-      url: 'http://1.15.61.98:8090/project/publish',
+      url: 'https://www.funcodeworld.com/api/project/publish',
       type: 'POST',
       dataType: 'json',
       contentType: 'application/json',
@@ -175,7 +175,7 @@ window.getQiniuToken = function() {
   }
 
   function update2Local(file,filename,bizPath, cb){
-    let uploadApi = "http://1.15.61.98:8090/article/cosUpload"
+    let uploadApi = "https://www.funcodeworld.com/api/article/cosUpload"
 
     var formData = new FormData();
     const fileContent = new File([file], filename, { type: 'multipart/form-data' });
