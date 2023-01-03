@@ -70,6 +70,16 @@ export const WorkDetail = () => {
       notifyDiapatch(setError(error.data.errors));
     }
   };
+
+  const handleDeleteSysArticle = async (id: string) => {
+    try {
+      await projectService.deleteSysProject(slug, id);
+      notifyDiapatch(setSuccess("成功删除作品."));
+      history.push("/");
+    } catch (error: any) {
+      notifyDiapatch(setError(error.data.errors));
+    }
+  };
   const retrieveArticle = async () => {
     const singleArticleRes = await projectService.getProject(slug);
     const article = singleArticleRes.data.data as IProject;
@@ -182,13 +192,19 @@ export const WorkDetail = () => {
             (userInfo && userInfo.administrators == 2) ? (
               <Popup
                 basic
-                content="删除文章"
+                content="删除作品"
                 trigger={
                   <Button
                     size="mini"
                     color={"grey"}
                     icon="trash"
-                    onClick={handleDeleteArticle}
+                    onClick={() => {
+                      if (userInfo.administrators == 2) {
+                        handleDeleteSysArticle(singleProject.author.id);
+                      } else {
+                        handleDeleteArticle();
+                      }
+                    }}
                   />
                 }
               />

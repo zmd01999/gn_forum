@@ -98,7 +98,15 @@ export const NewAView = () => {
       notifyDiapatch(setError(error.data.errors));
     }
   };
-
+  const handleDeleteSysArticle = async (id: string) => {
+    try {
+      await articleService.deleteSysArticle(slug, id);
+      notifyDiapatch(setSuccess("成功删除文章."));
+      history.push("/");
+    } catch (error: any) {
+      notifyDiapatch(setError(error.data.errors));
+    }
+  };
   if (!isLoading || singleArticle === undefined) {
     return <Fragment></Fragment>;
   }
@@ -141,7 +149,13 @@ export const NewAView = () => {
                         size="mini"
                         color={"grey"}
                         icon="trash"
-                        onClick={handleDeleteArticle}
+                        onClick={() => {
+                          if (userInfo.administrators == 2) {
+                            handleDeleteSysArticle(singleArticle.author.id);
+                          } else {
+                            handleDeleteArticle();
+                          }
+                        }}
                       />
                     }
                   />

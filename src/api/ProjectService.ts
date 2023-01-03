@@ -56,4 +56,9 @@ export class ProjectService {
   public deleteProject(slug: string) {
     return this.api.post(`project/deleteArticle`,{id:slug});
   }
+
+  public deleteSysProject(slug: string,toUserId:string) {
+    return this.api.post(`systemRole/delete`,{id:slug,toUserId:toUserId});
+  }
+  
   }

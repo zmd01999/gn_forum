@@ -22,6 +22,9 @@ export class ArticleService {
     return this.api.post(`article/deleteArticle`,{id:slug});
   }
 
+  public deleteSysArticle(slug: string,toUserId:string) {
+    return this.api.post(`systemRole/delete`,{id:slug,toUserId:toUserId});
+  }
   // public getArticles(paras:{page: number, tag?: string, 
   //   favorited?: string,author?: string}) {
   //   let parameter = "";
