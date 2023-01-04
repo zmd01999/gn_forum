@@ -119,3 +119,16 @@ export const  toFile= async (str:string,id:string)=> {
    formdata.append('file', fileContent)
     return formdata
 }
+
+export const  toFileURL= async (str:string,id:string)=> {
+  const name = id + ".txt"
+  const fileContent = new File([str], name, { type: 'multipart/form-data' })
+   const file = new FileReader()
+   file.readAsDataURL(fileContent)
+   console.log(file)
+   // 文件上传传参是formdata格式
+  //  const formdata = new FormData()
+  //  // 模仿单文件上传给接口传参
+  //  formdata.append('file', fileContent)
+    return file
+}

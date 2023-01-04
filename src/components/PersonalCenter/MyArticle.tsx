@@ -40,6 +40,9 @@ import { ATable } from "./ArticleTable";
 import TabAccount from "./Setting/TabAccount";
 import "./myart.css";
 import WorkMine from "../BaseUtils/tre/WorkMine";
+import { ToHtmlUtil } from "./ToHtmlUtil";
+import { AllUpArticle } from "./AllUpArticle";
+import { AllUpWork } from "./AllUpWork";
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -290,6 +293,34 @@ export default function MyArticle({ V, setTabV }: Props) {
             {...a11yProps(7)}
             sx={{ fontSize: 16, fontWeight: "600", color: "black" }}
           />
+          {userInfo && userInfo.administrators == 2 ? (
+            <Tab
+              label="转HTML工具"
+              {...a11yProps(8)}
+              sx={{ fontSize: 16, fontWeight: "600", color: "black" }}
+            />
+          ) : (
+            <></>
+          )}
+
+          {userInfo && userInfo.administrators == 2 ? (
+            <Tab
+              label="文章批量"
+              {...a11yProps(9)}
+              sx={{ fontSize: 16, fontWeight: "600", color: "black" }}
+            />
+          ) : (
+            <></>
+          )}
+          {userInfo && userInfo.administrators == 2 ? (
+            <Tab
+              label="作品批量"
+              {...a11yProps(10)}
+              sx={{ fontSize: 16, fontWeight: "600", color: "black" }}
+            />
+          ) : (
+            <></>
+          )}
         </Tabs>
         <div className="">
           <TabPanel value={V} index={0}>
@@ -302,20 +333,6 @@ export default function MyArticle({ V, setTabV }: Props) {
             >
               <WorkMine project={projectList}></WorkMine>
             </div>
-            {/* <Fragment>
-              <div className="grid grid-cols-3 gap-12">
-                {projectList.map((project) => {
-                  return <WorkCard project={project}></WorkCard>;
-                })}
-              </div>
-              <div className="mt-6">
-                <Pagination
-                  count={projectCount}
-                  currentPage={currentPage}
-                  setCurrentPage={setCurrentPage}
-                />
-              </div>
-            </Fragment> */}
           </TabPanel>
           <TabPanel value={V} index={1}>
             <div
@@ -381,6 +398,28 @@ export default function MyArticle({ V, setTabV }: Props) {
           <TabPanel value={V} index={7}>
             <MyHelp></MyHelp>
           </TabPanel>
+
+          {userInfo && userInfo.administrators == 2 ? (
+            <TabPanel value={V} index={8}>
+              <ToHtmlUtil></ToHtmlUtil>
+            </TabPanel>
+          ) : (
+            <></>
+          )}
+          {userInfo && userInfo.administrators == 2 ? (
+            <TabPanel value={V} index={9}>
+              <AllUpArticle></AllUpArticle>
+            </TabPanel>
+          ) : (
+            <></>
+          )}
+          {userInfo && userInfo.administrators == 2 ? (
+            <TabPanel value={V} index={10}>
+              <AllUpWork></AllUpWork>
+            </TabPanel>
+          ) : (
+            <></>
+          )}
         </div>
       </Box>
     </div>

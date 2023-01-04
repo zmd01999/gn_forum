@@ -77,7 +77,7 @@ const SysMsg = () => {
                   // onClick={(e: any) => gotoArticle(e)}
                 >
                   <Message.Header id={art.id}>{"系统消息"}</Message.Header>
-                  {`${art.content.substring(0, 64)}...`}
+                  {`${art.content}`}
                   <Label id={art.id} color="teal" className="float-right">
                     {art.createTime}
                   </Label>

@@ -147,153 +147,158 @@ export const Comment = ({ slug, authorId }: IProps) => {
           </div>
         </div>
       </div> */}
-      {comments.map((comment) => {
-        return (
-          <div className="comment" id={comment.id}>
-            <div className="avatar">
-              <img
-                src={updateCreppyDefaultImage(comment.author.avatar ?? null)}
-                onClick={() => {
-                  history.push(`/profile/${comment && comment.author.id}`);
-                }}
-                style={{ cursor: "pointer" }}
-              />
-            </div>
-            <div className="content">
-              <a
-                className="author"
-                onClick={() => {
-                  history.push(`/profile/${comment && comment.author.id}`);
-                }}
-              >
-                {comment.author.nickname}
-              </a>
-              <div className="metadata">
-                <div>{comment.createTime}</div>
-              </div>
-              <div className="text">
-                <p>{comment.content}</p>
-              </div>
-              <div className="actions action">
-                <Modal
-                  closeIcon
-                  open={open}
-                  trigger={
-                    <a
-                      className=""
-                      id={comment.id}
-                      onClick={() => {
-                        setCommentId(comment.id);
-                        setCommentAId(comment.author.id);
-                      }}
-                    >
-                      回复
-                    </a>
-                  }
-                  onClose={() => setOpen(false)}
-                  onOpen={() => setOpen(true)}
-                >
-                  <Header icon="archive" content={`回复`} />
-                  <Modal.Content>
-                    <Form>
-                      <TextArea
-                        placeholder="填写您的内容"
-                        value={content}
-                        onChange={(event: SyntheticEvent, data: object) => {
-                          handleContent(data);
-                        }}
-                      />
-                    </Form>
-                  </Modal.Content>
-                  <Modal.Actions>
-                    <Button color="red" onClick={() => setOpen(false)}>
-                      <Icon name="remove" /> 取消
-                    </Button>
-                    <Button
-                      color="green"
-                      onClick={async () => {
-                        commentService.sendComment(
-                          slug,
-                          content,
-                          authorId,
-                          commentId,
-                          commentAId
-                        );
-                        setOpen(false);
-                        await retrieveComments();
-                      }}
-                    >
-                      <Icon name="checkmark" /> 发送
-                    </Button>
-                  </Modal.Actions>
-                </Modal>
-                <ThumbUpIcon
-                  sx={{ color: deepOrange[50] }}
+      <div style={{}}>
+        {comments.map((comment) => {
+          return (
+            <div className="comment" id={comment.id}>
+              <div className="avatar">
+                <img
+                  src={updateCreppyDefaultImage(comment.author.avatar ?? null)}
                   onClick={() => {
-                    commentService.thumbComment(comment.id).then((res) => {
-                      notifyDispatch(setSuccess("点赞成功"));
-                    });
+                    history.push(`/profile/${comment && comment.author.id}`);
                   }}
                   style={{ cursor: "pointer" }}
                 />
-                {}
               </div>
-            </div>
-            {comment.childrens.map((children: IComment) => {
-              return (
-                <div className="ui comments">
-                  <div className="comment">
-                    <div className="avatar">
-                      <img
-                        src={updateCreppyDefaultImage(
-                          children.author.avatar ?? null
-                        )}
-                        onClick={() => {
-                          history.push(
-                            `/profile/${children && children.author.id}`
-                          );
-                        }}
-                        style={{ cursor: "pointer" }}
-                      />
-                    </div>
-                    <div className="content">
+              <div className="content">
+                <a
+                  className="author"
+                  onClick={() => {
+                    history.push(`/profile/${comment && comment.author.id}`);
+                  }}
+                >
+                  {comment.author.nickname}
+                </a>
+                <div className="metadata">
+                  <div>{comment.createTime}</div>
+                </div>
+                <div className="text">
+                  <p>{comment.content}</p>
+                </div>
+                <div
+                  className="actions action"
+                  style={{ marginTop: "-0.5rem" }}
+                >
+                  <Modal
+                    closeIcon
+                    open={open}
+                    trigger={
                       <a
-                        className="author"
+                        className=""
+                        id={comment.id}
                         onClick={() => {
-                          history.push(
-                            `/profile/${children && children.author.id}`
-                          );
+                          setCommentId(comment.id);
+                          setCommentAId(comment.author.id);
                         }}
                       >
-                        {children.author.nickname}
+                        回复
                       </a>
-                      <div className="metadata">
-                        <div>{children.createTime}</div>
-                      </div>
-                      <div className="text">{children.content}</div>
-                      <div className="actions action">
-                        {/* <a className="">回复</a> */}
-                        <ThumbUpIcon
-                          sx={{ color: deepOrange[50] }}
+                    }
+                    onClose={() => setOpen(false)}
+                    onOpen={() => setOpen(true)}
+                  >
+                    <Header icon="archive" content={`回复`} />
+                    <Modal.Content>
+                      <Form>
+                        <TextArea
+                          placeholder="填写您的内容"
+                          value={content}
+                          onChange={(event: SyntheticEvent, data: object) => {
+                            handleContent(data);
+                          }}
+                        />
+                      </Form>
+                    </Modal.Content>
+                    <Modal.Actions>
+                      <Button color="red" onClick={() => setOpen(false)}>
+                        <Icon name="remove" /> 取消
+                      </Button>
+                      <Button
+                        color="green"
+                        onClick={async () => {
+                          commentService.sendComment(
+                            slug,
+                            content,
+                            authorId,
+                            commentId,
+                            commentAId
+                          );
+                          setOpen(false);
+                          await retrieveComments();
+                        }}
+                      >
+                        <Icon name="checkmark" /> 发送
+                      </Button>
+                    </Modal.Actions>
+                  </Modal>
+                  <ThumbUpIcon
+                    sx={{ color: deepOrange[50] }}
+                    onClick={() => {
+                      commentService.thumbComment(comment.id).then((res) => {
+                        notifyDispatch(setSuccess("点赞成功"));
+                      });
+                    }}
+                    style={{ cursor: "pointer", marginTop: "-0.5rem" }}
+                  />
+                  {}
+                </div>
+              </div>
+              {comment.childrens.map((children: IComment) => {
+                return (
+                  <div className="ui comments">
+                    <div className="comment">
+                      <div className="avatar">
+                        <img
+                          src={updateCreppyDefaultImage(
+                            children.author.avatar ?? null
+                          )}
                           onClick={() => {
-                            commentService
-                              .thumbComment(children.id)
-                              .then((res) => {
-                                notifyDispatch(setSuccess("点赞成功"));
-                              });
+                            history.push(
+                              `/profile/${children && children.author.id}`
+                            );
                           }}
                           style={{ cursor: "pointer" }}
                         />
-                        {}
+                      </div>
+                      <div className="content">
+                        <a
+                          className="author"
+                          onClick={() => {
+                            history.push(
+                              `/profile/${children && children.author.id}`
+                            );
+                          }}
+                        >
+                          {children.author.nickname}
+                        </a>
+                        <div className="metadata">
+                          <div>{children.createTime}</div>
+                        </div>
+                        <div className="text">{children.content}</div>
+                        <div className="actions action">
+                          {/* <a className="">回复</a> */}
+                          <ThumbUpIcon
+                            sx={{ color: deepOrange[50] }}
+                            onClick={() => {
+                              commentService
+                                .thumbComment(children.id)
+                                .then((res) => {
+                                  notifyDispatch(setSuccess("点赞成功"));
+                                });
+                            }}
+                            style={{ cursor: "pointer", marginTop: "-0.5rem" }}
+                          />
+                          {}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
-        );
-      })}
+                );
+              })}
+            </div>
+          );
+        })}
+      </div>
 
       {/* <div className="comment">
         <div className="avatar">

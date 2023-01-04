@@ -38,15 +38,15 @@ const MyPM = () => {
     history.push(`/article/${e.target.id}`);
   };
   const retrieveCheck = async () => {
-    const res = await articleService.getCheckArticle({
-      page: currentPage,
-    });
+    // const res = await articleService.getCheckArticle({
+    //   page: currentPage,
+    // });
 
     // const res1 = await profileService.msgList(userInfo && userInfo.id);
     const res2 = await profileService.msgAuthorList();
 
-    setArticleList(res.data.data.voList);
-    setArticleCount(res.data.data.total);
+    // setArticleList(res.data.data.voList);
+    // setArticleCount(res.data.data.total);
     // setArticleList1(res1.data.data.userMessage);
     setAuthors(res2.data.data.userLetter);
   };
@@ -160,7 +160,7 @@ const MyPM = () => {
                   ) : (
                     <></>
                   )}
-                  <Modal.Description>
+                  <Modal.Description style={{ minWidth: "40rem" }}>
                     {articleList1.map((art) => {
                       return (
                         <p>

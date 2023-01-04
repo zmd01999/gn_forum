@@ -42,7 +42,7 @@ export const MsgPC = () => {
 
   return (
     <div>
-      <Header profile={profile}></Header>
+      <Header profile={profile} isMsg={true}></Header>
 
       <Container maxWidth="xl">
         {profile ? <MsgTab profile={profile}></MsgTab> : <></>}

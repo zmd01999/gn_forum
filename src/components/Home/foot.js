@@ -53,7 +53,7 @@ export default () => {
               <YoutubeIcon />
             </SocialLink>
           </SocialLinksContainer> */}
-          <CopyrightText>
+          <CopyrightText style={{marginTop:"-4rem"}}>
             &copy; Copyright 2022, 趣代码世界. All Rights Reserved.<br/>
             皖ICP备2022015871号<br/>
             皖公网安备 34019202002006号

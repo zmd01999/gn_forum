@@ -41,7 +41,7 @@ export const Profile = () => {
 
   return (
     <div>
-      <Header profile={profile}></Header>
+      <Header profile={profile} isMsg={false}></Header>
 
       <Container maxWidth="xl">
         {profile ? <ProfileTab profile={profile}></ProfileTab> : <></>}

@@ -230,7 +230,6 @@ const TabAccount = () => {
               </Box>
             </Box>
             <TextField
-              disabled
               fullWidth
               label="用户名"
               placeholder="johnDoe"

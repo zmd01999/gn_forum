@@ -43,7 +43,8 @@ export default ({
   secondaryLinkText = "",
   secondaryLinkUrl = "",
   pushDownFooter = true,
-  profile
+  profile,
+  isMsg
 }) => {
   const username = "aaaaaa";
   const { user } = useSelector(
@@ -92,7 +93,7 @@ export default ({
                   <div className="flex flex-col  space-y-4">
                   <span className="text-2xl font-semibold text-black">
                           {profile&&profile.nickname}
-                          <Modal
+                          {isMsg ? <></>:(<><Modal
             closeIcon
             open={open}
             trigger={<Icon name="comment" style={{marginLeft:"2rem",cursor:"pointer"}} ></Icon>
@@ -117,6 +118,12 @@ export default ({
                 color="green"
                 onClick={() => {
                   if(content.length == 0) return ;
+                  if(!userInfo) {
+                    notifyDiapatch(
+                      setSuccess(`请先登录`)
+                    );
+                    return ;
+                  }
                   profileService
                     .sendMsg({
                       toUserId: profile.id,
@@ -142,6 +149,12 @@ export default ({
           </Modal>
                <Icon name={isF?"minus":"plus"} style={{marginLeft:"0.5rem",cursor:"pointer"}} onClick={async()=>{
                 let res;
+                if(!userInfo) {
+                  notifyDiapatch(
+                    setSuccess(`请先登录`)
+                  );
+                  return ;
+                }
                         if (isF) {
                           res = await profileService.unfollowUser(profile&&profile.id);
                         } else {
@@ -151,7 +164,7 @@ export default ({
                           setIsF(!isF);
                         }
 
-               }}></Icon>
+               }}></Icon></>)}
                         </span>
                   <span className="text-sm text-gray-700" 
                   onClick={()=>{

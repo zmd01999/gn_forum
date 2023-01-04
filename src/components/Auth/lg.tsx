@@ -221,7 +221,7 @@ const LoginPage = () => {
     <Box
       className="content-center"
       sx={{ mx: "auto", my: "2" }}
-      style={{ marginTop: "3rem", marginBottom: "-17rem" }}
+      style={{ marginTop: "3rem", marginBottom: "-7rem" }}
     >
       <Card sx={{ zIndex: 1, mx: "auto" }}>
         <CardContent

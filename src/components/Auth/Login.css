@@ -57,21 +57,24 @@
 
 
 .coverBL {
-  height: 10rem;
+  height: 5.5rem;
   width: 20rem;
   margin: auto;
-  position: relative;
-  bottom: -0.6rem;
+  bottom: 6rem;
   background-color: white;
   z-index: 1;
+  position: absolute;
+  left: 55rem;
 }
 
 .coverBR {
-  height: 10rem;
+  height: 5.5rem;
   width: 20rem;
   margin: auto;
-  position: relative;
+  position: absolute;
   bottom: -1rem;
   background-color: white;
   z-index: 1;
+  left: 55rem;
+  bottom: 6rem;
 }

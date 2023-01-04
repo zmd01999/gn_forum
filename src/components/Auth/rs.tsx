@@ -89,7 +89,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <Box className="content-center" style={{ marginBottom: "-16rem" }}>
+    <Box className="content-center" style={{ marginBottom: "-6rem" }}>
       <Card sx={{ zIndex: 1, mx: "auto" }}>
         <CardContent
           sx={{ padding: (theme) => `${theme.spacing(2, 3, 2)} !important` }}
