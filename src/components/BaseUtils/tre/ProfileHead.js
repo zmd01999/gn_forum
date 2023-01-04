@@ -155,11 +155,11 @@ export default ({
                         </span>
                   <span className="text-sm text-gray-700" 
                   onClick={()=>{
-                                              copy(`http://funcodeworld.com/profile/${profile&&profile.id}`);
+                                              copy(`https://www.funcodeworld.com/profile/${profile&&profile.id}`);
                                               notifyDiapatch(
                                                 setSuccess(`该链接已复制到粘贴板`)
                                               );
-                  }} style={{cursor:"pointer",fontWeight:"500"}}>{`http://funcodeworld.com/profile/${profile&&profile.id}`}</span>
+                  }} style={{cursor:"pointer",fontWeight:"500"}}>{`https://www.funcodeworld.com/profile/${profile&&profile.id}`}</span>
                   <div className="flex flex-row text-sm text-gray-700" style={{fontWeight:"500"}}>
                     <div>{`发帖:${profile&&profile.articleNum} |`}</div>
                     <div>{`作品:${profile&&profile.projectNum} |`}</div>
