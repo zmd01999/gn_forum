@@ -75,8 +75,11 @@ function a11yProps(index: number) {
     "aria-controls": `vertical-tabpanel-${index}`,
   };
 }
-
-export default function MyArticle() {
+interface Props {
+  setTabV: Dispatch<SetStateAction<number>>;
+  V: number;
+}
+export default function MyArticle({ V, setTabV }: Props) {
   const [value, setValue] = React.useState(0);
   const { username } = useParams<routeProps>();
 
@@ -120,7 +123,7 @@ export default function MyArticle() {
 
   const retrieveArticles = async () => {
     let res;
-    switch (value) {
+    switch (V) {
       case 1:
         res = await retrievePublishedArticle();
         setArticleList(res.data.data.voList);
@@ -163,7 +166,7 @@ export default function MyArticle() {
 
   const retrieveProjects = async () => {
     let res;
-    switch (value) {
+    switch (V) {
       case 0:
         res = await retrievePublishedProject();
         setProjectList(res.data.data.voList);
@@ -193,7 +196,7 @@ export default function MyArticle() {
   const retrieveFollows = async () => {
     let res;
     let res1;
-    switch (value) {
+    switch (V) {
       case 4:
         res = await retrieveFans();
         res1 = await retrieveFollow();
@@ -220,10 +223,11 @@ export default function MyArticle() {
     };
     loadAllData();
     window.scrollTo(0, 0);
-  }, [currentPage, value]);
+  }, [currentPage, value, V]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+    // setValue(newValue);
+    setTabV(newValue);
   };
 
   return (
@@ -240,7 +244,7 @@ export default function MyArticle() {
         <Tabs
           orientation="vertical"
           variant="scrollable"
-          value={value}
+          value={V}
           onChange={handleChange}
           aria-label="Vertical tabs example"
           sx={{ borderRight: 1, borderColor: "divider", fontSize: 16 }}
@@ -288,7 +292,7 @@ export default function MyArticle() {
           />
         </Tabs>
         <div className="">
-          <TabPanel value={value} index={0}>
+          <TabPanel value={V} index={0}>
             <div
               style={{
                 width: "80rem",
@@ -313,7 +317,7 @@ export default function MyArticle() {
               </div>
             </Fragment> */}
           </TabPanel>
-          <TabPanel value={value} index={1}>
+          <TabPanel value={V} index={1}>
             <div
               style={{
                 width: "75rem",
@@ -329,7 +333,7 @@ export default function MyArticle() {
               ></ATable>
             </div>
           </TabPanel>
-          <TabPanel value={value} index={2}>
+          <TabPanel value={V} index={2}>
             <div
               style={{
                 width: "80rem",
@@ -340,7 +344,7 @@ export default function MyArticle() {
               <WorkMine project={projectList}></WorkMine>
             </div>
           </TabPanel>
-          <TabPanel value={value} index={3}>
+          <TabPanel value={V} index={3}>
             <div
               style={{
                 width: "75rem",
@@ -356,25 +360,25 @@ export default function MyArticle() {
               ></ATable>
             </div>
           </TabPanel>
-          <TabPanel value={value} index={4}>
+          <TabPanel value={V} index={4}>
             <div style={{ marginLeft: "2.5rem" }}>
               <MyFollow></MyFollow>
             </div>
           </TabPanel>
-          <TabPanel value={value} index={5}>
+          <TabPanel value={V} index={5}>
             {" "}
             <div style={{ marginLeft: "2.5rem" }}>
               {" "}
               <MyFans />
             </div>
           </TabPanel>
-          <TabPanel value={value} index={6}>
+          <TabPanel value={V} index={6}>
             {" "}
             <div style={{ marginLeft: "2.5rem" }}>
               <TabAccount></TabAccount>
             </div>
           </TabPanel>
-          <TabPanel value={value} index={7}>
+          <TabPanel value={V} index={7}>
             <MyHelp></MyHelp>
           </TabPanel>
         </div>

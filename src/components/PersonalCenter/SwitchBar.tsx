@@ -130,7 +130,7 @@ export default function SwitchBar() {
         </Box>
         <TabPanel value={value} index={0}>
           {/* <Profile isPc={p}></Profile> */}
-          <MyArticle></MyArticle>
+          {/* <MyArticle></MyArticle> */}
         </TabPanel>
         <TabPanel value={value} index={1}>
           <MyWork />

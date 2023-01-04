@@ -40,7 +40,8 @@ export default ({
   primaryLinkUrl = "",
   secondaryLinkText = "",
   secondaryLinkUrl = "",
-  pushDownFooter = true
+  pushDownFooter = true,
+  setTabV
 }) => {
   const username = "aaaaaa";
   const { user } = useSelector(
@@ -81,9 +82,9 @@ export default ({
                                               );
                   }} style={{cursor:"pointer",fontWeight:"500"}}>{`http://funcodeworld.com/profile/${userInfo.id}`}</span>
                   <div className="flex flex-row text-sm text-gray-700" style={{fontWeight:"500"}}>
-                    <div>{`发帖:${userInfo.articleNum} |`}</div>
-                    <div>{`作品:${userInfo.projectNum} |`}</div>
-                    <div>{`粉丝:${userInfo.fans} `}</div>
+                    <div style={{cursor:"pointer"}} onClick={()=>{setTabV(1)}}>{`发帖:${userInfo.articleNum} |`}</div>
+                    <div style={{cursor:"pointer"}} onClick={()=>{setTabV(0)}}>{`作品:${userInfo.projectNum} |`}</div>
+                    <div style={{cursor:"pointer"}} onClick={()=>{setTabV(5)}}>{`粉丝:${userInfo.fans} `}</div>
                   </div>
                 </div>
 

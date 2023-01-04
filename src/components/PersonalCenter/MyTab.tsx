@@ -19,6 +19,7 @@ import MySetting from "./MySetting";
 import MyMessage from "./MyMessage";
 import { MyHelp } from "./MyHelp";
 import { MyFollow } from "./MyFollow";
+import { Dispatch, SetStateAction } from "react";
 // import { Tab } from "semantic-ui-react";
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -67,8 +68,12 @@ function a11yProps(index: number) {
 //     render: () => <Tab.Pane attached={false}>Tab 3 Content</Tab.Pane>,
 //   },
 // ];
+interface Props {
+  setTabV: Dispatch<SetStateAction<number>>;
+  V: number;
+}
 
-export default function MyTab() {
+export default function MyTab({ setTabV, V }: Props) {
   const [value, setValue] = React.useState(0);
   const p: boolean = true;
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -143,7 +148,7 @@ export default function MyTab() {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          <MyArticle></MyArticle>
+          <MyArticle V={V} setTabV={setTabV}></MyArticle>
         </TabPanel>
         <TabPanel value={value} index={1}>
           <MyWork />

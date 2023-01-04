@@ -17,7 +17,7 @@ import MyTab from "./MyTab";
 
 export const PersonalCenter = () => {
   const profileService = useProfileService();
-
+  const [tabV, setTabV] = useState(0);
   useEffect(() => {
     const retrieve = async () => {
       const user: any = getLocalStorage("userInfo");
@@ -32,11 +32,11 @@ export const PersonalCenter = () => {
 
   return (
     <div>
-      <Header></Header>
+      <Header setTabV={setTabV}></Header>
 
       <Container maxWidth="xl">
         {/* <SwitchBar></SwitchBar> */}
-        <MyTab></MyTab>
+        <MyTab V={tabV} setTabV={setTabV}></MyTab>
       </Container>
     </div>
   );
