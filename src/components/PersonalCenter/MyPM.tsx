@@ -168,7 +168,7 @@ const MyPM = () => {
                             <Icon name="inbox" />
                             <Message.Content
                               id={art.id}
-                              onClick={(e: any) => gotoArticle(e)}
+                              // onClick={(e: any) => gotoArticle(e)}
                             >
                               {/* <Message.Header id={art.id}>
                                 {"我的私信"}

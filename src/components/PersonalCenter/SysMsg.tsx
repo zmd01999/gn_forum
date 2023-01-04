@@ -26,14 +26,9 @@ const SysMsg = () => {
     history.push(`/article/${e.target.id}`);
   };
   const retrieveCheck = async () => {
-    const res = await articleService.getCheckArticle({
-      page: currentPage,
-    });
+    const res1 = await profileService.msgSys();
 
-    const res1 = await profileService.msgList(userInfo && userInfo.id);
-
-    setArticleList(res.data.data.voList);
-    setArticleCount(res.data.data.total);
+    // console.log(res1.data.data.userMessage);
     setArticleList1(res1.data.data.userMessage);
   };
 
@@ -48,7 +43,7 @@ const SysMsg = () => {
   }, [currentPage]);
   return (
     <>
-      {true ? (
+      {articleList1.length == 0 ? (
         <div className="msgSelector">
           <Message positive>
             <Message.Header>您目前没有消息</Message.Header>
@@ -79,9 +74,9 @@ const SysMsg = () => {
                 <Icon name="inbox" />
                 <Message.Content
                   id={art.id}
-                  onClick={(e: any) => gotoArticle(e)}
+                  // onClick={(e: any) => gotoArticle(e)}
                 >
-                  <Message.Header id={art.id}>{"我的私信"}</Message.Header>
+                  <Message.Header id={art.id}>{"系统消息"}</Message.Header>
                   {`${art.content.substring(0, 64)}...`}
                   <Label id={art.id} color="teal" className="float-right">
                     {art.createTime}

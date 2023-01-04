@@ -341,6 +341,11 @@ const TabAccount = () => {
                                     setError("请填写正确的手机号")
                                   );
                                   return true;
+                                } else if (values.phone != userInfo.phone) {
+                                  notifyDispatch(
+                                    setError("请填写自己的手机号")
+                                  );
+                                  return true;
                                 }
                                 return authService.verifyCode(values.phone);
                               }}
@@ -428,6 +433,10 @@ const TabAccount = () => {
                 onClick={() => {
                   if (values.confirmNewPassword != values.newPassword) {
                     notifyDispatch(setError("两次密码不一致"));
+                    return;
+                  }
+                  if (values.phone != userInfo.phone) {
+                    notifyDispatch(setError("请填写自己的手机号"));
                     return;
                   }
                   return authService

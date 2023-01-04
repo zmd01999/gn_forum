@@ -30,11 +30,8 @@ const MyMessage = () => {
       page: currentPage,
     });
 
-    const res1 = await profileService.msgList(userInfo && userInfo.id);
-
     setArticleList(res.data.data.voList);
     setArticleCount(res.data.data.total);
-    setArticleList1(res1.data.data.userMessage);
   };
 
   useEffect(() => {
