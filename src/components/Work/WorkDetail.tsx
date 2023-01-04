@@ -11,6 +11,7 @@ import {
   Grid,
   Icon,
   Label,
+  Modal,
   Popup,
   TextArea,
 } from "semantic-ui-react";
@@ -58,6 +59,7 @@ export const WorkDetail = () => {
 
   const [singleProject, setSingleProject] = useState<IProject>();
   const [hotProject, setHotProject] = useState<IProject[]>();
+  const [open1, setOpen1] = React.useState(false);
 
   const [isF, setIsF] = useState<boolean>();
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -169,8 +171,17 @@ export const WorkDetail = () => {
                 singleProject?.author.avatar ?? null
               )}
               sx={{ width: 30, height: 30, border: 1 }}
+              onClick={() => {
+                history.push(`/profile/${singleProject?.author.id}`);
+              }}
+              style={{ cursor: "pointer" }}
             />
-            <div style={{ marginLeft: "1rem" }}>
+            <div
+              style={{ marginLeft: "1rem", cursor: "pointer" }}
+              onClick={() => {
+                history.push(`/profile/${singleProject?.author.id}`);
+              }}
+            >
               {singleProject?.author.nickname}
             </div>
             <div>
@@ -194,18 +205,45 @@ export const WorkDetail = () => {
                 basic
                 content="删除作品"
                 trigger={
-                  <Button
-                    size="mini"
-                    color={"grey"}
-                    icon="trash"
-                    onClick={() => {
-                      if (userInfo.administrators == 2) {
-                        handleDeleteSysArticle(singleProject.author.id);
-                      } else {
-                        handleDeleteArticle();
-                      }
-                    }}
-                  />
+                  <Modal
+                    closeIcon
+                    open={open1}
+                    trigger={
+                      <Button
+                        size="small"
+                        color={"grey"}
+                        icon="trash"
+                        style={{ marginLeft: "1rem" }}
+                        onClick={() => {}}
+                      />
+                    }
+                    onClose={() => setOpen1(false)}
+                    onOpen={() => setOpen1(true)}
+                  >
+                    <Modal.Header icon="archive" content="删除" />
+                    <Modal.Content>
+                      <p>确定删除吗？</p>
+                    </Modal.Content>
+                    <Modal.Actions>
+                      <Button color="green" onClick={() => setOpen1(false)}>
+                        <Icon name="remove" /> 否
+                      </Button>
+                      <Button
+                        color="red"
+                        onClick={() => {
+                          if (userInfo.administrators == 2) {
+                            handleDeleteSysArticle(singleProject.author.id);
+                          } else {
+                            handleDeleteArticle();
+                          }
+
+                          setOpen1(false);
+                        }}
+                      >
+                        <Icon name="checkmark" />是
+                      </Button>
+                    </Modal.Actions>
+                  </Modal>
                 }
               />
             ) : (
@@ -392,9 +430,11 @@ export const WorkDetail = () => {
             <div className="intro">
               <div className="flex mt-10">
                 {singleProject?.tagName?.split(",").map((tag) => {
-                  <a className="ui basic label1 ">{tag}</a>;
+                  <a className="ui basic label1 " style={{ cursor: "pointer" }}>
+                    {tag}
+                  </a>;
                 })}
-                <a className="ui basic label1 ">
+                <a className="ui basic label1 " style={{ cursor: "pointer" }}>
                   {singleProject.category.name}
                 </a>
                 {/* <a className="ui basic label1 ">MC</a> */}

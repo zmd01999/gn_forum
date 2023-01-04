@@ -33,6 +33,12 @@ ui.blue.button, .ui.blue.buttons .button {
     border-right-width: 1.5px !important;
     border-bottom-width: 1.5px !important;
 }
+.border-card2 {
+    border-left-width: 1.5px !important; 
+    border-right-width: 1.5px !important;
+    border-bottom-width: 1.5px !important;
+    border-color: transparent !important;
+}
 
 .colorL1 {
     color: rgb(255 242 204);

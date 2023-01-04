@@ -82,9 +82,9 @@ const MyMessage = () => {
                   onClick={(e: any) => gotoArticle(e)}
                 >
                   <Message.Header id={art.id}>{art.title}</Message.Header>
-                  {`${art.body.content.substring(0, 64)}...`}
+                  {`${art.body.content}`}
                   <Label id={art.id} color="teal" className="float-right">
-                    共{art.noCheck ?? 22}条回复未读
+                    共{art.noCheck ?? 1}条回复未读
                   </Label>
                 </Message.Content>
               </Message>

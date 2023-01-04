@@ -248,10 +248,25 @@ export const Comment = ({ slug, authorId }: IProps) => {
                         src={updateCreppyDefaultImage(
                           children.author.avatar ?? null
                         )}
+                        onClick={() => {
+                          history.push(
+                            `/profile/${children && children.author.id}`
+                          );
+                        }}
+                        style={{ cursor: "pointer" }}
                       />
                     </div>
                     <div className="content">
-                      <a className="author">{children.author.nickname}</a>
+                      <a
+                        className="author"
+                        onClick={() => {
+                          history.push(
+                            `/profile/${children && children.author.id}`
+                          );
+                        }}
+                      >
+                        {children.author.nickname}
+                      </a>
                       <div className="metadata">
                         <div>{children.createTime}</div>
                       </div>

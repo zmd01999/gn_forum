@@ -62,6 +62,8 @@ export const NewAView = () => {
   const { isAuthenticated } = useSelector((state: AppState) => state.auth);
   const userInfo: any = getLocalStorage("userInfo");
   const [open, setOpen] = React.useState(false);
+  const [open1, setOpen1] = React.useState(false);
+
   const [content, setContent] = useState("");
   const [commentId, setCommentId] = useState("");
   const [commentAId, setCommentAId] = useState("");
@@ -127,42 +129,61 @@ export const NewAView = () => {
           <div className="flex flex-row space-x-8">
             <div className="text-center text-3xl my-auto">
               {singleArticle.title}
-            </div>
-
-            <div className="my-8">
               {(isAuthenticated &&
                 ((userInfo && userInfo.id) || "游客") ===
                   singleArticle.author.id) ||
               (userInfo && userInfo.administrators == 2) ? (
-                <Fragment>
-                  {/* <Link to={`/article/edit/${slug}`}>
                 <Popup
-                  content="编辑文章"
-                  trigger={<Button size="mini" color={"green"} icon="pencil" />}
+                  basic
+                  content="删除文章"
+                  trigger={
+                    <Modal
+                      closeIcon
+                      open={open1}
+                      trigger={
+                        <Button
+                          size="small"
+                          color={"grey"}
+                          icon="trash"
+                          style={{ marginLeft: "1rem" }}
+                          onClick={() => {}}
+                        />
+                      }
+                      onClose={() => setOpen1(false)}
+                      onOpen={() => setOpen1(true)}
+                    >
+                      <Modal.Header icon="archive" content="删除" />
+                      <Modal.Content>
+                        <p>确定删除吗？</p>
+                      </Modal.Content>
+                      <Modal.Actions>
+                        <Button color="green" onClick={() => setOpen1(false)}>
+                          <Icon name="remove" /> 否
+                        </Button>
+                        <Button
+                          color="red"
+                          onClick={() => {
+                            if (userInfo.administrators == 2) {
+                              handleDeleteSysArticle(singleArticle.author.id);
+                            } else {
+                              handleDeleteArticle();
+                            }
+
+                            setOpen1(false);
+                          }}
+                        >
+                          <Icon name="checkmark" />是
+                        </Button>
+                      </Modal.Actions>
+                    </Modal>
+                  }
                 />
-              </Link> */}
-                  <Popup
-                    basic
-                    content="删除文章"
-                    trigger={
-                      <Button
-                        size="mini"
-                        color={"grey"}
-                        icon="trash"
-                        onClick={() => {
-                          if (userInfo.administrators == 2) {
-                            handleDeleteSysArticle(singleArticle.author.id);
-                          } else {
-                            handleDeleteArticle();
-                          }
-                        }}
-                      />
-                    }
-                  />
-                </Fragment>
               ) : (
                 <></>
               )}
+            </div>
+
+            <div className="my-8">
               {((userInfo && userInfo.id) || "游客") !==
               singleArticle.author.id ? (
                 <div>

@@ -104,8 +104,8 @@ export default ({
   
           {project&&project.map((post, index) => (
                 <PostContainer key={index} featured={post.featured}>
-                <Post className="group" as="a" href={`/work/${post.id}`}>
-                  <div className="h-32 w-full border-card border-gray-900  rounded-t-3xl">
+                <Post className="group" as="a" href={`/work/${post.id}`} style={{borderRadius:"1rem"}}>
+                  <div className="h-32 w-full border-gray-900  rounded-t-3xl">
                     <div className="m-6 border-2 border-gray-900 rounded-3xl" style={{    borderColor: "transparent",marginLeft:"1.7rem",marginTop:"1rem"
 }}>
                     <Image imageSrc={`https://${post.avatar}`} style={{height:"6rem",width:"8.8rem",marginLeft:"-0.5rem"}}/>
@@ -114,7 +114,7 @@ export default ({
 
 
                   </div>
-                  <Info style={{paddingBottom:"0.5rem",paddingTop:"0.2rem",paddingLeft:"1rem",paddingRight:"0.5rem"}} className="border-card1">
+                  <Info style={{paddingBottom:"0.5rem",paddingTop:"0.2rem",paddingLeft:"1rem",paddingRight:"0.5rem"}} className="border-card2">
                     <div className="flex flex-row space-x-2">
                     <Button
                         size="tiny"
