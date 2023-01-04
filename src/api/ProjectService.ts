@@ -60,5 +60,11 @@ export class ProjectService {
   public deleteSysProject(slug: string,toUserId:string) {
     return this.api.post(`systemRole/delete`,{id:slug,toUserId:toUserId});
   }
+
+  public batchUpdate(paras:{fileFirst:FormData, fileSecond:FormData,fileThird:FormData}) {
+    
+    return this.api.post(`project/batchUpload`,{fileFirst:paras.fileFirst,fileSecond:paras.fileSecond,fileThird:paras.fileThird});
+
+  }
   
   }

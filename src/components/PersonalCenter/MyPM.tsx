@@ -62,7 +62,7 @@ const MyPM = () => {
   }, [currentPage]);
   return (
     <>
-      {authors.length == 0 ? (
+      {authors && authors.length == 0 ? (
         <div className="msgSelector">
           <Message positive>
             <Message.Header>您目前没有消息</Message.Header>
@@ -125,7 +125,7 @@ const MyPM = () => {
                             className="text-2xl font-semibold text-black"
                             style={{ marginLeft: "1rem" }}
                           >
-                            {user.nickname.length > 8
+                            {user && user.nickname && user.nickname.length > 8
                               ? user.nickname.substring(0, 7) + "..."
                               : user.nickname}{" "}
                           </span>

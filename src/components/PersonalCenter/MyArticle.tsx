@@ -295,7 +295,7 @@ export default function MyArticle({ V, setTabV }: Props) {
           />
           {userInfo && userInfo.administrators == 2 ? (
             <Tab
-              label="转HTML工具"
+              label="文章批量"
               {...a11yProps(8)}
               sx={{ fontSize: 16, fontWeight: "600", color: "black" }}
             />
@@ -305,17 +305,8 @@ export default function MyArticle({ V, setTabV }: Props) {
 
           {userInfo && userInfo.administrators == 2 ? (
             <Tab
-              label="文章批量"
-              {...a11yProps(9)}
-              sx={{ fontSize: 16, fontWeight: "600", color: "black" }}
-            />
-          ) : (
-            <></>
-          )}
-          {userInfo && userInfo.administrators == 2 ? (
-            <Tab
               label="作品批量"
-              {...a11yProps(10)}
+              {...a11yProps(9)}
               sx={{ fontSize: 16, fontWeight: "600", color: "black" }}
             />
           ) : (
@@ -408,13 +399,6 @@ export default function MyArticle({ V, setTabV }: Props) {
           )}
           {userInfo && userInfo.administrators == 2 ? (
             <TabPanel value={V} index={9}>
-              <AllUpArticle></AllUpArticle>
-            </TabPanel>
-          ) : (
-            <></>
-          )}
-          {userInfo && userInfo.administrators == 2 ? (
-            <TabPanel value={V} index={10}>
               <AllUpWork></AllUpWork>
             </TabPanel>
           ) : (
