@@ -167,6 +167,14 @@ const TabAccount = () => {
     event.preventDefault();
   };
 
+  const getDateGap = () => {
+    var t1 = userInfo.updateName;
+    var dateBegin = new Date(t1.replace(/-/g, "/"));
+    const now = new Date();
+    var dateDiff = now.getTime() - dateBegin.getTime(); //时间差的毫秒数
+    var dayDiff = Math.floor(dateDiff / (24 * 3600 * 1000)); //计算出相差天数
+    return dayDiff;
+  };
   // Handle New Password
   const handleNewPasswordChange =
     (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
@@ -233,11 +241,16 @@ const TabAccount = () => {
               </Box>
             </Box>
             <TextField
+              disabled={getDateGap() > 30 ? false : true}
               fullWidth
               label="用户名"
               placeholder="johnDoe"
               onChange={handleChange("nickname")}
-              value={form.nickname}
+              value={
+                getDateGap() > 30
+                  ? form.nickname
+                  : form.nickname + "     60天修改一次"
+              }
               style={{ marginBottom: "2rem", marginTop: "3rem" }}
             />
             <TextField
