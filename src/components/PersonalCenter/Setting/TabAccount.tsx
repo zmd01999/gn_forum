@@ -6,6 +6,7 @@ import {
   SyntheticEvent,
   Dispatch,
   MouseEvent,
+  useEffect,
 } from "react";
 
 // ** MUI Imports
@@ -33,7 +34,7 @@ import { useSelector, useDispatch } from "react-redux";
 // ** Icons Imports
 import Close from "mdi-material-ui/Close";
 import { AppState } from "src/redux/store";
-import { updateCreppyDefaultImage } from "src/utils";
+import { getLocalStorage, updateCreppyDefaultImage } from "src/utils";
 import EyeOutline from "mdi-material-ui/EyeOutline";
 import KeyOutline from "mdi-material-ui/KeyOutline";
 import EyeOffOutline from "mdi-material-ui/EyeOffOutline";
@@ -88,11 +89,12 @@ const TabAccount = () => {
 
   const profileService = useProfileService();
   const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
-  const { id, userInfo } = useSelector((state: AppState) => state.auth);
+  const { id } = useSelector((state: AppState) => state.auth);
+  const userInfo: any = getLocalStorage("userInfo");
+
   const [imgSrc, setImgSrc] = useState<string>(
     updateCreppyDefaultImage(userInfo.avatar)
   );
-
   const [form, setForm] = useState<IUserInfo>({
     id: userInfo.id,
     realName: userInfo.realName == null ? "实名认证" : userInfo.realName,
@@ -194,6 +196,7 @@ const TabAccount = () => {
     event.preventDefault();
   };
 
+  useEffect(() => {}, []);
   const authService = useAuthService();
   return (
     <div className="flex flex-row" style={{ width: "75rem" }}>
@@ -233,6 +236,7 @@ const TabAccount = () => {
               fullWidth
               label="用户名"
               placeholder="johnDoe"
+              onChange={handleChange("nickname")}
               value={form.nickname}
               style={{ marginBottom: "2rem", marginTop: "3rem" }}
             />

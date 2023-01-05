@@ -25,10 +25,11 @@ export const PersonalCenter = () => {
         const id = user.id;
         const res = await profileService.getUser(id);
         setLocalStorage("userInfo", res.data);
+        console.log(user.introduction);
       }
     };
     retrieve();
-  }, []);
+  }, [tabV]);
 
   return (
     <div>

@@ -19,7 +19,7 @@ export class CommentService {
   }
 
   public getComments(slug: string) {
-    return this.api.get(`comments/article/${slug}`);
+    return this.api.get(`comments/article?id=${slug}&userId=`);
   }
 
   public deleteComment(slug: string, id: string) {
@@ -28,5 +28,8 @@ export class CommentService {
 
   public thumbComment(slug: string) {
     return this.api.post("comments/thumbComment",{id:slug})
+  }
+  public thumbPop(slug: string) {
+    return this.api.post("comments/popThumb",{id:slug})
   }
 }

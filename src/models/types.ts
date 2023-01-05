@@ -207,6 +207,7 @@ export interface IComment {
   toUser:string;
   body: string;
   author: IUserInfo;
+  isThumbs?:number;
 }
 
 export interface IJWTPayload {

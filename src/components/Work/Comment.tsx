@@ -130,23 +130,6 @@ export const Comment = ({ slug, authorId }: IProps) => {
       </div>
 
       <h3 className="ui  header">全部评论</h3>
-      {/* <div className="comment">
-        <div className="avatar">
-          <img src={updateCreppyDefaultImage(null)} />
-        </div>
-        <div className="content">
-          <a className="author">Jamms</a>
-          <div className="metadata">
-            <div>2022-12-11 5:42</div>
-          </div>
-          <div className="text">好玩</div>
-          <div className="actions action">
-            <a className="">回复</a>
-            <ThumbUpIcon sx={{ color: deepOrange[50] }} />
-            {}
-          </div>
-        </div>
-      </div> */}
       <div style={{}}>
         {comments.map((comment) => {
           return (
@@ -233,11 +216,23 @@ export const Comment = ({ slug, authorId }: IProps) => {
                     </Modal.Actions>
                   </Modal>
                   <ThumbUpIcon
-                    sx={{ color: deepOrange[50] }}
+                    sx={
+                      comment.isThumbs == 0
+                        ? { color: deepOrange[50] }
+                        : { color: deepOrange[900] }
+                    }
                     onClick={() => {
-                      commentService.thumbComment(comment.id).then((res) => {
-                        notifyDispatch(setSuccess("点赞成功"));
-                      });
+                      if (comment.isThumbs == 0) {
+                        commentService.thumbComment(comment.id).then((res) => {
+                          notifyDispatch(setSuccess("点赞成功"));
+                          retrieveComments();
+                        });
+                      } else {
+                        commentService.thumbPop(comment.id).then((res) => {
+                          notifyDispatch(setSuccess("取消点赞"));
+                          retrieveComments();
+                        });
+                      }
                     }}
                     style={{ cursor: "pointer", marginTop: "-0.5rem" }}
                   />
@@ -279,13 +274,27 @@ export const Comment = ({ slug, authorId }: IProps) => {
                         <div className="actions action">
                           {/* <a className="">回复</a> */}
                           <ThumbUpIcon
-                            sx={{ color: deepOrange[50] }}
+                            sx={
+                              children.isThumbs == 0
+                                ? { color: deepOrange[50] }
+                                : { color: deepOrange[900] }
+                            }
                             onClick={() => {
-                              commentService
-                                .thumbComment(children.id)
-                                .then((res) => {
-                                  notifyDispatch(setSuccess("点赞成功"));
-                                });
+                              if (children.isThumbs == 0) {
+                                commentService
+                                  .thumbComment(children.id)
+                                  .then((res) => {
+                                    notifyDispatch(setSuccess("点赞成功"));
+                                    retrieveComments();
+                                  });
+                              } else {
+                                commentService
+                                  .thumbPop(children.id)
+                                  .then((res) => {
+                                    notifyDispatch(setSuccess("取消点赞"));
+                                    retrieveComments();
+                                  });
+                              }
                             }}
                             style={{ cursor: "pointer", marginTop: "-1.5rem" }}
                           />
@@ -300,24 +309,6 @@ export const Comment = ({ slug, authorId }: IProps) => {
           );
         })}
       </div>
-
-      {/* <div className="comment">
-        <div className="avatar">
-          <img src={updateCreppyDefaultImage(null)} />
-        </div>
-        <div className="content">
-          <a className="author">Joe Henderson</a>
-          <div className="metadata">
-            <div>2022-12-11 5:42</div>
-          </div>
-          <div className="text">哈哈哈哈哈哈哈</div>
-          <div className="actions action">
-            <a className="">回复</a>
-            <ThumbUpIcon sx={{ color: deepOrange[50] }} />
-            {}
-          </div>
-        </div>
-      </div> */}
     </div>
   );
 };
