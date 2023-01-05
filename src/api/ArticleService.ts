@@ -145,5 +145,12 @@ export class ArticleService {
     return this.api.post("article/report", {articleId:paras.articleId,content:paras.content})
 
   }
+  public batchUpdate(paras:{fileFirst:any}) {
+    
+    // return this.api.post(`project/batchUpload`,{fileFirst:paras.fileFirst,fileSecond:paras.fileSecond,fileThird:paras.fileThird},true);
+    return this.api.post(`article/batchUpload`,paras.fileFirst,true);
+
+  }
+
 
 }

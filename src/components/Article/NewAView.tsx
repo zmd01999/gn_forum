@@ -41,6 +41,7 @@ import { Header } from "./Header";
 import { NewAComment } from "./NewAComment";
 import { FollowArtButton } from "../Home/FollowArtButton";
 import { getLocalStorage } from "src/utils";
+import { stringToHTML, urlToBlob } from "src/util";
 
 interface routeProps {
   slug: string;
@@ -67,9 +68,16 @@ export const NewAView = () => {
   const [content, setContent] = useState("");
   const [commentId, setCommentId] = useState("");
   const [commentAId, setCommentAId] = useState("");
+  const [rCon, setRCon] = useState("");
   const handleContent = (data: any) => {
     setContent(data.value);
   };
+
+  const callBack = (res: any) => {
+    // console.log("callback" + res);
+    setRCon(res);
+  };
+
   const retrieveArticle = async () => {
     const singleArticleRes = await articleService.getSingleArticle(slug);
     const article = singleArticleRes.data.data as IMyArticle;
@@ -80,6 +88,7 @@ export const NewAView = () => {
 
     setSingleArticle(article);
     setUsername(article.author.nickname);
+    // console.log("content:" + singleArticle?.body.content);
   };
   useEffect(() => {
     const retrieveSingleArticle = async () => {
@@ -90,6 +99,12 @@ export const NewAView = () => {
     };
     retrieveSingleArticle();
   }, []);
+
+  useEffect(() => {
+    if (singleArticle?.body.content != undefined) {
+      urlToBlob(singleArticle?.body.content, callBack);
+    }
+  }, [singleArticle]);
 
   const handleDeleteArticle = async () => {
     try {
@@ -370,7 +385,7 @@ export const NewAView = () => {
             <div className="articleHigh overflow-y-scroll element">
               <div
                 dangerouslySetInnerHTML={{
-                  __html: singleArticle.body.contentHtml,
+                  __html: rCon,
                 }}
               ></div>
             </div>

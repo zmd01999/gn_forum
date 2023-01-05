@@ -13,23 +13,36 @@ export const  paramsToFormData = (obj)=> {
   };
 
 
- export function urlToBlob(file_url) {
-    // let file_url =
-    //   'http://obdataplatform-test.oss-cn-shenzhen.aliyuncs.com/2020_07_10/391f56b9-f4bc-408b-868b-31ea0f8b1b47.hex'
+ export function  urlToBlob(file_url,cb) {
+
     let xhr = new XMLHttpRequest();
+    let res;
     xhr.open("get", file_url, true);
     xhr.responseType = "blob";
     xhr.onload = function () {
       if (this.status == 200) {
         // if (callback) {
         // callback();
+
         console.log(this.response)
         const reader = new FileReader()
+
         reader.onload = function () {
-          console.log('reader.result', reader.result)
+          // console.log('reader.result', JSON.parse(reader.result));
+          res =  reader.result;
+          cb(JSON.parse(reader.result));
+
         }
         reader.readAsText(this.response);
+
       }
     };
-    xhr.send();
+     xhr.send();
+  };
+
+  export  function stringToHTML (str) {
+    var dom = document.createElement('div');
+    dom.innerHTML = str;
+    return dom;
+   
   };

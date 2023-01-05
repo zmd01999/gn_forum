@@ -74,7 +74,8 @@ export const ToHtmlUtil = () => {
     { id: "主题4", text: "Turkey" },
   ];
   const [options, setOptions] = useState([{ key: "", text: "", value: "" }]);
-
+  const [url1, setUrl1] = useState<File>();
+  const [url2, setUrl2] = useState<File>();
   const [currentValues, setCurrentValues] = useState<string>();
 
   const handleAddition = (event: SyntheticEvent, data: any) => {
@@ -221,15 +222,23 @@ export const ToHtmlUtil = () => {
       const formdata = new FormData();
       // 模仿单文件上传给接口传参
       formdata.append("file", files[0]);
-      //   profileService.updateAvartar(formdata).then((res) => {
-      //     if (res.data.success) {
-      //       setForm({ ...form, ["avatar"]: res.data.data });
-      //       notifyDispatch(setSuccess("确认上传请点击保存"));
-      //     }
-      //   });
+      setUrl1(files[0]);
     }
   };
 
+  const onChange2 = (file: ChangeEvent) => {
+    const reader = new FileReader();
+    const { files } = file.target as HTMLInputElement;
+    if (files && files.length !== 0) {
+      //   reader.onload = () => setImgSrc(reader.result as string);
+
+      reader.readAsDataURL(files[0]);
+      const formdata = new FormData();
+      // 模仿单文件上传给接口传参
+      formdata.append("file", files[0]);
+      setUrl2(files[0]);
+    }
+  };
   useEffect(() => {
     const retrieveSingleArticle = async () => {
       const res = await articleService.getSingleArticle(slug);
@@ -280,14 +289,45 @@ export const ToHtmlUtil = () => {
         </Form>
       </div>
       <div>
-        上传文件
+        上传文章正文
         <input
           type="file"
           onChange={onChange1}
-          accept=".txt"
+          accept=".zip"
           id="account-settings-upload-image"
         />
       </div>
+      <div>
+        上传文章信息
+        <input
+          type="file"
+          onChange={onChange2}
+          accept=".zip"
+          id="account-settings-upload-image"
+        />
+      </div>
+      <Button
+        onClick={async () => {
+          const formData1 = new FormData();
+
+          formData1.append("fileFirst", url1 ?? "s");
+          formData1.append("fileSec", url2 ?? "s");
+
+          console.log(formData1.get("file"));
+          await articleService
+            .batchUpdate({
+              fileFirst: formData1,
+            })
+            .then((res) => {
+              if (res.data.success) {
+                notifyDispatch(setSuccess("上传成功"));
+                return;
+              }
+            });
+        }}
+      >
+        提交
+      </Button>
     </Segment>
   );
 };

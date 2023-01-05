@@ -71,7 +71,7 @@ export const SpeedEditor = () => {
     tagName: "",
   });
   const [mapToCate, setMapToCate] = useState<string>("");
-
+  const [flag, setFlag] = useState(0);
   const tags = [
     { id: "主题1", text: "Thailand" },
     { id: "主题2", text: "India" },
@@ -106,6 +106,15 @@ export const SpeedEditor = () => {
 
   const [oldArticle, setOldArticle] = useState<IArticleMeta>();
   const notifyDispatch = useDispatch<Dispatch<NotificationAction>>();
+  const handleBody2Html = (e: any) => {
+    console.log("handle   :" + e);
+    setArticle({
+      ...article,
+      ["body"]: { content: e, contentHtml: article.body.contentHtml },
+    });
+
+    console.log(article.body.content);
+  };
   const handleCreateArticle = async () => {
     try {
       let creatRes;
@@ -132,20 +141,14 @@ export const SpeedEditor = () => {
           return;
         }
         const file: FormData = await toFile(
-          JSON.stringify(article),
+          JSON.stringify(article.body.contentHtml),
           user.id + article.title
         );
         articleService.cloudData(file).then((res) => {
           if (res.data.success) {
-            handleBody2Html(res.data.data);
-            articleService.createArticle(article).then((res) => {
-              if (res.data.success) {
-                notifyDispatch(setSuccess("发布成功."));
-              } else {
-                notifyDispatch(setError(res.data.msg));
-              }
-              history.push("/");
-            });
+            handleBody2Html("https://" + res.data.data);
+            console.log(article.body.content);
+            setFlag(1);
           }
         });
       } else {
@@ -207,12 +210,7 @@ export const SpeedEditor = () => {
       ["body"]: { content: e.toText(), contentHtml: e.toHTML() },
     });
   };
-  const handleBody2Html = (e: any) => {
-    setArticle({
-      ...article,
-      ["body"]: { content: article.body.content, contentHtml: e },
-    });
-  };
+
   const handleChange =
     (prop: keyof IArticleMeta) =>
     (
@@ -250,6 +248,20 @@ export const SpeedEditor = () => {
     }
     // retrieveTag();
   }, []);
+
+  useEffect(() => {
+    console.log(article.body);
+    if (flag == 1) {
+      articleService.createArticle(article).then((res) => {
+        if (res.data.success) {
+          notifyDispatch(setSuccess("发布成功."));
+        } else {
+          notifyDispatch(setError(res.data.msg));
+        }
+        history.push("/");
+      });
+    }
+  }, [flag]);
 
   return (
     <div>
