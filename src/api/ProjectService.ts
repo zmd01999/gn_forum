@@ -61,9 +61,10 @@ export class ProjectService {
     return this.api.post(`systemRole/delete`,{id:slug,toUserId:toUserId});
   }
 
-  public batchUpdate(paras:{fileFirst:FormData, fileSecond:FormData,fileThird:FormData}) {
+  public batchUpdate(paras:{fileFirst:any, fileSecond:any,fileThird:any}) {
     
-    return this.api.post(`project/batchUpload`,{fileFirst:paras.fileFirst,fileSecond:paras.fileSecond,fileThird:paras.fileThird});
+    // return this.api.post(`project/batchUpload`,{fileFirst:paras.fileFirst,fileSecond:paras.fileSecond,fileThird:paras.fileThird},true);
+    return this.api.post(`project/batchUpload`,paras.fileFirst,true);
 
   }
   

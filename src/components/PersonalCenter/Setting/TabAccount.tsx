@@ -234,7 +234,7 @@ const TabAccount = () => {
               label="用户名"
               placeholder="johnDoe"
               value={form.nickname}
-              style={{ marginBottom: "2rem" }}
+              style={{ marginBottom: "2rem", marginTop: "3rem" }}
             />
             <TextField
               fullWidth

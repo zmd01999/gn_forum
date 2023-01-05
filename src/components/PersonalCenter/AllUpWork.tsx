@@ -1,3 +1,4 @@
+import { url } from "inspector";
 import { ChangeEvent, Dispatch, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Button } from "semantic-ui-react";
@@ -6,9 +7,9 @@ import { setError, setSuccess } from "src/redux/actions";
 import { NotificationAction } from "src/redux/reducers/NotifyReducer";
 
 export const AllUpWork = () => {
-  const [url1, setUrl1] = useState<FormData>();
-  const [url2, setUrl2] = useState<FormData>();
-  const [url3, setUrl3] = useState<FormData>();
+  const [url1, setUrl1] = useState<File>();
+  const [url2, setUrl2] = useState<File>();
+  const [url3, setUrl3] = useState<File>();
   const [url11, setUrl11] = useState<string>("");
   const [url22, setUrl22] = useState<string>("");
   const [url33, setUrl33] = useState<string>("");
@@ -19,15 +20,19 @@ export const AllUpWork = () => {
   const onChange = (file: ChangeEvent) => {
     const reader = new FileReader();
     const { files } = file.target as HTMLInputElement;
+
     if (files && files.length !== 0) {
       // reader.onload = () => setUrl1(reader.result as string);
 
       reader.readAsDataURL(files[0]);
       const formdata = new FormData();
       // 模仿单文件上传给接口传参
+      // console.log(files[0]);
 
       formdata.append("file", files[0]);
-      setUrl1(formdata);
+      setUrl1(files[0]);
+      console.log(url1);
+
       //   profileService.updateAvartar(formdata).then((res) => {
       //     if (res.data.success) {
       //       setForm({ ...form, ["avatar"]: res.data.data });
@@ -46,7 +51,7 @@ export const AllUpWork = () => {
       const formdata = new FormData();
       // 模仿单文件上传给接口传参
       formdata.append("file", files[0]);
-      setUrl2(formdata);
+      setUrl2(files[0]);
 
       //   profileService.updateAvartar(formdata).then((res) => {
       //     if (res.data.success) {
@@ -66,8 +71,7 @@ export const AllUpWork = () => {
       const formdata = new FormData();
       // 模仿单文件上传给接口传参
       formdata.append("file", files[0]);
-      setUrl3(formdata);
-
+      setUrl3(files[0]);
       //   profileService.updateAvartar(formdata).then((res) => {
       //     if (res.data.success) {
       //       setForm({ ...form, ["avatar"]: res.data.data });
@@ -124,11 +128,28 @@ export const AllUpWork = () => {
 
           //     return;
           //   }
+          console.log(url1);
+          console.log(url2);
+          console.log(url3);
+
+          const formData1 = new FormData();
+          const formData2 = new FormData();
+          const formData3 = new FormData();
+          formData1.append("fileFirst", url2 ?? "s");
+          formData1.append("fileSecond", url1 ?? "s");
+
+          formData1.append("fileThird", url3 ?? "s");
+
+          formData2.append("file", url1 ?? "s");
+          formData3.append("file", url3 ?? "s");
+          console.log(formData1.get("file"));
+          console.log(formData2);
+          console.log(formData3);
           await projectService
             .batchUpdate({
-              fileFirst: url2 ?? new FormData(),
-              fileSecond: url1 ?? new FormData(),
-              fileThird: url3 ?? new FormData(),
+              fileFirst: formData1,
+              fileSecond: formData2,
+              fileThird: formData3,
             })
             .then((res) => {
               if (res.data.success) {

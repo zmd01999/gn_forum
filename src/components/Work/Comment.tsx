@@ -177,7 +177,7 @@ export const Comment = ({ slug, authorId }: IProps) => {
                 </div>
                 <div
                   className="actions action"
-                  style={{ marginTop: "-0.5rem" }}
+                  style={{ marginTop: "-1.5rem" }}
                 >
                   <Modal
                     closeIcon
@@ -190,6 +190,7 @@ export const Comment = ({ slug, authorId }: IProps) => {
                           setCommentId(comment.id);
                           setCommentAId(comment.author.id);
                         }}
+                        style={{ marginTop: "-0.2rem" }}
                       >
                         回复
                       </a>
@@ -286,7 +287,7 @@ export const Comment = ({ slug, authorId }: IProps) => {
                                   notifyDispatch(setSuccess("点赞成功"));
                                 });
                             }}
-                            style={{ cursor: "pointer", marginTop: "-0.5rem" }}
+                            style={{ cursor: "pointer", marginTop: "-1.5rem" }}
                           />
                           {}
                         </div>
