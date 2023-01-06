@@ -72,11 +72,11 @@ export const Tabs = ({
               marginBottom: "auto",
             }}
           >
-            <Pagination
+            {/* <Pagination
               count={count ?? 1}
               currentPage={currentPage ?? 1}
               setCurrentPage={setCurrentPage ?? setNumber}
-            ></Pagination>
+            ></Pagination> */}
           </div>
         )}
       </div>

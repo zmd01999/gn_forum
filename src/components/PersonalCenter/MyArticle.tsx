@@ -320,6 +320,7 @@ export default function MyArticle({ V, setTabV }: Props) {
                 width: "80rem",
                 marginTop: "-1rem",
                 marginLeft: "2.5rem",
+                // height: "100rem",
               }}
             >
               <WorkMine project={projectList}></WorkMine>
@@ -328,9 +329,12 @@ export default function MyArticle({ V, setTabV }: Props) {
           <TabPanel value={V} index={1}>
             <div
               style={{
-                width: "75rem",
+                width: "80rem",
                 marginTop: "1rem",
                 marginLeft: "2.5rem",
+                // height: "120rem",
+                maxHeight: "120rem",
+                overflow: "auto",
               }}
             >
               <ATable
@@ -355,9 +359,11 @@ export default function MyArticle({ V, setTabV }: Props) {
           <TabPanel value={V} index={3}>
             <div
               style={{
-                width: "75rem",
+                width: "80rem",
                 marginTop: "0rem",
                 marginLeft: "2.5rem",
+                maxHeight: "120rem",
+                overflow: "auto",
               }}
             >
               <ATable

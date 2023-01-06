@@ -71,16 +71,7 @@ export const LeftList = ({ hotList, setCurrentPage }: Props) => {
         <Item.Group>
           {hotList.map((hot) => {
             return (
-              <Item
-                onClick={() => {
-                  const a = document.createElement("a");
-                  a.style.display = "none";
-                  a.href = `/work/${hot.id}`;
-                  // a.target = "_blank";
-                  document.body.appendChild(a);
-                  a.click();
-                }}
-              >
+              <Item>
                 <div
                   className="w-2/3 h-24 border-2 border-blue-800 rounded-3xl mr-6 "
                   style={{
@@ -92,13 +83,29 @@ export const LeftList = ({ hotList, setCurrentPage }: Props) => {
                   <img
                     src={updateCreppyDefaultImage(hot.avatar)}
                     className="w-full h-full rounded-3xl"
-                    style={{ borderRadius: "1.3rem" }}
+                    style={{ borderRadius: "1.3rem", cursor: "pointer" }}
+                    onClick={() => {
+                      const a = document.createElement("a");
+                      a.style.display = "none";
+                      a.href = `/work/${hot.id}`;
+                      // a.target = "_blank";
+                      document.body.appendChild(a);
+                      a.click();
+                    }}
                   />
                 </div>
                 <Item.Content>
                   <div
                     className="text-2xl font-black text-black"
                     style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      const a = document.createElement("a");
+                      a.style.display = "none";
+                      a.href = `/work/${hot.id}`;
+                      // a.target = "_blank";
+                      document.body.appendChild(a);
+                      a.click();
+                    }}
                   >
                     {hot.title}
                   </div>
@@ -118,12 +125,18 @@ export const LeftList = ({ hotList, setCurrentPage }: Props) => {
                   </Item.Description>
 
                   <Item.Extra>
-                    <div className="flex flex-row space-x-6">
+                    <div
+                      className="flex flex-row space-x-6"
+                      style={{ cursor: "pointer" }}
+                    >
                       <Avatar
                         src={updateCreppyDefaultImage(
                           hot.author.avatar ?? null
                         )}
                         sx={{ width: 25, height: 25, border: 0 }}
+                        onClick={() => {
+                          history.push(`/profile/${hot.author.id}`);
+                        }}
                       />
                       <div
                         className="text-xl font-black text-gray-900 my-auto"

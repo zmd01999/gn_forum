@@ -119,11 +119,11 @@ export const ATable = ({
         className="pstyle "
         style={{ display: "flex", justifyContent: "end" }}
       >
-        <Pagination
+        {/* <Pagination
           count={count}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
-        />
+        /> */}
       </div>
     </div>
   );

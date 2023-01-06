@@ -20,7 +20,7 @@ export class ProjectService {
 
     
   public getTFProject(paras:{page:number,thumbs?:number,follow?:number}) {
-    return this.api.post(`project/getArticle`,{page:paras.page,pageSize:PROJECT_PER_PAGE_COUNT,thumbs:paras.thumbs,follow:paras.follow, project:1});
+    return this.api.post(`project/getArticle`,{page:paras.page,pageSize:100,thumbs:paras.thumbs,follow:paras.follow, project:1});
   }
 
   public getCateProject(paras:{page:number,categoryId:string}) {
@@ -31,7 +31,7 @@ export class ProjectService {
     return this.api.post("project/searchArticle", {page:paras.page,pageSize:PROJECT_PER_PAGE_COUNT,title:paras.title,project:1})
   }
   public getMyProject(paras:{page:number,userId:string}) {
-    return this.api.post(`project/myArticle`,{page:paras.page,pageSize:PROJECT_PER_PAGE_COUNT,project:1,userId:paras.userId});
+    return this.api.post(`project/myArticle`,{page:paras.page,pageSize:100,project:1,userId:paras.userId});
   }
 
   public getTopProject(paras:{page:number,thumbs?:number,follow?:number,limit?:number,}) {

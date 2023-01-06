@@ -49,7 +49,11 @@ function TableRow({ article, rank }: IProps) {
           `${rank}`
         )}
       </td>
-      <td className="font-bold" style={{ width: "40%" }} onClick={gotoArticle}>
+      <td
+        className="font-bold"
+        style={{ width: "40%", cursor: "pointer" }}
+        onClick={gotoArticle}
+      >
         {article.title}
       </td>
       <td className="" style={{ textAlign: "center" }}>

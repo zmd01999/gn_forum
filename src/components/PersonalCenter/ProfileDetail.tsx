@@ -305,9 +305,11 @@ export default function ProfileDetail({ profile }: Props) {
           <TabPanel value={value} index={1}>
             <div
               style={{
-                width: "75rem",
+                width: "80rem",
                 marginTop: "1rem",
                 marginLeft: "2.5rem",
+                maxHeight: "120rem",
+                overflow: "auto",
               }}
             >
               <ATable
